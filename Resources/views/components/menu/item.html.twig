@@ -41,7 +41,7 @@
             <i
               class="{{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }} {{ menuItem.icon }}"></i>
           {% elseif menuItem.icon.type == 'ux' %}
-            <twig:ui
+            <twig:ux:icon
               name="{{ menuItem.icon }}"
               class="size-4 {{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }}"
             />
@@ -55,7 +55,7 @@
       >{{ menuItem }}</span>
 
       {% if haveChildren %}
-        <twig:ui
+        <twig:ux:icon
           name="heroicons:chevron-down-20-solid"
           data-active="{{ isActive ? 'true': 'false' }}"
           x-bind:data-open="open"

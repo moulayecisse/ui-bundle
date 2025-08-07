@@ -139,7 +139,7 @@
                                             x-on:click="expandItem({{ attribute(item, _identifier) ?? _id }})"
                                             class="cursor-pointer"
                                     >
-                                        <twig:ui
+                                        <twig:ux:icon
                                                 x-bind:class="expanded.includes({{ attribute(item, _identifier) ?? _id }}) ? 'rotate-180' : ''"
                                                 name="heroicons:chevron-down-16-solid"
                                                 class="size-8 text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-transform duration-200 ease-in-out"
