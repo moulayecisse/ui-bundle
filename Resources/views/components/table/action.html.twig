@@ -1,0 +1,44 @@
+{% props
+  class = '',
+  type = 'button',
+  href = '',
+  color = null,
+  primary = false,
+  secondary = false,
+  error = false,
+  success = false,
+  warning = false,
+  info = false,
+  white = false,
+  light = false,
+%}
+
+{% if secondary %}
+{% set color = 'secondary' %}
+{% elseif error %}
+{% set color = 'error' %}
+{% elseif success %}
+{% set color = 'success' %}
+{% elseif warning %}
+{% set color = 'warning' %}
+{% elseif info %}
+{% set color = 'info' %}
+{% elseif white %}
+{% set color = 'white' %}
+{% elseif light %}
+{% set color = 'light' %}
+{% endif %}
+
+{% set class = ('inline-flex items-center !gap-x-1.5 rounded-md !px-2.5 !py-1.5 text-sm font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 ' ~ class)|tailwind_merge %}
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+<twig:Ui:button
+  :attributes="attributes"
+  class="{{ class }}"
+  color="{{ color }}"
+  type="{{ type }}"
+  href="{{ href }}"
+
+>
+  {{ contentBlock|raw }}
+</twig:Ui:button>

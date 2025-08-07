@@ -1,0 +1,37 @@
+<div
+        {{ attributes }}
+        x-data="{isModalOpen: false}"
+>
+    <div
+            x-on:click="isModalOpen = !isModalOpen"
+    >
+        {% block trigger %}
+            <button
+                    class="px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary-500 shadow-theme-xs hover:bg-primary-600"
+            >
+                Open Modal
+            </button>
+        {% endblock %}
+    </div>
+
+
+    <div
+            x-show="isModalOpen"
+            class="fixed inset-0 flex items-center justify-center p-5 overflow-y-auto modal z-99999"
+    >
+        <div class="modal-close-btn fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"></div>
+
+        <div
+                x-on:click.outside="isModalOpen = false"
+             class="relative w-full max-w-[584px] rounded-xl bg-white p-6 dark:bg-gray-900 lg:p-10"
+        >
+            <button x-on:click="isModalOpen = false"
+                    class="group absolute right-3 top-3 z-999 flex size-8 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors hover:bg-gray-300 hover:text-gray-500 dark:bg-gray-800 dark:hover:bg-gray-700 sm:right-6 sm:top-6"
+            >
+              <twig:ui name="heroicons:x-mark-16-solid" class="size-6 transition-colors fill-current group-hover:text-gray-600 dark:group-hover:text-gray-200" />
+            </button>
+
+            {% block content '' %}
+        </div>
+    </div>
+</div>

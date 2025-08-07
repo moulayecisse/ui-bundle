@@ -1,0 +1,6 @@
+{% props class = '' %}
+{% set classs = ('bg-gray-100 dark:bg-gray-900 ' ~ class)|tailwind_merge %}
+
+<thead {{ attributes }} class="{{ class }}">
+    {% block content '' %}
+</thead>

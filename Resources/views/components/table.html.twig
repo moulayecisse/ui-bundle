@@ -1,0 +1,22 @@
+{% props class = '' %}
+
+{% set attributes = ('min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700 ' ~ class)|tailwind_merge %}
+
+<table {{ attributes }} class="{{ class }}">
+    {% block content %}
+
+    <thead>
+        {% block thead '' %}
+    </thead>
+
+    <tbody
+            class="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-slate-950"
+    >
+        {% block tbody '' %}
+    </tbody>
+
+    <tfoot>
+        {% block tfoot '' %}
+    </tfoot>
+    {% endblock %}
+</table>

@@ -1,0 +1,33 @@
+{% props label = '', value = '', class = '' %}
+
+{% set content_block %}{% block content '' %}{% endset %}
+{% set label_block %}{% block label '' %}{% endset %}
+{% set value_block %}{% block value '' %}{% endset %}
+
+{% set label = label %}
+{% set value = value %}
+
+{% if label is empty %}
+  {% set label = label_block %}
+{% endif %}
+
+{% if value is empty %}
+  {% set value = value_block %}
+{% endif %}
+
+{% if content_block is empty %}
+  {% set content_block %}
+  {% endset %}
+  {% set content_block = label_block %}
+{% endif %}
+
+{% set class = ('even:bg-gray-50 dark:even:bg-gray-950 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3 ' ~ class)|tailwind_merge %}
+
+<div {{ attributes }} class="{{ class }}">
+  {% if content_block %}
+    {{ content_block|raw }}
+  {% else %}
+    <twig:Ui:datalist:label label="{{ label|raw }}" />
+    <twig:Ui:datalist:value value="{{ value|raw }}" />
+  {% endif %}
+</div>

@@ -1,0 +1,47 @@
+{% props
+  form = null,
+  class = '',
+  checked = null,
+  value = null,
+  name = null,
+  id = null,
+  value = null,
+  required = null,
+  autofocus = false,
+  disabled = null,
+%}
+
+{% set id = id ?? name %}
+{% set for = for ?? id %}
+
+{% if form %}
+  {% set checked = checked ?? form.vars.data %}
+  {% set value = value ?? field_value(form) %}
+  {% set name = name ?? field_name(form) %}
+  {% set id = id ?? form.vars.id %}
+  {% set disabled = disabled ?? form.vars.disabled %}
+{% endif %}
+
+{% set class = ('col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900 dark:checked:bg-primary checked:border-primary-600 checked:bg-primary-600 indeterminate:border-primary-600 indeterminate:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:disabled:border-gray-700 dark:disabled:bg-gray-950 dark:disabled:checked:bg-gray-950 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto ' ~ class)|tailwind_merge %}
+
+
+<div
+    class="flex h-6 shrink-0 items-center"
+>
+    <div class="group grid size-4 grid-cols-1">
+        <input
+            {{ attributes }}
+            {% if value is not null %}value="{{ value }}"{% endif %}
+            {% if name %}name="{{ name }}"{% endif %}
+            {% if id %}id="{{ id }}"{% endif %}
+            {{ required ? 'required' }}
+            {{ checked ? 'checked' }}
+            {{ autofocus ? 'autofocus' }}
+            {{ disabled ? 'disabled' }}
+            class="{{ class }}">
+        <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25">
+            <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100"></path>
+            <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-indeterminate:opacity-100"></path>
+        </svg>
+    </div>
+</div>

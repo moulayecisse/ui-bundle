@@ -1,0 +1,5 @@
+{% props class = '' %}
+
+{% set class = ('flex items-center px-5 py-3 ' ~ class )|tailwind_merge %}
+
+<div {{ attributes }} class="{{ class }}">{% block content '' %}</div>

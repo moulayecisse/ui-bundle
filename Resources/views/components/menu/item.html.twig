@@ -1,0 +1,74 @@
+{# @var \App\Model\MenuItem|null menuItem #}
+{% props menuItem = null, children = null, isActive = null, haveChildren = null, isChildActive = null %}
+
+{% if menuItem %}
+  {% set children = children ?? menuItem.children ?? [] %}
+{% endif %}
+
+{% set childrenBlock %}
+  {% block children %}
+    {% if menuItem.children %}
+      <twig:Ui:menu:sub :menuItems="children" />
+    {% endif %}{% endblock %}
+{% endset %}
+
+{% if menuItem %}
+  {% set isActive = isActive is not null ? isActive : app.current_route == menuItem.route.name %}
+  {% set haveChildren = haveChildren is not null ? haveChildren : (childrenBlock|raw|trim is not empty or (children ?? [])|length > 0) %}
+
+  {% if haveChildren and isChildActive is null %}
+    {% for child in menuItem.children %}
+      {% if app.current_route == child.route.name %}
+        {% set isChildActive = true %}
+        {% set isActive = true %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endif %}
+<li
+  {{ attributes }}
+  {% if haveChildren %}x-data="{ open: {{ isActive ? 'true' : 'false' }} }"{% endif %}
+>
+  <a
+    {% if haveChildren %}x-on:click="open = !open"{% endif %}
+    href="{{ haveChildren ? 'javascript:' : path(menuItem.route.name, menuItem.route.params) }}"
+    class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm group {{ isActive ? 'bg-primary hover:bg-primary/90' : 'hover:bg-primary' }}"
+  >
+    {% block content %}
+      {% block icon %}
+        {% if menuItem.icon %}
+          {% if menuItem.icon.type == 'fa' %}
+            <i
+              class="{{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }} {{ menuItem.icon }}"></i>
+          {% elseif menuItem.icon.type == 'ux' %}
+            <twig:ui
+              name="{{ menuItem.icon }}"
+              class="size-4 {{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }}"
+            />
+          {% endif %}
+        {% endif %}
+      {% endblock %}
+
+      <span
+        class="{{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }}"
+        x-bind:class="sidebarToggle ? 'lg:hidden'"
+      >{{ menuItem }}</span>
+
+      {% if haveChildren %}
+        <twig:ui
+          name="heroicons:chevron-down-20-solid"
+          data-active="{{ isActive ? 'true': 'false' }}"
+          x-bind:data-open="open"
+          class="size-4 absolute top-1/2 right-2.5 -translate-y-1/2
+                  transition-transform duration-300 ease-in-out
+                  rotate-0 data-open:rotate-180
+                  {{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }}
+                "
+          x-bind:class="[sidebarToggle ? 'lg:hidden' : '' ]"
+        />
+      {% endif %}
+    {% endblock %}
+  </a>
+
+  {{ childrenBlock|raw }}
+</li>

@@ -1,0 +1,8 @@
+{% props class = '', first = false %}
+{% set class = ('px-3 py-3.5 text-left text-slate-900 text-sm font-semibold dark:text-slate-100 ' ~ class ~ (first ? 'pl-4 sm:pl-0'))|tailwind_merge %}
+<th
+        {{ attributes }}
+        class="{{ class }}"
+>
+    {% block content '' %}
+</th>

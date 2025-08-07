@@ -1,0 +1,10 @@
+{% props menuItems = [], class = '' %}
+
+{% set class = ('flex flex-col gap-2 mb-6 ' ~ class)|tailwind_merge %}
+
+<ul {{ attributes }} class="{{ class }}">
+    {# @var \App\Model\MenuItem menuItem #}
+    {% for menuItem in menuItems %}
+        <twig:Ui:menu:item :menuItem="menuItem" />
+    {% endfor %}
+</ul>

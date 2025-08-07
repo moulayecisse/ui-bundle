@@ -1,0 +1,181 @@
+{% props
+  type = null,
+  class = '',
+  form = null,
+  name = null,
+  id = null,
+  for = null,
+  label = null,
+  value = null,
+  placeholder = null,
+  horizontal = false,
+  required = null,
+  autofocus = false,
+  autocomplete = null,
+  col = null,
+  reverse = null,
+  disabled = null,
+%}
+
+{% set id = id ?? name %}
+{% set for = for ?? id %}
+{% set label = label ?? name %}
+{% if form %}
+  {% set name = name ?? field_name(form) %}
+  {% set id = id ?? form.vars.id %}
+  {% set for = for ?? form.vars.id %}
+  {% set label = label ?? field_label(form) %}
+  {% set value = value ?? field_value(form) %}
+  {% set required = required is not null ? required : form.vars.required %}
+  {% set disabled = disabled ?? form.vars.disabled %}
+
+  {% if type is not null %}
+    {% set type = type %}
+  {% elseif 'email' in  form.vars.block_prefixes %}
+    {% set type = 'email' %}
+  {% elseif 'checkbox' in  form.vars.block_prefixes %}
+    {% set type = 'checkbox' %}
+  {% elseif 'tab' in  form.vars.block_prefixes %}
+    {% set type = 'tab' %}
+  {% elseif 'password' in  form.vars.block_prefixes %}
+    {% set type = 'password' %}
+  {% elseif 'entity' in  form.vars.block_prefixes %}
+    {% set type = 'entity' %}
+  {% elseif 'live_collection_button_add' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection_button_add' %}
+  {% elseif 'live_collection_button_delete' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection_button_delete' %}
+  {% elseif 'live_collection_entry' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection_entry' %}
+  {% elseif 'live_collection' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection' %}
+  {% elseif 'collection_button_add' in  form.vars.block_prefixes %}
+    {% set type = 'collection_button_add' %}
+  {% elseif 'collection_button_delete' in  form.vars.block_prefixes %}
+    {% set type = 'collection_button_delete' %}
+  {% elseif 'collection_entry' in  form.vars.block_prefixes %}
+    {% set type = 'collection_entry' %}
+  {% elseif 'collection' in  form.vars.block_prefixes %}
+    {% set type = 'collection' %}
+  {% elseif 'date' in  form.vars.block_prefixes %}
+    {% set type = 'date' %}
+  {% elseif 'choice' in  form.vars.block_prefixes %}
+    {% set type = 'choice' %}
+  {% elseif 'hidden' in  form.vars.block_prefixes %}
+    {% set type = 'hidden' %}
+  {% else %}
+    {% set type = 'text' %}
+  {% endif %}
+{% endif %}
+
+{% if col == 1 %}
+  {% set colClass = 'sm:col-span-1' %}
+{% elseif col == 2 %}
+  {% set colClass = 'sm:col-span-2' %}
+{% elseif col == 3 %}
+  {% set colClass = 'sm:col-span-3' %}
+{% elseif col == 4 %}
+  {% set colClass = 'sm:col-span-4' %}
+{% elseif col == 5 %}
+  {% set colClass = 'sm:col-span-5' %}
+{% elseif col == 6 %}
+  {% set colClass = 'sm:col-span-6' %}
+{% elseif col == 7 %}
+  {% set colClass = 'sm:col-span-7' %}
+{% elseif col == 8 %}
+  {% set colClass = 'sm:col-span-8' %}
+{% elseif col == 9 %}
+  {% set colClass = 'sm:col-span-9' %}
+{% elseif col == 10 %}
+  {% set colClass = 'sm:col-span-10' %}
+{% elseif col == 11 %}
+  {% set colClass = 'sm:col-span-11' %}
+{% elseif col == 12 %}
+  {% set colClass = 'sm:col-span-12' %}
+{% elseif horizontal %}
+  {% set colClass = 'sm:col-span-12' %}
+{% else %}
+  {% set colClass = 'sm:col-span-6' %}
+{% endif %}
+
+{% if type in ['checkbox'] and reverse == null %}
+  {% set reverse = true %}
+{% endif %}
+
+{% set inputContent %}
+  {% block input %}
+    <twig:Ui:input
+      {{ ...attributes.nested('input') }}
+      :form="form"
+      :type="type"
+      :name="name"
+      :id="id"
+      :placeholder="placeholder"
+      :value="value"
+      :required="required"
+      :autofocus="autofocus"
+      :autocomplete="autocomplete"
+      :disabled="disabled"
+    />
+  {% endblock %}
+{% endset %}
+
+{% set content_block %}
+  {% block content %}
+    {% if type in ['hidden'] %}
+      {{ inputContent|raw }}
+    {% elseif type in ['checkbox'] %}
+      {{ inputContent|raw }}
+
+      <twig:Ui:label
+        :form="form"
+        :for="for"
+        :label="label"
+        {{ ...attributes.nested('label') }}
+      />
+    {% elseif horizontal %}
+      <twig:Ui:label
+        :form="form"
+        :for="for"
+        :label="label"
+        {{ ...attributes.nested('label').without('class') }}
+        class="{{ reverse ? 'order-last' }} {{ attributes.nested('label').render('class') }} sm:pt-1.5 sm:col-span-4"
+      />
+
+      <div class="mt-2 sm:col-span-8 sm:mt-0">
+        {{ inputContent|raw }}
+      </div>
+    {% else %}
+      <twig:Ui:label
+        :form="form"
+        :for="for"
+        :label="label"
+        {{ ...attributes.nested('label').without('class') }}
+        class="{{ reverse ? 'order-last' }} {{ attributes.nested('label').render('class') }}"
+      />{{ attributes.nested('label').without('class') }}
+
+      <div class="mt-2">
+        {{ inputContent|raw }}
+      </div>
+    {% endif %}
+  {% endblock %}
+{% endset %}
+
+{% if type in ['hidden'] %}
+  {{ content_block|raw }}
+{% elseif type in ['checkbox'] %}
+  {% set class = ('flex gap-3 sm:col-span-12 ' ~ class)|tailwind_merge %}
+  <div {{ attributes}} class="{{ class }}">
+    {{ content_block|raw }}
+  </div>
+{% elseif horizontal %}
+  {% set class = ('sm:grid sm:grid-cols-12 sm:items-start sm:gap-4 sm:py-6 ' ~ colClass ~ ' ' ~ class)|tailwind_merge %}
+  <div {{ attributes}} class="{{ class }}" class="{{ class }}">
+    {{ content_block|raw }}
+  </div>
+{% else %}
+  {% set class = (colClass ~ ' ' ~ class)|tailwind_merge %}
+  <div {{ attributes}} class="{{ class }}">
+    {{ content_block|raw }}
+  </div>
+{% endif %}

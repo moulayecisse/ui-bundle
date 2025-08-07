@@ -1,0 +1,89 @@
+{# @var \Symfony\Component\Form\FormView form #}
+{% props
+  form = null,
+  name = null,
+  method = null,
+  action = null,
+  enctype = null,
+  title = null,
+  description = null,
+  submitLabel = 'Envoyer',
+  cancelLabel = 'Annuler',
+  divide = false,
+  showFooter = false,
+  horizontal = false,
+  class = '',
+%}
+
+{% if form %}
+  {% set name = name ?? form.vars.full_name %}
+  {% set method = method ?? form.vars.method %}
+  {% set action = action ?? form.vars.action %}
+  {% set enctype = enctype ? form.vars.enctype %}
+{% endif %}
+
+{% set headerBlock %}{% block header '' %}{% endset %}
+{% set footerBlock %}{% block footer '' %}{% endset %}
+
+<form
+  {{ attributes }}
+  {% if method %}method="{{ method }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  {% if action %}action="{{ action }}"{% endif %}
+  {% if enctype %}enctype="{{ enctype }}"{% endif %}
+  class="{{ class }}"
+>
+  {% if form._token is defined %}
+    <twig:Ui:input :form="form._token" />
+  {% endif %}
+
+  {% if headerBlock or title or description %}
+    <div class="pb-5 mb-5">
+      {% if headerBlock %}
+        {{ headerBlock|raw }}
+      {% else %}
+        {% if title %}
+          <h2 class="text-base/7 font-semibold text-gray-900">{{ title }}</h2>
+        {% endif %}
+
+        {% if description %}
+          <p class="mt-1 max-w-2xl text-sm/6 text-gray-600">{{ description }}</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div
+    {% if horizontal %}
+      class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-12"
+    {% else %}
+      class="{{ divide ? 'sm:divide-y sm:divide-gray-900/10 ' }} grid grid-cols-12 gap-6 space-y-8 pb-12 sm:space-y-0 sm:pb-0"
+    {% endif %}
+  >
+    {% block content %}
+      {% for child in (form.children ?? [])|filter(child => child.vars.name != '_token') %}
+        {% set field_name = child.vars.name %}
+        {% if block(field_name) is defined %}
+          {{ block(field_name) }}
+        {% else %}
+          {% if 'hidden' in child.vars.block_prefixes %}
+            <input type="hidden" name="{{ field_name(child) }}" value="{{ field_value(child) }}">
+          {% else %}
+            <twig:Ui:input-group :form="child" :horizontal="horizontal" />
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endblock %}
+  </div>
+
+  {% if footerBlock or showFooter %}
+    <div class="border-gray-900/10 sm:border-t pt-5 mt-5 flex items-center justify-end gap-x-6">
+      {% if footerBlock %}
+        {{ footerBlock|raw }}
+      {% else %}
+        <twig:Ui:button white type="cancel">{{ cancelLabel }}</twig:Ui:button>
+        <twig:Ui:button type="submit">{{ submitLabel }}</twig:Ui:button>
+      {% endif %}
+    </div>
+  {% endif %}
+</form>

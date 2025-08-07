@@ -1,0 +1,5 @@
+{% props class = '' %}
+
+{% set class = ('text-sm leading-tight font-semibold text-gray-700 dark:text-gray-300 ' ~ class )|tailwind_merge %}
+
+<span {{ attributes }} class="{{ class }}">{% block content '' %}</span>

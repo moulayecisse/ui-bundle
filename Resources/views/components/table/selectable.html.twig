@@ -1,0 +1,277 @@
+{# @var \App\Model\Field[] fields #}
+{% props
+    class = '',
+    fields = [],
+    items = [],
+    identifier = '',
+    selectable = false,
+    show_actions = false,
+    empty_label = 'Aucun résultat trouvé',
+    expandable = false, %}
+
+{% set _identifier = identifier %}
+{% set tfootContent %}{% block tfoot '' %}{% endset %}
+{% set totalColumns = fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) %}
+
+{% set class = ('font-nunito overflow-x-auto sm:-mx-6 lg:-mx-8 ' ~ class)|tailwind_merge %}
+
+<div
+        {% if selectable %}
+            x-data="{
+                selected: [],
+                selectItem(id) {
+                    if (this.selected.includes(id)) {
+                        this.selected = this.selected.filter((el) => el !== id);
+                    } else {
+                        this.selected.push(id);
+                    }
+                }
+                }"
+            x-init="{% block init '' %}"
+        {% endif %}
+        class="{{ class }}"
+>
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="relative">
+            {% if selectable %}
+                <div
+                        x-show="selected.length"
+                        class="absolute top-0 left-14 flex h-12 items-center space-x-3 sm:left-12"
+                >
+                    {% block batch_actions '' %}
+                </div>
+            {% endif %}
+
+
+            <table class="min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700">
+                <thead
+                        class="bg-gray-100 dark:bg-gray-900"
+                >
+                {% block thead %}
+                    <tr>
+                        {% if expandable %}
+                            <th></th>
+                        {% endif %}
+
+                        {% if selectable %}
+                            <th
+                                    x-show="$el.closest('table').querySelectorAll('tbody input[type=checkbox]').length"
+                                    class="relative px-7 sm:w-12 sm:px-6"
+                            >
+                                <div
+                                        class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1"
+                                >
+                                    <input
+                                            type="checkbox"
+                                            x-on:change="$event.target.checked ? selected = [...$el.closest('table').querySelectorAll('tbody input[type=checkbox]')].map(cb => parseInt(cb.value)) : selected = []"
+                                            x-bind:checked="selected.length === $el.closest('table').querySelectorAll('tbody input[type=checkbox]').length"
+                                            class="checked:border-app checked:bg-app indeterminate:border-app indeterminate:bg-app focus-visible:outline-app dark:checked:border-app dark:checked:bg-app dark:indeterminate:border-app dark:indeterminate:bg-app dark:focus-visible:outline-app col-start-1 row-start-1 appearance-none rounded border border-slate-300 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-slate-300 disabled:bg-slate-100 disabled:checked:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:disabled:border-slate-700 dark:disabled:bg-slate-900 dark:disabled:checked:bg-slate-900 forced-colors:appearance-auto"
+                                    />
+
+                                    <svg
+                                            class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-slate-950/25"
+                                            viewBox="0 0 14 14"
+                                            fill="none"
+                                    >
+                                        <path
+                                                class="opacity-0 group-has-[:checked]:opacity-100"
+                                                d="M3 8L6 11L11 3.5"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                        />
+                                        <path
+                                                class="opacity-0 group-has-[:indeterminate]:opacity-100"
+                                                d="M3 7H11"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+                            </th>
+                        {% endif %}
+
+                        {% for field in fields %}
+                            {% set block_content %}
+                                {% set block_name = 'thead_' ~ field.name %}
+                                {% if block(block_name) is defined %}
+                                    {{ block(block_name) }}
+                                {% else %}
+                                    <span class="text-md font-semibold text-slate-900 dark:text-slate-100">
+                                        {{ field }}
+                                    </span>
+                                {% endif %}
+                            {% endset %}
+
+                            <th class="{{ loop.index0 == 0 ? 'pl-0' : '' }} px-3 py-3.5 text-left">
+                                {{ block_content }}
+                            </th>
+                        {% endfor %}
+
+                        {% if show_actions %}
+                            <th class="relative py-3.5 pr-4 pl-3 sm:pr-3">
+                                {% block thead_actions '' %}
+                            </th>
+                        {% endif %}
+                    </tr>
+                {% endblock %}
+                </thead>
+
+                <tbody
+                        {% if expandable %}
+                            x-data="{ expanded: [], expandItem(id) { this.expanded.includes(id) ? this.expanded = this.expanded.filter((el) => el !== id) : this.expanded.push(id); }}"
+                        {% endif %}
+                        class="divide-y divide-gray-200 dark:divide-gray-800"
+                >
+                {% block tbody %}
+                    {% set _id = -1  %}
+                    {% for item in items %}
+                        {% set _id = _id + 1 %}
+                        <tr
+                                {% if selectable %}
+                                    :class="selected.includes({{ attribute(item, _identifier) ?? _id }}) ? 'bg-slate-50 dark:bg-slate-900' : ''"
+                                {% endif %}
+                        >
+                            {% if expandable %}
+                                <td>
+                                    <div
+                                            x-on:click="expandItem({{ attribute(item, _identifier) ?? _id }})"
+                                            class="cursor-pointer"
+                                    >
+                                        <twig:ui
+                                                x-bind:class="expanded.includes({{ attribute(item, _identifier) ?? _id }}) ? 'rotate-180' : ''"
+                                                name="heroicons:chevron-down-16-solid"
+                                                class="size-8 text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-transform duration-200 ease-in-out"
+                                        />
+                                    </div>
+                                </td>
+                            {% endif %}
+
+                            {% if selectable %}
+                                <td
+                                        x-show="$el.closest('table').querySelectorAll('tbody input[type=checkbox]').length"
+                                        class="{% block item_select_class '' %} relative px-7 sm:w-12 sm:px-6"
+                                >
+                                    {% block item_select %}
+                                        <div
+                                                x-show="selected.includes({{ attribute(item, _identifier) ?? _id }})"
+                                                class="bg-secondary dark:bg-primary absolute inset-y-0 left-0 w-0.5"
+                                        ></div>
+
+                                        <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
+                                            <input
+                                                    x-on:change="selectItem({{ attribute(item, _identifier) ?? _id }})"
+                                                    :checked="selected.includes({{ attribute(item, _identifier) ?? _id }})"
+                                                    type="checkbox"
+                                                    value="{{ attribute(item, _identifier) ?? _id }}"
+                                                    class="checked:border-secondary checked:bg-secondary indeterminate:border-secondary indeterminate:bg-secondary focus-visible:outline-secondary dark:checked:border-primary dark:checked:bg-primary dark:indeterminate:border-primary dark:indeterminate:bg-primary dark:focus-visible:outline-primary col-start-1 row-start-1 appearance-none rounded border border-slate-300 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-slate-300 disabled:bg-slate-100 disabled:checked:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:disabled:border-slate-700 dark:disabled:bg-slate-900 dark:disabled:checked:bg-slate-900 forced-colors:appearance-auto"
+                                            />
+                                            <svg
+                                                    class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-slate-950/25"
+                                                    viewBox="0 0 14 14"
+                                                    fill="none"
+                                            >
+                                                <path
+                                                        class="opacity-0 group-has-[:checked]:opacity-100"
+                                                        d="M3 8L6 11L11 3.5"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                />
+                                                <path
+                                                        class="opacity-0 group-has-[:indeterminate]:opacity-100"
+                                                        d="M3 7H11"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                    {% endblock %}
+                                </td>
+                            {% endif %}
+
+                            {% for field in fields %}
+                                {% set block_content %}
+                                    {% set item_block_name = 'tbody_' ~ field.name ~ '_' ~ (attribute(item, _identifier) ?? _id) %}
+                                    {% set loop_block_name = 'tbody_' ~ field.name ~ '_' ~ loop.index0 %}
+                                    {% set block_name = 'tbody_' ~ field.name %}
+
+                                    {% if block(item_block_name) is defined %}
+                                        {{ block(item_block_name) }}
+                                    {% elseif block(loop_block_name) is defined %}
+                                        {{ block(loop_block_name) }}
+                                    {% elseif block(block_name) is defined %}
+                                        {{ block(block_name) }}
+                                    {% else %}
+                                        <span class="text-slate-500 dark:text-slate-500">
+                                            {{ attribute(item, field.name) ?? '' }}
+                                        </span>
+                                    {% endif %}
+                                {% endset %}
+
+                                <td class="{{ loop.index0 == 0 ? 'pl-4 sm:pl-0' }} px-3 py-4 text-sm">
+                                    {{ block_content }}
+                                </td>
+                            {% endfor %}
+
+                            {% if show_actions %}
+                                <td
+                                        class="py-4 pr-4 pl-3 text-sm font-medium sm:pr-3 flex items-center justify-end gap-3"
+                                >
+                                    {% set block_content %}
+                                        {% set item_block_name = 'tbody_actions_' ~ (item[_identifier ?? ''] ?? '') %}
+                                        {% set loop_block_name = 'tbody_actions_' ~ loop.index0 %}
+                                        {% set block_name = 'tbody_actions' %}
+
+                                        {% if block(item_block_name) is defined %}
+                                            {{ block(item_block_name) }}
+                                        {% elseif block(loop_block_name) is defined %}
+                                            {{ block(loop_block_name) }}
+                                        {% elseif block(block_name) is defined %}
+                                            {{ block(block_name) }}
+                                        {% endif %}
+                                    {% endset %}
+
+                                    {{ block_content }}
+                                </td>
+                            {% endif %}
+                        </tr>
+
+                        {% if expandable %}
+                            <tr>
+                                <td colspan="{{ totalColumns }}" class="bg-gray-200 dark:bg-gray-800">
+                                    <div
+                                            x-show="expanded.includes({{ attribute(item, _identifier) ?? _id }})"
+                                            x-collapse
+                                    >
+                                        {% block expanded '' %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% else %}
+                        <tr>
+                            <td colspan="{{ totalColumns }}" class="text-center py-4">
+                                {% block empty %}
+                                    <span class="text-slate-500 dark:text-slate-500">
+                                    {{ empty_label }}
+                                </span>
+                                {% endblock %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endblock %}
+
+                </tbody>
+
+                {% if tfootContent %}
+                    <tfoot>
+                    {{ tfootContent|raw }}
+                    </tfoot>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>

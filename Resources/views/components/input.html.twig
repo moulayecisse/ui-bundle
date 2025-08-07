@@ -1,0 +1,92 @@
+{% props
+  type = null,
+  class = '',
+  form = null,
+  name = null,
+  id = null,
+  value = null,
+  placeholder = null,
+  required = null,
+  autofocus = false,
+  autocomplete = null, %}
+
+{% set params = {
+  class,
+  type,
+  form,
+  name,
+  id,
+  value,
+  placeholder,
+  required,
+  autofocus,
+  autocomplete,
+  attributes,
+} %}
+
+{% if name %}{% set params = params|merge({ name }) %}{% endif %}
+{% if id %}{% set params = params|merge({ id }) %}{% endif %}
+{% if value %}{% set params = params|merge({ value }) %}{% endif %}
+{% if placeholder %}{% set params = params|merge({ placeholder }) %}{% endif %}
+{% if required %}{% set params = params|merge({ required }) %}{% endif %}
+{% if autofocus %}{% set params = params|merge({ autofocus }) %}{% endif %}
+{% if autocomplete %}{% set params = params|merge({ autocomplete }) %}{% endif %}
+
+{% if form %}
+  {% set name = name ?? field_name(form) %}
+  {% set id = id ?? form.vars.id %}
+  {% set value = value ?? field_value(form) %}
+  {% set required = required is not null ? required : form.vars.required %}
+
+  {% if type is not null %}
+    {% set type = type %}
+  {% elseif 'email' in  form.vars.block_prefixes %}
+    {% set type = 'email' %}
+  {% elseif 'textarea' in  form.vars.block_prefixes %}
+    {% set type = 'textarea' %}
+  {% elseif 'checkbox' in  form.vars.block_prefixes %}
+    {% set type = 'checkbox' %}
+  {% elseif 'tab' in  form.vars.block_prefixes %}
+    {% set type = 'tab' %}
+  {% elseif 'password' in  form.vars.block_prefixes %}
+    {% set type = 'password' %}
+  {% elseif 'entity' in  form.vars.block_prefixes %}
+    {% set type = 'entity' %}
+  {% elseif 'live_collection_button_add' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection_button_add' %}
+  {% elseif 'live_collection_button_delete' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection_button_delete' %}
+  {% elseif 'live_collection_entry' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection_entry' %}
+  {% elseif 'live_collection' in  form.vars.block_prefixes %}
+    {% set type = 'live_collection' %}
+  {% elseif 'collection_button_add' in  form.vars.block_prefixes %}
+    {% set type = 'collection_button_add' %}
+  {% elseif 'collection_button_delete' in  form.vars.block_prefixes %}
+    {% set type = 'collection_button_delete' %}
+  {% elseif 'collection_entry' in  form.vars.block_prefixes %}
+    {% set type = 'collection_entry' %}
+  {% elseif 'collection' in  form.vars.block_prefixes %}
+    {% set type = 'collection' %}
+  {% elseif 'date' in  form.vars.block_prefixes %}
+    {% set type = 'date' %}
+  {% elseif 'choice' in  form.vars.block_prefixes %}
+    {% set type = 'choice' %}
+  {% elseif 'hidden' in  form.vars.block_prefixes %}
+    {% set type = 'hidden' %}
+  {% else %}
+    {% set type = 'text' %}
+  {% endif %}
+{% endif %}
+
+
+{% set params = params|merge({ type, attributes }) %}
+
+
+{% set componentName = 'Ui:input:text' %}
+
+{% if type in ['checkbox', 'textarea', 'date'] %}
+  {% set componentName = 'Ui:input:' ~ type %}
+{% endif %}
+
+{{ component(componentName, params) }}

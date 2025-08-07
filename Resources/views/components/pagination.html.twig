@@ -1,0 +1,100 @@
+{# @var \App\Model\Pagination pagination #}
+{# @var \App\Model\Page page #}
+{% props pagination, class = '' %}
+
+{% set class = ('flex items-center justify-between border-t border-gray-200 dark:border-gray-800 px-4 py-3 sm:px-6 ' ~ class)|tailwind_merge %}
+
+<div {{ attributes }} class="{{ class }}">
+  <div class="flex flex-1 justify-between sm:hidden">
+    <a href="#"
+       class="relative inline-flex items-center rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-950">Précédent</a>
+    <a href="#"
+       class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-950 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-950">Suivant</a>
+  </div>
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <div>
+      <p class="text-sm text-gray-700 dark:text-gray-300">
+        Affichage de
+        <span class="font-medium">{{ pagination.firstElement }}</span>
+        à
+        <span class="font-medium">{{ pagination.lastElement }}</span>
+        sur
+        <span class="font-medium">{{ pagination.total }}</span>
+        élements
+      </p>
+    </div>
+    <div>
+      <nav class="isolate inline-flex -space-x-px rounded-md shadow-xs" aria-label="Pagination">
+        <a
+          href="{{ pagination.firstPage }}"
+          class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-950 focus:z-20 focus:outline-offset-0"
+        >
+          <span class="sr-only">Précédent</span>
+          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd"
+                  d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                  clip-rule="evenodd"></path>
+          </svg>
+        </a>
+
+        {% set leftDots = false %}
+        {% set riqhtDots = false %}
+        {% set max = 5 %}
+        {% for page in pagination.pages %}
+          {% if (page.page != 1 and page.page < pagination.page - max) or (page.page != pagination.totalPages and page.page > pagination.page + max) %}
+            {% set showDots = false %}
+            {% if not leftDots and page.page < pagination.page - max %}
+              {% set showDots = true %}
+              {% set leftDots = true %}
+            {% elseif not riqhtDots and pagination.totalPages and page.page > pagination.page + max %}
+              {% set showDots = true %}
+              {% set riqhtDots = true %}
+            {% endif %}
+
+            {% if showDots %}
+              <span
+                class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset focus:outline-offset-0"
+              >
+                ...
+              </span>
+            {% endif %}
+          {% elseif page.page != pagination.totalPages and page.page > pagination.page + max %}
+            {% if not riqhtDots %}
+              {% set riqhtDots = true %}
+
+              <span
+                class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset focus:outline-offset-0">...</span>
+            {% endif %}
+          {% else %}
+            <a
+              href="{{ page }}"
+              class="
+                {% if page.page == pagination.page %}
+                  z-10 bg-primary text-black dark:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary
+                {% else %}
+                  text-gray-900 dark:text-gray-100 ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-950 focus:outline-offset-0
+                {% endif %}
+
+                relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-950 focus:z-20 focus:outline-offset-0
+                "
+            >
+              {{ page.page }}
+            </a>
+          {% endif %}
+        {% endfor %}
+
+
+        <a
+          href="{{ pagination.nextPage }}"
+          class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-950 focus:z-20 focus:outline-offset-0">
+          <span class="sr-only">Suivant</span>
+          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd"
+                  d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+</div>

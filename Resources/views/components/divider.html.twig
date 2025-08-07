@@ -1,0 +1,9 @@
+{% props class = '', vertical = false %}
+
+{% set class = ('bg-gray-200 dark:bg-gray-800 ' ~ class)|tailwind_merge %}
+
+{% if vertical %}
+    <div {{ attributes }} class="{{ ('w-0.25 h-full mx-2 ' ~ class)|tailwind_merge }}"></div>
+{% else %}
+    <div {{ attributes }} class="{{ ('w-full h-0.25 my-2 ' ~ class)|tailwind_merge }}"></div>
+{% endif %}

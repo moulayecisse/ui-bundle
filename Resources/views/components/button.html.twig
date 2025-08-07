@@ -1,0 +1,75 @@
+{# UX BUNDLE BUTTON COMPONENT #}
+{% props
+  type = 'button',
+  class = '',
+  color = null,
+  href = '',
+  primary = false,
+  secondary = false,
+  error = false,
+  success = false,
+  warning = false,
+  info = false,
+  white = false,
+  light = false,
+%}
+
+{% if primary %}
+  {% set color = 'primary' %}
+{% elseif secondary %}
+  {% set color = 'secondary' %}
+{% elseif error %}
+  {% set color = 'error' %}
+{% elseif success %}
+  {% set color = 'success' %}
+{% elseif warning %}
+  {% set color = 'warning' %}
+{% elseif info %}
+  {% set color = 'info' %}
+{% elseif white %}
+  {% set color = 'white' %}
+{% elseif light %}
+  {% set color = 'light' %}
+{% endif %}
+
+{% set colorClass = 'bg-secondary dark:bg-primary hover:bg-secondary/90 dark:hover:bg-primary/90 focus-visible:outline-secondary dark:focus-visible:outline-primary text-white dark:text-black' %}
+{% if color in ['primary'] %}
+  {% set colorClass = 'bg-primary hover:bg-primary/90 focus-visible:outline-primary text-black' %}
+{% elseif color in ['secondary'] %}
+  {% set colorClass = 'bg-secondary hover:bg-secondary/90 focus-visible:outline-secondary text-white' %}
+{% elseif color in ['error', 'red'] %}
+  {% set colorClass = 'bg-red-600 hover:bg-red-500 focus-visible:outline-red-600 text-white' %}
+{% elseif color in ['success', 'green' ] %}
+  {% set colorClass = 'bg-green-600 hover:bg-green-500 focus-visible:outline-green-600 text-white' %}
+{% elseif color in ['warning', 'yellow' ] %}
+  {% set colorClass = 'bg-yellow-600 hover:bg-yellow-500 focus-visible:outline-yellow-600 text-white' %}
+{% elseif color in ['info', 'bleu' ] %}
+  {% set colorClass = 'bg-sky-600 hover:bg-sky-500 focus-visible:outline-sky-600 text-white' %}
+{% elseif color in ['white', 'light' ] %}
+  {% set colorClass = 'bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-950' %}
+{% endif %}
+
+{% set class = ('inline-flex justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 ' ~ ' ' ~ colorClass ~ class)|tailwind_merge  %}
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+
+{% if href %}
+  <a
+    {{ attributes }}
+    href="{{ href }}"
+    {{ attributes }}
+    class="{{ class }}"
+  >
+    {{ contentBlock|raw }}
+  </a>
+{% else %}
+  <button
+    {{ attributes }}
+    type="{{ type }}"
+    {{ attributes }}
+    class="{{ class }}"
+  >
+    {{ contentBlock|raw }}
+  </button>
+{% endif %}
+

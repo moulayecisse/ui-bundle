@@ -1,0 +1,23 @@
+{% props
+  form = null,
+  for = null,
+  class = '',
+  label = null,
+%}
+
+{% if form %}
+  {% set for = for ?? field_name(form) %}
+  {% set label = label ?? field_label(form) %}
+{% endif %}
+
+  {% set class = ('block text-sm/6 font-medium text-gray-900 dark:text-gray-100 ' ~ class)|tailwind_merge %}
+
+<label
+  {{ attributes }}
+  for="{{ for }}"
+  class="{{ class }}"
+>
+  {% block content %}
+    {{ label ?? '' }}
+  {% endblock %}
+</label>

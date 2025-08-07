@@ -1,0 +1,51 @@
+{
+    "name": "cisse/ui-bundle",
+    "description": "A Symfony UI bundle containing reusable anonymous Twig components styled with TailwindCSS",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "keywords": ["symfony", "symfony-ux", "twig", "tailwind", "ui", "components"],
+    "homepage": "https://symfony.com",
+    "authors": [
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "symfony/config": "^6.1|^7.0",
+        "symfony/dependency-injection": "^6.1|^7.0",
+        "symfony/framework-bundle": "^6.1|^7.0",
+        "symfony/http-kernel": "^6.1|^7.0",
+        "symfony/twig-bundle": "^6.1|^7.0",
+        "twig/twig": "^3.0"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^6.1|^7.0",
+        "symfony/var-dumper": "^6.1|^7.0"
+    },
+    "suggest": {
+        "gehrisandro/tailwind-merge-php": "For advanced TailwindCSS class merging functionality",
+        "symfonycasts/tailwind-bundle": "For TailwindCSS integration in Symfony"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cisse\\Bundle\\Ui\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cisse\\Bundle\\Ui\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "thanks": {
+            "name": "symfony/ux",
+            "url": "https://github.com/symfony/ux"
+        }
+    },
+    "minimum-stability": "stable"
+}

@@ -1,0 +1,69 @@
+{% props
+  fields = [],
+  items = [],
+  hideHeader = false,
+  hideFooter = false,
+  class = '',
+%}
+
+<twig:Ui:table :class="class" :attributes="attributes">
+  {% if not hideHeader %}
+    <twig:Ui:thead {{ ...attributes.nested('thead') }}>
+      <twig:Ui:tr>
+        {% for field in fields %}
+          {% set block_content %}
+            {% set block_name = 'thead_' ~ (field.name ?? field) %}
+            {% if block(block_name) is defined %}
+              {{ block(block_name) }}
+            {% else %}
+              {{ attribute(field, 'label') ?? attribute(field, 'name') ?? field ?? '' }}
+            {% endif %}
+          {% endset %}
+
+          <twig:Ui:th>
+            {{ block_content|raw }}
+          </twig:Ui:th>
+        {% endfor %}
+      </twig:Ui:tr>
+    </twig:Ui:thead>
+  {% endif %}
+
+  <twig:Ui:tbody {{ ...attributes.nested('tbody') }}>
+    {% for item in items %}
+      <twig:Ui:tr>
+        {% for field in fields %}
+          {% set block_content %}
+            {% set loop_block_name = 'tbody_' ~ (field.name ?? field) ~ '_' ~ loop.index0 %}
+            {% set block_name = 'tbody_' ~ (field.name ?? field) %}
+
+            {% if block(loop_block_name) is defined %}
+              {{ block(loop_block_name) }}
+            {% elseif block(block_name) is defined %}
+              {{ block(block_name) }}
+            {% else %}
+              {{ attribute(item, field.name ?? field) ?? '' }}
+            {% endif %}
+          {% endset %}
+
+          <twig:Ui:td>
+            {{ block_content }}
+          </twig:Ui:td>
+        {% endfor %}
+      </twig:Ui:tr>
+    {% else %}
+      <twig:Ui:tr>
+        <twig:Ui:td colspan="{{ fields|length }}" class="text-center">Aucun résultat trouvé</twig:Ui:td>
+      </twig:Ui:tr>
+    {% endfor %}
+  </twig:Ui:tbody>
+
+  {% if hideFooter %}
+    <twig:Ui:tfoot {{ ...attributes.nested('tbody') }}>
+      <twig:Ui:tr>
+        {% for field in fields %}
+          <twig:Ui:th>{{ field }}</twig:Ui:th>
+        {% endfor %}
+      </twig:Ui:tr>
+    </twig:Ui:tfoot>
+  {% endif %}
+</twig:Ui:table>

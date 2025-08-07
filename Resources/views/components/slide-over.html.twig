@@ -1,0 +1,86 @@
+{% props
+  title = '',
+  description = '',
+%}
+
+<div
+  {{ attributes }}
+  x-data="{ open: false }"
+>
+  <div
+    x-on:click="open = true"
+  >
+    {% block trigger '' %}
+  </div>
+
+  <div
+    x-show="open"
+    class="relative z-99999"
+    aria-labelledby="slide-over-title"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div
+      x-show="open"
+      x-transition:enter="ease-in-out duration-500"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="ease-in-out duration-500"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      x-on:click="open = false"
+      class="fixed inset-0 bg-gray-500/75 dark:bg-gray-950/75 transition-opacity" aria-hidden="true"
+    ></div>
+
+    <div
+      x-on:click.outside="open = false"
+      class="fixed inset-0 overflow-hidden">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10 sm:pl-16">
+          <div
+            x-show="open"
+            x-transition:enter="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:enter-start="translate-x-full"
+            x-transition:enter-end="translate-x-0"
+            x-transition:leave="transform transition ease-in-out duration-500 sm:duration-700"
+            x-transition:leave-start="translate-x-0"
+            x-transition:leave-end="translate-x-full"
+            class="pointer-events-auto w-screen max-w-2xl"
+          >
+            <div class="flex h-full flex-col overflow-y-scroll bg-white dark:bg-gray-900 shadow-xl">
+              <div class="flex-1">
+                <div class="bg-primary px-4 py-6 sm:px-6">
+                  <div class="flex items-start justify-between space-x-3">
+                    <div class="space-y-1">
+                      <h2 class="text-base font-semibold text-black" id="slide-over-title">{{ title }}</h2>
+                      <p class="text-sm text-black/90">{{ description }}</p>
+                    </div>
+                    <div class="flex h-7 items-center">
+                      <button
+                        x-on:click="open = false"
+                        type="button" class="relative text-black hover:text-black/90">
+                        <span class="absolute -inset-2.5"></span>
+                        <span class="sr-only">Close panel</span>
+
+                        <twig:ui
+                          name="heroicons:x-mark-16-solid"
+                          class="size-6"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {% block content '' %}
+              </div>
+
+              <div class="shrink-0 border-t border-gray-200 dark:border-gray-800 px-4 py-5 sm:px-6">
+                {% block footer '' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

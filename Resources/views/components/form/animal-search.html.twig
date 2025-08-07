@@ -1,0 +1,73 @@
+{# @var \Symfony\Component\Form\FormView form #}
+{% props
+  form,
+  class = '',
+  method = 'post',
+  name = form.vars.full_name ?? '',
+ %}
+
+{% set type = field_value(form.type) ? field_value(form.type) : 'insert' %}
+{% set identifier = field_value(form.identifier) ? field_value(form.identifier) : '' %}
+{% set class = ('flex flex-col ' ~ class)|tailwind_merge %}
+
+
+<form
+  {{ attributes }}
+  x-data="{
+        type: `{{ type|default('insert') }}`,
+      }"
+  method="{{ method }}"
+  name="{{ name }}"
+  class="{{ class }}"
+>
+  <div class="flex">
+    <label class="grid shrink-0 grid-cols-1 relative">
+      <select
+        x-model="type"
+        name="{{ field_name(form.type) }}"
+        class="w-32 appearance-none flex shrink-0 items-center gap-x-1.5 rounded-l-md bg-white dark:bg-black px-3 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100 outline-1 -outline-offset-1 outline-slate-300 dark:outline-slate-700 hover:bg-slate-50 dark:hover:bg-slate-950 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-secondary"
+      >
+        <option
+          {% if type == 'insert' %}selected{% endif %}
+          value="insert">
+          Insert
+        </option>
+
+        <option
+          {% if type != 'insert' %}selected{% endif %}
+          value="tatou">
+          Tatouage
+        </option>
+      </select>
+
+      <twig:ui
+        name="heroicons:chevron-down"
+        class="absolute pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+      />
+    </label>
+
+
+    <label x-bind:for="type" class="-mx-px grid grow grid-cols-1 focus-within:relative">
+      <input
+        type="text"
+        name="{{ field_name(form.identifier) }}"
+        value="{{ identifier }}"
+        x-bind:id="type"
+        x-bind:placeholder="type === 'insert' ? 'Numéro de puce...' : 'Numéro de tatouage...'"
+        class="col-start-1 row-start-1 block w-full bg-white dark:bg-black py-1.5 pr-3 pl-10 text-base text-slate-900 dark:text-slate-100 outline-1 -outline-offset-1 outline-slate-300 dark:outline-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-2 focus:-outline-offset-2 focus:outline-secondary sm:pl-9 sm:text-sm/6"
+      >
+
+
+      <twig:ui name="heroicons:magnifying-glass" class="pointer-events-none col-start-1 row-start-1 ml-3 size-5 self-center text-slate-400 sm:size-4 dark:text-slate-600"/>
+    </label>
+
+    <button
+      type="submit" class="flex shrink-0 items-center gap-x-1.5 rounded-r-md bg-white dark:bg-black px-3 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100 outline-1 -outline-offset-1 outline-slate-300 dark:outline-slate-700 hover:bg-slate-50 dark:hover:bg-slate-950 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-secondary">
+      <twig:ui name="heroicons:magnifying-glass" class="-ml-0.5 size-4 text-slate-400 dark:text-slate-600"/>
+
+      Rechercher
+    </button>
+  </div>
+
+  <input class="hidden" type="hidden" name="{{ field_name(form._token) }}" value="{{ field_value(form._token) }}">
+</form>

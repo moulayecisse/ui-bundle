@@ -1,0 +1,7 @@
+{% props class = '' %}
+
+{% set class = ('divide-y divide-gray-200 dark:divide-gray-800 ' ~ class)|tailwind_merge %}
+
+<tbody {{ attributes }} class="{{ class }}">
+    {% block content '' %}
+</tbody>

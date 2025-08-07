@@ -1,0 +1,49 @@
+{% props
+  class = '',
+  form = null,
+  placeholder = null,
+  name = null,
+  field_name = null,
+  field_value = null,
+  token_field_name = null,
+  token_field_value = null,
+  method = null,
+  action = null,
+%}
+
+{% if form %}
+  {% set token_field_name = token_field_name ?? field_name(form._token) %}
+  {% set token_field_value = token_field_value ?? field_value(form._token) %}
+  {% for child in form.children %}
+    {% if child.vars.name != '_token' %}
+      {% set placeholder = placeholder ?? child.vars.attr.placeholder ?? null %}
+      {% set field_name = field_name ?? field_name(child) %}
+      {% set field_value = field_value ?? field_value(child) %}
+    {% endif %}
+  {% endfor %}
+
+  {% set method = method ?? form.vars.method %}
+  {% set name = name ?? field_name(form) %}
+{% endif %}
+
+{% set class = ('flex flex-col ' ~ class)|tailwind_merge %}
+
+<form
+  {{ attributes }}
+  {% if action %}action="{{ action }}"{% endif %}
+  {% if method %}method="{{ method }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  class="{{ class }}"
+>
+  <twig:Ui:form:search-input
+    class="mb-10 "
+    :placeholder="placeholder"
+    :name="field_name"
+    :value="field_value"
+    :attributes="attributes.nested('input')"
+  />
+
+  {% if token_field_name and token_field_value %}
+    <input class="hidden" type="hidden" name="{{ token_field_name }}" value="{{ token_field_value }}">
+  {% endif %}
+</form>

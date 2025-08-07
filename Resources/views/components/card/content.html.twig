@@ -1,0 +1,5 @@
+{% props class = '' %}
+
+{% set class = ('flex flex-col p-5 flex-1 ' ~ class )|tailwind_merge %}
+
+<div {{ attributes }} class="{{ class }}">{% block content '' %}</div>

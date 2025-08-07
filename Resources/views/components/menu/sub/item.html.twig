@@ -1,0 +1,21 @@
+{# @var \App\Model\MenuItem|null menuItem #}
+{% props menuItem = null, isActive = null, class = '' %}
+
+{% set isActive = app.current_route == menuItem.route.name %}
+
+<li
+  { attributes}}
+  class="{{ class }}"
+>
+    <a
+            href="{{ path(menuItem.route.name, menuItem.route.params) }}"
+            class="
+              text-theme-sm relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium group
+              {{ isActive ? 'bg-primary hover:bg-primary/90' : 'hover:bg-primary' }}
+            "
+    >
+        <span class="{{ isActive ? 'text-secondary' : 'text-white group-hover:text-secondary' }}">
+      {% block content %}{{ menuItem }}{% endblock %}
+        </span>
+    </a>
+</li>

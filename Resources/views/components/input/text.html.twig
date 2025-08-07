@@ -1,0 +1,43 @@
+{% props
+  type = 'text',
+  form = null,
+  class = '',
+  value = null,
+  name = null,
+  id = null,
+  required = null,
+  autofocus = null,
+  autocomplete = null,
+  disabled = null,
+%}
+
+{% set id = id ?? name %}
+{% set for = for ?? id %}
+
+{% if form %}
+  {% set value = value ?? field_value(form) %}
+  {% set name = name ?? field_name(form) %}
+  {% set id = id ?? form.vars.id %}
+  {% set required = required ?? form.vars.required %}
+  {% set disabled = disabled ?? form.vars.disabled %}
+{% endif %}
+
+<twig:Ui:input-wrapper
+  :disabled="disabled"
+  :class="class"
+>
+  <!--suppress HtmlFormInputWithoutLabel -->
+  <input
+    {{ attributes }}
+    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none"
+    {{ outerScope.attributes }}
+    {% if value is not null %}value="{{ value }}"{% endif %}
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if id %}id="{{ id }}"{% endif %}
+    {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
+    type="{{ type }}"
+    {{ required ? 'required' }}
+    {{ autofocus ? 'autofocus' }}
+    {{ disabled ? 'disabled' }}
+  >
+</twig:Ui:input-wrapper>
