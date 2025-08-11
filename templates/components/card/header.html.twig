@@ -3,6 +3,7 @@
 {% set class = ('flex justify-between items-center px-5 py-3 gap-5 ' ~ class )|tailwind_merge %}
 {% set titleBlock %}{% block title title|raw %}{% endset %}
 {% set descriptionBlock %}{% block description description|raw %}{% endset %}
+{% set actionsBlock %}{% block actions '' %}{% endset %}
 
 <div {{ attributes}} class="{{ class }}">
     <div class="flex flex-col flex-1 gap-2">
@@ -12,7 +13,7 @@
         {% endblock %}
     </div>
 
-    {% block actions %}
+    {% block actions_wrapper %}
         <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ actionsBlock|raw }}</twig:Ui:card:actions>
     {% endblock %}
 </div>

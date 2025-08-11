@@ -1,5 +1,0 @@
-{% props class = '' %}
-
-{% set class = ('flex items-center ' ~ class )|tailwind_merge %}
-
-<span {{ attributes }} class="{{ class }}">{% block content '' %}</span>

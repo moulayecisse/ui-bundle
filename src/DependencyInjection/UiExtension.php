@@ -27,7 +27,7 @@ class UiExtension extends Extension implements PrependExtensionInterface
             $bundlePath = dirname(__DIR__, 2);
             $container->prependExtensionConfig('twig', [
                 'paths' => [
-                    $bundlePath.'/Resources/views/components' => 'ui',
+                    $bundlePath.'/templates/components' => 'ui',
                 ],
             ]);
         }
