@@ -9,13 +9,12 @@
 >
     <a
             href="{{ path(menuItem.route.name, menuItem.route.params) }}"
-            class="
-              text-theme-sm relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium group
-              {{ isActive ? 'bg-primary hover:bg-primary/90' : 'hover:bg-primary' }}
-            "
+            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm group {{ isActive ? 'bg-primary hover:bg-primary/90' : 'hover:bg-primary' }}"
     >
-        <span class="{{ isActive ? 'text-secondary' : 'text-white group-hover:text-secondary' }}">
-      {% block content %}{{ menuItem }}{% endblock %}
+        <span
+                class="{{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }}"
+        >
+          {% block content %}{{ menuItem }}{% endblock %}
         </span>
     </a>
 </li>
