@@ -24,14 +24,6 @@
   attributes,
 } %}
 
-{% if name %}{% set params = params|merge({ name }) %}{% endif %}
-{% if id %}{% set params = params|merge({ id }) %}{% endif %}
-{% if value %}{% set params = params|merge({ value }) %}{% endif %}
-{% if placeholder %}{% set params = params|merge({ placeholder }) %}{% endif %}
-{% if required %}{% set params = params|merge({ required }) %}{% endif %}
-{% if autofocus %}{% set params = params|merge({ autofocus }) %}{% endif %}
-{% if autocomplete %}{% set params = params|merge({ autocomplete }) %}{% endif %}
-
 {% if form %}
   {% set name = name ?? field_name(form) %}
   {% set id = id ?? form.vars.id %}
@@ -79,13 +71,11 @@
   {% endif %}
 {% endif %}
 
-
 {% set params = params|merge({ type, attributes }) %}
-
 
 {% set componentName = 'Ui:input:text' %}
 
-{% if type in ['checkbox', 'textarea', 'date'] %}
+{% if type in ['checkbox', 'textarea', 'date', 'choice'] %}
   {% set componentName = 'Ui:input:' ~ type %}
 {% endif %}
 

@@ -1,11 +1,9 @@
-{% props menuItems = [], class = '' %}
+{% props class = '' %}
 
 {% set class = ('overflow-hidden transform translate ' ~ class)|tailwind_merge %}
 
 <div {{ attributes }} class="{{ class }}" x-bind:class="open ? 'block' :'hidden'">
     <ul x-bind:class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
-        {% for menuItem in menuItems %}
-            <twig:Ui:menu:sub:item :menuItem="menuItem" />
-        {% endfor %}
+        {% block content '' %}
     </ul>
 </div>

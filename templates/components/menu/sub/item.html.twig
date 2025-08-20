@@ -1,20 +1,31 @@
-{# @var \App\Model\MenuItem|null menuItem #}
-{% props menuItem = null, isActive = null, class = '' %}
+{% props
+    active = null,
+    href=null,
+    label = null,
+    icon = null, %}
 
-{% set isActive = app.current_route == menuItem.route.name %}
-
-<li
-  { attributes}}
-  class="{{ class }}"
+<div
+        {{ attributes}}
 >
     <a
-            href="{{ path(menuItem.route.name, menuItem.route.params) }}"
-            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm group {{ isActive ? 'bg-primary hover:bg-primary/90' : 'hover:bg-primary' }}"
+            href="{{ href ?? '#' }}"
+            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm group {{ active ? 'bg-primary hover:bg-primary/90' : 'hover:bg-gray-100 dark:hover:bg-gray-900' }}"
     >
-        <span
-                class="{{ isActive ? 'text-primary-foreground' : 'text-white group-hover:text-primary-foreground' }}"
-        >
-          {% block content %}{{ menuItem }}{% endblock %}
+        {% block content %}
+            {% block icon %}
+                {% if icon %}
+                    <twig:ux:icon
+                            name="{{ icon }}"
+                            class="size-4 {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
+                    />
+                {% endif %}
+            {% endblock %}
+
+            <span
+                    class="{{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
+            >
+            {% block label %}{{ label }}{% endblock %}
         </span>
+        {% endblock %}
     </a>
-</li>
+</div>

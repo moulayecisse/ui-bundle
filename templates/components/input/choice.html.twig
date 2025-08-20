@@ -1,0 +1,42 @@
+{% props
+  type = 'choice',
+  form = null,
+  class = '',
+  value = null,
+  name = null,
+  id = null,
+  required = null,
+  autofocus = null,
+  autocomplete = null,
+  disabled = null,
+  choices = null,
+%}
+
+{% set params = {
+    class,
+    type,
+    form,
+    name,
+    id,
+    value,
+    required,
+    autofocus,
+    autocomplete,
+    disabled,
+    attributes,
+    options: choices ?? [],
+} %}
+
+{% set params = params|merge({ attributes }) %}
+{% set contentBlock %}{% block content %}{% for option in choices ?? [] %}
+{% set optionLabel = option.label ?? option.value  ??  option %}
+{% set optionValue = option.value ??  option %}<twig:Ui:option
+    value="{{ optionValue }}"
+    :selected="value == optionValue"
+>
+    {{ optionLabel }}
+</twig:Ui:option>{% endfor %}{% endblock %}{% endset %}
+
+<twig:Ui:select {{ ...params }}>
+    {{ contentBlock|raw }}
+</twig:Ui:select>
