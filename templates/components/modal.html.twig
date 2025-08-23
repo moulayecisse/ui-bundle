@@ -1,36 +1,75 @@
+{# templates/components/Ui/modal.html.twig #}
+{% props
+    size = 'default',
+    closeOnBackdrop = true,
+    closeOnEscape = true,
+    open = false,
+    class = ''
+%}
+
+{% set sizeClasses = {
+    'sm': 'max-w-sm',
+    'default': 'max-w-[584px]',
+    'lg': 'max-w-2xl',
+    'xl': 'max-w-4xl',
+    'full': 'max-w-full mx-4'
+} %}
+
+{% set modalClass = sizeClasses[size] ?? sizeClasses.default %}
+
 <div
         {{ attributes }}
-        x-data="{isModalOpen: false}"
+        data-controller="cisse--ui-bundle--modal"
+        data-cisse--ui-bundle--modal-close-on-backdrop-value="{{ closeOnBackdrop ? 'true' : 'false' }}"
+        data-cisse--ui-bundle--modal-close-on-escape-value="{{ closeOnEscape ? 'true' : 'false' }}"
+        data-cisse--ui-bundle--modal-open-value="{{ open ? 'true' : 'false' }}"
+        data-cisse--ui-bundle--modal-size-value="{{ size }}"
 >
-    <div
-            x-on:click="isModalOpen = !isModalOpen"
-    >
+    <!-- Trigger -->
+    <div data-action="click->cisse--ui-bundle--modal#toggle">
         {% block trigger %}
             <button
-                    class="px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary-500 shadow-theme-xs hover:bg-primary-600"
+                    class="px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary-500 shadow-theme-xs hover:bg-primary-600 transition-colors"
             >
                 Open Modal
             </button>
         {% endblock %}
     </div>
 
-
+    <!-- Modal -->
     <div
-            x-show="isModalOpen"
-            class="fixed inset-0 flex items-center justify-center p-5 overflow-y-auto modal z-99999"
+            data-cisse--ui-bundle--modal-target="modal"
+            class="fixed inset-0 flex items-center justify-center p-5 overflow-y-auto z-50 {{ class }} z-99999"
+            style="display: none;"
+            role="dialog"
+            aria-modal="true"
+            aria-hidden="true"
     >
-        <div class="modal-close-btn fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"></div>
-
+        <!-- Backdrop -->
         <div
-                x-on:click.outside="isModalOpen = false"
-             class="relative w-full max-w-[584px] rounded-xl bg-white p-6 dark:bg-gray-900 lg:p-10"
+                data-cisse--ui-bundle--modal-target="backdrop"
+                class="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"
+        ></div>
+
+        <!-- Content -->
+        <div
+                data-cisse--ui-bundle--modal-target="content"
+                class="relative w-full {{ modalClass }} rounded-xl bg-white p-6 dark:bg-gray-900 lg:p-10 shadow-2xl"
         >
-            <button x-on:click="isModalOpen = false"
-                    class="group absolute right-3 top-3 z-999 flex size-8 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors hover:bg-gray-300 hover:text-gray-500 dark:bg-gray-800 dark:hover:bg-gray-700 sm:right-6 sm:top-6"
+            <!-- Close Button -->
+            <button
+                    data-cisse--ui-bundle--modal-target="closeButton"
+                    data-action="click->cisse--ui-bundle--modal#close"
+                    class="group absolute right-3 top-3 z-10 flex size-8 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-gray-200 sm:right-6 sm:top-6"
+                    aria-label="Close modal"
             >
-              <twig:ux:icon name="heroicons:x-mark-16-solid" class="size-6 transition-colors fill-current group-hover:text-gray-600 dark:group-hover:text-gray-200" />
+                <twig:ux:icon
+                        name="heroicons:x-mark-16-solid"
+                        class="size-4 transition-colors fill-current"
+                />
             </button>
 
+            <!-- Modal Content -->
             {% block content '' %}
         </div>
     </div>

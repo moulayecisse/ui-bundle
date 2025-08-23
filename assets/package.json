@@ -7,6 +7,11 @@
         "main": "dist/accordion_controller.js",
         "fetch": "eager",
         "enabled": true
+      },
+      "modal": {
+        "main": "dist/modal_controller.js",
+        "fetch": "eager",
+        "enabled": true
       }
     },
     "importmap": {
