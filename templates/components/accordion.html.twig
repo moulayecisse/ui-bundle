@@ -1,10 +1,20 @@
-{% props class = '', active = 1 %}
+{% props
+    class = '',
+    active = null,
+    multiple = false,
+    duration = 300,
+    easing = 'ease-out'
+%}
 
 {% set class = ('w-full ' ~ class)|tailwind_merge %}
 
 <div
         {{ attributes }}
         data-controller="cisse--ui-bundle--accordion"
+        {% if active is not null %}data-cisse--ui-bundle--accordion-active-value="{{ active }}"{% endif %}
+        data-cisse--ui-bundle--accordion-multiple-value="{{ multiple ? 'true' : 'false' }}"
+        data-cisse--ui-bundle--accordion-duration-value="{{ duration }}"
+        data-cisse--ui-bundle--accordion-easing-value="{{ easing }}"
         class="{{ class }}"
 >
     {% block content '' %}
