@@ -3,14 +3,9 @@
 {% set class = ('w-full ' ~ class)|tailwind_merge %}
 
 <div
-  {{ attributes.without('x-data', 'x-id') }}
-  x-data="{
-  active: null,
-  expanded(id) {
-      this.active = this.active === id ? null : id
-  }
- }"
-  class="{{ class }}"
+        {{ attributes }}
+        data-controller="cisse--ui-bundle--accordion"
+        class="{{ class }}"
 >
-  {% block content '' %}
+    {% block content '' %}
 </div>

@@ -1,0 +1,21 @@
+{
+  "name": "@cisse/ui",
+  "version": "1.0.0",
+  "symfony": {
+    "controllers": {
+      "accordion": {
+        "main": "dist/accordion_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      }
+    },
+    "importmap": {
+      "@hotwired/stimulus": "^3.0.0",
+      "el-transition": "^0.0.7"
+    }
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "el-transition": "^0.0.7"
+  }
+}

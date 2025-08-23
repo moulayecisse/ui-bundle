@@ -1,33 +1,37 @@
 {% props
-  class = '',
-  value = '',
-  rows = 3,
-  form = null,
-  name = null,
-  id = null,
-  value = null,
-  required = null,
-  autofocus = false,
-  disabled = null,
-%}
+    class = '',
+    value = '',
+    rows = 3,
+    form = null,
+    name = null,
+    id = null,
+    value = null,
+    required = null,
+    autofocus = false,
+    disabled = null, %}
 
 {% if form %}
-  {% set name = name ?? form.vars.full_name %}
-  {% set id = id ?? form.vars.id %}
-  {% set value = value ?? form.vars.value %}
-  {% set required = required ?? form.vars.required %}
-  {% set disabled = disabled ?? form.vars.disabled %}
+    {% set name = name ?? form.vars.full_name %}
+    {% set id = id ?? form.vars.id %}
+    {% set value = value ?? form.vars.value %}
+    {% set required = required ?? form.vars.required %}
+    {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
-{% set class = ('block w-full rounded-md bg-white dark:bg-gray-900 px-3 py-1.5 text-base text-gray-900 dark:text-gray-100 outline-1 -outline-offset-1 outline-gray-300 dark:outline-gray-700 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6 ' ~ class)|tailwind_merge %}
+{% set contentBlock %}{% block content value %}{% endset %}
 
-<textarea
+<twig:Ui:input-wrapper
+        :disabled="disabled"
+        :class="class"
+><textarea
   {{ attributes }}
-  rows="{{ rows }}"
-  {% if name %}name="{{ name }}"{% endif %}
-  {% if id %}id="{{ id }}"{% endif %}
-  {% if required %}required{% endif %}
-  {% if autofocus %}autofocus{% endif %}
-  {{ disabled ? 'disabled' }}
-  class="{{ class }}"
->{% block content %}{{ value }}{% endblock %}</textarea>
+    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none"
+    rows="{{ rows }}"
+    {{ outerScope.attributes }}
+            {% if name %}name="{{ name }}"{% endif %}
+            {% if id %}id="{{ id }}"{% endif %}
+            {{ required ? 'required' }}
+            {{ autofocus ? 'autofocus' }}
+            {{ disabled ? 'disabled' }}
+>{{ contentBlock|raw }}</textarea></twig:Ui:input-wrapper>
+

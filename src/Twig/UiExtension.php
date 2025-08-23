@@ -1,12 +1,13 @@
 <?php
 
-namespace Cisse\Bundle\Ui\DependencyInjection;
+namespace Cisse\Bundle\Ui\Twig;
 
+use Cisse\Bundle\Ui\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class UiExtension extends Extension implements PrependExtensionInterface
 {
@@ -15,8 +16,12 @@ class UiExtension extends Extension implements PrependExtensionInterface
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new XmlFileLoader($container, new FileLocator(\dirname(__DIR__).'/Resources/config'));
-        $loader->load('services.xml');
+
+        (new YamlFileLoader(
+            $container,
+            new FileLocator(dirname(__DIR__) . '/../config')
+        ))
+            ->load('services.yaml');
     }
 
     public function prepend(ContainerBuilder $container): void

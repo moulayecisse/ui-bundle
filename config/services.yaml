@@ -1,0 +1,34 @@
+#<?xml version="1.0" encoding="UTF-8" ?>
+#<container xmlns="http://symfony.com/schema/dic/services"
+#    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+#    xsi:schemaLocation="http://symfony.com/schema/dic/services
+#        https://symfony.com/schema/dic/services/services-1.0.xsd">
+#
+#    <services>
+#        <defaults autowire="true" autoconfigure="true" public="false" />
+#
+#        <prototype namespace="Cisse\Bundle\Ui\" resource="../../*" exclude="../../{DependencyInjection,Resources,tests,vendor}" />
+#
+#        <service id="Cisse\Bundle\Ui\Twig\TailwindMergeExtension">
+#            <tag name="twig.extension" />
+#        </service>
+#    </services>
+#</container>
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Cisse\Bundle\UI\Twig\UiExtension:
+    public: true
+    tags:
+      - { name: twig.extension }
+
+#  Cisse\Bundle\Maker\MakeCrud:
+#    arguments:
+#      $doctrineHelper: '@maker.doctrine_helper'
+#      $formTypeRenderer: '@maker.renderer.form_type_renderer'
+#    tags:
+#      - { name: maker.command }
