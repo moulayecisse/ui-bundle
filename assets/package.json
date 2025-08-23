@@ -18,6 +18,11 @@
         "fetch": "eager",
         "enabled": true
       },
+      "selectable": {
+        "main": "dist/selectable_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
       "slide-over": {
         "main": "dist/slide-over_controller.js",
         "fetch": "eager",

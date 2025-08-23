@@ -1,3 +1,4 @@
+{# templates/components/Ui/selectable.html.twig #}
 {# @var \App\Model\Field[] fields #}
 {% props
     class = '',
@@ -7,46 +8,37 @@
     selectable = false,
     show_actions = false,
     empty_label = 'Aucun résultat trouvé',
-    expandable = false, %}
+    expandable = false
+%}
 
 {% set _identifier = identifier %}
 {% set tfootContent %}{% block tfoot '' %}{% endset %}
-{% set totalColumns = fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) %}
 
 {% set class = ('font-nunito overflow-x-auto sm:-mx-6 lg:-mx-8 ' ~ class)|tailwind_merge %}
 
 <div
-        {% if selectable %}
-            x-data="{
-                selected: [],
-                selectItem(id) {
-                    if (this.selected.includes(id)) {
-                        this.selected = this.selected.filter((el) => el !== id);
-                    } else {
-                        this.selected.push(id);
-                    }
-                }
-                }"
-            x-init="{% block init '' %}"
-        {% endif %}
+        {{ attributes }}
+        data-controller="cisse--ui-bundle--selectable"
+        data-cisse--ui-bundle--selectable-selectable-value="{{ selectable ? 'true' : 'false' }}"
+        data-cisse--ui-bundle--selectable-expandable-value="{{ expandable ? 'true' : 'false' }}"
         class="{{ class }}"
 >
+    {% block init '' %}
+
     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
         <div class="relative">
             {% if selectable %}
                 <div
-                        x-show="selected.length"
+                        data-cisse--ui-bundle--selectable-target="batchActions"
                         class="absolute top-0 left-14 flex h-12 items-center space-x-3 sm:left-12"
+                        style="display: none;"
                 >
                     {% block batch_actions '' %}
                 </div>
             {% endif %}
 
-
             <table class="min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700">
-                <thead
-                        class="bg-gray-100 dark:bg-gray-900"
-                >
+                <thead class="bg-gray-100 dark:bg-gray-900">
                 {% block thead %}
                     <tr>
                         {% if expandable %}
@@ -54,17 +46,12 @@
                         {% endif %}
 
                         {% if selectable %}
-                            <th
-                                    x-show="$el.closest('table').querySelectorAll('tbody input[type=checkbox]').length"
-                                    class="relative px-7 sm:w-12 sm:px-6"
-                            >
-                                <div
-                                        class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1"
-                                >
+                            <th class="relative px-7 sm:w-12 sm:px-6">
+                                <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
                                     <input
                                             type="checkbox"
-                                            x-on:change="$event.target.checked ? selected = [...$el.closest('table').querySelectorAll('tbody input[type=checkbox]')].map(cb => parseInt(cb.value)) : selected = []"
-                                            x-bind:checked="selected.length === $el.closest('table').querySelectorAll('tbody input[type=checkbox]').length"
+                                            data-cisse--ui-bundle--selectable-target="selectAllCheckbox"
+                                            data-action="change->cisse--ui-bundle--selectable#selectAll"
                                             class="checked:border-app checked:bg-app indeterminate:border-app indeterminate:bg-app focus-visible:outline-app dark:checked:border-app dark:checked:bg-app dark:indeterminate:border-app dark:indeterminate:bg-app dark:focus-visible:outline-app col-start-1 row-start-1 appearance-none rounded border border-slate-300 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-slate-300 disabled:bg-slate-100 disabled:checked:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:disabled:border-slate-700 dark:disabled:bg-slate-900 dark:disabled:checked:bg-slate-900 forced-colors:appearance-auto"
                                     />
 
@@ -99,8 +86,8 @@
                                     {{ block(block_name) }}
                                 {% else %}
                                     <span class="text-md font-semibold text-slate-900 dark:text-slate-100">
-                                        {{ field }}
-                                    </span>
+                                            {{ field.label ?? field.name ?? field }}
+                                        </span>
                                 {% endif %}
                             {% endset %}
 
@@ -118,53 +105,48 @@
                 {% endblock %}
                 </thead>
 
-                <tbody
-                        {% if expandable %}
-                            x-data="{ expanded: [], expandItem(id) { this.expanded.includes(id) ? this.expanded = this.expanded.filter((el) => el !== id) : this.expanded.push(id); }}"
-                        {% endif %}
-                        class="divide-y divide-gray-200 dark:divide-gray-800"
-                >
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
                 {% block tbody %}
-                    {% set _id = -1  %}
+                    {% set _id = -1 %}
                     {% for item in items %}
                         {% set _id = _id + 1 %}
-                        <tr
-                                {% if selectable %}
-                                    :class="selected.includes({{ attribute(item, _identifier) ?? _id }}) ? 'bg-slate-50 dark:bg-slate-900' : ''"
-                                {% endif %}
-                        >
+                        {% set itemId = attribute(item, _identifier) ?? _id %}
+
+                        <tr>
                             {% if expandable %}
                                 <td>
                                     <div
-                                            x-on:click="expandItem({{ attribute(item, _identifier) ?? _id }})"
+                                            data-cisse--ui-bundle--selectable-target="expandButton"
+                                            data-action="click->cisse--ui-bundle--selectable#expandItem"
+                                            data-item-id="{{ itemId }}"
                                             class="cursor-pointer"
                                     >
                                         <twig:ux:icon
-                                                x-bind:class="expanded.includes({{ attribute(item, _identifier) ?? _id }}) ? 'rotate-180' : ''"
+                                                data-cisse--ui-bundle--selectable-target="expandIcon"
+                                                data-item-id="{{ itemId }}"
                                                 name="heroicons:chevron-down-16-solid"
-                                                class="size-8 text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-transform duration-200 ease-in-out"
+                                                class="size-8 text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 rounded-lg cursor-pointer transition-transform duration-200 ease-in-out rotate-0"
                                         />
                                     </div>
                                 </td>
                             {% endif %}
 
                             {% if selectable %}
-                                <td
-                                        x-show="$el.closest('table').querySelectorAll('tbody input[type=checkbox]').length"
-                                        class="{% block item_select_class '' %} relative px-7 sm:w-12 sm:px-6"
-                                >
+                                <td class="{% block item_select_class '' %} relative px-7 sm:w-12 sm:px-6">
                                     {% block item_select %}
                                         <div
-                                                x-show="selected.includes({{ attribute(item, _identifier) ?? _id }})"
+                                                data-cisse--ui-bundle--selectable-target="selectIndicator"
+                                                data-item-id="{{ itemId }}"
                                                 class="bg-secondary dark:bg-primary absolute inset-y-0 left-0 w-0.5"
+                                                style="display: none;"
                                         ></div>
 
                                         <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
                                             <input
-                                                    x-on:change="selectItem({{ attribute(item, _identifier) ?? _id }})"
-                                                    :checked="selected.includes({{ attribute(item, _identifier) ?? _id }})"
+                                                    data-cisse--ui-bundle--selectable-target="selectCheckbox"
+                                                    data-action="change->cisse--ui-bundle--selectable#selectItem"
                                                     type="checkbox"
-                                                    value="{{ attribute(item, _identifier) ?? _id }}"
+                                                    value="{{ itemId }}"
                                                     class="checked:border-secondary checked:bg-secondary indeterminate:border-secondary indeterminate:bg-secondary focus-visible:outline-secondary dark:checked:border-primary dark:checked:bg-primary dark:indeterminate:border-primary dark:indeterminate:bg-primary dark:focus-visible:outline-primary col-start-1 row-start-1 appearance-none rounded border border-slate-300 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-slate-300 disabled:bg-slate-100 disabled:checked:bg-slate-100 dark:border-slate-700 dark:bg-slate-950 dark:disabled:border-slate-700 dark:disabled:bg-slate-900 dark:disabled:checked:bg-slate-900 forced-colors:appearance-auto"
                                             />
                                             <svg
@@ -194,7 +176,7 @@
 
                             {% for field in fields %}
                                 {% set block_content %}
-                                    {% set item_block_name = 'tbody_' ~ field.name ~ '_' ~ (attribute(item, _identifier) ?? _id) %}
+                                    {% set item_block_name = 'tbody_' ~ field.name ~ '_' ~ itemId %}
                                     {% set loop_block_name = 'tbody_' ~ field.name ~ '_' ~ loop.index0 %}
                                     {% set block_name = 'tbody_' ~ field.name %}
 
@@ -206,8 +188,8 @@
                                         {{ block(block_name) }}
                                     {% else %}
                                         <span class="text-slate-500 dark:text-slate-500">
-                                            {{ attribute(item, field.name) ?? '' }}
-                                        </span>
+                                                {{ attribute(item, field.name) ?? '' }}
+                                            </span>
                                     {% endif %}
                                 {% endset %}
 
@@ -217,11 +199,9 @@
                             {% endfor %}
 
                             {% if show_actions %}
-                                <td
-                                        class="py-4 pr-4 pl-3 text-sm font-medium sm:pr-3 flex items-center justify-end gap-3"
-                                >
+                                <td class="py-4 pr-4 pl-3 text-sm font-medium sm:pr-3 flex items-center justify-end gap-3">
                                     {% set block_content %}
-                                        {% set item_block_name = 'tbody_actions_' ~ (item[_identifier ?? ''] ?? '') %}
+                                        {% set item_block_name = 'tbody_actions_' ~ itemId %}
                                         {% set loop_block_name = 'tbody_actions_' ~ loop.index0 %}
                                         {% set block_name = 'tbody_actions' %}
 
@@ -240,12 +220,13 @@
                         </tr>
 
                         {% if expandable %}
-                            <tr>
-                                <td colspan="{{ totalColumns }}" class="bg-gray-200 dark:bg-gray-800">
-                                    <div
-                                            x-show="expanded.includes({{ attribute(item, _identifier) ?? _id }})"
-                                            x-collapse
-                                    >
+                            <tr
+                                    data-cisse--ui-bundle--selectable-target="expandRow"
+                                    data-item-id="{{ itemId }}"
+                                    style="display: none;"
+                            >
+                                    <td colspan="{{ fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (show_actions ? 1 : 0) }}" class="bg-gray-200 dark:bg-gray-800">
+                                    <div class="expand-content">
                                         {% block expanded '' %}
                                     </div>
                                 </td>
@@ -253,17 +234,16 @@
                         {% endif %}
                     {% else %}
                         <tr>
-                            <td colspan="{{ totalColumns }}" class="text-center py-4">
+                                <td colspan="{{ fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (show_actions ? 1 : 0) }}" class="text-center py-4">
                                 {% block empty %}
                                     <span class="text-slate-500 dark:text-slate-500">
-                                    {{ empty_label }}
-                                </span>
+                                            {{ empty_label }}
+                                        </span>
                                 {% endblock %}
                             </td>
                         </tr>
                     {% endfor %}
                 {% endblock %}
-
                 </tbody>
 
                 {% if tfootContent %}
