@@ -1,9 +1,11 @@
+{# templates/components/Ui/menu/item.html.twig #}
 {% props
     active = null,
     childActive = null,
-    href=null,
+    href = null,
     label = null,
-    icon = null, %}
+    icon = null
+%}
 
 {% set childrenBlock %}{% block children '' %}{% endset %}
 {% set haveChildren = childrenBlock is not empty %}
@@ -11,48 +13,42 @@
 
 <div
         {{ attributes }}
-        {% if haveChildren %}
-            x-data="{ open: false }"
-            x-init="open = {{ active ? 'true' : 'false' }}"
-        {% endif %}
+        data-menu-target="item"
+        data-active="{{ active ? 'true' : 'false' }}"
 >
     <a
-            {% if haveChildren %}x-on:click="open = !open"{% endif %}
-            href="{{ haveChildren ? 'javascript:' : href }}"
-            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm {{ active ? 'bg-primary hover:bg-primary/90' : 'hover:bg-gray-100 dark:hover:bg-gray-900' }}"
+            {% if haveChildren %}
+                data-action="click->cisse--ui-bundle--menu#toggle"
+            {% endif %}
+            href="{{ haveChildren ? 'javascript:void(0)' : (href ?? '#') }}"
+            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 {{ active ? 'bg-primary hover:bg-primary/90' : 'hover:bg-gray-100 dark:hover:bg-gray-900' }}"
     >
         {% block content %}
             {% block icon %}
                 {% if icon %}
                     <twig:ux:icon
                             name="{{ icon }}"
-                            class="size-4 {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
+                            class="size-4 transition-colors {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
                     />
                 {% endif %}
             {% endblock %}
 
-            <span
-                    class="{{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
-                    x-bind:class="{'lg:hidden' : sidebarToggle }"
-            >{% block label %}{{ label }}{% endblock %}</span>
+            <span class="transition-colors {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}">
+                {% block label %}{{ label }}{% endblock %}
+            </span>
 
             {% if haveChildren %}
                 <twig:ux:icon
                         name="heroicons:chevron-down-20-solid"
-                        data-active="{{ active ? 'true': 'false' }}"
-                        x-bind:data-open="open"
-                        class="size-4 absolute top-1/2 right-2.5 -translate-y-1/2
-                  transition-transform duration-300 ease-in-out
-                  rotate-0 data-open:rotate-180
-                  {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}
-                "
-                        x-bind:class="[sidebarToggle ? 'lg:hidden' : '' ]"
+                        data-menu-target="chevron"
+                        data-open="false"
+                        class="size-4 absolute top-1/2 right-2.5 -translate-y-1/2 transition-transform duration-300 ease-in-out rotate-0 {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
                 />
             {% endif %}
         {% endblock %}
     </a>
 
-    {% if childrenBlock is not empty %}
+    {% if haveChildren %}
         <twig:Ui:menu:sub>
             {{ childrenBlock|raw }}
         </twig:Ui:menu:sub>

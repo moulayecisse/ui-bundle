@@ -1,7 +1,16 @@
-{% props class = '' %}
+{# templates/components/Ui/menu.html.twig #}
+{% props
+    class = '',
+    sidebarToggle = false
+%}
 
 {% set class = ('flex flex-col gap-2 mb-6 ' ~ class)|tailwind_merge %}
 
-<div {{ attributes }} class="{{ class }}">
-    <twig:block name="content"></twig:block>
+<div
+        {{ attributes }}
+        data-controller="cisse--ui-bundle--menu"
+        data-cisse--ui-bundle--menu-sidebar-toggle-value="{{ sidebarToggle ? 'true' : 'false' }}"
+        class="{{ class }}"
+>
+    {% block content '' %}
 </div>

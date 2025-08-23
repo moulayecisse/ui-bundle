@@ -1,31 +1,29 @@
+{# templates/components/Ui/menu/sub/item.html.twig #}
 {% props
     active = null,
-    href=null,
+    href = null,
     label = null,
-    icon = null, %}
+    icon = null
+%}
 
-<div
-        {{ attributes}}
->
+<li {{ attributes }}>
     <a
             href="{{ href ?? '#' }}"
-            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm group {{ active ? 'bg-primary hover:bg-primary/90' : 'hover:bg-gray-100 dark:hover:bg-gray-900' }}"
+            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 {{ active ? 'bg-primary hover:bg-primary/90' : 'hover:bg-gray-100 dark:hover:bg-gray-900' }}"
     >
         {% block content %}
             {% block icon %}
                 {% if icon %}
                     <twig:ux:icon
                             name="{{ icon }}"
-                            class="size-4 {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
+                            class="size-4 transition-colors {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
                     />
                 {% endif %}
             {% endblock %}
 
-            <span
-                    class="{{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
-            >
-            {% block label %}{{ label }}{% endblock %}
-        </span>
+            <span class="transition-colors {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}">
+                {% block label %}{{ label }}{% endblock %}
+            </span>
         {% endblock %}
     </a>
-</div>
+</li>

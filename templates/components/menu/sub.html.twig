@@ -1,9 +1,15 @@
+{# templates/components/Ui/menu/sub.html.twig #}
 {% props class = '' %}
 
-{% set class = ('overflow-hidden transform translate ' ~ class)|tailwind_merge %}
+{% set class = ('overflow-hidden ' ~ class)|tailwind_merge %}
 
-<div {{ attributes }} class="{{ class }}" x-bind:class="open ? 'block' :'hidden'">
-    <ul x-bind:class="sidebarToggle ? 'lg:hidden' : 'flex'" class="flex flex-col gap-1 mt-2 menu-dropdown pl-9">
+<div
+        {{ attributes }}
+        data-menu-target="submenu"
+        data-open="false"
+        class="{{ class }} hidden"
+>
+    <ul class="flex flex-col gap-1 mt-2 pl-9">
         {% block content '' %}
     </ul>
 </div>
