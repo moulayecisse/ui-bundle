@@ -7,15 +7,6 @@
     class = ''
 %}
 
-{% set sizeClasses = {
-    'sm': 'max-w-sm',
-    'default': 'max-w-[584px]',
-    'lg': 'max-w-2xl',
-    'xl': 'max-w-4xl',
-    'full': 'max-w-full mx-4'
-} %}
-
-{% set modalClass = sizeClasses[size] ?? sizeClasses.default %}
 
 <div
         {{ attributes }}
@@ -54,7 +45,8 @@
         <!-- Content -->
         <div
                 data-cisse--ui-bundle--modal-target="content"
-                class="relative w-full {{ modalClass }} rounded-xl bg-white p-6 dark:bg-black lg:p-10 shadow-2xl"
+                data-size="{{ size }}"
+                class="relative w-full max-w-[584px] data-[size=sm]:max-w-sm data-[size=lg]:max-w-2xl data-[size=xl]:max-w-4xl data-[size=full]:max-w-full data-[size=full]:mx-4 rounded-xl bg-white p-6 dark:bg-black lg:p-10 shadow-2xl"
         >
             <!-- Close Button -->
             <button

@@ -10,23 +10,6 @@
     class = ''
 %}
 
-{% set sizeClasses = {
-    'sm': 'max-w-md',
-    'default': 'max-w-2xl',
-    'lg': 'max-w-4xl',
-    'xl': 'max-w-6xl',
-    'full': 'max-w-full'
-} %}
-
-{% set positionClasses = {
-    'right': 'inset-y-0 right-0 pl-10 sm:pl-16',
-    'left': 'inset-y-0 left-0 pr-10 sm:pr-16',
-    'top': 'inset-x-0 top-0 pb-10 sm:pb-16',
-    'bottom': 'inset-x-0 bottom-0 pt-10 sm:pt-16'
-} %}
-
-{% set slideOverClass = sizeClasses[size] ?? sizeClasses.default %}
-{% set positionClass = positionClasses[position] ?? positionClasses.right %}
 
 <div
         {{ attributes }}
@@ -66,11 +49,14 @@
         <!-- Panel Container -->
         <div class="fixed inset-0 overflow-hidden">
             <div class="absolute inset-0 overflow-hidden">
-                <div class="pointer-events-none fixed {{ positionClass }} flex max-w-full">
+                <div 
+                        data-position="{{ position }}"
+                        class="pointer-events-none fixed inset-y-0 right-0 pl-10 sm:pl-16 data-[position=left]:inset-y-0 data-[position=left]:left-0 data-[position=left]:pr-10 sm:data-[position=left]:pr-16 data-[position=left]:pl-0 data-[position=top]:inset-x-0 data-[position=top]:top-0 data-[position=top]:pb-10 sm:data-[position=top]:pb-16 data-[position=top]:pl-0 data-[position=bottom]:inset-x-0 data-[position=bottom]:bottom-0 data-[position=bottom]:pt-10 sm:data-[position=bottom]:pt-16 data-[position=bottom]:pl-0 flex max-w-full">
                     <!-- Panel -->
                     <div
                             data-cisse--ui-bundle--slide-over-target="panel"
-                            class="pointer-events-auto w-screen {{ slideOverClass }}"
+                            data-size="{{ size }}"
+                            class="pointer-events-auto w-screen max-w-2xl data-[size=sm]:max-w-md data-[size=lg]:max-w-4xl data-[size=xl]:max-w-6xl data-[size=full]:max-w-full"
                     >
                         <div class="flex h-full flex-col overflow-y-scroll bg-white dark:bg-black shadow-xl">
                             <div class="flex-1">
