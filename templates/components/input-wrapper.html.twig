@@ -6,7 +6,7 @@
 {% if disabled %}
   {% set baseClass = baseClass ~ ' cursor-not-allowed bg-gray-50 dark:bg-gray-950 text-gray-500 dark:text-gray-500 outline-gray-200 dark:outline-gray-800' %}
 {% else %}
-  {% set baseClass = baseClass ~ ' bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 outline-gray-300 dark:outline-gray-700' %}
+  {% set baseClass = baseClass ~ ' bg-white dark:bg-black text-gray-900 dark:text-gray-100 outline-gray-300 dark:outline-gray-700' %}
 {% endif %}
 
 {% set class = (baseClass ~ ' ' ~ class)|tailwind_merge %}
