@@ -68,34 +68,11 @@
   {% endif %}
 {% endif %}
 
-{% if col == 1 %}
-  {% set colClass = 'sm:col-span-1' %}
-{% elseif col == 2 %}
-  {% set colClass = 'sm:col-span-2' %}
-{% elseif col == 3 %}
-  {% set colClass = 'sm:col-span-3' %}
-{% elseif col == 4 %}
-  {% set colClass = 'sm:col-span-4' %}
-{% elseif col == 5 %}
-  {% set colClass = 'sm:col-span-5' %}
-{% elseif col == 6 %}
-  {% set colClass = 'sm:col-span-6' %}
-{% elseif col == 7 %}
-  {% set colClass = 'sm:col-span-7' %}
-{% elseif col == 8 %}
-  {% set colClass = 'sm:col-span-8' %}
-{% elseif col == 9 %}
-  {% set colClass = 'sm:col-span-9' %}
-{% elseif col == 10 %}
-  {% set colClass = 'sm:col-span-10' %}
-{% elseif col == 11 %}
-  {% set colClass = 'sm:col-span-11' %}
-{% elseif col == 12 %}
+{% set colClass = 'sm:col-span-6' %}
+{% if horizontal %}
   {% set colClass = 'sm:col-span-12' %}
-{% elseif horizontal %}
-  {% set colClass = 'sm:col-span-12' %}
-{% else %}
-  {% set colClass = 'sm:col-span-6' %}
+{% elseif col %}
+  {% set colClass = 'sm:col-span-' ~ col %}
 {% endif %}
 
 {% if type in ['checkbox'] and reverse == null %}
@@ -139,7 +116,8 @@
         :for="for"
         :label="label"
         {{ ...attributes.nested('label').without('class') }}
-        class="{{ reverse ? 'order-last' }} {{ attributes.nested('label').render('class') }} sm:pt-1.5 sm:col-span-4"
+        data-reverse="{{ reverse ? 'true' : 'false' }}"
+        class="{{ attributes.nested('label').render('class') }} sm:pt-1.5 sm:col-span-4 data-[reverse=true]:order-last"
       />
 
       <div class="mt-2 sm:col-span-8 sm:mt-0">
@@ -151,7 +129,8 @@
         :for="for"
         :label="label"
         {{ ...attributes.nested('label').without('class') }}
-        class="{{ reverse ? 'order-last' }} {{ attributes.nested('label').render('class') }}"
+        data-reverse="{{ reverse ? 'true' : 'false' }}"
+        class="{{ attributes.nested('label').render('class') }} data-[reverse=true]:order-last"
       />{{ attributes.nested('label').without('class') }}
 
       <div class="mt-2">
@@ -163,19 +142,14 @@
 
 {% if type in ['hidden'] %}
   {{ content_block|raw }}
-{% elseif type in ['checkbox'] %}
-  {% set class = ('flex gap-3 sm:col-span-12 ' ~ class)|tailwind_merge %}
-  <div {{ attributes}} class="{{ class }}">
-    {{ content_block|raw }}
-  </div>
-{% elseif horizontal %}
-  {% set class = ('sm:grid sm:grid-cols-12 sm:items-start sm:gap-4 sm:py-6 ' ~ colClass ~ ' ' ~ class)|tailwind_merge %}
-  <div {{ attributes}} class="{{ class }}" class="{{ class }}">
-    {{ content_block|raw }}
-  </div>
 {% else %}
   {% set class = (colClass ~ ' ' ~ class)|tailwind_merge %}
-  <div {{ attributes}} class="{{ class }}">
+  <div 
+    {{ attributes}} 
+    data-type="{{ type }}"
+    data-horizontal="{{ horizontal ? 'true' : 'false' }}"
+    class="{{ class }} data-[type=checkbox]:flex data-[type=checkbox]:gap-3 data-[type=checkbox]:sm:col-span-12 data-[horizontal=true]:sm:grid data-[horizontal=true]:sm:grid-cols-12 data-[horizontal=true]:sm:items-start data-[horizontal=true]:sm:gap-4 data-[horizontal=true]:sm:py-6"
+  >
     {{ content_block|raw }}
   </div>
 {% endif %}

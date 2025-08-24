@@ -1,7 +1,12 @@
 {% props value = false %}
 
-{% if value %}
-  <twig:ux:icon name="heroicons:check-16-solid" class="text-green-600 size-5" />
-{% else %}
-  <twig:ux:icon name="heroicons:x-mark-16-solid" class="text-red-600 size-5" />
-{% endif %}
+<twig:ux:icon 
+    name="heroicons:check-16-solid" 
+    data-value="{{ value ? 'true' : 'false' }}"
+    class="size-5 text-red-600 data-[value=true]:text-green-600 data-[value=true]:block data-[value=false]:hidden"
+/>
+<twig:ux:icon 
+    name="heroicons:x-mark-16-solid" 
+    data-value="{{ value ? 'true' : 'false' }}"
+    class="size-5 text-red-600 data-[value=false]:text-red-600 data-[value=false]:block data-[value=true]:hidden"
+/>

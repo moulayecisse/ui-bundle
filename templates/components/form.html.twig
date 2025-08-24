@@ -19,7 +19,7 @@
   {% set name = name ?? form.vars.full_name %}
   {% set method = method ?? form.vars.method %}
   {% set action = action ?? form.vars.action %}
-  {% set enctype = enctype ? form.vars.enctype %}
+  {% set enctype = enctype ?? (form ? form.vars.enctype : null) %}
 {% endif %}
 
 {% set headerBlock %}{% block header '' %}{% endset %}
@@ -54,11 +54,9 @@
   {% endif %}
 
   <div
-    {% if horizontal %}
-      class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-12"
-    {% else %}
-      class="{{ divide ? 'sm:divide-y sm:divide-gray-900/10 ' }} grid grid-cols-12 gap-6 space-y-8 pb-12 sm:space-y-0 sm:pb-0"
-    {% endif %}
+    data-horizontal="{{ horizontal ? 'true' : 'false' }}"
+    data-divide="{{ divide ? 'true' : 'false' }}"
+    class="grid grid-cols-12 gap-6 space-y-8 pb-12 sm:space-y-0 sm:pb-0 data-[divide=true]:sm:divide-y data-[divide=true]:sm:divide-gray-900/10 data-[horizontal=true]:grid-cols-1 data-[horizontal=true]:gap-x-6 data-[horizontal=true]:gap-y-8 data-[horizontal=true]:sm:grid-cols-12 data-[horizontal=true]:space-y-0 data-[horizontal=true]:pb-0"
   >
     {% block content %}
       {% for child in (form.children ?? [])|filter(child => child.vars.name != '_token') %}

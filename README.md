@@ -108,16 +108,19 @@ Create your main CSS file with the required setup:
 
 ### 🔘 Buttons
 ```twig
-{# Button variants #}
-<twig:Ui:button primary>Save Changes</twig:Ui:button>
-<twig:Ui:button secondary>Cancel</twig:Ui:button>  
-<twig:Ui:button error>Delete Account</twig:Ui:button>
+{# Button variants - now using data attributes #}
+<twig:Ui:button color="primary">Save Changes</twig:Ui:button>
+<twig:Ui:button color="secondary">Cancel</twig:Ui:button>  
+<twig:Ui:button color="error">Delete Account</twig:Ui:button>
 
 {# Link buttons #}
-<twig:Ui:button href="/dashboard">Go to Dashboard</twig:Ui:button>
+<twig:Ui:button href="/dashboard" color="primary">Go to Dashboard</twig:Ui:button>
 
 {# Custom styling #}
-<twig:Ui:button primary class="w-full mt-4">Full Width Submit</twig:Ui:button>
+<twig:Ui:button color="primary" class="w-full mt-4">Full Width Submit</twig:Ui:button>
+
+{# Backward compatibility - boolean props still work #}
+<twig:Ui:button primary>Legacy Usage</twig:Ui:button>
 ```
 
 ### 🃏 Cards

@@ -5,41 +5,6 @@
   showArrow = true,
   unstyled = false,
   class = '', %}
-{% set positionClass %}
-  {% if position == 'top' %}
-    top-0 left-1/2 -translate-x-1/2 -mt-0.5 -translate-y-full
-  {% elseif position == 'left' %}
-    top-1/2 -translate-y-1/2 -ml-0.5 left-0 -translate-x-full
-  {% elseif position == 'bottom' %}
-    bottom-0 left-1/2 -translate-x-1/2 -mb-0.5 translate-y-full
-  {% elseif position == 'right' %}
-    top-1/2 -translate-y-1/2 -mr-0.5 right-0 translate-x-full
-  {% endif %}
-{% endset %}
-
-{% set arrowClass %}
-  {% if position == 'top' %}
-    bottom-0 -translate-x-1/2 left-1/2 w-2.5 translate-y-full
-  {% elseif position == 'left' %}
-    right-0 -translate-y-1/2 top-1/2 h-2.5 -mt-px translate-x-full
-  {% elseif position == 'bottom' %}
-    top-0 -translate-x-1/2 left-1/2 w-2.5 -translate-y-full
-  {% elseif position == 'right' %}
-    left-0 -translate-y-1/2 top-1/2 h-2.5 -mt-px -translate-x-full
-  {% endif %}
-{% endset %}
-
-{% set arrowDirectionClass %}
-  {% if position == 'top' %}
-    origin-top-left -rotate-45
-  {% elseif position == 'left' %}
-    origin-top-left rotate-45
-  {% elseif position == 'bottom' %}
-    origin-bottom-left rotate-45
-  {% elseif position == 'right' %}
-    origin-top-right -rotate-45
-  {% endif %}
-{% endset %}
 
 {% set contentBlock %}{% block content content %}{% endset %}
 {% set tooltipBlock %}{% block tooltip tooltip %}{% endset %}
@@ -49,7 +14,8 @@
 <div {{ attributes }} data-controller="popover" class="{{ class }}">
   <div
     data-action="mouseenter->popover#show mouseleave->popover#hide"
-    class="{{ not unstyled ? 'px-3 py-1 text-xs rounded-full cursor-pointer text-neutral-500 bg-slate-100 dark:bg-slate-900' }}"
+    data-unstyled="{{ unstyled ? 'true' : 'false' }}"
+    class="px-3 py-1 text-xs rounded-full cursor-pointer text-neutral-500 bg-slate-100 dark:bg-slate-900 data-[unstyled=true]:px-0 data-[unstyled=true]:py-0 data-[unstyled=true]:bg-transparent data-[unstyled=true]:text-inherit"
   >
     {{ contentBlock|raw }}
   </div>
@@ -57,22 +23,24 @@
   <template data-popover-target="content">
     <div
       data-popover-target="card"
-      class="absolute w-auto text-sm {{ positionClass }}"
+      data-position="{{ position }}"
+      class="absolute w-auto text-sm top-0 left-1/2 -translate-x-1/2 -mt-0.5 -translate-y-full data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:-ml-0.5 data-[position=left]:left-0 data-[position=left]:-translate-x-full data-[position=bottom]:bottom-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-mb-0.5 data-[position=bottom]:translate-y-full data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-mr-0.5 data-[position=right]:right-0 data-[position=right]:translate-x-full"
     >
       <div class="relative px-2 py-1 text-white bg-black rounded bg-opacity-90">
         <div class="flex-shrink-0 block text-xs whitespace-nowrap">
           {{ tooltipBlock|raw }}
         </div>
 
-        {% if showArrow %}
+        <div
+          data-show-arrow="{{ showArrow ? 'true' : 'false' }}"
+          data-position="{{ position }}"
+          class="hidden data-[show-arrow=true]:block absolute inline-flex items-center justify-center overflow-hidden bottom-0 -translate-x-1/2 left-1/2 w-2.5 translate-y-full data-[position=left]:right-0 data-[position=left]:-translate-y-1/2 data-[position=left]:top-1/2 data-[position=left]:h-2.5 data-[position=left]:-mt-px data-[position=left]:translate-x-full data-[position=left]:w-auto data-[position=bottom]:top-0 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:left-1/2 data-[position=bottom]:w-2.5 data-[position=bottom]:-translate-y-full data-[position=right]:left-0 data-[position=right]:-translate-y-1/2 data-[position=right]:top-1/2 data-[position=right]:h-2.5 data-[position=right]:-mt-px data-[position=right]:-translate-x-full data-[position=right]:w-auto"
+        >
           <div
-            class="{{ arrowClass }} absolute inline-flex items-center justify-center overflow-hidden"
-          >
-            <div
-              class="{{ arrowDirectionClass }} w-1.5 h-1.5 transform bg-black bg-opacity-90"
-            ></div>
-          </div>
-        {% endif %}
+            data-position="{{ position }}"
+            class="w-1.5 h-1.5 transform bg-black bg-opacity-90 origin-top-left -rotate-45 data-[position=left]:origin-top-left data-[position=left]:rotate-45 data-[position=bottom]:origin-bottom-left data-[position=bottom]:rotate-45 data-[position=right]:origin-top-right data-[position=right]:-rotate-45"
+          ></div>
+        </div>
       </div>
     </div>
   </template>
