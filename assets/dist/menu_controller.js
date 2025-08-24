@@ -3,9 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = ["item", "submenu", "chevron"]
-    static values = {
-        sidebarToggle: { type: Boolean, default: false }
-    }
+    static values = {}
 
     connect() {
         this.initializeMenuItems()
@@ -15,11 +13,14 @@ export default class extends Controller {
         // Initialize each menu item's state
         this.itemTargets.forEach((item, index) => {
             const isActive = item.dataset.active === 'true'
-            const submenu = item.querySelector('[data-menu-target="submenu"]')
+            const submenu = item.querySelector('[data-cisse--ui-bundle--menu-target="submenu"]')
 
             if (submenu) {
-                // Set initial open state based on active status
-                if (isActive) {
+                // Check if any child in the submenu is active
+                const hasActiveChild = submenu.querySelector('[data-active="true"]') !== null
+
+                // Set initial open state based on active status or if has active children
+                if (isActive || hasActiveChild) {
                     this.openSubmenu(item, false) // false = no animation on init
                 } else {
                     this.closeSubmenu(item, false)
@@ -31,10 +32,10 @@ export default class extends Controller {
     toggle(event) {
         event.preventDefault()
 
-        const menuItem = event.currentTarget.closest('[data-menu-target="item"]')
+        const menuItem = event.currentTarget.closest('[data-cisse--ui-bundle--menu-target="item"]')
         if (!menuItem) return
 
-        const submenu = menuItem.querySelector('[data-menu-target="submenu"]')
+        const submenu = menuItem.querySelector('[data-cisse--ui-bundle--menu-target="submenu"]')
         if (!submenu) return
 
         const isCurrentlyOpen = submenu.dataset.open === 'true'
@@ -55,8 +56,8 @@ export default class extends Controller {
     }
 
     openSubmenu(menuItem, animate = true) {
-        const submenu = menuItem.querySelector('[data-menu-target="submenu"]')
-        const chevron = menuItem.querySelector('[data-menu-target="chevron"]')
+        const submenu = menuItem.querySelector('[data-cisse--ui-bundle--menu-target="submenu"]')
+        const chevron = menuItem.querySelector('[data-cisse--ui-bundle--menu-target="chevron"]')
 
         if (!submenu) return
 
@@ -96,8 +97,8 @@ export default class extends Controller {
     }
 
     closeSubmenu(menuItem, animate = true) {
-        const submenu = menuItem.querySelector('[data-menu-target="submenu"]')
-        const chevron = menuItem.querySelector('[data-menu-target="chevron"]')
+        const submenu = menuItem.querySelector('[data-cisse--ui-bundle--menu-target="submenu"]')
+        const chevron = menuItem.querySelector('[data-cisse--ui-bundle--menu-target="chevron"]')
 
         if (!submenu) return
 
@@ -145,7 +146,7 @@ export default class extends Controller {
     // Public API methods
     openAll() {
         this.itemTargets.forEach(item => {
-            const submenu = item.querySelector('[data-menu-target="submenu"]')
+            const submenu = item.querySelector('[data-cisse--ui-bundle--menu-target="submenu"]')
             if (submenu) {
                 this.openSubmenu(item)
             }
@@ -154,7 +155,7 @@ export default class extends Controller {
 
     closeAll() {
         this.itemTargets.forEach(item => {
-            const submenu = item.querySelector('[data-menu-target="submenu"]')
+            const submenu = item.querySelector('[data-cisse--ui-bundle--menu-target="submenu"]')
             if (submenu) {
                 this.closeSubmenu(item)
             }

@@ -1,7 +1,6 @@
 {# templates/components/Ui/menu/item.html.twig #}
 {% props
     active = null,
-    childActive = null,
     href = null,
     label = null,
     icon = null
@@ -9,40 +8,50 @@
 
 {% set childrenBlock %}{% block children '' %}{% endset %}
 {% set haveChildren = childrenBlock is not empty %}
-{% set active = active or childActive %}
 
 <div
         {{ attributes }}
-        data-menu-target="item"
+        data-cisse--ui-bundle--menu-target="item"
         data-active="{{ active ? 'true' : 'false' }}"
+        class="group"
 >
     <a
             {% if haveChildren %}
                 data-action="click->cisse--ui-bundle--menu#toggle"
             {% endif %}
             href="{{ haveChildren ? 'javascript:void(0)' : (href ?? '#') }}"
-            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 {{ active ? 'bg-primary hover:bg-primary/90' : 'hover:bg-gray-100 dark:hover:bg-gray-900' }}"
+            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]:bg-primary  dark:group-data-[active=true]:bg-primary group-data-[active=true]:hover:bg-primary/90 dark:group-data-[active=true]:hover:bg-primary/90"
     >
         {% block content %}
             {% block icon %}
                 {% if icon %}
                     <twig:ux:icon
                             name="{{ icon }}"
-                            class="size-4 transition-colors {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
+                            class="size-4 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground"
+                    />
+                {% else %}
+                    <twig:ux:icon
+                            name="heroicons:bars-3-16-solid"
+                            class="size-4 transition-colors  text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground"
                     />
                 {% endif %}
             {% endblock %}
 
-            <span class="transition-colors {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}">
-                {% block label %}{{ label }}{% endblock %}
+            <span class="transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground  dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden">
+                {% block label label|raw %}
             </span>
+            
+            <!-- Popover for collapsed state -->
+            <div class="hidden in-data-[collapsed]:group-hover:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
+                {{ label }}
+            </div>
 
             {% if haveChildren %}
                 <twig:ux:icon
                         name="heroicons:chevron-down-20-solid"
-                        data-menu-target="chevron"
+                        data-cisse--ui-bundle--menu-target="chevron"
                         data-open="false"
-                        class="size-4 absolute top-1/2 right-2.5 -translate-y-1/2 transition-transform duration-300 ease-in-out rotate-0 {{ active ? 'text-primary-foreground' : 'text-gray-600 dark:text-gray-400' }}"
+                        class="size-4 absolute top-1/2 right-2.5 -translate-y-1/2 transition-transform duration-300 ease-in-out rotate-0 text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground  dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden"
                 />
             {% endif %}
         {% endblock %}
