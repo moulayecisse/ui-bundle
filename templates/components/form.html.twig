@@ -19,7 +19,7 @@
   {% set name = name ?? form.vars.full_name %}
   {% set method = method ?? form.vars.method %}
   {% set action = action ?? form.vars.action %}
-  {% set enctype = enctype ?? (form ? form.vars.enctype : null) %}
+{#  {% set enctype = enctype ?? (form ? form.vars.enctype : null) %}#}
 {% endif %}
 
 {% set headerBlock %}{% block header '' %}{% endset %}

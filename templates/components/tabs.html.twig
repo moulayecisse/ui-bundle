@@ -1,0 +1,18 @@
+{# UX BUNDLE TABS COMPONENT #}
+{% props
+  class = '',
+  current = ''
+%}
+
+{% set class = ('border-b border-gray-200 dark:border-gray-800 ' ~ class)|tailwind_merge %}
+
+<div
+  {{ attributes }}
+  data-controller="cisse--ui-bundle--tabs"
+  data-current="{{ current }}"
+  class="{{ class }}"
+>
+  <nav class="-mb-px flex space-x-8">
+    {% block content '' %}
+  </nav>
+</div>

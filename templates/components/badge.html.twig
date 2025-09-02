@@ -1,0 +1,71 @@
+{% props
+  class = '',
+  color = 'primary',
+  size = 'default',
+  variant = 'solid',
+  href = '',
+  primary = false,
+  secondary = false,
+  error = false,
+  success = false,
+  warning = false,
+  info = false,
+  white = false,
+  light = false,
+  small = false,
+  large = false,
+  dot = false,
+  outline = false,
+  soft = false
+%}
+
+{% if primary %}
+  {% set color = 'primary' %}
+{% elseif secondary %}
+  {% set color = 'secondary' %}
+{% elseif error %}
+  {% set color = 'error' %}
+{% elseif success %}
+  {% set color = 'success' %}
+{% elseif warning %}
+  {% set color = 'warning' %}
+{% elseif info %}
+  {% set color = 'info' %}
+{% elseif white %}
+  {% set color = 'white' %}
+{% elseif light %}
+  {% set color = 'light' %}
+{% endif %}
+
+{% if small %}
+  {% set size = 'sm' %}
+{% elseif large %}
+  {% set size = 'lg' %}
+{% endif %}
+
+{% if outline %}
+  {% set variant = 'outline' %}
+{% elseif soft %}
+  {% set variant = 'soft' %}
+{% endif %}
+
+{% set class = ('inline-flex items-center font-medium rounded-full text-xs px-2.5 py-0.5 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 data-[size=sm]:text-xs data-[size=sm]:px-2 data-[size=sm]:py-0.5 data-[size=lg]:text-sm data-[size=lg]:px-3 data-[size=lg]:py-1 data-[color=primary]:bg-primary data-[color=primary]:text-primary-foreground data-[color=error]:bg-red-100 data-[color=error]:text-red-800 data-[color=error]:dark:bg-red-900/20 data-[color=error]:dark:text-red-300 data-[color=success]:bg-green-100 data-[color=success]:text-green-800 data-[color=success]:dark:bg-green-900/20 data-[color=success]:dark:text-green-300 data-[color=warning]:bg-yellow-100 data-[color=warning]:text-yellow-800 data-[color=warning]:dark:bg-yellow-900/20 data-[color=warning]:dark:text-yellow-300 data-[color=info]:bg-blue-100 data-[color=info]:text-blue-800 data-[color=info]:dark:bg-blue-900/20 data-[color=info]:dark:text-blue-300 data-[color=white]:bg-white data-[color=white]:text-gray-900 data-[color=white]:ring-1 data-[color=white]:ring-gray-300 data-[color=white]:ring-inset data-[color=light]:bg-gray-50 data-[color=light]:text-gray-600 data-[color=light]:dark:bg-gray-900 data-[color=light]:dark:text-gray-400 data-[variant=outline]:bg-transparent data-[variant=outline]:ring-1 data-[variant=outline]:ring-gray-300 data-[variant=outline]:dark:ring-gray-700 data-[variant=outline][data-color=primary]:ring-primary data-[variant=outline][data-color=primary]:text-primary data-[variant=outline][data-color=error]:ring-red-300 data-[variant=outline][data-color=error]:text-red-700 data-[variant=outline][data-color=error]:dark:ring-red-800 data-[variant=outline][data-color=error]:dark:text-red-400 data-[variant=outline][data-color=success]:ring-green-300 data-[variant=outline][data-color=success]:text-green-700 data-[variant=outline][data-color=success]:dark:ring-green-800 data-[variant=outline][data-color=success]:dark:text-green-400 data-[variant=outline][data-color=warning]:ring-yellow-300 data-[variant=outline][data-color=warning]:text-yellow-700 data-[variant=outline][data-color=warning]:dark:ring-yellow-800 data-[variant=outline][data-color=warning]:dark:text-yellow-400 data-[variant=outline][data-color=info]:ring-blue-300 data-[variant=outline][data-color=info]:text-blue-700 data-[variant=outline][data-color=info]:dark:ring-blue-800 data-[variant=outline][data-color=info]:dark:text-blue-400 data-[variant=soft]:bg-opacity-10 data-[variant=soft]:dark:bg-opacity-20 data-[variant=soft][data-color=primary]:bg-primary data-[variant=soft][data-color=primary]:text-primary data-[variant=soft][data-color=error]:bg-red-500 data-[variant=soft][data-color=error]:text-red-700 data-[variant=soft][data-color=error]:dark:text-red-300 data-[variant=soft][data-color=success]:bg-green-500 data-[variant=soft][data-color=success]:text-green-700 data-[variant=soft][data-color=success]:dark:text-green-300 data-[variant=soft][data-color=warning]:bg-yellow-500 data-[variant=soft][data-color=warning]:text-yellow-700 data-[variant=soft][data-color=warning]:dark:text-yellow-300 data-[variant=soft][data-color=info]:bg-blue-500 data-[variant=soft][data-color=info]:text-blue-700 data-[variant=soft][data-color=info]:dark:text-blue-300 data-[dot=true]:pl-1.5 ' ~ class)|tailwind_merge  %}
+
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+{% set element = href ? 'a' : 'span' %}
+
+<{{ element }}
+  {{ attributes }}
+  {% if href %}href="{{ href }}"{% endif %}
+  data-color="{{ color }}"
+  data-size="{{ size }}"
+  data-variant="{{ variant }}"
+  data-dot="{{ dot ? 'true' : 'false' }}"
+  class="{{ class }}"
+>
+  {% if dot %}
+    <span class="inline-block w-1.5 h-1.5 rounded-full mr-1.5 bg-current"></span>
+  {% endif %}
+  {{ contentBlock|raw }}
+</{{ element }}>

@@ -4,7 +4,7 @@
 
 ## ✨ Features
 
-- 🧩 **60+ Components** - Forms, tables, navigation, modals, cards, and more
+- 🧩 **60+ Components** - Forms, tables, navigation, tabs, modals, cards, and more
 - 🎨 **TailwindCSS Styled** - Modern, responsive design out of the box
 - 🔧 **Fully Customizable** - Override styles and extend components easily  
 - ⚡ **Smart Class Merging** - Intelligent TailwindCSS class deduplication
@@ -77,6 +77,8 @@ Create your main CSS file with the required setup:
 | Component | Description |
 |-----------|-------------|
 | `<twig:Ui:button>` | Buttons with multiple variants (primary, secondary, error) |
+| `<twig:Ui:badge>` | Status badges with colors, sizes, and variants |
+| `<twig:Ui:alert>` | Alert notifications with icons and dismiss functionality |
 | `<twig:Ui:card>` | Card layouts with header, content, and footer sections |
 | `<twig:Ui:modal>` | Modal dialogs with backdrop |
 | `<twig:Ui:slide-over>` | Slide-out panels for details |
@@ -87,6 +89,7 @@ Create your main CSS file with the required setup:
 | Component | Description |
 |-----------|-------------|
 | `<twig:Ui:menu>` `<twig:Ui:menu:item>` | Navigation menus with sub-menus |
+| `<twig:Ui:tabs>` `<twig:Ui:tabs:item>` | Tabbed navigation with keyboard support |
 | `<twig:Ui:pagination>` | Pagination controls |
 
 ### 📊 Tables & Data
@@ -121,6 +124,145 @@ Create your main CSS file with the required setup:
 
 {# Backward compatibility - boolean props still work #}
 <twig:Ui:button primary>Legacy Usage</twig:Ui:button>
+```
+
+### 🏷️ Badges
+```twig
+{# Basic badges with different colors #}
+<twig:Ui:badge>Default</twig:Ui:badge>
+<twig:Ui:badge color="primary">Primary</twig:Ui:badge>
+<twig:Ui:badge color="success">Success</twig:Ui:badge>
+<twig:Ui:badge color="error">Error</twig:Ui:badge>
+<twig:Ui:badge color="warning">Warning</twig:Ui:badge>
+<twig:Ui:badge color="info">Info</twig:Ui:badge>
+
+{# Different sizes #}
+<twig:Ui:badge size="sm">Small</twig:Ui:badge>
+<twig:Ui:badge>Default</twig:Ui:badge>
+<twig:Ui:badge size="lg">Large</twig:Ui:badge>
+
+{# Different variants #}
+<twig:Ui:badge variant="solid" color="primary">Solid</twig:Ui:badge>
+<twig:Ui:badge variant="outline" color="primary">Outline</twig:Ui:badge>
+<twig:Ui:badge variant="soft" color="primary">Soft</twig:Ui:badge>
+
+{# Badge with dot indicator #}
+<twig:Ui:badge dot color="success">Online</twig:Ui:badge>
+<twig:Ui:badge dot color="error">Offline</twig:Ui:badge>
+
+{# Clickable badges (links) #}
+<twig:Ui:badge href="/admin/users" color="info">5 Users</twig:Ui:badge>
+<twig:Ui:badge href="/notifications" color="error">3 Alerts</twig:Ui:badge>
+
+{# Status badges for lists #}
+<div class="space-y-2">
+    <div class="flex items-center justify-between">
+        <span>Database Connection</span>
+        <twig:Ui:badge color="success" dot>Connected</twig:Ui:badge>
+    </div>
+    <div class="flex items-center justify-between">
+        <span>Background Jobs</span>
+        <twig:Ui:badge color="warning" dot>2 Pending</twig:Ui:badge>
+    </div>
+    <div class="flex items-center justify-between">
+        <span>Error Logs</span>
+        <twig:Ui:badge color="error" variant="outline">5 Errors</twig:Ui:badge>
+    </div>
+</div>
+
+{# Boolean prop shortcuts (backward compatibility) #}
+<twig:Ui:badge primary>Primary</twig:Ui:badge>
+<twig:Ui:badge success small>Success Small</twig:Ui:badge>
+<twig:Ui:badge error outline>Error Outline</twig:Ui:badge>
+```
+
+### 🚨 Alerts
+```twig
+{# Basic alerts with different types #}
+<twig:Ui:alert color="success" title="Success!">
+    Your changes have been saved successfully.
+</twig:Ui:alert>
+
+<twig:Ui:alert color="error" title="Error occurred">
+    There was a problem processing your request. Please try again.
+</twig:Ui:alert>
+
+<twig:Ui:alert color="warning" title="Warning">
+    Your session will expire in 5 minutes. Please save your work.
+</twig:Ui:alert>
+
+<twig:Ui:alert color="info" title="Information">
+    New features are now available. Check out the changelog.
+</twig:Ui:alert>
+
+{# Alert without icon #}
+<twig:Ui:alert color="primary" title="Notice" icon="false">
+    This is a simple alert without an icon.
+</twig:Ui:alert>
+
+{# Alert with only content (no title) #}
+<twig:Ui:alert color="success">
+    Quick success message without a title.
+</twig:Ui:alert>
+
+{# Dismissible alerts #}
+<twig:Ui:alert color="info" title="Dismissible Alert" dismissible>
+    You can close this alert by clicking the X button.
+</twig:Ui:alert>
+
+{# Outline variant #}
+<twig:Ui:alert variant="outline" color="warning" title="Outline Warning">
+    This alert has an outline style instead of filled background.
+</twig:Ui:alert>
+
+{# Rich content alert #}
+<twig:Ui:alert color="success" title="Payment Confirmation">
+    <p>Payment for <strong>{{ user.name }}</strong> has been processed successfully.</p>
+    <div class="mt-3">
+        <twig:Ui:button color="success" size="sm" href="/receipt">
+            View Receipt
+        </twig:Ui:button>
+        <twig:Ui:button variant="outline" color="success" size="sm" href="/dashboard">
+            Back to Dashboard
+        </twig:Ui:button>
+    </div>
+</twig:Ui:alert>
+
+{# Form validation alerts #}
+{% if form.vars.errors|length > 0 %}
+    <twig:Ui:alert color="error" title="Form Validation Errors" dismissible>
+        <ul class="list-disc list-inside space-y-1">
+            {% for error in form.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    </twig:Ui:alert>
+{% endif %}
+
+{# Boolean shortcuts (backward compatibility) #}
+<twig:Ui:alert success title="Success">Success alert using boolean prop</twig:Ui:alert>
+<twig:Ui:alert error outline dismissible title="Error">Error outline alert</twig:Ui:alert>
+```
+
+#### JavaScript Integration:
+```javascript
+// Listen for alert dismiss events
+document.addEventListener('alert:dismissed', (event) => {
+    console.log('Alert dismissed:', event.detail)
+    
+    // Optional: Track analytics
+    gtag('event', 'alert_dismissed', {
+        'alert_color': event.detail.color,
+        'alert_variant': event.detail.variant
+    })
+})
+
+// Programmatically dismiss alerts
+const alertController = application.getControllerForElementAndIdentifier(
+    document.querySelector('[data-controller="cisse--ui-bundle--alert"]'),
+    'cisse--ui-bundle--alert'
+)
+alertController.hide()
 ```
 
 ### 🃏 Cards
@@ -177,6 +319,195 @@ Create your main CSS file with the required setup:
         <option value="user">User</option>
     </twig:Ui:select>
 </div>
+```
+
+### 🧭 Tabs
+```twig
+{# Basic tabs with different colors #}
+<twig:Ui:tabs current="{{ current_filter }}">
+    <twig:Ui:tabs:item href="{{ path('dashboard_index') }}" 
+                       current="{{ current_filter == 'all' }}">
+        All Items
+    </twig:Ui:tabs:item>
+    
+    <twig:Ui:tabs:item href="{{ path('dashboard_index', {filter: 'active'}) }}" 
+                       color="success"
+                       current="{{ current_filter == 'active' }}">
+        Active
+    </twig:Ui:tabs:item>
+    
+    <twig:Ui:tabs:item href="{{ path('dashboard_index', {filter: 'pending'}) }}" 
+                       color="warning"
+                       current="{{ current_filter == 'pending' }}">
+        Pending
+    </twig:Ui:tabs:item>
+    
+    <twig:Ui:tabs:item href="{{ path('dashboard_index', {filter: 'errors'}) }}" 
+                       color="error"
+                       current="{{ current_filter == 'errors' }}">
+        Errors
+    </twig:Ui:tabs:item>
+</twig:Ui:tabs>
+
+{# Advanced features #}
+<twig:Ui:tabs current="settings">
+    <twig:Ui:tabs:item href="/profile" current>
+        👤 Profile
+    </twig:Ui:tabs:item>
+    
+    <twig:Ui:tabs:item href="/security" color="info">
+        🔒 Security
+    </twig:Ui:tabs:item>
+    
+    <twig:Ui:tabs:item href="/billing" disabled>
+        💳 Billing (Coming Soon)
+    </twig:Ui:tabs:item>
+</twig:Ui:tabs>
+
+{# JavaScript/Stimulus Integration #}
+<div data-controller="my-dashboard" 
+     data-action="tabs:selected->my-dashboard#handleTabChange">
+    <twig:Ui:tabs current="{{ current_filter }}">
+        <twig:Ui:tabs:item href="{{ path('dashboard_index') }}" 
+                           data-dashboard-section="overview"
+                           current="{{ current_filter == 'overview' }}">
+            📊 Overview
+        </twig:Ui:tabs:item>
+        
+        <twig:Ui:tabs:item href="{{ path('dashboard_index', {section: 'analytics'}) }}" 
+                           data-dashboard-section="analytics"
+                           color="info"
+                           current="{{ current_filter == 'analytics' }}">
+            📈 Analytics
+        </twig:Ui:tabs:item>
+    </twig:Ui:tabs>
+    
+    <div data-my-dashboard-target="content" class="mt-6">
+        <!-- Dynamic content loaded here -->
+    </div>
+</div>
+```
+
+#### JavaScript Controller Example:
+```javascript
+// assets/controllers/my_dashboard_controller.js
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+    static targets = ["content"]
+    
+    connect() {
+        console.log("Dashboard controller connected")
+    }
+    
+    // Handle tab selection events from the tabs component
+    handleTabChange(event) {
+        const { item, href, text } = event.detail
+        const section = item.dataset.dashboardSection
+        
+        console.log(`Tab changed to: ${text} (${section})`)
+        
+        // Update content based on selection
+        this.loadSection(section)
+        
+        // Optional: Update URL without page reload
+        if (href && window.history) {
+            window.history.pushState({}, '', href)
+        }
+    }
+    
+    loadSection(section) {
+        // Example: Load content via fetch
+        this.contentTarget.innerHTML = `<div class="animate-pulse">Loading ${section}...</div>`
+        
+        fetch(`/api/dashboard/${section}`)
+            .then(response => response.text())
+            .then(html => {
+                this.contentTarget.innerHTML = html
+            })
+            .catch(() => {
+                this.contentTarget.innerHTML = `<div class="text-red-600">Error loading ${section}</div>`
+            })
+    }
+    
+    // Public API: programmatically switch tabs
+    switchToTab(section) {
+        const tabsController = this.application.getControllerForElementAndIdentifier(
+            document.querySelector('[data-controller*="cisse--ui-bundle--tabs"]'),
+            'cisse--ui-bundle--tabs'
+        )
+        
+        if (tabsController) {
+            const tabItem = document.querySelector(`[data-dashboard-section="${section}"]`)
+            if (tabItem) {
+                tabsController.setActiveTab(tabItem)
+            }
+        }
+    }
+}
+```
+
+#### Advanced Stimulus Integration:
+```twig
+{# Real-time notifications with tab updates #}
+<div data-controller="notifications"
+     data-action="tabs:selected->notifications#trackTabView">
+     
+    <twig:Ui:tabs>
+        <twig:Ui:tabs:item href="/inbox" current>
+            📧 Inbox
+            <span data-notifications-target="inboxCount" 
+                  class="ml-2 bg-red-500 text-white rounded-full px-2 py-1 text-xs">
+                {{ unread_count }}
+            </span>
+        </twig:Ui:tabs:item>
+        
+        <twig:Ui:tabs:item href="/sent" color="success">
+            📤 Sent
+        </twig:Ui:tabs:item>
+    </twig:Ui:tabs>
+</div>
+```
+
+```javascript
+// assets/controllers/notifications_controller.js  
+import { Controller } from "@hotwired/stimulus"
+
+export default class extends Controller {
+    static targets = ["inboxCount"]
+    
+    connect() {
+        // Setup real-time updates
+        this.setupWebSocket()
+    }
+    
+    trackTabView(event) {
+        // Analytics tracking
+        const tabName = event.detail.text
+        gtag('event', 'tab_view', {
+            'tab_name': tabName,
+            'timestamp': Date.now()
+        })
+    }
+    
+    setupWebSocket() {
+        // Example WebSocket for real-time count updates
+        this.ws = new WebSocket('/ws/notifications')
+        this.ws.onmessage = (event) => {
+            const data = JSON.parse(event.data)
+            if (data.type === 'inbox_count') {
+                this.updateInboxCount(data.count)
+            }
+        }
+    }
+    
+    updateInboxCount(count) {
+        if (this.hasInboxCountTarget) {
+            this.inboxCountTarget.textContent = count
+            this.inboxCountTarget.classList.toggle('hidden', count === 0)
+        }
+    }
+}
 ```
 
 ### 📊 Data Tables

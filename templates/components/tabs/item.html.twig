@@ -1,0 +1,27 @@
+{# UX BUNDLE TAB ITEM COMPONENT #}
+{% props
+  href = '',
+  class = '',
+  color = 'primary',
+  current = false,
+  disabled = false
+%}
+
+{% set class = ('whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm transition-colors duration-200 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600 data-[current=true]:border-primary data-[current=true]:text-primary data-[color=success]:data-[current=true]:border-green-500 data-[color=success]:data-[current=true]:text-green-600 data-[color=error]:data-[current=true]:border-red-500 data-[color=error]:data-[current=true]:text-red-600 data-[color=warning]:data-[current=true]:border-yellow-500 data-[color=warning]:data-[current=true]:text-yellow-600 data-[color=info]:data-[current=true]:border-sky-500 data-[color=info]:data-[current=true]:text-sky-600 data-[disabled=true]:opacity-50 data-[disabled=true]:cursor-not-allowed data-[disabled=true]:hover:text-gray-500 data-[disabled=true]:hover:border-transparent ' ~ class)|tailwind_merge %}
+
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+<a
+  {{ attributes }}
+  href="{{ href }}"
+  data-cisse--ui-bundle--tabs-target="item"
+  data-action="click->cisse--ui-bundle--tabs#select"
+  data-current="{{ current ? 'true' : 'false' }}"
+  data-color="{{ color }}"
+  data-disabled="{{ disabled ? 'true' : 'false' }}"
+  data-href="{{ href }}"
+  class="{{ class }}"
+  {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
+>
+  {{ contentBlock|raw }}
+</a>
