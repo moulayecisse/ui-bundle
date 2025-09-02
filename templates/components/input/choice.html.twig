@@ -12,6 +12,11 @@
   choices = null,
 %}
 
+{% if form %}
+    {% set name = name ?? form.vars.full_name %}
+    {% set choices = choices ?? form.vars.choices ?? [] %}
+{% endif %}
+
 {% set params = {
     class,
     type,

@@ -10,7 +10,7 @@
   submitLabel = 'Envoyer',
   cancelLabel = 'Annuler',
   divide = false,
-  showFooter = false,
+  hideFooter = false,
   horizontal = false,
   class = '',
 %}
@@ -67,14 +67,14 @@
           {% if 'hidden' in child.vars.block_prefixes %}
             <input type="hidden" name="{{ field_name(child) }}" value="{{ field_value(child) }}">
           {% else %}
-            <twig:Ui:input-group :form="child" :horizontal="horizontal" />
+            <twig:Ui:input-group :form="child" :horizontal="horizontal" {{ ...child.vars.row_attr }} />
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endblock %}
   </div>
 
-  {% if footerBlock or showFooter %}
+  {% if footerBlock or not hideFooter %}
     <div class="border-gray-900/10 sm:border-t pt-5 mt-5 flex items-center justify-end gap-x-6">
       {% if footerBlock %}
         {{ footerBlock|raw }}

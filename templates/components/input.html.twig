@@ -43,7 +43,7 @@
   {% elseif 'password' in  form.vars.block_prefixes %}
     {% set type = 'password' %}
   {% elseif 'entity' in  form.vars.block_prefixes %}
-    {% set type = 'entity' %}
+    {% set type = 'choice' %}
   {% elseif 'live_collection_button_add' in  form.vars.block_prefixes %}
     {% set type = 'live_collection_button_add' %}
   {% elseif 'live_collection_button_delete' in  form.vars.block_prefixes %}
