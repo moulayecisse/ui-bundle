@@ -15,6 +15,7 @@
   col = null,
   reverse = null,
   disabled = null,
+  help = null,
 %}
 
 {% set id = id ?? name %}
@@ -28,6 +29,7 @@
   {% set value = value ?? field_value(form) %}
   {% set required = required is not null ? required : form.vars.required %}
   {% set disabled = disabled ?? form.vars.disabled %}
+  {% set help = help ?? form.vars.help %}
 
   {% if type is not null %}
     {% set type = type %}
@@ -120,8 +122,12 @@
         class="{{ attributes.nested('label').render('class') }} sm:pt-1.5 sm:col-span-4 data-[reverse=true]:order-last"
       />
 
-      <div class="mt-2 sm:col-span-8 sm:mt-0">
+      <div class="mt-2 sm:col-span-8 sm:mt-0 flex flex-col gap-1">
         {{ inputContent|raw }}
+
+        {% if help %}
+          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ help }}</p>
+        {% endif %}
       </div>
     {% else %}
       <twig:Ui:label
@@ -133,8 +139,12 @@
         class="{{ attributes.nested('label').render('class') }} data-[reverse=true]:order-last"
       />{{ attributes.nested('label').without('class') }}
 
-      <div class="mt-2">
+      <div class="mt-2 flex flex-col gap-1">
         {{ inputContent|raw }}
+
+        {% if help %}
+          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">{{ help }}</p>
+        {% endif %}
       </div>
     {% endif %}
   {% endblock %}
