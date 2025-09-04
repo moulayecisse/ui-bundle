@@ -9,7 +9,9 @@ export default class extends Controller {
         "selectIndicator",
         "expandButton",
         "expandRow",
-        "expandIcon"
+        "expandIcon",
+        "bulkForm",
+        "idsInput"
     ]
     static values = {
         selectable: { type: Boolean, default: false },
@@ -120,6 +122,9 @@ export default class extends Controller {
                 this.batchActionsTarget.style.display = 'none'
             }
         }
+
+        // Update bulk form hidden input if present
+        this.updateBulkFormIds()
     }
 
     dispatchSelectionEvent() {
@@ -284,5 +289,36 @@ export default class extends Controller {
 
     getExpanded() {
         return [...this.expanded]
+    }
+
+    // Bulk Form Methods
+    updateBulkFormIds() {
+        if (this.hasIdsInputTarget) {
+            this.idsInputTarget.value = JSON.stringify(this.selected)
+        }
+    }
+
+    handleBulkSubmit(event) {
+        if (this.selected.length === 0) {
+            event.preventDefault()
+            event.stopPropagation()
+
+            // Dispatch custom event for empty selection
+            this.dispatch('bulk-submit-empty', {
+                detail: { message: 'No items selected' }
+            })
+
+            return false
+        }
+
+        // Dispatch event with selected items before submission
+        this.dispatch('bulk-submit', {
+            detail: {
+                selected: [...this.selected],
+                count: this.selected.length
+            }
+        })
+
+        return true
     }
 }

@@ -101,6 +101,7 @@
                     {% set _id = -1 %}
                     {% for item in items %}
                         {% set _id = _id + 1 %}
+                        {{ _identifier }}
                         {% set itemId = attribute(item, _identifier) ?? _id %}
 
                         <tr>
