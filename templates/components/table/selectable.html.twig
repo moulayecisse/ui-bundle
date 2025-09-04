@@ -6,8 +6,8 @@
     items = [],
     identifier = '',
     selectable = false,
-    show_actions = false,
-    empty_label = 'Aucun résultat trouvé',
+    showActions = false,
+    emptyLabel = 'Aucun résultat trouvé',
     expandable = false
 %}
 
@@ -47,46 +47,37 @@
 
                         {% if selectable %}
                             <th class="relative px-7 sm:w-12 sm:px-6">
-                                <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
-                                    <input
-                                            type="checkbox"
-                                            data-cisse--ui-bundle--selectable-target="selectAllCheckbox"
-                                            data-action="change->cisse--ui-bundle--selectable#selectAll"
-                                            class="checked:border-app checked:bg-app indeterminate:border-app indeterminate:bg-app focus-visible:outline-app dark:checked:border-app dark:checked:bg-app dark:indeterminate:border-app dark:indeterminate:bg-app dark:focus-visible:outline-app col-start-1 row-start-1 appearance-none rounded border border-slate-300 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-slate-300 disabled:bg-slate-100 disabled:checked:bg-slate-100 dark:border-slate-700 dark:bg-black dark:disabled:border-slate-700 dark:disabled:bg-slate-900 dark:disabled:checked:bg-slate-900 forced-colors:appearance-auto"
-                                    />
-
-                                    <svg
-                                            class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-slate-950/25"
-                                            viewBox="0 0 14 14"
-                                            fill="none"
-                                    >
-                                        <path
-                                                class="opacity-0 group-has-[:checked]:opacity-100"
-                                                d="M3 8L6 11L11 3.5"
-                                                stroke-width="2"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                        />
-                                        <path
-                                                class="opacity-0 group-has-[:indeterminate]:opacity-100"
-                                                d="M3 7H11"
-                                                stroke-width="2"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </div>
+                                <twig:Ui:input:checkbox
+                                        type="checkbox"
+                                        data-cisse--ui-bundle--selectable-target="selectAllCheckbox"
+                                        data-action="change->cisse--ui-bundle--selectable#selectAll"
+                                />
                             </th>
                         {% endif %}
 
                         {% for field in fields %}
+                            {% set field_name = loop.index0 %}
+                            {% set field_label = '' %}
+
+                            {% if field is iterable %}
+                                {% set field_name = field.name ?? loop.index0 %}
+                                {% if field.label is defined %}
+                                    {% set field_label = field.label %}
+                                {% else %}
+                                    {% set field_label = (field.name ?? '')|split('.')|last %}
+                                {% endif %}
+                            {% else %}
+                                {% set field_name = field %}
+                                {% set field_label = (field)|split('.')|last %}
+                            {% endif %}
+
                             {% set block_content %}
-                                {% set block_name = 'thead_' ~ field.name %}
+                                {% set block_name = 'thead_' ~ field_name %}
                                 {% if block(block_name) is defined %}
                                     {{ block(block_name) }}
                                 {% else %}
                                     <span class="text-md font-semibold text-slate-900 dark:text-slate-100">
-                                            {{ field.label ?? field.name ?? field }}
+                                            {{ field_label }}
                                         </span>
                                 {% endif %}
                             {% endset %}
@@ -96,7 +87,7 @@
                             </th>
                         {% endfor %}
 
-                        {% if show_actions %}
+                        {% if showActions %}
                             <th class="relative py-3.5 pr-4 pl-3 sm:pr-3">
                                 {% block thead_actions '' %}
                             </th>
@@ -105,7 +96,7 @@
                 {% endblock %}
                 </thead>
 
-                <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-800 text-slate-500 dark:text-slate-500">
                 {% block tbody %}
                     {% set _id = -1 %}
                     {% for item in items %}
@@ -137,48 +128,34 @@
                                         <div
                                                 data-cisse--ui-bundle--selectable-target="selectIndicator"
                                                 data-item-id="{{ itemId }}"
-                                                class="bg-secondary dark:bg-primary absolute inset-y-0 left-0 w-0.5"
+                                                class="bg-primary dark:bg-primary absolute inset-y-0 left-0 w-0.5"
                                                 style="display: none;"
                                         ></div>
 
-                                        <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
-                                            <input
-                                                    data-cisse--ui-bundle--selectable-target="selectCheckbox"
-                                                    data-action="change->cisse--ui-bundle--selectable#selectItem"
-                                                    type="checkbox"
-                                                    value="{{ itemId }}"
-                                                    class="checked:border-secondary checked:bg-secondary indeterminate:border-secondary indeterminate:bg-secondary focus-visible:outline-secondary dark:checked:border-primary dark:checked:bg-primary dark:indeterminate:border-primary dark:indeterminate:bg-primary dark:focus-visible:outline-primary col-start-1 row-start-1 appearance-none rounded border border-slate-300 bg-white focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-slate-300 disabled:bg-slate-100 disabled:checked:bg-slate-100 dark:border-slate-700 dark:bg-black dark:disabled:border-slate-700 dark:disabled:bg-slate-900 dark:disabled:checked:bg-slate-900 forced-colors:appearance-auto"
-                                            />
-                                            <svg
-                                                    class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-[:disabled]:stroke-slate-950/25"
-                                                    viewBox="0 0 14 14"
-                                                    fill="none"
-                                            >
-                                                <path
-                                                        class="opacity-0 group-has-[:checked]:opacity-100"
-                                                        d="M3 8L6 11L11 3.5"
-                                                        stroke-width="2"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                />
-                                                <path
-                                                        class="opacity-0 group-has-[:indeterminate]:opacity-100"
-                                                        d="M3 7H11"
-                                                        stroke-width="2"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
+                                        <twig:Ui:input:checkbox
+                                                data-cisse--ui-bundle--selectable-target="selectCheckbox"
+                                                data-action="change->cisse--ui-bundle--selectable#selectItem"
+                                                value="{{ itemId }}"
+                                        />
                                     {% endblock %}
                                 </td>
                             {% endif %}
 
                             {% for field in fields %}
+                                {% set field_name = loop.index0 %}
+                                {% set field_label = '' %}
+
+                                {% if field is iterable %}
+                                    {% set field_name = field.name ?? loop.index0 %}
+                                    {% set field_label = field.label ?? field.name ?? '' %}
+                                {% else %}
+                                    {% set field_name = field %}
+                                {% endif %}
+
                                 {% set block_content %}
-                                    {% set item_block_name = 'tbody_' ~ field.name ~ '_' ~ itemId %}
-                                    {% set loop_block_name = 'tbody_' ~ field.name ~ '_' ~ loop.index0 %}
-                                    {% set block_name = 'tbody_' ~ field.name %}
+                                    {% set item_block_name = 'tbody_' ~ field_name|u.snake ~ '_' ~ itemId %}
+                                    {% set loop_block_name = 'tbody_' ~ field_name|u.snake ~ '_' ~ loop.index0 %}
+                                    {% set block_name = 'tbody_' ~ field_name|u.snake %}
 
                                     {% if block(item_block_name) is defined %}
                                         {{ block(item_block_name) }}
@@ -187,8 +164,23 @@
                                     {% elseif block(block_name) is defined %}
                                         {{ block(block_name) }}
                                     {% else %}
-                                        <span class="text-slate-500 dark:text-slate-500">
-                                                {{ attribute(item, field.name) ?? '' }}
+                                        <span>
+                                            {% if '.' in field_name %}
+                                                {% set property_parts = field_name|split('.') %}
+                                                {% set current_value = item %}
+                                                {% set found_null = false %}
+                                                {% for part in property_parts %}
+                                                    {% if not found_null %}
+                                                        {% set current_value = attribute(current_value, part) %}
+                                                        {% if current_value is null %}
+                                                            {% set found_null = true %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {{ found_null ? '' : current_value }}
+                                            {% else %}
+                                                {{ attribute(item, field_name) ?? '' }}
+                                            {% endif %}
                                             </span>
                                     {% endif %}
                                 {% endset %}
@@ -198,7 +190,7 @@
                                 </td>
                             {% endfor %}
 
-                            {% if show_actions %}
+                            {% if showActions %}
                                 <td class="py-4 pr-4 pl-3 text-sm font-medium sm:pr-3 flex items-center justify-end gap-3">
                                     {% set block_content %}
                                         {% set item_block_name = 'tbody_actions_' ~ itemId %}
@@ -225,7 +217,7 @@
                                     data-item-id="{{ itemId }}"
                                     style="display: none;"
                             >
-                                    <td colspan="{{ fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (show_actions ? 1 : 0) }}" class="bg-gray-200 dark:bg-gray-800">
+                                    <td colspan="{{ fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (showActions ? 1 : 0) }}" class="bg-gray-200 dark:bg-gray-800">
                                     <div class="expand-content">
                                         {% block expanded '' %}
                                     </div>
@@ -234,10 +226,10 @@
                         {% endif %}
                     {% else %}
                         <tr>
-                                <td colspan="{{ fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (show_actions ? 1 : 0) }}" class="text-center py-4">
+                                <td colspan="{{ fields|length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (showActions ? 1 : 0) }}" class="text-center py-4">
                                 {% block empty %}
-                                    <span class="text-slate-500 dark:text-slate-500">
-                                            {{ empty_label }}
+                                    <span>
+                                            {{ emptyLabel }}
                                         </span>
                                 {% endblock %}
                             </td>

@@ -79,8 +79,8 @@
       {% if footerBlock %}
         {{ footerBlock|raw }}
       {% else %}
-        <twig:Ui:button white type="cancel">{{ cancelLabel }}</twig:Ui:button>
-        <twig:Ui:button type="submit">{{ submitLabel }}</twig:Ui:button>
+        <twig:Ui:button type="cancel">{{ cancelLabel }}</twig:Ui:button>
+        <twig:Ui:button success type="submit">{{ submitLabel }}</twig:Ui:button>
       {% endif %}
     </div>
   {% endif %}

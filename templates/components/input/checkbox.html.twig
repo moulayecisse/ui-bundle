@@ -30,6 +30,7 @@
 >
     <div class="group grid size-4 grid-cols-1">
         <input
+                type="checkbox"
             {{ attributes }}
             {% if value is not null %}value="{{ value }}"{% endif %}
             {% if name %}name="{{ name }}"{% endif %}
