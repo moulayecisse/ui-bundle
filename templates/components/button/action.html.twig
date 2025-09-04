@@ -1,0 +1,19 @@
+{% props
+  class = '',
+  icon = null,
+  label = null,
+%}
+
+{% set contentBlock %}{% block content %}
+    {% if icon %}
+        <twig:ux:icon name="{{ icon }}" class="size-4" />
+    {% endif %}
+
+    {% if label %}
+        <span class="hidden lg:inline">{{ label }}</span>
+    {% endif %}
+{% endblock %}{% endset %}
+
+<twig:Ui:button {{ ...attributes }} class="{{ ('flex gap-2 items-center ' ~ class)|tailwind_merge }}">
+    {{ contentBlock|raw }}
+</twig:Ui:button>
