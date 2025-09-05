@@ -11,6 +11,8 @@
   info = false,
   white = false,
   light = false,
+  icon = null,
+  label = null,
 %}
 
 {% if primary %}
@@ -31,8 +33,16 @@
   {% set color = 'light' %}
 {% endif %}
 
-{% set class = ('inline-flex justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:outline-secondary data-[color=primary]:bg-primary data-[color=primary]:text-primary-foreground data-[color=primary]:hover:bg-primary/90 data-[color=primary]:focus-visible:outline-primary data-[color=error]:bg-red-600 data-[color=error]:hover:bg-red-500 data-[color=error]:focus-visible:outline-red-600 data-[color=error]:text-white data-[color=success]:bg-green-600 data-[color=success]:hover:bg-green-500 data-[color=success]:focus-visible:outline-green-600 data-[color=success]:text-white data-[color=warning]:bg-yellow-600 data-[color=warning]:hover:bg-yellow-500 data-[color=warning]:focus-visible:outline-yellow-600 data-[color=warning]:text-white data-[color=info]:bg-sky-600 data-[color=info]:hover:bg-sky-500 data-[color=info]:focus-visible:outline-sky-600 data-[color=info]:text-white data-[color=white]:bg-white data-[color=white]:text-gray-900 data-[color=white]:ring-1 data-[color=white]:ring-gray-300 data-[color=white]:ring-inset data-[color=white]:hover:bg-gray-50 data-[color=light]:bg-white data-[color=light]:text-gray-900 data-[color=light]:ring-1 data-[color=light]:ring-gray-300 data-[color=light]:ring-inset data-[color=light]:hover:bg-gray-50 dark:data-[color=white]:bg-black dark:data-[color=white]:text-gray-100 dark:data-[color=white]:ring-gray-700 dark:data-[color=white]:hover:bg-gray-950 dark:data-[color=light]:bg-black dark:data-[color=light]:text-gray-100 dark:data-[color=light]:ring-gray-700 dark:data-[color=light]:hover:bg-gray-950 ' ~ class)|tailwind_merge  %}
-{% set contentBlock %}{% block content '' %}{% endset %}
+{% set class = ('inline-flex justify-center rounded-md gap-2 px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:outline-secondary data-[color=primary]:bg-primary data-[color=primary]:text-primary-foreground data-[color=primary]:hover:bg-primary/90 data-[color=primary]:focus-visible:outline-primary data-[color=error]:bg-red-600 data-[color=error]:hover:bg-red-500 data-[color=error]:focus-visible:outline-red-600 data-[color=error]:text-white data-[color=success]:bg-green-600 data-[color=success]:hover:bg-green-500 data-[color=success]:focus-visible:outline-green-600 data-[color=success]:text-white data-[color=warning]:bg-yellow-600 data-[color=warning]:hover:bg-yellow-500 data-[color=warning]:focus-visible:outline-yellow-600 data-[color=warning]:text-white data-[color=info]:bg-sky-600 data-[color=info]:hover:bg-sky-500 data-[color=info]:focus-visible:outline-sky-600 data-[color=info]:text-white data-[color=white]:bg-white data-[color=white]:text-gray-900 data-[color=white]:ring-1 data-[color=white]:ring-gray-300 data-[color=white]:ring-inset data-[color=white]:hover:bg-gray-50 data-[color=light]:bg-white data-[color=light]:text-gray-900 data-[color=light]:ring-1 data-[color=light]:ring-gray-300 data-[color=light]:ring-inset data-[color=light]:hover:bg-gray-50 dark:data-[color=white]:bg-black dark:data-[color=white]:text-gray-100 dark:data-[color=white]:ring-gray-700 dark:data-[color=white]:hover:bg-gray-950 dark:data-[color=light]:bg-black dark:data-[color=light]:text-gray-100 dark:data-[color=light]:ring-gray-700 dark:data-[color=light]:hover:bg-gray-950 ' ~ class)|tailwind_merge  %}
+{% set contentBlock %}{% block content %}
+  {% if icon %}
+    <twig:ux:icon name="{{ icon }}" class="size-4" />
+  {% endif %}
+
+  {% if label %}
+    <span class="max-lg:hidden">{{ label }}</span>
+  {% endif %}
+{% endblock %}{% endset %}
 
 
 {% if href %}
