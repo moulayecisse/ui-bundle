@@ -39,7 +39,7 @@ export default class extends Controller {
     // Selection Methods
     selectItem(event) {
         const checkbox = event.currentTarget
-        const itemId = parseInt(checkbox.value)
+        const itemId = checkbox.value
 
         if (checkbox.checked) {
             if (!this.selected.includes(itemId)) {
@@ -58,7 +58,7 @@ export default class extends Controller {
 
         if (selectAllCheckbox.checked) {
             // Select all items
-            this.selected = this.selectCheckboxTargets.map(cb => parseInt(cb.value))
+            this.selected = this.selectCheckboxTargets.map(cb => cb.value)
         } else {
             // Deselect all items
             this.selected = []
@@ -71,7 +71,7 @@ export default class extends Controller {
     updateSelectionUI() {
         // Update individual checkboxes
         this.selectCheckboxTargets.forEach(checkbox => {
-            const itemId = parseInt(checkbox.value)
+            const itemId = checkbox.value
             checkbox.checked = this.selected.includes(itemId)
         })
 
@@ -94,7 +94,7 @@ export default class extends Controller {
 
         // Update selection indicators (colored bars)
         this.selectIndicatorTargets.forEach(indicator => {
-            const itemId = parseInt(indicator.dataset.itemId)
+            const itemId = indicator.dataset.itemId
             if (this.selected.includes(itemId)) {
                 indicator.style.display = 'block'
             } else {
@@ -104,7 +104,7 @@ export default class extends Controller {
 
         // Update row backgrounds
         this.selectCheckboxTargets.forEach(checkbox => {
-            const itemId = parseInt(checkbox.value)
+            const itemId = checkbox.value
             const row = checkbox.closest('tr')
 
             if (this.selected.includes(itemId)) {
@@ -139,7 +139,7 @@ export default class extends Controller {
     // Expansion Methods
     expandItem(event) {
         const button = event.currentTarget
-        const itemId = parseInt(button.dataset.itemId)
+        const itemId = button.dataset.itemId
 
         if (this.expanded.includes(itemId)) {
             // Collapse item
@@ -157,7 +157,7 @@ export default class extends Controller {
 
     expandRow(itemId) {
         const expandRow = this.expandRowTargets.find(row =>
-            parseInt(row.dataset.itemId) === itemId
+            row.dataset.itemId === itemId
         )
 
         if (expandRow) {
@@ -191,7 +191,7 @@ export default class extends Controller {
 
     collapseRow(itemId) {
         const expandRow = this.expandRowTargets.find(row =>
-            parseInt(row.dataset.itemId) === itemId
+            row.dataset.itemId === itemId
         )
 
         if (expandRow) {
@@ -225,7 +225,7 @@ export default class extends Controller {
     updateExpansionUI() {
         // Update expand icons
         this.expandIconTargets.forEach(icon => {
-            const itemId = parseInt(icon.dataset.itemId)
+            const itemId = icon.dataset.itemId
 
             if (this.expanded.includes(itemId)) {
                 icon.classList.add('rotate-180')
