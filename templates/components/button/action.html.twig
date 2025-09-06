@@ -1,10 +1,7 @@
-{% props
-  class = '',
-%}
 {%- set contentBlock -%}{% block content '' %}{%- endset -%}
 
 {% if contentBlock %}
-  <twig:Ui:button {{ ...attributes }} class="{{ ('px-2 py-1 ' ~ class)|tailwind_merge }}">{{ contentBlock|raw }}</twig:Ui:button>
+  <twig:Ui:button {{ ...attributes }}>{{ contentBlock|raw }}</twig:Ui:button>
 {% else %}
-  <twig:Ui:button {{ ...attributes }} class="{{ ('px-2 py-1 ' ~ class)|tailwind_merge }}" />
+  <twig:Ui:button {{ ...attributes }} />
 {% endif %}

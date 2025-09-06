@@ -16,6 +16,7 @@
   reverse = null,
   disabled = null,
   help = null,
+  options = null,
 %}
 
 {% set id = id ?? name %}
@@ -95,6 +96,7 @@
       :autofocus="autofocus"
       :autocomplete="autocomplete"
       :disabled="disabled"
+      :options="options"
     />
   {% endblock %}
 {% endset %}

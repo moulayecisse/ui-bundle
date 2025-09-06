@@ -8,7 +8,9 @@
   placeholder = null,
   required = null,
   autofocus = false,
-  autocomplete = null, %}
+  autocomplete = null,
+  options = null,
+%}
 
 {% set params = {
   class,
@@ -71,6 +73,9 @@
   {% endif %}
 {% endif %}
 
+{% if type in ['choice'] %}
+    {% set params = params|merge({ choices: options ?? form.vars.choices ?? [] }) %}
+{% endif %}
 {% set params = params|merge({ type, attributes }) %}
 
 {% set componentName = 'Ui:input:text' %}

@@ -294,7 +294,9 @@ export default class extends Controller {
     // Bulk Form Methods
     updateBulkFormIds() {
         if (this.hasIdsInputTarget) {
-            this.idsInputTarget.value = JSON.stringify(this.selected)
+            this.idsInputTargets.forEach(input => {
+                input.value = JSON.stringify(this.selected)
+            })
         }
     }
 
