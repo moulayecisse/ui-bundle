@@ -71,11 +71,11 @@
   {% endif %}
 {% endif %}
 
-{% set colClass = 'sm:col-span-6' %}
+{% set colClass = 'col-span-6' %}
 {% if horizontal %}
-  {% set colClass = 'sm:col-span-12' %}
+  {% set colClass = 'col-span-12' %}
 {% elseif col %}
-  {% set colClass = 'sm:col-span-' ~ col %}
+  {% set colClass = 'col-span-' ~ col %}
 {% endif %}
 
 {% if type in ['checkbox'] and reverse == null %}
@@ -121,10 +121,10 @@
         :label="label"
         {{ ...attributes.nested('label').without('class') }}
         data-reverse="{{ reverse ? 'true' : 'false' }}"
-        class="{{ attributes.nested('label').render('class') }} sm:pt-1.5 sm:col-span-4 data-[reverse=true]:order-last"
+        class="{{ attributes.nested('label').render('class') }} sm:pt-1.5 col-span-4 data-[reverse=true]:order-last"
       />
 
-      <div class="mt-2 sm:col-span-8 sm:mt-0 flex flex-col gap-1">
+      <div class="mt-2 col-span-8 sm:mt-0 flex flex-col gap-1">
         {{ inputContent|raw }}
 
         {% if help %}
@@ -160,7 +160,7 @@
     {{ attributes}} 
     data-type="{{ type }}"
     data-horizontal="{{ horizontal ? 'true' : 'false' }}"
-    class="{{ class }} data-[type=checkbox]:flex data-[type=checkbox]:gap-3 data-[type=checkbox]:sm:col-span-12 data-[horizontal=true]:sm:grid data-[horizontal=true]:sm:grid-cols-12 data-[horizontal=true]:sm:items-start data-[horizontal=true]:sm:gap-4 data-[horizontal=true]:sm:py-6"
+    class="{{ class }} data-[type=checkbox]:flex data-[type=checkbox]:gap-3 data-[type=checkbox]:col-span-12 data-[horizontal=true]:sm:grid data-[horizontal=true]:sm:grid-cols-12 data-[horizontal=true]:sm:items-start data-[horizontal=true]:sm:gap-4 data-[horizontal=true]:sm:py-6"
   >
     {{ content_block|raw }}
   </div>
