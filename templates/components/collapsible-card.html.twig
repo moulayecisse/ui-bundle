@@ -22,48 +22,17 @@
     class="{{ class }}"
 >
     <twig:Ui:card>
-        {% if hasCustomHeader %}
-            {# Custom header mode #}
-            {% block card_header %}
-                <button
-                    type="button"
-                    data-action="click->cisse--ui-bundle--collapsible-card#toggle"
-                    class="{{ headerClass }}"
-                >
-                    {{ headerBlock|raw }}
-                </button>
-            {% endblock %}
-        {% else %}
-            {# Standard mode: title/description with toggle button #}
-            {% block card_title %}
-                <twig:Ui:card:header>
-                    <div class="flex items-center justify-between w-full">
-                        <div>
-                            {% if title %}
-                                <twig:Ui:card:title>{{ title }}</twig:Ui:card:title>
-                            {% endif %}
-                            {% if description %}
-                                <twig:Ui:card:description>{{ description }}</twig:Ui:card:description>
-                            {% endif %}
-                        </div>
-                        <div class="flex items-center gap-2">
-                            {{ actionsBlock|raw }}
-                            <button
-                                type="button"
-                                data-action="click->cisse--ui-bundle--collapsible-card#toggle"
-                                class="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-                            >
-                                <twig:ux:icon
-                                    data-cisse--ui-bundle--collapsible-card-target="icon"
-                                    name="{{ defaultExpanded ? 'heroicons:chevron-up-20-solid' : 'heroicons:chevron-down-20-solid' }}"
-                                    class="size-5 transition-transform duration-200"
-                                />
-                            </button>
-                        </div>
-                    </div>
-                </twig:Ui:card:header>
-            {% endblock %}
-        {% endif %}
+        {# Header section - use ternary instead of if/else with blocks #}
+        {{ hasCustomHeader ? include('@Ui/components/_collapsible-card-custom-header.html.twig', {
+            headerClass: headerClass,
+            headerBlock: headerBlock
+        }) : '' }}
+        {{ not hasCustomHeader ? include('@Ui/components/_collapsible-card-standard-header.html.twig', {
+            title: title,
+            description: description,
+            defaultExpanded: defaultExpanded,
+            actionsBlock: actionsBlock
+        }) : '' }}
 
         {# Collapsible content #}
         <div
