@@ -1,0 +1,111 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'title', type: 'string', default: "''", description: 'The title displayed in the slide-over header' },
+        { name: 'description', type: 'string', default: "''", description: 'Optional description text below the title' },
+        { name: 'position', type: "'right' | 'left'", default: "'right'", description: 'Which side the panel slides in from' },
+        { name: 'size', type: "'sm' | 'default' | 'lg' | 'xl' | 'full'", default: "'default'", description: 'Width of the slide-over panel' },
+        { name: 'closeOnBackdrop', type: 'boolean', default: 'true', description: 'Close when clicking the backdrop' },
+        { name: 'closeOnEscape', type: 'boolean', default: 'true', description: 'Close when pressing Escape key' },
+        { name: 'open', type: 'boolean', default: 'false', description: 'Initial open state of the panel' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'trigger', description: 'The element that triggers opening the slide-over (default: a button)' },
+        { name: 'content', description: 'The main content of the slide-over panel (default slot)' },
+        { name: 'footer', description: 'Optional footer area for action buttons' },
+    ]) }}
+
+    {# Basic Slide Over #}
+    {% set basicPreview %}
+        <twig:Ui:slide-over title="Panel Title" description="A description for the slide-over panel.">
+            <twig:block name="trigger">
+                <twig:Ui:button>Open Slide-over</twig:Ui:button>
+            </twig:block>
+            <p class="text-gray-700 dark:text-gray-300">
+                This is the slide-over content. You can put any content here like forms, details, or navigation.
+            </p>
+        </twig:Ui:slide-over>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:slide-over title="Panel Title" description="A description for the slide-over panel.">
+    {% block trigger %}
+        <twig:Ui:button>Open Slide-over</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <p>This is the slide-over content.</p>
+    {% endblock %}
+</twig:Ui:slide-over>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Slide Over', basicPreview, basicCode) }}
+
+    {# Left Position #}
+    {% set leftPreview %}
+        <twig:Ui:slide-over title="Left Panel" position="left">
+            <twig:block name="trigger">
+                <twig:Ui:button variant="outline">Open from Left</twig:Ui:button>
+            </twig:block>
+            <p class="text-gray-700 dark:text-gray-300">This panel slides in from the left.</p>
+        </twig:Ui:slide-over>
+    {% endset %}
+    {% set leftCode %}{% verbatim %}<twig:Ui:slide-over title="Left Panel" position="left">
+    {% block trigger %}
+        <twig:Ui:button variant="outline">Open from Left</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <p>This panel slides in from the left.</p>
+    {% endblock %}
+</twig:Ui:slide-over>{% endverbatim %}{% endset %}
+    {{ ui.story('Left Position', leftPreview, leftCode) }}
+
+    {# Size Options #}
+    {% set sizesPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Slide-over supports different sizes:
+            </p>
+            <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                <div class="bg-white dark:bg-gray-900 rounded p-2">sm<br><span class="text-gray-400">max-w-md</span></div>
+                <div class="bg-white dark:bg-gray-900 rounded p-2">default<br><span class="text-gray-400">max-w-2xl</span></div>
+                <div class="bg-white dark:bg-gray-900 rounded p-2">lg<br><span class="text-gray-400">max-w-4xl</span></div>
+                <div class="bg-white dark:bg-gray-900 rounded p-2">xl<br><span class="text-gray-400">max-w-6xl</span></div>
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:slide-over title="Small Panel" size="sm">...</twig:Ui:slide-over>
+<twig:Ui:slide-over title="Large Panel" size="lg">...</twig:Ui:slide-over>
+<twig:Ui:slide-over title="XL Panel" size="xl">...</twig:Ui:slide-over>{% endverbatim %}{% endset %}
+    {{ ui.story('Size Options', sizesPreview, sizesCode) }}
+
+    {# With Footer #}
+    {% set footerPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Add a footer block for action buttons:
+            </p>
+            <div class="bg-white dark:bg-gray-900 rounded-lg p-4 border-t-2 border-gray-200 dark:border-gray-700">
+                <div class="flex justify-end gap-3">
+                    <twig:Ui:button variant="outline" size="sm">Cancel</twig:Ui:button>
+                    <twig:Ui:button size="sm">Save Changes</twig:Ui:button>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set footerCode %}{% verbatim %}<twig:Ui:slide-over title="Edit Profile">
+    {% block trigger %}
+        <twig:Ui:button>With Footer</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <twig:Ui:input name="name" label="Name" value="John Doe" />
+    {% endblock %}
+    {% block footer %}
+        <div class="flex justify-end gap-3">
+            <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+            <twig:Ui:button>Save Changes</twig:Ui:button>
+        </div>
+    {% endblock %}
+</twig:Ui:slide-over>{% endverbatim %}{% endset %}
+    {{ ui.story('With Footer', footerPreview, footerCode) }}
+</div>

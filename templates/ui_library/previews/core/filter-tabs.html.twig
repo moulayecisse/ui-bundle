@@ -1,0 +1,184 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Pills Variant (Default) #}
+    {% set pillsPreview %}
+        <twig:Ui:filter-tabs
+            name="status"
+            value="all"
+            :options="[
+                { key: 'all', label: 'All' },
+                { key: 'active', label: 'Active' },
+                { key: 'pending', label: 'Pending' },
+                { key: 'archived', label: 'Archived' }
+            ]"
+        />
+    {% endset %}
+    {% set pillsCode %}{% verbatim %}<twig:Ui:filter-tabs
+    name="status"
+    value="all"
+    :options="[
+        { key: 'all', label: 'All' },
+        { key: 'active', label: 'Active' },
+        { key: 'pending', label: 'Pending' },
+        { key: 'archived', label: 'Archived' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Pills Variant (Default)', pillsPreview, pillsCode) }}
+
+    {# With Counts #}
+    {% set countsPreview %}
+        <twig:Ui:filter-tabs
+            name="orders"
+            value="all"
+            :options="[
+                { key: 'all', label: 'All', count: 156 },
+                { key: 'pending', label: 'Pending', count: 23 },
+                { key: 'processing', label: 'Processing', count: 12 },
+                { key: 'completed', label: 'Completed', count: 121 }
+            ]"
+        />
+    {% endset %}
+    {% set countsCode %}{% verbatim %}<twig:Ui:filter-tabs
+    name="orders"
+    value="all"
+    :options="[
+        { key: 'all', label: 'All', count: 156 },
+        { key: 'pending', label: 'Pending', count: 23 },
+        { key: 'processing', label: 'Processing', count: 12 },
+        { key: 'completed', label: 'Completed', count: 121 }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Counts', countsPreview, countsCode) }}
+
+    {# With Icons #}
+    {% set iconsPreview %}
+        <twig:Ui:filter-tabs
+            name="view"
+            value="list"
+            :options="[
+                { key: 'list', label: 'List', icon: 'heroicons:list-bullet' },
+                { key: 'grid', label: 'Grid', icon: 'heroicons:squares-2x2' },
+                { key: 'calendar', label: 'Calendar', icon: 'heroicons:calendar' }
+            ]"
+        />
+    {% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:Ui:filter-tabs
+    name="view"
+    value="list"
+    :options="[
+        { key: 'list', label: 'List', icon: 'heroicons:list-bullet' },
+        { key: 'grid', label: 'Grid', icon: 'heroicons:squares-2x2' },
+        { key: 'calendar', label: 'Calendar', icon: 'heroicons:calendar' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+
+    {# Underline Variant #}
+    {% set underlinePreview %}
+        <twig:Ui:filter-tabs
+            name="tab"
+            value="overview"
+            variant="underline"
+            :options="[
+                { key: 'overview', label: 'Overview' },
+                { key: 'analytics', label: 'Analytics' },
+                { key: 'reports', label: 'Reports' },
+                { key: 'settings', label: 'Settings' }
+            ]"
+        />
+    {% endset %}
+    {% set underlineCode %}{% verbatim %}<twig:Ui:filter-tabs
+    name="tab"
+    value="overview"
+    variant="underline"
+    :options="[
+        { key: 'overview', label: 'Overview' },
+        { key: 'analytics', label: 'Analytics' },
+        { key: 'reports', label: 'Reports' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Underline Variant', underlinePreview, underlineCode) }}
+
+    {# Boxed Variant #}
+    {% set boxedPreview %}
+        <twig:Ui:filter-tabs
+            name="period"
+            value="month"
+            variant="boxed"
+            :options="[
+                { key: 'day', label: 'Day' },
+                { key: 'week', label: 'Week' },
+                { key: 'month', label: 'Month' },
+                { key: 'year', label: 'Year' }
+            ]"
+        />
+    {% endset %}
+    {% set boxedCode %}{% verbatim %}<twig:Ui:filter-tabs
+    name="period"
+    value="month"
+    variant="boxed"
+    :options="[
+        { key: 'day', label: 'Day' },
+        { key: 'week', label: 'Week' },
+        { key: 'month', label: 'Month' },
+        { key: 'year', label: 'Year' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Boxed Variant', boxedPreview, boxedCode) }}
+
+    {# Full Width #}
+    {% set fullWidthPreview %}
+        <div class="max-w-md">
+            <twig:Ui:filter-tabs
+                name="type"
+                value="all"
+                fullWidth
+                :options="[
+                    { key: 'all', label: 'All' },
+                    { key: 'images', label: 'Images' },
+                    { key: 'videos', label: 'Videos' }
+                ]"
+            />
+        </div>
+    {% endset %}
+    {% set fullWidthCode %}{% verbatim %}<twig:Ui:filter-tabs
+    name="type"
+    value="all"
+    fullWidth
+    :options="[
+        { key: 'all', label: 'All' },
+        { key: 'images', label: 'Images' },
+        { key: 'videos', label: 'Videos' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Full Width', fullWidthPreview, fullWidthCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="space-y-4">
+            <twig:Ui:filter-tabs
+                name="size-sm"
+                value="a"
+                size="sm"
+                :options="[{ key: 'a', label: 'Option A' }, { key: 'b', label: 'Option B' }]"
+            />
+            <twig:Ui:filter-tabs
+                name="size-md"
+                value="a"
+                size="md"
+                :options="[{ key: 'a', label: 'Option A' }, { key: 'b', label: 'Option B' }]"
+            />
+            <twig:Ui:filter-tabs
+                name="size-lg"
+                value="a"
+                size="lg"
+                :options="[{ key: 'a', label: 'Option A' }, { key: 'b', label: 'Option B' }]"
+            />
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:filter-tabs size="sm" ... />
+<twig:Ui:filter-tabs size="md" ... />
+<twig:Ui:filter-tabs size="lg" ... />{% endverbatim %}{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+</div>

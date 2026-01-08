@@ -1,0 +1,95 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'value', type: 'boolean', default: 'false', description: 'The boolean value to display' },
+    ]) }}
+
+    {# Basic Boolean #}
+    {% set basicPreview %}
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-600 dark:text-gray-400">True:</span>
+                <twig:Ui:boolean :value="true" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-600 dark:text-gray-400">False:</span>
+                <twig:Ui:boolean :value="false" />
+            </div>
+        </div>
+    {% endset %}
+    {% set basicCode %}&lt;twig:Ui:boolean :value="true" /&gt;
+&lt;twig:Ui:boolean :value="false" /&gt;{% endset %}
+    {{ ui.story('Basic Boolean', basicPreview, basicCode) }}
+
+    {# In Context #}
+    {% set contextPreview %}
+        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 dark:bg-gray-900/50">
+                    <tr>
+                        <th class="text-left py-2 px-4 font-medium text-gray-700 dark:text-gray-300">User</th>
+                        <th class="text-left py-2 px-4 font-medium text-gray-700 dark:text-gray-300">Active</th>
+                        <th class="text-left py-2 px-4 font-medium text-gray-700 dark:text-gray-300">Verified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-t border-gray-200 dark:border-gray-700">
+                        <td class="py-2 px-4 text-gray-900 dark:text-white">John Doe</td>
+                        <td class="py-2 px-4"><twig:Ui:boolean :value="true" /></td>
+                        <td class="py-2 px-4"><twig:Ui:boolean :value="true" /></td>
+                    </tr>
+                    <tr class="border-t border-gray-200 dark:border-gray-700">
+                        <td class="py-2 px-4 text-gray-900 dark:text-white">Jane Smith</td>
+                        <td class="py-2 px-4"><twig:Ui:boolean :value="true" /></td>
+                        <td class="py-2 px-4"><twig:Ui:boolean :value="false" /></td>
+                    </tr>
+                    <tr class="border-t border-gray-200 dark:border-gray-700">
+                        <td class="py-2 px-4 text-gray-900 dark:text-white">Bob Wilson</td>
+                        <td class="py-2 px-4"><twig:Ui:boolean :value="false" /></td>
+                        <td class="py-2 px-4"><twig:Ui:boolean :value="false" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endset %}
+    {% set contextCode %}&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;John Doe&lt;/td&gt;
+        &lt;td&gt;&lt;twig:Ui:boolean :value="user.isActive" /&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;twig:Ui:boolean :value="user.isVerified" /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;{% endset %}
+    {{ ui.story('In Table Context', contextPreview, contextCode) }}
+
+    {# Dynamic Values #}
+    {% set dynamicPreview %}
+        <div class="space-y-2">
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-600 dark:text-gray-400 w-32">String "1":</span>
+                <twig:Ui:boolean value="1" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-600 dark:text-gray-400 w-32">String "0":</span>
+                <twig:Ui:boolean value="0" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-600 dark:text-gray-400 w-32">Boolean true:</span>
+                <twig:Ui:boolean :value="true" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-600 dark:text-gray-400 w-32">Boolean false:</span>
+                <twig:Ui:boolean :value="false" />
+            </div>
+        </div>
+    {% endset %}
+    {% set dynamicCode %}{# String values #}
+&lt;twig:Ui:boolean value="1" /&gt;
+&lt;twig:Ui:boolean value="0" /&gt;
+
+{# Boolean values (use :value for expressions) #}
+&lt;twig:Ui:boolean :value="true" /&gt;
+&lt;twig:Ui:boolean :value="entity.isActive" /&gt;{% endset %}
+    {{ ui.story('Various Value Types', dynamicPreview, dynamicCode) }}
+</div>

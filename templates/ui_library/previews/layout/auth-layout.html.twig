@@ -1,0 +1,151 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'appName', type: 'string', default: "''", description: 'Application name shown with logo' },
+        { name: 'appIcon', type: 'string | null', default: 'null', description: 'SVG path for app icon' },
+        { name: 'headline', type: 'string', default: "''", description: 'Main headline text (e.g., "Welcome to")' },
+        { name: 'subHeadline', type: 'string', default: "''", description: 'Sub-headline text (e.g., "MyApp Platform")' },
+        { name: 'description', type: 'string', default: "''", description: 'Description text below headlines' },
+        { name: 'features', type: 'array', default: '[]', description: 'List of feature objects with text and optional icon' },
+        { name: 'gradientFrom', type: 'string', default: "'from-primary-700'", description: 'Starting gradient class' },
+        { name: 'gradientTo', type: 'string', default: "'to-primary-800'", description: 'Ending gradient class' },
+        { name: 'showDecorations', type: 'boolean', default: 'true', description: 'Show decorative blur circles' },
+        { name: 'showPattern', type: 'boolean', default: 'true', description: 'Show dot pattern overlay' },
+        { name: 'formTitle', type: 'string | null', default: 'null', description: 'Title above the form' },
+        { name: 'formSubtitle', type: 'string | null', default: 'null', description: 'Subtitle above the form' },
+        { name: 'homeLink', type: 'string', default: "'/'", description: 'URL for logo link' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'form', description: 'The login/register form content' },
+        { name: 'branding_logo', description: 'Custom logo for the branding panel (desktop)' },
+        { name: 'mobile_logo', description: 'Custom logo for mobile view' },
+    ]) }}
+
+    {# About Auth Layout #}
+    {% set aboutPreview %}
+        <div class="bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg p-8 text-white">
+            <h3 class="text-xl font-bold mb-4">Auth Layout</h3>
+            <p class="mb-4">A split-screen authentication layout with a branding panel on the left and a form panel on the right.</p>
+            <ul class="list-disc list-inside space-y-2 text-white/90">
+                <li>Customizable branding with app name and icon</li>
+                <li>Feature list display</li>
+                <li>Multiple gradient color options</li>
+                <li>Mobile-responsive design</li>
+                <li>Form title and subtitle support</li>
+            </ul>
+        </div>
+    {% endset %}
+    {% set aboutCode %}{% verbatim %}<twig:Ui:layout:auth-layout
+    appName="MyApp"
+    headline="Welcome to"
+    subHeadline="MyApp Platform"
+    description="The best solution for your business needs."
+    formTitle="Sign In"
+    formSubtitle="Enter your credentials to continue"
+    :features="[
+        { text: 'Easy to use' },
+        { text: 'Secure by default' },
+        { text: '24/7 Support' }
+    ]"
+>
+    {% block form %}
+        <twig:Ui:form action="/login" method="POST">
+            <twig:Ui:input name="email" type="email" label="Email" />
+            <twig:Ui:input name="password" type="password" label="Password" />
+            <twig:Ui:button type="submit" class="w-full">Sign In</twig:Ui:button>
+        </twig:Ui:form>
+    {% endblock %}
+</twig:Ui:layout:auth-layout>{% endverbatim %}{% endset %}
+    {{ ui.story('Overview', aboutPreview, aboutCode) }}
+
+    {# Layout Structure #}
+    {% set structurePreview %}
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <div class="flex h-64">
+                {# Branding panel #}
+                <div class="w-1/2 bg-gradient-to-br from-primary-600 to-primary-800 p-6 text-white flex flex-col justify-center">
+                    <div class="mb-4">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-8 h-8 bg-white/20 rounded-lg"></div>
+                            <span class="font-bold">App Name</span>
+                        </div>
+                        <h2 class="text-xl font-light mb-1">Welcome to</h2>
+                        <h3 class="text-2xl font-bold">MyApp</h3>
+                    </div>
+                    <div class="space-y-2 text-sm text-white/80">
+                        <div class="flex items-center gap-2">
+                            <twig:ux:icon name="heroicons:check" class="size-4" />
+                            <span>Feature 1</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <twig:ux:icon name="heroicons:check" class="size-4" />
+                            <span>Feature 2</span>
+                        </div>
+                    </div>
+                </div>
+                {# Form panel #}
+                <div class="w-1/2 bg-gray-50 dark:bg-gray-900 p-6 flex items-center justify-center">
+                    <div class="text-center">
+                        <h3 class="font-bold text-gray-900 dark:text-white mb-1">Sign In</h3>
+                        <p class="text-sm text-gray-500 mb-4">Form goes here</p>
+                        <div class="space-y-2">
+                            <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div class="h-8 bg-primary-500 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set structureCode %}{% verbatim %}<!-- Layout Structure -->
++------------------------+------------------------+
+|     Branding Panel     |      Form Panel        |
+|  +------------------+  |  +------------------+  |
+|  | Logo             |  |  | Form Title       |  |
+|  | Headline         |  |  | Form Subtitle    |  |
+|  | Sub-headline     |  |  |                  |  |
+|  | Description      |  |  | [Email Input]    |  |
+|  |                  |  |  | [Password Input] |  |
+|  | Features:        |  |  | [Submit Button]  |  |
+|  | - Feature 1      |  |  |                  |  |
+|  | - Feature 2      |  |  +------------------+  |
+|  +------------------+  |                        |
++------------------------+------------------------+{% endverbatim %}{% endset %}
+    {{ ui.story('Layout Structure', structurePreview, structureCode) }}
+
+    {# Color Themes #}
+    {% set colorsPreview %}
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-gradient-to-br from-primary-700 to-primary-800 rounded-lg p-4 text-white">
+                <p class="font-semibold">Primary (Default)</p>
+                <code class="text-xs opacity-75">gradientFrom="from-primary-700"</code>
+            </div>
+            <div class="bg-gradient-to-br from-violet-700 to-purple-800 rounded-lg p-4 text-white">
+                <p class="font-semibold">Violet</p>
+                <code class="text-xs opacity-75">gradientFrom="from-violet-700"</code>
+            </div>
+            <div class="bg-gradient-to-br from-emerald-700 to-teal-800 rounded-lg p-4 text-white">
+                <p class="font-semibold">Emerald</p>
+                <code class="text-xs opacity-75">gradientFrom="from-emerald-700"</code>
+            </div>
+            <div class="bg-gradient-to-br from-rose-700 to-pink-800 rounded-lg p-4 text-white">
+                <p class="font-semibold">Rose</p>
+                <code class="text-xs opacity-75">gradientFrom="from-rose-700"</code>
+            </div>
+        </div>
+    {% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:Ui:layout:auth-layout
+    gradientFrom="from-violet-700"
+    gradientTo="to-purple-800"
+    ...
+>
+    {% block form %}...{% endblock %}
+</twig:Ui:layout:auth-layout>{% endverbatim %}{% endset %}
+    {{ ui.story('Color Themes', colorsPreview, colorsCode) }}
+</div>

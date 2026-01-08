@@ -1,0 +1,33 @@
+<div class="space-y-8">
+    {# Basic Breadcrumb #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Basic Breadcrumb</h3>
+        <twig:Ui:breadcrumb>
+            <twig:Ui:breadcrumb-item href="#">Home</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item href="#">Products</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item>Current Page</twig:Ui:breadcrumb-item>
+        </twig:Ui:breadcrumb>
+    </div>
+
+    {# With Icons #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">With Icons</h3>
+        <twig:Ui:breadcrumb>
+            <twig:Ui:breadcrumb-item href="#" icon="lucide:home">Home</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item href="#" icon="lucide:folder">Category</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item icon="lucide:file">Document</twig:Ui:breadcrumb-item>
+        </twig:Ui:breadcrumb>
+    </div>
+
+    {# Longer Path #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Longer Path</h3>
+        <twig:Ui:breadcrumb>
+            <twig:Ui:breadcrumb-item href="#">Dashboard</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item href="#">Settings</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item href="#">Account</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item href="#">Security</twig:Ui:breadcrumb-item>
+            <twig:Ui:breadcrumb-item>Two-Factor Auth</twig:Ui:breadcrumb-item>
+        </twig:Ui:breadcrumb>
+    </div>
+</div>

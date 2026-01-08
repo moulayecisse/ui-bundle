@@ -1,0 +1,102 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Basic Hero #}
+    {% set basicPreview %}
+        <div class="rounded-lg overflow-hidden">
+            <twig:Ui:layout:page-hero
+                title="Welcome Back!"
+                subtitle="Here's what's happening with your projects today"
+            />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    title="Welcome Back!"
+    subtitle="Here's what's happening with your projects today"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Hero', basicPreview, basicCode) }}
+
+    {# With Badge #}
+    {% set badgePreview %}
+        <div class="rounded-lg overflow-hidden">
+            <twig:Ui:layout:page-hero
+                title="Dashboard Overview"
+                subtitle="Your analytics at a glance"
+                badge="Pro Plan"
+            />
+        </div>
+    {% endset %}
+    {% set badgeCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    title="Dashboard Overview"
+    subtitle="Your analytics at a glance"
+    badge="Pro Plan"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Badge', badgePreview, badgeCode) }}
+
+    {# With Stats #}
+    {% set statsPreview %}
+        <div class="rounded-lg overflow-hidden">
+            <twig:Ui:layout:page-hero
+                title="Monthly Report"
+                subtitle="Performance metrics for this month"
+                :stats="[
+                    { label: 'Total Users', value: '12,543' },
+                    { label: 'Revenue', value: '$45.2K' },
+                    { label: 'Growth', value: '+23%' }
+                ]"
+            />
+        </div>
+    {% endset %}
+    {% set statsCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    title="Monthly Report"
+    subtitle="Performance metrics for this month"
+    :stats="[
+        { label: 'Total Users', value: '12,543' },
+        { label: 'Revenue', value: '$45.2K' },
+        { label: 'Growth', value: '+23%' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Stats', statsPreview, statsCode) }}
+
+    {# Different Color Schemes #}
+    {% set colorsPreview %}
+        <div class="space-y-4">
+            <div class="rounded-lg overflow-hidden">
+                <twig:Ui:layout:page-hero title="Primary Theme" colorScheme="primary" :showWave="false" />
+            </div>
+            <div class="rounded-lg overflow-hidden">
+                <twig:Ui:layout:page-hero title="Violet Theme" colorScheme="violet" :showWave="false" />
+            </div>
+            <div class="rounded-lg overflow-hidden">
+                <twig:Ui:layout:page-hero title="Emerald Theme" colorScheme="emerald" :showWave="false" />
+            </div>
+            <div class="rounded-lg overflow-hidden">
+                <twig:Ui:layout:page-hero title="Rose Theme" colorScheme="rose" :showWave="false" />
+            </div>
+        </div>
+    {% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:Ui:layout:page-hero title="Primary Theme" colorScheme="primary" />
+<twig:Ui:layout:page-hero title="Violet Theme" colorScheme="violet" />
+<twig:Ui:layout:page-hero title="Emerald Theme" colorScheme="emerald" />
+<twig:Ui:layout:page-hero title="Rose Theme" colorScheme="rose" />{% endverbatim %}{% endset %}
+    {{ ui.story('Color Schemes', colorsPreview, colorsCode) }}
+
+    {# Without Decorations #}
+    {% set simplePreview %}
+        <div class="rounded-lg overflow-hidden">
+            <twig:Ui:layout:page-hero
+                title="Simple Hero"
+                subtitle="Clean and minimal"
+                :showBlobs="false"
+                :showWave="false"
+            />
+        </div>
+    {% endset %}
+    {% set simpleCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    title="Simple Hero"
+    subtitle="Clean and minimal"
+    :showBlobs="false"
+    :showWave="false"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Without Decorations', simplePreview, simpleCode) }}
+</div>

@@ -1,0 +1,75 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the tabs container' },
+        { name: 'current', type: 'string', default: "''", description: 'ID/href of the currently active tab' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Tab items using &lt;twig:Ui:tabs:item&gt; components' },
+    ]) }}
+
+    {# Related Components #}
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+        <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Related Components</h4>
+        <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">tabs:item</code> - Individual tab with href, current, color, disabled props</li>
+        </ul>
+    </div>
+
+    {# Basic Tabs - Static Preview #}
+    {% set basicPreview %}
+        <div class="border-b border-gray-200 dark:border-gray-800">
+            <nav class="-mb-px flex space-x-8">
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-primary text-primary">Dashboard</a>
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400">Settings</a>
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400">Profile</a>
+            </nav>
+        </div>
+    {% endset %}
+    {% set basicCode %}&lt;twig:Ui:tabs&gt;
+    &lt;twig:Ui:tabs:item href="#tab1" current&gt;Dashboard&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#tab2"&gt;Settings&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#tab3"&gt;Profile&lt;/twig:Ui:tabs:item&gt;
+&lt;/twig:Ui:tabs&gt;{% endset %}
+    {{ ui.story('Basic Tabs', basicPreview, basicCode) }}
+
+    {# Tab Colors - Static Preview #}
+    {% set colorsPreview %}
+        <div class="border-b border-gray-200 dark:border-gray-800">
+            <nav class="-mb-px flex space-x-8">
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-primary text-primary">Primary</a>
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-green-600">Success</a>
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-red-600">Error</a>
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-yellow-600">Warning</a>
+            </nav>
+        </div>
+    {% endset %}
+    {% set colorsCode %}&lt;twig:Ui:tabs&gt;
+    &lt;twig:Ui:tabs:item href="#" color="primary" current&gt;Primary&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#" color="success"&gt;Success&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#" color="error"&gt;Error&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#" color="warning"&gt;Warning&lt;/twig:Ui:tabs:item&gt;
+&lt;/twig:Ui:tabs&gt;{% endset %}
+    {{ ui.story('Tab Colors', colorsPreview, colorsCode) }}
+
+    {# Disabled Tab - Static Preview #}
+    {% set disabledPreview %}
+        <div class="border-b border-gray-200 dark:border-gray-800">
+            <nav class="-mb-px flex space-x-8">
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-primary text-primary">Active</a>
+                <span class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-400 opacity-50 cursor-not-allowed">Disabled</span>
+                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400">Normal</a>
+            </nav>
+        </div>
+    {% endset %}
+    {% set disabledCode %}&lt;twig:Ui:tabs&gt;
+    &lt;twig:Ui:tabs:item href="#" current&gt;Active&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#" disabled&gt;Disabled&lt;/twig:Ui:tabs:item&gt;
+    &lt;twig:Ui:tabs:item href="#"&gt;Normal&lt;/twig:Ui:tabs:item&gt;
+&lt;/twig:Ui:tabs&gt;{% endset %}
+    {{ ui.story('Disabled Tab', disabledPreview, disabledCode) }}
+</div>

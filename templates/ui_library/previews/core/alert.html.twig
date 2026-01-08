@@ -1,0 +1,69 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Info Alert #}
+    {% set infoPreview %}
+        <twig:Ui:alert variant="info" title="Information">
+            This is an informational alert message.
+        </twig:Ui:alert>
+    {% endset %}
+    {% set infoCode %}{% verbatim %}<twig:Ui:alert variant="info" title="Information">
+    This is an informational alert message.
+</twig:Ui:alert>{% endverbatim %}{% endset %}
+    {{ ui.story('Info', infoPreview, infoCode) }}
+
+    {# Success Alert #}
+    {% set successPreview %}
+        <twig:Ui:alert variant="success" title="Success">
+            Your changes have been saved successfully.
+        </twig:Ui:alert>
+    {% endset %}
+    {% set successCode %}{% verbatim %}<twig:Ui:alert variant="success" title="Success">
+    Your changes have been saved successfully.
+</twig:Ui:alert>{% endverbatim %}{% endset %}
+    {{ ui.story('Success', successPreview, successCode) }}
+
+    {# Warning Alert #}
+    {% set warningPreview %}
+        <twig:Ui:alert variant="warning" title="Warning">
+            Please review your input before submitting.
+        </twig:Ui:alert>
+    {% endset %}
+    {% set warningCode %}{% verbatim %}<twig:Ui:alert variant="warning" title="Warning">
+    Please review your input before submitting.
+</twig:Ui:alert>{% endverbatim %}{% endset %}
+    {{ ui.story('Warning', warningPreview, warningCode) }}
+
+    {# Error Alert #}
+    {% set errorPreview %}
+        <twig:Ui:alert variant="error" title="Error">
+            Something went wrong. Please try again.
+        </twig:Ui:alert>
+    {% endset %}
+    {% set errorCode %}{% verbatim %}<twig:Ui:alert variant="error" title="Error">
+    Something went wrong. Please try again.
+</twig:Ui:alert>{% endverbatim %}{% endset %}
+    {{ ui.story('Error', errorPreview, errorCode) }}
+
+    {# Dismissible Alert #}
+    {% set dismissiblePreview %}
+        <twig:Ui:alert variant="info" title="Dismissible Alert" dismissible>
+            Click the X button to dismiss this alert.
+        </twig:Ui:alert>
+    {% endset %}
+    {% set dismissibleCode %}{% verbatim %}<twig:Ui:alert variant="info" title="Dismissible Alert" dismissible>
+    Click the X button to dismiss this alert.
+</twig:Ui:alert>{% endverbatim %}{% endset %}
+    {{ ui.story('Dismissible', dismissiblePreview, dismissibleCode) }}
+
+    {# With Custom Icon #}
+    {% set iconPreview %}
+        <twig:Ui:alert variant="info" icon="lucide:bell" title="Notification">
+            You have new notifications.
+        </twig:Ui:alert>
+    {% endset %}
+    {% set iconCode %}{% verbatim %}<twig:Ui:alert variant="info" icon="lucide:bell" title="Notification">
+    You have new notifications.
+</twig:Ui:alert>{% endverbatim %}{% endset %}
+    {{ ui.story('With Custom Icon', iconPreview, iconCode) }}
+</div>

@@ -1,0 +1,53 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Toast Types #}
+    {% set typesPreview %}
+        <div class="space-y-3 max-w-sm">
+            <twig:Ui:toast type="info" message="This is an informational message." />
+            <twig:Ui:toast type="success" message="Operation completed successfully!" />
+            <twig:Ui:toast type="warning" message="Please review your changes before proceeding." />
+            <twig:Ui:toast type="error" message="An error occurred. Please try again." />
+        </div>
+    {% endset %}
+    {% set typesCode %}{% verbatim %}<twig:Ui:toast type="info" message="This is an informational message." />
+<twig:Ui:toast type="success" message="Operation completed successfully!" />
+<twig:Ui:toast type="warning" message="Please review your changes before proceeding." />
+<twig:Ui:toast type="error" message="An error occurred. Please try again." />{% endverbatim %}{% endset %}
+    {{ ui.story('Toast Types', typesPreview, typesCode) }}
+
+    {# With Title #}
+    {% set titlePreview %}
+        <div class="space-y-3 max-w-sm">
+            <twig:Ui:toast type="success" title="Success!" message="Your profile has been updated." />
+            <twig:Ui:toast type="error" title="Error" message="Failed to save changes. Please try again." />
+        </div>
+    {% endset %}
+    {% set titleCode %}{% verbatim %}<twig:Ui:toast type="success" title="Success!" message="Your profile has been updated." />
+<twig:Ui:toast type="error" title="Error" message="Failed to save changes." />{% endverbatim %}{% endset %}
+    {{ ui.story('With Title', titlePreview, titleCode) }}
+
+    {# Not Closable #}
+    {% set notClosablePreview %}
+        <div class="max-w-sm">
+            <twig:Ui:toast type="info" message="This toast cannot be dismissed manually." :closable="false" />
+        </div>
+    {% endset %}
+    {% set notClosableCode %}{% verbatim %}<twig:Ui:toast type="info" message="This toast cannot be dismissed." :closable="false" />{% endverbatim %}{% endset %}
+    {{ ui.story('Not Closable', notClosablePreview, notClosableCode) }}
+
+    {# Toast Container #}
+    {% set containerPreview %}
+        <div class="relative h-48 bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden">
+            <div class="absolute top-4 right-4 flex flex-col gap-2 w-80">
+                <twig:Ui:toast type="success" message="File uploaded successfully!" />
+                <twig:Ui:toast type="info" message="Processing your request..." />
+            </div>
+        </div>
+    {% endset %}
+    {% set containerCode %}{% verbatim %}<twig:Ui:toast-container position="top-right" :toasts="[
+    { type: 'success', message: 'File uploaded successfully!' },
+    { type: 'info', message: 'Processing your request...' }
+]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Toast Container Example', containerPreview, containerCode) }}
+</div>

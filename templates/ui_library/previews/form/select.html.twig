@@ -1,0 +1,111 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Basic Select #}
+    {% set basicPreview %}
+        <div class="max-w-md">
+            <twig:Ui:select name="basic" label="Basic Select">
+                <option value="">Select an option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </twig:Ui:select>
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:select name="basic" label="Basic Select">
+    <option value="">Select an option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+</twig:Ui:select>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Select', basicPreview, basicCode) }}
+
+    {# With Helper Text #}
+    {% set helperPreview %}
+        <div class="max-w-md">
+            <twig:Ui:select name="helper" label="With Helper" helper="Choose your preference">
+                <option value="">Select...</option>
+                <option value="a">Choice A</option>
+                <option value="b">Choice B</option>
+            </twig:Ui:select>
+        </div>
+    {% endset %}
+    {% set helperCode %}{% verbatim %}<twig:Ui:select name="helper" label="With Helper" helper="Choose your preference">
+    <option value="">Select...</option>
+    <option value="a">Choice A</option>
+    <option value="b">Choice B</option>
+</twig:Ui:select>{% endverbatim %}{% endset %}
+    {{ ui.story('With Helper Text', helperPreview, helperCode) }}
+
+    {# Required #}
+    {% set requiredPreview %}
+        <div class="max-w-md">
+            <twig:Ui:select name="required" label="Required Field" required>
+                <option value="">Select required</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+            </twig:Ui:select>
+        </div>
+    {% endset %}
+    {% set requiredCode %}{% verbatim %}<twig:Ui:select name="required" label="Required Field" required>
+    <option value="">Select required</option>
+    <option value="1">Option 1</option>
+</twig:Ui:select>{% endverbatim %}{% endset %}
+    {{ ui.story('Required', requiredPreview, requiredCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-md">
+            <twig:Ui:select name="disabled" label="Disabled" disabled>
+                <option value="1" selected>Cannot change</option>
+            </twig:Ui:select>
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:select name="disabled" label="Disabled" disabled>
+    <option value="1" selected>Cannot change</option>
+</twig:Ui:select>{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+
+    {# With Error #}
+    {% set errorPreview %}
+        <div class="max-w-md">
+            <twig:Ui:select name="error" label="With Error" error="Please select a valid option">
+                <option value="">Invalid selection</option>
+                <option value="1">Option 1</option>
+            </twig:Ui:select>
+        </div>
+    {% endset %}
+    {% set errorCode %}{% verbatim %}<twig:Ui:select name="error" label="With Error" error="Please select a valid option">
+    <option value="">Invalid selection</option>
+    <option value="1">Option 1</option>
+</twig:Ui:select>{% endverbatim %}{% endset %}
+    {{ ui.story('With Error', errorPreview, errorCode) }}
+
+    {# With Option Groups #}
+    {% set groupsPreview %}
+        <div class="max-w-md">
+            <twig:Ui:select name="groups" label="With Option Groups">
+                <option value="">Select a fruit</option>
+                <optgroup label="Citrus">
+                    <option value="orange">Orange</option>
+                    <option value="lemon">Lemon</option>
+                </optgroup>
+                <optgroup label="Berries">
+                    <option value="strawberry">Strawberry</option>
+                    <option value="blueberry">Blueberry</option>
+                </optgroup>
+            </twig:Ui:select>
+        </div>
+    {% endset %}
+    {% set groupsCode %}{% verbatim %}<twig:Ui:select name="groups" label="With Option Groups">
+    <option value="">Select a fruit</option>
+    <optgroup label="Citrus">
+        <option value="orange">Orange</option>
+        <option value="lemon">Lemon</option>
+    </optgroup>
+    <optgroup label="Berries">
+        <option value="strawberry">Strawberry</option>
+        <option value="blueberry">Blueberry</option>
+    </optgroup>
+</twig:Ui:select>{% endverbatim %}{% endset %}
+    {{ ui.story('With Option Groups', groupsPreview, groupsCode) }}
+</div>

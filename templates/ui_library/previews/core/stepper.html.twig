@@ -1,0 +1,32 @@
+<div class="space-y-8">
+    {# Horizontal Stepper #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Horizontal Stepper</h3>
+        <twig:Ui:stepper currentStep="2">
+            <twig:Ui:stepper-item step="1" title="Account" description="Create your account" />
+            <twig:Ui:stepper-item step="2" title="Profile" description="Set up your profile" />
+            <twig:Ui:stepper-item step="3" title="Review" description="Review and submit" />
+        </twig:Ui:stepper>
+    </div>
+
+    {# Completed Steps #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">With Completed Steps</h3>
+        <twig:Ui:stepper currentStep="3">
+            <twig:Ui:stepper-item step="1" title="Cart" completed />
+            <twig:Ui:stepper-item step="2" title="Shipping" completed />
+            <twig:Ui:stepper-item step="3" title="Payment" />
+            <twig:Ui:stepper-item step="4" title="Confirm" />
+        </twig:Ui:stepper>
+    </div>
+
+    {# With Icons #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">With Icons</h3>
+        <twig:Ui:stepper currentStep="2">
+            <twig:Ui:stepper-item step="1" title="Details" icon="lucide:user" completed />
+            <twig:Ui:stepper-item step="2" title="Address" icon="lucide:map-pin" />
+            <twig:Ui:stepper-item step="3" title="Payment" icon="lucide:credit-card" />
+        </twig:Ui:stepper>
+    </div>
+</div>

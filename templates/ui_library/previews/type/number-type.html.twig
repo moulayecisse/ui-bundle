@@ -1,0 +1,44 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Basic Number #}
+    {% set basicPreview %}
+        <twig:Ui:type:number value="1234567" />
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:type:number value="1234567" />{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Number', basicPreview, basicCode) }}
+
+    {# With Decimals #}
+    {% set decimalsPreview %}
+        <twig:Ui:type:number value="1234.5678" decimals="2" />
+    {% endset %}
+    {% set decimalsCode %}{% verbatim %}<twig:Ui:type:number value="1234.5678" decimals="2" />{% endverbatim %}{% endset %}
+    {{ ui.story('With Decimals', decimalsPreview, decimalsCode) }}
+
+    {# Currency Format #}
+    {% set currencyPreview %}
+        <twig:Ui:type:number value="1234.50" format="currency" currency="USD" />
+    {% endset %}
+    {% set currencyCode %}{% verbatim %}<twig:Ui:type:number value="1234.50" format="currency" currency="USD" />{% endverbatim %}{% endset %}
+    {{ ui.story('Currency Format', currencyPreview, currencyCode) }}
+
+    {# Percentage #}
+    {% set percentPreview %}
+        <twig:Ui:type:number value="0.8567" format="percent" />
+    {% endset %}
+    {% set percentCode %}{% verbatim %}<twig:Ui:type:number value="0.8567" format="percent" />{% endverbatim %}{% endset %}
+    {{ ui.story('Percentage', percentPreview, percentCode) }}
+
+    {# With Prefix/Suffix #}
+    {% set affixPreview %}
+        <div class="space-y-2">
+            <div><twig:Ui:type:number value="100" prefix="$" /></div>
+            <div><twig:Ui:type:number value="50" suffix="%" /></div>
+            <div><twig:Ui:type:number value="25" suffix=" items" /></div>
+        </div>
+    {% endset %}
+    {% set affixCode %}{% verbatim %}<twig:Ui:type:number value="100" prefix="$" />
+<twig:Ui:type:number value="50" suffix="%" />
+<twig:Ui:type:number value="25" suffix=" items" />{% endverbatim %}{% endset %}
+    {{ ui.story('With Prefix/Suffix', affixPreview, affixCode) }}
+</div>

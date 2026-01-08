@@ -1,0 +1,46 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Default Format #}
+    {% set defaultPreview %}
+        <twig:Ui:type:date value="2024-01-15" />
+    {% endset %}
+    {% set defaultCode %}{% verbatim %}<twig:Ui:type:date value="2024-01-15" />{% endverbatim %}{% endset %}
+    {{ ui.story('Default Format', defaultPreview, defaultCode) }}
+
+    {# Different Formats #}
+    {% set formatsPreview %}
+        <div class="space-y-2">
+            <div>Short: <twig:Ui:type:date value="2024-01-15" format="short" /></div>
+            <div>Medium: <twig:Ui:type:date value="2024-01-15" format="medium" /></div>
+            <div>Long: <twig:Ui:type:date value="2024-01-15" format="long" /></div>
+            <div>Full: <twig:Ui:type:date value="2024-01-15" format="full" /></div>
+        </div>
+    {% endset %}
+    {% set formatsCode %}{% verbatim %}<twig:Ui:type:date value="2024-01-15" format="short" />
+<twig:Ui:type:date value="2024-01-15" format="medium" />
+<twig:Ui:type:date value="2024-01-15" format="long" />
+<twig:Ui:type:date value="2024-01-15" format="full" />{% endverbatim %}{% endset %}
+    {{ ui.story('Different Formats', formatsPreview, formatsCode) }}
+
+    {# With Time #}
+    {% set timePreview %}
+        <twig:Ui:type:date value="2024-01-15 14:30:00" showTime />
+    {% endset %}
+    {% set timeCode %}{% verbatim %}<twig:Ui:type:date value="2024-01-15 14:30:00" showTime />{% endverbatim %}{% endset %}
+    {{ ui.story('With Time', timePreview, timeCode) }}
+
+    {# Relative Time #}
+    {% set relativePreview %}
+        <twig:Ui:type:date value="now" relative />
+    {% endset %}
+    {% set relativeCode %}{% verbatim %}<twig:Ui:type:date value="now" relative />{% endverbatim %}{% endset %}
+    {{ ui.story('Relative Time', relativePreview, relativeCode) }}
+
+    {# Empty with Placeholder #}
+    {% set placeholderPreview %}
+        <twig:Ui:type:date value="" placeholder="Not set" />
+    {% endset %}
+    {% set placeholderCode %}{% verbatim %}<twig:Ui:type:date value="" placeholder="Not set" />{% endverbatim %}{% endset %}
+    {{ ui.story('Empty with Placeholder', placeholderPreview, placeholderCode) }}
+</div>

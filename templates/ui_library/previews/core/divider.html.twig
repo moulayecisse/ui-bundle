@@ -1,0 +1,31 @@
+<div class="space-y-8">
+    {# Basic Divider #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Basic Divider</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">Content above the divider</p>
+        <twig:Ui:divider />
+        <p class="text-gray-600 dark:text-gray-400 mt-4">Content below the divider</p>
+    </div>
+
+    {# With Label #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">With Label</h3>
+        <twig:Ui:divider label="OR" />
+    </div>
+
+    {# Vertical Divider #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Vertical (in flex container)</h3>
+        <div class="flex items-center gap-4 h-16">
+            <span>Left</span>
+            <twig:Ui:divider orientation="vertical" />
+            <span>Right</span>
+        </div>
+    </div>
+
+    {# Dashed Style #}
+    <div>
+        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Dashed Style</h3>
+        <twig:Ui:divider variant="dashed" />
+    </div>
+</div>
