@@ -13,13 +13,103 @@
         "fetch": "eager",
         "enabled": true
       },
+      "base-layout": {
+        "main": "dist/base_layout_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "collapsible-card": {
+        "main": "dist/collapsible_card_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "color-picker": {
+        "main": "dist/color_picker_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "combobox": {
+        "main": "dist/combobox_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "dark-mode-toggle": {
+        "main": "dist/dark_mode_toggle_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "email-input": {
+        "main": "dist/email_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "file-upload": {
+        "main": "dist/file_upload_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "filter-tabs": {
+        "main": "dist/filter_tabs_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "form-section": {
+        "main": "dist/form_section_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
       "menu": {
         "main": "dist/menu_controller.js",
         "fetch": "eager",
         "enabled": true
       },
+      "mobile-list": {
+        "main": "dist/mobile_list_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
       "modal": {
         "main": "dist/modal_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "notification-list": {
+        "main": "dist/notification_list_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "number-input": {
+        "main": "dist/number_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "otp": {
+        "main": "dist/otp_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "password-input": {
+        "main": "dist/password_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "phone-input": {
+        "main": "dist/phone_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "popover": {
+        "main": "dist/popover_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "quantity-input": {
+        "main": "dist/quantity_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "range-slider": {
+        "main": "dist/range_slider_controller.js",
         "fetch": "eager",
         "enabled": true
       },
@@ -35,6 +125,26 @@
       },
       "tabs": {
         "main": "dist/tabs_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "tags-input": {
+        "main": "dist/tags_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "toast": {
+        "main": "dist/toast_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "url-input": {
+        "main": "dist/url_input_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "icon-picker": {
+        "main": "dist/icon_picker_controller.js",
         "fetch": "eager",
         "enabled": true
       }

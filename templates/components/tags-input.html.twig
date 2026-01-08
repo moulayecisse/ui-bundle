@@ -1,0 +1,107 @@
+{% props
+  name = null,
+  id = null,
+  value = [],
+  placeholder = 'Add tag...',
+  size = 'md',
+  disabled = false,
+  max = null,
+  allowDuplicates = false,
+  required = false,
+  class = '',
+%}
+
+{% set sizeClasses = {
+  'sm': {
+    'wrapper': 'min-h-8 px-2 py-1 gap-1',
+    'tag': 'text-xs px-2 py-0.5',
+    'input': 'text-xs',
+    'icon': 'size-3',
+  },
+  'md': {
+    'wrapper': 'min-h-10 px-3 py-2 gap-1.5',
+    'tag': 'text-sm px-2.5 py-1',
+    'input': 'text-sm',
+    'icon': 'size-3.5',
+  },
+  'lg': {
+    'wrapper': 'min-h-12 px-4 py-3 gap-2',
+    'tag': 'text-base px-3 py-1.5',
+    'input': 'text-base',
+    'icon': 'size-4',
+  },
+} %}
+
+{% set currentSize = sizeClasses[size] ?? sizeClasses['md'] %}
+
+<div
+  {{ attributes }}
+  data-controller="cisse--ui-bundle--tags-input"
+  data-cisse--ui-bundle--tags-input-max-value="{{ max ?? '' }}"
+  data-cisse--ui-bundle--tags-input-allow-duplicates-value="{{ allowDuplicates ? 'true' : 'false' }}"
+  class="{{ ('flex flex-wrap items-center rounded-lg border border-gray-300 bg-white cursor-text focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent dark:border-gray-600 dark:bg-gray-800 ' ~ currentSize.wrapper ~ ' ' ~ (disabled ? 'bg-gray-100 dark:bg-gray-900 cursor-not-allowed opacity-60' : '') ~ ' ' ~ class)|tailwind_merge }}"
+  data-action="click->cisse--ui-bundle--tags-input#focusInput"
+>
+  {# Tags container #}
+  <div data-cisse--ui-bundle--tags-input-target="tagsContainer" class="flex flex-wrap gap-1.5">
+    {% for tag in value %}
+      <span
+        class="inline-flex items-center gap-1 rounded-lg font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 {{ currentSize.tag }}"
+        data-tag-value="{{ tag }}"
+      >
+        {{ tag }}
+        {% if not disabled %}
+          <button
+            type="button"
+            class="rounded-full hover:bg-primary-200 dark:hover:bg-primary-800/50 transition-colors p-0.5"
+            data-action="click->cisse--ui-bundle--tags-input#removeTag:prevent:stop"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="text-primary-500 {{ currentSize.icon }}" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        {% endif %}
+      </span>
+    {% endfor %}
+  </div>
+
+  {# Input #}
+  <input
+    data-cisse--ui-bundle--tags-input-target="input"
+    type="text"
+    {% if id %}id="{{ id }}"{% elseif name %}id="{{ name }}"{% endif %}
+    placeholder="{{ value|length == 0 ? placeholder : '' }}"
+    {{ disabled ? 'disabled' }}
+    class="flex-1 min-w-20 bg-transparent border-none focus:outline-none text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 {{ disabled ? 'text-gray-500 dark:text-gray-500' : '' }} {{ currentSize.input }}"
+    data-action="keydown->cisse--ui-bundle--tags-input#handleKeydown blur->cisse--ui-bundle--tags-input#handleBlur"
+  >
+
+  {# Hidden inputs for form submission #}
+  <div data-cisse--ui-bundle--tags-input-target="hiddenInputs">
+    {% if name %}
+      {% for tag in value %}
+        <input type="hidden" name="{{ name }}[]" value="{{ tag }}">
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  {# Tag template #}
+  <template data-cisse--ui-bundle--tags-input-target="template">
+    <span
+      class="inline-flex items-center gap-1 rounded-lg font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 {{ currentSize.tag }}"
+    >
+      <span data-tag-text></span>
+      {% if not disabled %}
+        <button
+          type="button"
+          class="rounded-full hover:bg-primary-200 dark:hover:bg-primary-800/50 transition-colors p-0.5"
+          data-action="click->cisse--ui-bundle--tags-input#removeTag:prevent:stop"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="text-primary-500 {{ currentSize.icon }}" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      {% endif %}
+    </span>
+  </template>
+</div>

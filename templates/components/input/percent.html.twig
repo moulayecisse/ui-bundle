@@ -1,0 +1,52 @@
+{% props
+  form = null,
+  class = '',
+  value = null,
+  name = null,
+  id = null,
+  required = null,
+  autofocus = null,
+  disabled = null,
+  placeholder = '0',
+  min = 0,
+  max = 100,
+  decimals = 0,
+%}
+
+{% set id = id ?? name %}
+
+{% if form %}
+  {% set value = value ?? field_value(form) %}
+  {% set name = name ?? field_name(form) %}
+  {% set id = id ?? form.vars.id %}
+  {% set required = required ?? form.vars.required %}
+  {% set disabled = disabled ?? form.vars.disabled %}
+{% endif %}
+
+{% set step = decimals > 0 ? (10 ** -decimals) : 1 %}
+
+<twig:Ui:input-wrapper
+  :disabled="disabled"
+  :class="class"
+>
+  <input
+    {{ attributes }}
+    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right pr-10"
+    {% if value is not null %}value="{{ value }}"{% endif %}
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if id %}id="{{ id }}"{% endif %}
+    type="number"
+    inputmode="decimal"
+    placeholder="{{ placeholder }}"
+    min="{{ min }}"
+    max="{{ max }}"
+    step="{{ step }}"
+    {{ required ? 'required' }}
+    {{ autofocus ? 'autofocus' }}
+    {{ disabled ? 'disabled' }}
+  >
+
+  <span class="pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
+    %
+  </span>
+</twig:Ui:input-wrapper>

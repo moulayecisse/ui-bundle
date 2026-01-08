@@ -1,0 +1,108 @@
+{% props
+  src = null,
+  alt = null,
+  name = null,
+  size = 'md',
+  status = null,
+  rounded = 'full',
+  color = null,
+  autoColor = false,
+  class = '',
+%}
+
+{% set sizeClasses = {
+  'xs': 'size-6 text-xs',
+  'sm': 'size-8 text-sm',
+  'md': 'size-10 text-base',
+  'lg': 'size-12 text-lg',
+  'xl': 'size-16 text-xl',
+  '2xl': 'size-20 text-2xl',
+} %}
+
+{% set statusSizes = {
+  'xs': 'size-1.5',
+  'sm': 'size-2',
+  'md': 'size-2.5',
+  'lg': 'size-3',
+  'xl': 'size-4',
+  '2xl': 'size-5',
+} %}
+
+{% set statusColors = {
+  'online': 'bg-green-500',
+  'offline': 'bg-gray-400',
+  'away': 'bg-yellow-500',
+  'busy': 'bg-red-500',
+} %}
+
+{% set roundedClasses = {
+  'full': 'rounded-full',
+  'lg': 'rounded-lg',
+  'md': 'rounded-md',
+} %}
+
+{% set colorClasses = {
+  'gray': 'bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300',
+  'red': 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300',
+  'orange': 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300',
+  'amber': 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
+  'yellow': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-300',
+  'lime': 'bg-lime-100 text-lime-700 dark:bg-lime-900/50 dark:text-lime-300',
+  'green': 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300',
+  'emerald': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
+  'teal': 'bg-teal-100 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300',
+  'cyan': 'bg-cyan-100 text-cyan-700 dark:bg-cyan-900/50 dark:text-cyan-300',
+  'sky': 'bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300',
+  'blue': 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
+  'indigo': 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300',
+  'violet': 'bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300',
+  'purple': 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300',
+  'fuchsia': 'bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/50 dark:text-fuchsia-300',
+  'pink': 'bg-pink-100 text-pink-700 dark:bg-pink-900/50 dark:text-pink-300',
+  'rose': 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300',
+} %}
+
+{% set autoColorPalette = ['red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose'] %}
+
+{# Generate initials from name #}
+{% set initials = '' %}
+{% if name %}
+  {% set nameParts = name|split(' ') %}
+  {% for part in nameParts|slice(0, 2) %}
+    {% set initials = initials ~ part|first|upper %}
+  {% endfor %}
+{% endif %}
+
+{# Determine avatar color #}
+{% set avatarColor = 'gray' %}
+{% if color %}
+  {% set avatarColor = color %}
+{% elseif autoColor and name %}
+  {# Simple hash function for auto color #}
+  {% set hash = name|length %}
+  {% set avatarColor = autoColorPalette[hash % autoColorPalette|length] %}
+{% endif %}
+
+<div {{ attributes }} class="{{ ('relative inline-block ' ~ class)|tailwind_merge }}">
+  <div class="{{ sizeClasses[size] ?? sizeClasses['md'] }} {{ roundedClasses[rounded] ?? roundedClasses['full'] }} {{ colorClasses[avatarColor] ?? colorClasses['gray'] }} flex items-center justify-center overflow-hidden font-medium">
+    {% if src %}
+      <img
+        src="{{ src }}"
+        alt="{{ alt ?? name ?? 'Avatar' }}"
+        class="size-full object-cover"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      >
+      <span style="display: none;" class="flex items-center justify-center size-full">
+        {% if initials %}{{ initials }}{% else %}<twig:ux:icon name="lucide:user" class="size-1/2" />{% endif %}
+      </span>
+    {% elseif initials %}
+      {{ initials }}
+    {% else %}
+      <twig:ux:icon name="lucide:user" class="size-1/2" />
+    {% endif %}
+  </div>
+
+  {% if status %}
+    <span class="absolute bottom-0 right-0 block rounded-full ring-2 ring-white dark:ring-gray-900 {{ statusSizes[size] ?? statusSizes['md'] }} {{ statusColors[status] ?? '' }}"></span>
+  {% endif %}
+</div>

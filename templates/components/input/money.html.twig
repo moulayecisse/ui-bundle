@@ -1,0 +1,71 @@
+{% props
+  form = null,
+  class = '',
+  value = null,
+  name = null,
+  id = null,
+  required = null,
+  autofocus = null,
+  disabled = null,
+  placeholder = '0.00',
+  currency = 'EUR',
+  min = null,
+  max = null,
+  decimals = 2,
+%}
+
+{% set id = id ?? name %}
+
+{% if form %}
+  {% set value = value ?? field_value(form) %}
+  {% set name = name ?? field_name(form) %}
+  {% set id = id ?? form.vars.id %}
+  {% set required = required ?? form.vars.required %}
+  {% set disabled = disabled ?? form.vars.disabled %}
+{% endif %}
+
+{% set currencies = {
+  'EUR': { symbol: '€', position: 'suffix' },
+  'USD': { symbol: '$', position: 'prefix' },
+  'GBP': { symbol: '£', position: 'prefix' },
+  'XOF': { symbol: 'CFA', position: 'suffix' },
+  'MAD': { symbol: 'DH', position: 'suffix' },
+  'CHF': { symbol: 'CHF', position: 'suffix' },
+  'CAD': { symbol: 'CA$', position: 'prefix' },
+} %}
+
+{% set config = currencies[currency] ?? currencies['EUR'] %}
+
+<twig:Ui:input-wrapper
+  :disabled="disabled"
+  :class="class"
+>
+  {% if config.position == 'prefix' %}
+    <span class="pl-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
+      {{ config.symbol }}
+    </span>
+  {% endif %}
+
+  <input
+    {{ attributes }}
+    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right"
+    {% if value is not null %}value="{{ value }}"{% endif %}
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if id %}id="{{ id }}"{% endif %}
+    type="text"
+    inputmode="decimal"
+    placeholder="{{ placeholder }}"
+    {% if min is not null %}data-min="{{ min }}"{% endif %}
+    {% if max is not null %}data-max="{{ max }}"{% endif %}
+    data-decimals="{{ decimals }}"
+    {{ required ? 'required' }}
+    {{ autofocus ? 'autofocus' }}
+    {{ disabled ? 'disabled' }}
+  >
+
+  {% if config.position == 'suffix' %}
+    <span class="pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
+      {{ config.symbol }}
+    </span>
+  {% endif %}
+</twig:Ui:input-wrapper>

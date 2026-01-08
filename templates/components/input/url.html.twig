@@ -1,0 +1,66 @@
+{% props
+  name = null,
+  id = null,
+  value = '',
+  placeholder = 'https://example.com',
+  size = 'md',
+  disabled = false,
+  showValidation = true,
+  required = false,
+  class = '',
+%}
+
+{% set sizeClasses = {
+  'sm': { 'wrapper': 'h-8 px-2 gap-2', 'icon': 'size-4', 'input': 'text-sm' },
+  'md': { 'wrapper': 'h-10 px-3 gap-2', 'icon': 'size-5', 'input': 'text-base' },
+  'lg': { 'wrapper': 'h-12 px-4 gap-3', 'icon': 'size-6', 'input': 'text-lg' },
+} %}
+
+{% set currentSize = sizeClasses[size] ?? sizeClasses['md'] %}
+
+<div
+  {{ attributes }}
+  data-controller="cisse--ui-bundle--url-input"
+  data-cisse--ui-bundle--url-input-show-validation-value="{{ showValidation ? 'true' : 'false' }}"
+  class="{{ ('flex items-center rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent dark:border-gray-600 dark:bg-gray-800 ' ~ currentSize.wrapper ~ ' ' ~ (disabled ? 'bg-gray-100 dark:bg-gray-900 cursor-not-allowed opacity-60' : '') ~ ' ' ~ class)|tailwind_merge }}"
+>
+  {# Icon #}
+  <svg xmlns="http://www.w3.org/2000/svg" class="{{ currentSize.icon }} text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+  </svg>
+
+  {# Input #}
+  <input
+    data-cisse--ui-bundle--url-input-target="input"
+    type="url"
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if id %}id="{{ id }}"{% elseif name %}id="{{ name }}"{% endif %}
+    value="{{ value }}"
+    placeholder="{{ placeholder }}"
+    {{ disabled ? 'disabled' }}
+    {{ required ? 'required' }}
+    class="flex-1 bg-transparent border-none focus:outline-none text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 {{ currentSize.input }}"
+    data-action="blur->cisse--ui-bundle--url-input#handleBlur input->cisse--ui-bundle--url-input#handleInput"
+  >
+
+  {# Action buttons #}
+  <div data-cisse--ui-bundle--url-input-target="actions" class="shrink-0 flex items-center gap-1">
+    {# Open URL button #}
+    <button
+      type="button"
+      data-cisse--ui-bundle--url-input-target="openButton"
+      data-action="click->cisse--ui-bundle--url-input#openUrl"
+      class="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors hidden"
+      title="Open URL"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400 hover:text-primary-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+      </svg>
+    </button>
+
+    {# Invalid icon #}
+    <svg data-cisse--ui-bundle--url-input-target="invalidIcon" xmlns="http://www.w3.org/2000/svg" class="size-5 text-red-500 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+    </svg>
+  </div>
+</div>

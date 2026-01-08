@@ -1,18 +1,67 @@
 {# UX BUNDLE TABS COMPONENT #}
 {% props
-  class = '',
-  current = ''
+    class = '',
+    current = '',
+    tabs = [],
+    variant = 'underline'
 %}
 
-{% set class = ('border-b border-gray-200 dark:border-gray-800 ' ~ class)|tailwind_merge %}
+{# Variant classes matching Vue Tabs #}
+{% set variantClasses = {
+    'underline': {
+        'container': 'border-b border-gray-200 dark:border-gray-700',
+        'tab': 'border-b-2 -mb-px px-4 py-2',
+        'active': 'border-primary text-primary dark:text-primary',
+        'inactive': 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+    },
+    'pills': {
+        'container': 'gap-2',
+        'tab': 'px-4 py-2 rounded-lg',
+        'active': 'bg-primary text-white',
+        'inactive': 'text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
+    },
+    'boxed': {
+        'container': 'bg-gray-100 dark:bg-gray-800 p-1 rounded-lg gap-1',
+        'tab': 'px-4 py-2 rounded-md',
+        'active': 'bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm',
+        'inactive': 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+    }
+} %}
+
+{% set currentVariant = variantClasses[variant] ?? variantClasses['underline'] %}
+{% set containerClass = ('flex ' ~ currentVariant.container ~ ' ' ~ class)|tailwind_merge %}
 
 <div
-  {{ attributes }}
-  data-controller="cisse--ui-bundle--tabs"
-  data-current="{{ current }}"
-  class="{{ class }}"
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--tabs"
+    data-cisse--ui-bundle--tabs-current-value="{{ current }}"
 >
-  <nav class="-mb-px flex space-x-8">
-    {% block content '' %}
-  </nav>
+    <div class="{{ containerClass }}" role="tablist">
+        {# If tabs array is provided, render tabs from it #}
+        {% if tabs|length > 0 %}
+            {% for tab in tabs %}
+                <button
+                    type="button"
+                    role="tab"
+                    data-action="click->cisse--ui-bundle--tabs#select"
+                    data-cisse--ui-bundle--tabs-target="tab"
+                    data-key="{{ tab.key }}"
+                    aria-selected="{{ current == tab.key ? 'true' : 'false' }}"
+                    {% if tab.disabled is defined and tab.disabled %}disabled{% endif %}
+                    class="text-sm font-medium transition-colors focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 {{ currentVariant.tab }} {{ current == tab.key ? currentVariant.active : currentVariant.inactive }}"
+                >
+                    {% if tab.icon is defined and tab.icon %}
+                        <twig:ux:icon name="{{ tab.icon }}" class="size-4 mr-1.5 inline-block" />
+                    {% endif %}
+                    {{ tab.label }}
+                </button>
+            {% endfor %}
+        {% else %}
+            {# Use block content for manual tab items #}
+            {% block content '' %}
+        {% endif %}
+    </div>
+    <div class="mt-4" data-cisse--ui-bundle--tabs-target="panels">
+        {% block panels '' %}
+    </div>
 </div>

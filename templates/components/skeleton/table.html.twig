@@ -1,0 +1,32 @@
+{% props
+  rows = 5,
+  columns = 4,
+  showHeader = true,
+  class = '',
+%}
+
+<div {{ attributes }} class="{{ ('w-full ' ~ class)|tailwind_merge }}" aria-hidden="true">
+  {# Header #}
+  {% if showHeader %}
+    <div class="flex gap-4 px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+      {% for col in 1..columns %}
+        <div
+          class="flex-1 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
+          style="max-width: {{ col == 1 ? '30%' : '20%' }}"
+        ></div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {# Rows #}
+  {% for row in 1..rows %}
+    <div class="flex items-center gap-4 px-4 py-4 border-b border-gray-100 dark:border-gray-800">
+      {% for col in 1..columns %}
+        <div
+          class="flex-1 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
+          style="max-width: {{ col == 1 ? '40%' : (col == columns ? '15%' : '25%') }}; opacity: {{ 1 - (row * 0.1) }}"
+        ></div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

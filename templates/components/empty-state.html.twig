@@ -1,0 +1,29 @@
+{% props
+  message = 'No results found',
+  icon = 'lucide:inbox',
+  title = null,
+  class = '',
+%}
+
+<div {{ attributes }} class="{{ ('py-12 text-center ' ~ class)|tailwind_merge }}">
+  {% if icon %}
+    <twig:ux:icon :name="icon" class="mx-auto mb-4 size-12 text-gray-400 dark:text-gray-500" />
+  {% endif %}
+
+  {% if title %}
+    <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
+      {% block title %}{{ title }}{% endblock %}
+    </h3>
+  {% endif %}
+
+  <p class="text-gray-500 dark:text-gray-400">
+    {% block message %}{{ message }}{% endblock %}
+  </p>
+
+  {% set actionBlock %}{% block action '' %}{% endset %}
+  {% if actionBlock is not empty %}
+    <div class="mt-4">
+      {{ actionBlock|raw }}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,101 @@
+{# templates/components/Ui/mobile-list.html.twig #}
+{# Mobile-optimized list display component #}
+{% props
+    class = '',
+    items = [],
+    keyField = 'id',
+    selectable = false,
+    loading = false,
+    loadingItems = 5,
+    emptyLabel = 'No items found'
+%}
+
+{% set selectAllBlock %}{% block select_all '' %}{% endset %}
+
+{% set class = ('space-y-3 ' ~ class)|tailwind_merge %}
+
+<div
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--mobile-list"
+    data-cisse--ui-bundle--mobile-list-selectable-value="{{ selectable ? 'true' : 'false' }}"
+    class="{{ class }}"
+>
+    {# Loading State #}
+    {% if loading %}
+        <twig:Ui:card>
+            <twig:Ui:skeleton:list :items="loadingItems" showAvatar showSecondary showAction />
+        </twig:Ui:card>
+    {% else %}
+        {# Select All Header (when selectable) #}
+        {% if selectable and items|length > 0 %}
+            <twig:Ui:card>
+                <div class="flex items-center gap-3 p-3">
+                    <twig:Ui:input:checkbox
+                        data-cisse--ui-bundle--mobile-list-target="selectAllCheckbox"
+                        data-action="change->cisse--ui-bundle--mobile-list#selectAll"
+                    />
+                    <span class="text-sm text-gray-600 dark:text-gray-400">
+                        Select all
+                    </span>
+                    <span
+                        data-cisse--ui-bundle--mobile-list-target="selectedCount"
+                        class="text-sm text-primary font-medium hidden"
+                    ></span>
+                </div>
+            </twig:Ui:card>
+        {% endif %}
+
+        {# Items List #}
+        {% for item in items %}
+            {% set itemId = attribute(item, keyField) ?? loop.index0 %}
+
+            <twig:Ui:card
+                data-cisse--ui-bundle--mobile-list-target="item"
+                data-item-id="{{ itemId }}"
+                class="hover:shadow-lg transition-all duration-200"
+            >
+                <div class="p-4 flex items-center gap-4">
+                    {# Checkbox #}
+                    {% if selectable %}
+                        <div class="shrink-0">
+                            <twig:Ui:input:checkbox
+                                data-cisse--ui-bundle--mobile-list-target="itemCheckbox"
+                                data-action="change->cisse--ui-bundle--mobile-list#selectItem"
+                                value="{{ itemId }}"
+                            />
+                        </div>
+                    {% endif %}
+
+                    {# Avatar slot #}
+                    {% set avatarBlock %}{% block avatar '' %}{% endset %}
+                    {% if avatarBlock is not empty %}
+                        {{ avatarBlock|raw }}
+                    {% endif %}
+
+                    {# Content #}
+                    <div class="flex-1 min-w-0 overflow-hidden">
+                        {% block content '' %}
+                    </div>
+
+                    {# Actions #}
+                    <div class="shrink-0">
+                        {% block actions '' %}
+                    </div>
+                </div>
+            </twig:Ui:card>
+        {% else %}
+            {# Empty state #}
+            {% set emptyBlock %}{% block empty '' %}{% endset %}
+            {% if emptyBlock is not empty %}
+                {{ emptyBlock|raw }}
+            {% else %}
+                <twig:Ui:card>
+                    <div class="p-8 text-center">
+                        <twig:ux:icon name="heroicons:inbox-20-solid" class="size-12 mx-auto text-gray-300 dark:text-gray-600" />
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ emptyLabel }}</p>
+                    </div>
+                </twig:Ui:card>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>

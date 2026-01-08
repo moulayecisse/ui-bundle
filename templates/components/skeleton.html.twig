@@ -1,0 +1,39 @@
+{% props
+  variant = 'text',
+  width = null,
+  height = null,
+  lines = 1,
+  animate = true,
+  class = '',
+%}
+
+{% set variantClasses = {
+  'text': 'h-4 rounded',
+  'circular': 'rounded-full',
+  'rectangular': '',
+  'rounded': 'rounded-lg',
+} %}
+
+{% set animateClass = animate ? 'animate-pulse' : '' %}
+{% set variantClass = variantClasses[variant] ?? variantClasses['text'] %}
+
+{% if variant == 'text' and lines > 1 %}
+  <div {{ attributes }} class="{{ ('space-y-2 ' ~ class)|tailwind_merge }}" aria-hidden="true">
+    {% for i in 1..lines %}
+      <div
+        class="bg-gray-200 dark:bg-gray-700 {{ variantClass }} {{ animateClass }}"
+        style="width: {{ loop.last ? '75%' : (width ?? '100%') }}; {{ height ? 'height: ' ~ height : '' }}"
+      ></div>
+    {% endfor %}
+  </div>
+{% else %}
+  {% set defaultWidth = variant == 'circular' ? '3rem' : '100%' %}
+  {% set defaultHeight = variant == 'circular' ? '3rem' : (variant == 'text' ? '1rem' : '6rem') %}
+
+  <div
+    {{ attributes }}
+    class="{{ ('bg-gray-200 dark:bg-gray-700 ' ~ variantClass ~ ' ' ~ animateClass ~ ' ' ~ class)|tailwind_merge }}"
+    style="width: {{ width ?? defaultWidth }}; height: {{ height ?? defaultHeight }};"
+    aria-hidden="true"
+  ></div>
+{% endif %}

@@ -1,0 +1,48 @@
+{# templates/components/Ui/dark-mode-toggle.html.twig #}
+{# Dark mode toggle component #}
+{% props
+    class = '',
+    size = 'md',
+    lightIcon = 'heroicons:sun-20-solid',
+    darkIcon = 'heroicons:moon-20-solid',
+    showLabel = false,
+    storageKey = 'dark-mode'
+%}
+
+{% set sizeClasses = {
+    'sm': { 'button': 'p-1.5', 'icon': 'size-4' },
+    'md': { 'button': 'p-2', 'icon': 'size-5' },
+    'lg': { 'button': 'p-2.5', 'icon': 'size-6' }
+} %}
+
+{% set buttonClass = (sizeClasses[size].button ~ ' inline-flex items-center gap-2 rounded-lg transition-colors text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ' ~ class)|tailwind_merge %}
+
+<button
+    {{ attributes }}
+    type="button"
+    data-controller="cisse--ui-bundle--dark-mode-toggle"
+    data-cisse--ui-bundle--dark-mode-toggle-storage-key-value="{{ storageKey }}"
+    data-action="click->cisse--ui-bundle--dark-mode-toggle#toggle"
+    class="{{ buttonClass }}"
+    aria-label="Toggle dark mode"
+>
+    {# Light mode icon (shown in light mode) #}
+    <twig:ux:icon
+        data-cisse--ui-bundle--dark-mode-toggle-target="lightIcon"
+        name="{{ lightIcon }}"
+        class="{{ sizeClasses[size].icon }} dark:hidden"
+    />
+
+    {# Dark mode icon (shown in dark mode) #}
+    <twig:ux:icon
+        data-cisse--ui-bundle--dark-mode-toggle-target="darkIcon"
+        name="{{ darkIcon }}"
+        class="{{ sizeClasses[size].icon }} hidden dark:block"
+    />
+
+    {% if showLabel %}
+        <span data-cisse--ui-bundle--dark-mode-toggle-target="label" class="text-sm font-medium">
+            Light
+        </span>
+    {% endif %}
+</button>

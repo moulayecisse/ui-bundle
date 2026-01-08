@@ -3,101 +3,189 @@
 <div class="space-y-6">
     {# Props Documentation #}
     {{ ui.props([
+        { name: 'title', type: 'string', default: 'null', description: 'Modal title in header' },
+        { name: 'description', type: 'string', default: 'null', description: 'Description text below title' },
         { name: 'size', type: "'default' | 'sm' | 'lg' | 'xl' | 'full'", default: "'default'", description: 'Modal width size' },
         { name: 'closeOnBackdrop', type: 'boolean', default: 'true', description: 'Close when clicking backdrop' },
         { name: 'closeOnEscape', type: 'boolean', default: 'true', description: 'Close when pressing Escape key' },
+        { name: 'closeButtonLabel', type: 'string', default: "'Close'", description: 'Screen reader label for close button' },
         { name: 'open', type: 'boolean', default: 'false', description: 'Initial open state' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'trigger', description: 'Element that triggers opening the modal (default: a button)' },
+        { name: 'trigger', description: 'Element that triggers opening the modal' },
+        { name: 'header', description: 'Custom header content (overrides title)' },
         { name: 'content', description: 'Modal body content' },
+        { name: 'footer', description: 'Footer with action buttons' },
     ]) }}
 
-    {# Basic Modal #}
+    {# Basic Modal with Title #}
     {% set basicPreview %}
-        <twig:Ui:modal>
+        <twig:Ui:modal title="Modal Title" description="This is a description of the modal content.">
             <twig:block name="trigger">
-                <twig:Ui:button primary>Open Modal</twig:Ui:button>
+                <twig:Ui:button variant="primary">Open Modal</twig:Ui:button>
             </twig:block>
-            <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Modal Title</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                    This is a basic modal dialog. You can put any content here.
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This modal has a title and description in the header. The close button appears on the right.
                 </p>
-                <div class="flex justify-end gap-2">
-                    <twig:Ui:button white data-action="click->cisse--ui-bundle--modal#close">Cancel</twig:Ui:button>
-                    <twig:Ui:button primary>Confirm</twig:Ui:button>
-                </div>
-            </div>
+            </twig:block>
+            <twig:block name="footer">
+                <twig:Ui:button variant="outline" data-action="click->cisse--ui-bundle--modal#close">Cancel</twig:Ui:button>
+                <twig:Ui:button variant="primary">Confirm</twig:Ui:button>
+            </twig:block>
         </twig:Ui:modal>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:modal>
+    {% set basicCode %}{% verbatim %}<twig:Ui:modal title="Modal Title" description="Description text">
     {% block trigger %}
-        <twig:Ui:button primary>Open Modal</twig:Ui:button>
+        <twig:Ui:button variant="primary">Open Modal</twig:Ui:button>
     {% endblock %}
     {% block content %}
-        <h3 class="text-lg font-semibold">Modal Title</h3>
         <p>Modal content goes here...</p>
-        <div class="flex justify-end gap-2">
-            <twig:Ui:button white data-action="click->cisse--ui-bundle--modal#close">Cancel</twig:Ui:button>
-            <twig:Ui:button primary>Confirm</twig:Ui:button>
+    {% endblock %}
+    {% block footer %}
+        <twig:Ui:button variant="outline" data-action="click->cisse--ui-bundle--modal#close">Cancel</twig:Ui:button>
+        <twig:Ui:button variant="primary">Confirm</twig:Ui:button>
+    {% endblock %}
+</twig:Ui:modal>{% endverbatim %}{% endset %}
+    {{ ui.story('Modal with Title & Footer', basicPreview, basicCode) }}
+
+    {# Simple Modal (no header) #}
+    {% set simplePreview %}
+        <twig:Ui:modal>
+            <twig:block name="trigger">
+                <twig:Ui:button variant="outline">Simple Modal</twig:Ui:button>
+            </twig:block>
+            <twig:block name="content">
+                <div class="text-center py-4">
+                    <twig:ux:icon name="lucide:check-circle" class="size-16 text-green-500 mx-auto mb-4" />
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Success!</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Your action was completed successfully.</p>
+                    <twig:Ui:button variant="primary" data-action="click->cisse--ui-bundle--modal#close">Close</twig:Ui:button>
+                </div>
+            </twig:block>
+        </twig:Ui:modal>
+    {% endset %}
+    {% set simpleCode %}{% verbatim %}<twig:Ui:modal>
+    {% block trigger %}
+        <twig:Ui:button variant="outline">Simple Modal</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <div class="text-center py-4">
+            <h3>Success!</h3>
+            <p>Your action was completed.</p>
+            <twig:Ui:button variant="primary" data-action="click->cisse--ui-bundle--modal#close">Close</twig:Ui:button>
         </div>
     {% endblock %}
 </twig:Ui:modal>{% endverbatim %}{% endset %}
-    {{ ui.story('Basic Modal', basicPreview, basicCode) }}
+    {{ ui.story('Simple Modal (no header)', simplePreview, simpleCode) }}
 
     {# Size Options #}
     {% set sizesPreview %}
-        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                Modal supports different sizes:
-            </p>
-            <div class="grid grid-cols-5 gap-2 text-center text-xs">
-                <div class="bg-white dark:bg-gray-900 rounded p-2">sm<br><span class="text-gray-400">max-w-sm</span></div>
-                <div class="bg-white dark:bg-gray-900 rounded p-2">default<br><span class="text-gray-400">max-w-[584px]</span></div>
-                <div class="bg-white dark:bg-gray-900 rounded p-2">lg<br><span class="text-gray-400">max-w-2xl</span></div>
-                <div class="bg-white dark:bg-gray-900 rounded p-2">xl<br><span class="text-gray-400">max-w-4xl</span></div>
-                <div class="bg-white dark:bg-gray-900 rounded p-2">full<br><span class="text-gray-400">max-w-full</span></div>
-            </div>
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:modal size="sm" title="Small Modal">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Small</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This is a small modal (max-w-md).</p>
+                </twig:block>
+            </twig:Ui:modal>
+            <twig:Ui:modal size="default" title="Default Modal">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Default</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This is the default modal size (max-w-3xl).</p>
+                </twig:block>
+            </twig:Ui:modal>
+            <twig:Ui:modal size="lg" title="Large Modal">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Large</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This is a large modal (max-w-5xl).</p>
+                </twig:block>
+            </twig:Ui:modal>
+            <twig:Ui:modal size="xl" title="Extra Large Modal">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">XL</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This is an extra large modal (max-w-7xl).</p>
+                </twig:block>
+            </twig:Ui:modal>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:modal size="sm">...</twig:Ui:modal>
-<twig:Ui:modal size="lg">...</twig:Ui:modal>
-<twig:Ui:modal size="xl">...</twig:Ui:modal>
-<twig:Ui:modal size="full">...</twig:Ui:modal>{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:modal size="sm" title="Small">...</twig:Ui:modal>
+<twig:Ui:modal size="default" title="Default">...</twig:Ui:modal>
+<twig:Ui:modal size="lg" title="Large">...</twig:Ui:modal>
+<twig:Ui:modal size="xl" title="Extra Large">...</twig:Ui:modal>
+<twig:Ui:modal size="full" title="Full Width">...</twig:Ui:modal>{% endverbatim %}{% endset %}
     {{ ui.story('Size Options', sizesPreview, sizesCode) }}
 
     {# Non-dismissible Modal #}
     {% set nonDismissiblePreview %}
-        <twig:Ui:modal :closeOnBackdrop="false" :closeOnEscape="false">
+        <twig:Ui:modal title="Important Action" :closeOnBackdrop="false" :closeOnEscape="false">
             <twig:block name="trigger">
-                <twig:Ui:button warning>Open Non-dismissible</twig:Ui:button>
+                <twig:Ui:button variant="danger">Open Non-dismissible</twig:Ui:button>
             </twig:block>
-            <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Important Action</h3>
-                <p class="text-gray-600 dark:text-gray-400 mb-6">
-                    This modal cannot be closed by clicking outside or pressing Escape. You must click a button.
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This modal cannot be closed by clicking outside or pressing Escape. You must click a button to close it.
                 </p>
-                <div class="flex justify-end">
-                    <twig:Ui:button primary data-action="click->cisse--ui-bundle--modal#close">I Understand</twig:Ui:button>
-                </div>
-            </div>
+            </twig:block>
+            <twig:block name="footer">
+                <twig:Ui:button variant="primary" data-action="click->cisse--ui-bundle--modal#close">I Understand</twig:Ui:button>
+            </twig:block>
         </twig:Ui:modal>
     {% endset %}
-    {% set nonDismissibleCode %}{% verbatim %}<twig:Ui:modal :closeOnBackdrop="false" :closeOnEscape="false">
-    {% block trigger %}
-        <twig:Ui:button warning>Open Non-dismissible</twig:Ui:button>
-    {% endblock %}
+    {% set nonDismissibleCode %}{% verbatim %}<twig:Ui:modal
+    title="Important Action"
+    :closeOnBackdrop="false"
+    :closeOnEscape="false"
+>
     {% block content %}
-        <h3>Important Action</h3>
         <p>This modal requires explicit action to close.</p>
-        <twig:Ui:button primary data-action="click->cisse--ui-bundle--modal#close">
+    {% endblock %}
+    {% block footer %}
+        <twig:Ui:button variant="primary" data-action="click->cisse--ui-bundle--modal#close">
             I Understand
         </twig:Ui:button>
     {% endblock %}
 </twig:Ui:modal>{% endverbatim %}{% endset %}
     {{ ui.story('Non-dismissible Modal', nonDismissiblePreview, nonDismissibleCode) }}
+
+    {# Confirmation Dialog Style #}
+    {% set confirmPreview %}
+        <twig:Ui:modal size="sm" title="Delete Item">
+            <twig:block name="trigger">
+                <twig:Ui:button variant="danger" icon="lucide:trash">Delete</twig:Ui:button>
+            </twig:block>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    Are you sure you want to delete this item? This action cannot be undone.
+                </p>
+            </twig:block>
+            <twig:block name="footer">
+                <twig:Ui:button variant="outline" data-action="click->cisse--ui-bundle--modal#close">Cancel</twig:Ui:button>
+                <twig:Ui:button variant="danger">Delete</twig:Ui:button>
+            </twig:block>
+        </twig:Ui:modal>
+    {% endset %}
+    {% set confirmCode %}{% verbatim %}<twig:Ui:modal size="sm" title="Delete Item">
+    {% block trigger %}
+        <twig:Ui:button variant="danger" icon="lucide:trash">Delete</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <p>Are you sure you want to delete this item?</p>
+    {% endblock %}
+    {% block footer %}
+        <twig:Ui:button variant="outline" data-action="click->cisse--ui-bundle--modal#close">Cancel</twig:Ui:button>
+        <twig:Ui:button variant="danger">Delete</twig:Ui:button>
+    {% endblock %}
+</twig:Ui:modal>{% endverbatim %}{% endset %}
+    {{ ui.story('Confirmation Dialog Style', confirmPreview, confirmCode) }}
 </div>

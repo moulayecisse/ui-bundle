@@ -1,67 +1,86 @@
 {% props
-  type = 'button',
-  class = '',
-  color = 'white',
-  href = '',
-  primary = false,
-  secondary = false,
-  error = false,
-  success = false,
-  warning = false,
-  info = false,
-  white = false,
-  light = false,
-  icon = null,
-  label = null,
+    type = 'button',
+    class = '',
+    variant = 'primary',
+    size = 'md',
+    href = null,
+    icon = null,
+    iconRight = null,
+    label = null,
+    loading = false,
+    disabled = false,
+    block = false,
 %}
 
-{% if primary %}
-  {% set color = 'primary' %}
-{% elseif secondary %}
-  {% set color = 'secondary' %}
-{% elseif error %}
-  {% set color = 'error' %}
-{% elseif success %}
-  {% set color = 'success' %}
-{% elseif warning %}
-  {% set color = 'warning' %}
-{% elseif info %}
-  {% set color = 'info' %}
-{% elseif white %}
-  {% set color = 'white' %}
-{% elseif light %}
-  {% set color = 'light' %}
-{% endif %}
+{# Variant classes matching Vue Button #}
+{% set variantClasses = {
+    'primary': 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary',
+    'secondary': 'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus:ring-secondary',
+    'outline': 'border border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50 focus:ring-primary dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800',
+    'ghost': 'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-primary dark:text-gray-300 dark:hover:bg-gray-800',
+    'danger': 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
+    'success': 'bg-green-500 text-white hover:bg-green-600 focus:ring-green-500',
+} %}
 
-{% set class = ('inline-flex items-center justify-center rounded-md gap-2 px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 focus-visible:outline-secondary data-[color=primary]:bg-primary data-[color=primary]:text-primary-foreground data-[color=primary]:hover:bg-primary/90 data-[color=primary]:focus-visible:outline-primary data-[color=error]:bg-red-600 data-[color=error]:hover:bg-red-500 data-[color=error]:focus-visible:outline-red-600 data-[color=error]:text-white data-[color=success]:bg-green-600 data-[color=success]:hover:bg-green-500 data-[color=success]:focus-visible:outline-green-600 data-[color=success]:text-white data-[color=warning]:bg-yellow-600 data-[color=warning]:hover:bg-yellow-500 data-[color=warning]:focus-visible:outline-yellow-600 data-[color=warning]:text-white data-[color=info]:bg-sky-600 data-[color=info]:hover:bg-sky-500 data-[color=info]:focus-visible:outline-sky-600 data-[color=info]:text-white data-[color=white]:bg-white data-[color=white]:text-gray-900 data-[color=white]:ring-1 data-[color=white]:ring-gray-300 data-[color=white]:ring-inset data-[color=white]:hover:bg-gray-50 data-[color=light]:bg-white data-[color=light]:text-gray-900 data-[color=light]:ring-1 data-[color=light]:ring-gray-300 data-[color=light]:ring-inset data-[color=light]:hover:bg-gray-50 dark:data-[color=white]:bg-black dark:data-[color=white]:text-gray-100 dark:data-[color=white]:ring-gray-700 dark:data-[color=white]:hover:bg-gray-950 dark:data-[color=light]:bg-black dark:data-[color=light]:text-gray-100 dark:data-[color=light]:ring-gray-700 dark:data-[color=light]:hover:bg-gray-950 ' ~ class)|tailwind_merge  %}
+{# Size classes matching Vue Button #}
+{% set sizeClasses = {
+    'xs': 'px-2 py-1 text-xs gap-1',
+    'sm': 'px-3 py-1.5 text-sm gap-1.5',
+    'md': 'px-4 py-2 text-sm gap-2',
+    'lg': 'px-5 py-2.5 text-base gap-2',
+    'xl': 'px-6 py-3 text-lg gap-2.5',
+} %}
+
+{# Icon size classes #}
+{% set iconSizeClasses = {
+    'xs': 'size-3',
+    'sm': 'size-4',
+    'md': 'size-4',
+    'lg': 'size-5',
+    'xl': 'size-6',
+} %}
+
+{% set baseClass = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed' %}
+{% set blockClass = block ? 'w-full' : '' %}
+
+{% set class = (baseClass ~ ' ' ~ (variantClasses[variant] ?? variantClasses['primary']) ~ ' ' ~ (sizeClasses[size] ?? sizeClasses['md']) ~ ' ' ~ blockClass ~ ' ' ~ class)|tailwind_merge %}
+
+{% set iconSize = iconSizeClasses[size] ?? iconSizeClasses['md'] %}
+
 {% set contentBlock %}{% block content %}
-  {% if icon %}
-    <twig:ux:icon name="{{ icon }}" class="size-4" />
-  {% endif %}
+    {# Loading spinner #}
+    {% if loading %}
+        <twig:ux:icon name="lucide:loader-2" class="{{ iconSize }} animate-spin" />
+    {% elseif icon %}
+        <twig:ux:icon name="{{ icon }}" class="{{ iconSize }}" />
+    {% endif %}
 
-  {% if label %}
-    <span class="max-lg:hidden">{{ label }}</span>
-  {% endif %}
+    {# Label/slot content #}
+    {% if label %}
+        <span>{{ label }}</span>
+    {% endif %}
+
+    {# Right icon (hidden when loading) #}
+    {% if iconRight and not loading %}
+        <twig:ux:icon name="{{ iconRight }}" class="{{ iconSize }}" />
+    {% endif %}
 {% endblock %}{% endset %}
 
-
 {% if href %}
-  <a
-    {{ attributes }}
-    href="{{ href }}"
-    data-color="{{ color }}"
-    class="{{ class }}"
-  >
-    {{ contentBlock|raw }}
-  </a>
+    <a
+        {{ attributes }}
+        href="{{ href }}"
+        class="{{ class }}"
+    >
+        {{ contentBlock|raw }}
+    </a>
 {% else %}
-  <button
-    {{ attributes }}
-    type="{{ type }}"
-    data-color="{{ color }}"
-    class="{{ class }}"
-  >
-    {{ contentBlock|raw }}
-  </button>
+    <button
+        {{ attributes }}
+        type="{{ type }}"
+        class="{{ class }}"
+        {% if disabled or loading %}disabled{% endif %}
+    >
+        {{ contentBlock|raw }}
+    </button>
 {% endif %}
-

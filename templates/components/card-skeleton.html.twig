@@ -1,0 +1,41 @@
+{% props
+    class = '',
+    showAvatar = false,
+    lines = 3,
+    showActions = false,
+%}
+
+<div
+    {{ attributes }}
+    class="{{ ('bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 space-y-4 ' ~ class)|tailwind_merge }}"
+    aria-hidden="true"
+>
+    {# Header with avatar #}
+    {% if showAvatar %}
+        <div class="flex items-center gap-3">
+            <div class="size-10 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+            <div class="flex-1 space-y-2">
+                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-1/2"></div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-1/3"></div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# Content lines #}
+    <div class="space-y-2">
+        {% for i in 1..lines %}
+            <div
+                class="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
+                style="width: {{ i == lines ? '60%' : '100%' }}"
+            ></div>
+        {% endfor %}
+    </div>
+
+    {# Actions #}
+    {% if showActions %}
+        <div class="flex justify-end gap-2 pt-2">
+            <div class="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+            <div class="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        </div>
+    {% endif %}
+</div>

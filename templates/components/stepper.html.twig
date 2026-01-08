@@ -1,0 +1,64 @@
+{% props
+  steps = [],
+  currentStep = 0,
+  orientation = 'horizontal',
+  class = '',
+%}
+
+{# Find current step index #}
+{% set currentIndex = currentStep %}
+{% for step in steps %}
+  {% if step.key is defined and step.key == currentStep %}
+    {% set currentIndex = loop.index0 %}
+  {% endif %}
+{% endfor %}
+
+<div {{ attributes }} class="{{ ('w-full ' ~ class)|tailwind_merge }}">
+  <div class="{{ orientation == 'horizontal' ? 'relative flex items-start justify-between' : 'relative flex flex-col gap-4' }}">
+
+    {% if orientation == 'horizontal' %}
+      {# Horizontal Progress Line - Background #}
+      <div class="absolute left-0 top-6 h-0.5 w-full bg-gray-200 dark:bg-gray-700" aria-hidden="true"></div>
+      {# Horizontal Progress Line - Active #}
+      {% set progressWidth = steps|length > 1 ? (currentIndex / (steps|length - 1)) * 100 : 0 %}
+      <div class="absolute left-0 top-6 h-0.5 bg-primary transition-all duration-500 ease-in-out" style="width: {{ progressWidth }}%;" aria-hidden="true"></div>
+    {% endif %}
+
+    {% for step in steps %}
+      {% set isComplete = loop.index0 < currentIndex %}
+      {% set isActive = loop.index0 == currentIndex %}
+      {% set isPending = loop.index0 > currentIndex %}
+
+      <div class="{{ orientation == 'horizontal' ? 'relative flex flex-1 flex-col items-center' : 'relative flex items-start gap-4' }}">
+
+        {# Vertical Line #}
+        {% if orientation == 'vertical' and not loop.last %}
+          <div class="absolute left-6 top-12 h-full w-0.5 -translate-x-1/2 {{ isComplete ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700' }}"></div>
+        {% endif %}
+
+        {# Step Circle #}
+        <div class="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 {{ (isActive or isComplete) ? 'border-primary bg-primary text-white shadow-lg' : 'border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500' }}">
+          {% if isComplete %}
+            <twig:ux:icon name="lucide:check" class="size-6" />
+          {% elseif step.icon is defined and step.icon %}
+            <twig:ux:icon :name="step.icon" class="size-6" />
+          {% else %}
+            <span class="text-sm font-semibold">{{ loop.index }}</span>
+          {% endif %}
+        </div>
+
+        {# Step Content #}
+        <div class="{{ orientation == 'horizontal' ? 'mt-4 flex flex-col items-center text-center' : 'flex flex-col pt-2' }}">
+          <p class="text-sm font-semibold transition-colors {{ (isActive or isComplete) ? 'text-primary dark:text-primary' : 'text-gray-500 dark:text-gray-400' }}">
+            {{ step.title }}
+          </p>
+          {% if step.description is defined and step.description %}
+            <p class="mt-1 text-xs {{ isActive ? 'text-gray-600 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400' }}">
+              {{ step.description }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

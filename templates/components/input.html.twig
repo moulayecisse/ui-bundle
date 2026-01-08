@@ -80,7 +80,7 @@
 
 {% set componentName = 'Ui:input:text' %}
 
-{% if type in ['checkbox', 'textarea', 'date', 'choice'] %}
+{% if type in ['checkbox', 'textarea', 'date', 'choice', 'money', 'percent', 'otp'] %}
   {% set componentName = 'Ui:input:' ~ type %}
 {% endif %}
 

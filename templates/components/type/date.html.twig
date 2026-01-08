@@ -1,0 +1,56 @@
+{# templates/components/Ui/type/date.html.twig #}
+{# Date type display component for tables and lists #}
+{% props
+    class = '',
+    value = null,
+    format = 'd/m/Y',
+    relative = false,
+    showTime = false,
+    fallback = '-'
+%}
+
+{% set displayValue = fallback %}
+
+{% if value is not null %}
+    {% if value is iterable %}
+        {# Handle DateTime object #}
+        {% set dateValue = value %}
+    {% else %}
+        {# Handle string - try to create DateTime #}
+        {% set dateValue = value|date('U')|date_modify('+0 seconds') %}
+    {% endif %}
+
+    {% if relative %}
+        {# Calculate relative time #}
+        {% set now = 'now'|date('U') %}
+        {% set timestamp = value|date('U') %}
+        {% set diff = now - timestamp %}
+
+        {% if diff < 60 %}
+            {% set displayValue = 'Just now' %}
+        {% elseif diff < 3600 %}
+            {% set minutes = (diff / 60)|round(0, 'floor') %}
+            {% set displayValue = minutes ~ ' minute' ~ (minutes > 1 ? 's' : '') ~ ' ago' %}
+        {% elseif diff < 86400 %}
+            {% set hours = (diff / 3600)|round(0, 'floor') %}
+            {% set displayValue = hours ~ ' hour' ~ (hours > 1 ? 's' : '') ~ ' ago' %}
+        {% elseif diff < 604800 %}
+            {% set days = (diff / 86400)|round(0, 'floor') %}
+            {% set displayValue = days ~ ' day' ~ (days > 1 ? 's' : '') ~ ' ago' %}
+        {% else %}
+            {% set displayValue = value|date(format) %}
+        {% endif %}
+    {% else %}
+        {% if showTime %}
+            {% set displayValue = value|date(format ~ ' H:i') %}
+        {% else %}
+            {% set displayValue = value|date(format) %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{% set textClasses = ('text-sm text-gray-900 dark:text-gray-100 ' ~ class)|tailwind_merge %}
+
+<span class="{{ textClasses }}">
+    {{- displayValue -}}
+</span>

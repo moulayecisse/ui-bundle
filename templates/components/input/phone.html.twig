@@ -1,0 +1,143 @@
+{# templates/components/Ui/input/phone.html.twig #}
+{# Phone number input with country selection #}
+{% props
+    class = '',
+    value = '',
+    name = 'phone',
+    id = null,
+    placeholder = 'Phone number',
+    size = 'md',
+    disabled = false,
+    required = false,
+    showDialCode = false,
+    defaultCountry = 'FR',
+    countries = null
+%}
+
+{% set defaultCountries = [
+    { code: 'FR', name: 'France', dialCode: '+33', flag: '🇫🇷', format: '## ## ## ## ##' },
+    { code: 'US', name: 'United States', dialCode: '+1', flag: '🇺🇸', format: '(###) ###-####' },
+    { code: 'GB', name: 'United Kingdom', dialCode: '+44', flag: '🇬🇧', format: '#### ######' },
+    { code: 'DE', name: 'Germany', dialCode: '+49', flag: '🇩🇪', format: '### #######' },
+    { code: 'ES', name: 'Spain', dialCode: '+34', flag: '🇪🇸', format: '### ### ###' },
+    { code: 'IT', name: 'Italy', dialCode: '+39', flag: '🇮🇹', format: '### ### ####' },
+    { code: 'BE', name: 'Belgium', dialCode: '+32', flag: '🇧🇪', format: '### ## ## ##' },
+    { code: 'CH', name: 'Switzerland', dialCode: '+41', flag: '🇨🇭', format: '## ### ## ##' },
+    { code: 'CA', name: 'Canada', dialCode: '+1', flag: '🇨🇦', format: '(###) ###-####' },
+    { code: 'AU', name: 'Australia', dialCode: '+61', flag: '🇦🇺', format: '### ### ###' },
+    { code: 'ML', name: 'Mali', dialCode: '+223', flag: '🇲🇱', format: '## ## ## ##' },
+    { code: 'SN', name: 'Senegal', dialCode: '+221', flag: '🇸🇳', format: '## ### ## ##' },
+    { code: 'CI', name: "Côte d'Ivoire", dialCode: '+225', flag: '🇨🇮', format: '## ## ## ## ##' },
+    { code: 'MA', name: 'Morocco', dialCode: '+212', flag: '🇲🇦', format: '## ## ## ## ##' },
+    { code: 'TN', name: 'Tunisia', dialCode: '+216', flag: '🇹🇳', format: '## ### ###' },
+    { code: 'DZ', name: 'Algeria', dialCode: '+213', flag: '🇩🇿', format: '### ## ## ##' }
+] %}
+
+{% set _countries = countries ?? defaultCountries %}
+
+{% set sizeClasses = {
+    'sm': 'py-1.5 text-xs',
+    'md': 'py-2 text-sm',
+    'lg': 'py-2.5 text-base'
+} %}
+
+{# Find default country #}
+{% set selectedCountry = null %}
+{% for country in _countries %}
+    {% if country.code == defaultCountry %}
+        {% set selectedCountry = country %}
+    {% endif %}
+{% endfor %}
+{% if selectedCountry is null %}
+    {% set selectedCountry = _countries[0] %}
+{% endif %}
+
+{% set class = ('relative ' ~ class)|tailwind_merge %}
+
+<div
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--phone-input"
+    data-cisse--ui-bundle--phone-input-countries-value="{{ _countries|json_encode }}"
+    data-cisse--ui-bundle--phone-input-default-country-value="{{ defaultCountry }}"
+    data-cisse--ui-bundle--phone-input-show-dial-code-value="{{ showDialCode ? 'true' : 'false' }}"
+    class="{{ class }}"
+>
+    {# Hidden inputs for full phone number #}
+    <input type="hidden" name="{{ name }}" data-cisse--ui-bundle--phone-input-target="fullInput" value="{{ value }}" />
+    <input type="hidden" name="{{ name }}_country" data-cisse--ui-bundle--phone-input-target="countryInput" value="{{ selectedCountry.code }}" />
+
+    <twig:Ui:input-wrapper :size="size" :disabled="disabled">
+        {% block icon %}
+            {# Country selector button #}
+            <button
+                type="button"
+                data-action="click->cisse--ui-bundle--phone-input#toggleDropdown"
+                data-cisse--ui-bundle--phone-input-target="countryButton"
+                {% if disabled %}disabled{% endif %}
+                class="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600 -ml-1 pl-1 py-1 rounded-l transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                <span data-cisse--ui-bundle--phone-input-target="flag" class="text-lg leading-none">{{ selectedCountry.flag }}</span>
+                <twig:ux:icon
+                    name="heroicons:chevron-down-16-solid"
+                    data-cisse--ui-bundle--phone-input-target="chevron"
+                    class="size-3 text-gray-400 transition-transform"
+                />
+            </button>
+        {% endblock %}
+
+        {% block content %}
+            <input
+                id="{{ id ?? name }}"
+                type="tel"
+                data-cisse--ui-bundle--phone-input-target="input"
+                data-action="input->cisse--ui-bundle--phone-input#handleInput paste->cisse--ui-bundle--phone-input#handlePaste"
+                placeholder="{{ placeholder }}"
+                {% if disabled %}disabled{% endif %}
+                {% if required %}required aria-required="true"{% endif %}
+                class="flex-1 border-none bg-transparent text-gray-900 outline-none placeholder:text-gray-400 dark:text-gray-100 dark:placeholder:text-gray-500 {{ sizeClasses[size] }} pl-20"
+            />
+        {% endblock %}
+
+        {% block actions %}
+            <span data-cisse--ui-bundle--phone-input-target="dialCode" class="text-xs text-gray-400 font-medium">
+                {{ selectedCountry.dialCode }}
+            </span>
+        {% endblock %}
+    </twig:Ui:input-wrapper>
+
+    {# Country dropdown #}
+    <div
+        data-cisse--ui-bundle--phone-input-target="dropdown"
+        class="absolute z-50 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden hidden"
+    >
+        {# Search #}
+        <div class="p-2 border-b border-gray-100 dark:border-slate-700">
+            <input
+                type="text"
+                data-cisse--ui-bundle--phone-input-target="search"
+                data-action="input->cisse--ui-bundle--phone-input#filterCountries"
+                placeholder="Search countries..."
+                class="w-full px-3 py-2 text-sm border border-gray-200 dark:border-slate-600 rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+        </div>
+
+        {# Country list #}
+        <ul data-cisse--ui-bundle--phone-input-target="countryList" class="max-h-48 overflow-y-auto">
+            {% for country in _countries %}
+                <li
+                    data-action="click->cisse--ui-bundle--phone-input#selectCountry"
+                    data-code="{{ country.code }}"
+                    data-name="{{ country.name }}"
+                    data-dial-code="{{ country.dialCode }}"
+                    data-flag="{{ country.flag }}"
+                    data-format="{{ country.format }}"
+                    class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors {{ selectedCountry.code == country.code ? 'bg-primary-50 dark:bg-primary-900/20' : '' }}"
+                >
+                    <span class="text-lg">{{ country.flag }}</span>
+                    <span class="flex-1 text-sm text-gray-700 dark:text-gray-300">{{ country.name }}</span>
+                    <span class="text-sm text-gray-400">{{ country.dialCode }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

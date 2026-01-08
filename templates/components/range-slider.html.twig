@@ -1,0 +1,75 @@
+{# templates/components/Ui/range-slider.html.twig #}
+{# Dual-value range slider component #}
+{% props
+    class = '',
+    min = 0,
+    max = 100,
+    step = 1,
+    minValue = 25,
+    maxValue = 75,
+    disabled = false,
+    showLabels = true,
+    showMinMax = true,
+    minName = 'range_min',
+    maxName = 'range_max',
+    formatLabel = null
+%}
+
+{% set class = ('space-y-2 ' ~ class)|tailwind_merge %}
+
+<div
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--range-slider"
+    data-cisse--ui-bundle--range-slider-min-value="{{ min }}"
+    data-cisse--ui-bundle--range-slider-max-value="{{ max }}"
+    data-cisse--ui-bundle--range-slider-step-value="{{ step }}"
+    data-cisse--ui-bundle--range-slider-disabled-value="{{ disabled ? 'true' : 'false' }}"
+    class="{{ class }}"
+>
+    {# Hidden inputs for form submission #}
+    <input type="hidden" name="{{ minName }}" data-cisse--ui-bundle--range-slider-target="minInput" value="{{ minValue }}" />
+    <input type="hidden" name="{{ maxName }}" data-cisse--ui-bundle--range-slider-target="maxInput" value="{{ maxValue }}" />
+
+    {# Labels row #}
+    {% if showLabels %}
+        <div class="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300">
+            <span data-cisse--ui-bundle--range-slider-target="minLabel">{{ minValue }}</span>
+            <span data-cisse--ui-bundle--range-slider-target="maxLabel">{{ maxValue }}</span>
+        </div>
+    {% endif %}
+
+    {# Slider track #}
+    <div
+        data-cisse--ui-bundle--range-slider-target="track"
+        data-action="click->cisse--ui-bundle--range-slider#handleTrackClick"
+        class="relative h-2 rounded-full cursor-pointer {{ disabled ? 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-200 dark:bg-gray-700' }}"
+    >
+        {# Active range #}
+        <div
+            data-cisse--ui-bundle--range-slider-target="range"
+            class="absolute h-full rounded-full {{ disabled ? 'bg-gray-400' : 'bg-primary-500' }}"
+        ></div>
+
+        {# Min handle #}
+        <div
+            data-cisse--ui-bundle--range-slider-target="minHandle"
+            data-action="mousedown->cisse--ui-bundle--range-slider#handleMinMouseDown touchstart->cisse--ui-bundle--range-slider#handleMinTouchStart"
+            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-5 rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white border-primary-500 cursor-grab hover:shadow-md active:cursor-grabbing' }}"
+        ></div>
+
+        {# Max handle #}
+        <div
+            data-cisse--ui-bundle--range-slider-target="maxHandle"
+            data-action="mousedown->cisse--ui-bundle--range-slider#handleMaxMouseDown touchstart->cisse--ui-bundle--range-slider#handleMaxTouchStart"
+            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-5 rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white border-primary-500 cursor-grab hover:shadow-md active:cursor-grabbing' }}"
+        ></div>
+    </div>
+
+    {# Min/Max labels #}
+    {% if showMinMax %}
+        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+            <span>{{ min }}</span>
+            <span>{{ max }}</span>
+        </div>
+    {% endif %}
+</div>
