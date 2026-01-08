@@ -1,0 +1,67 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'name', type: 'string | null', default: 'null', description: 'Form field name for submission' },
+        { name: 'id', type: 'string | null', default: 'null', description: 'Input element ID' },
+        { name: 'value', type: 'string | null', default: 'null', description: 'Textarea value' },
+        { name: 'rows', type: 'number', default: '3', description: 'Number of visible text rows' },
+        { name: 'required', type: 'boolean | null', default: 'null', description: 'Whether field is required' },
+        { name: 'autofocus', type: 'boolean', default: 'false', description: 'Autofocus on page load' },
+        { name: 'disabled', type: 'boolean | null', default: 'null', description: 'Disable the textarea' },
+        { name: 'form', type: 'FormView | null', default: 'null', description: 'Symfony form field for auto-configuration' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Basic Textarea #}
+    {% set basicPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:input:textarea name="basic" placeholder="Enter your message..." rows="4" />
+        </div>
+    {% endset %}
+    {% set basicCode %}&lt;twig:Ui:input:textarea name="basic" placeholder="Enter your message..." rows="4" /&gt;{% endset %}
+    {{ ui.story('Basic Textarea', basicPreview, basicCode) }}
+
+    {# Custom Height #}
+    {% set rowsPreview %}
+        <div class="max-w-lg space-y-4">
+            <twig:Ui:input:textarea name="rows3" rows="3" placeholder="3 rows" />
+            <twig:Ui:input:textarea name="rows6" rows="6" placeholder="6 rows" />
+        </div>
+    {% endset %}
+    {% set rowsCode %}&lt;twig:Ui:input:textarea name="small" rows="3" placeholder="3 rows" /&gt;
+&lt;twig:Ui:input:textarea name="large" rows="6" placeholder="6 rows" /&gt;{% endset %}
+    {{ ui.story('Different Rows', rowsPreview, rowsCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:input:textarea name="disabled" disabled rows="3">This content cannot be edited.</twig:Ui:input:textarea>
+        </div>
+    {% endset %}
+    {% set disabledCode %}&lt;twig:Ui:input:textarea name="disabled" disabled&gt;
+    This content cannot be edited.
+&lt;/twig:Ui:input:textarea&gt;{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+
+    {# Required #}
+    {% set requiredPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:input:textarea name="required" required rows="3" placeholder="This field is required" />
+        </div>
+    {% endset %}
+    {% set requiredCode %}&lt;twig:Ui:input:textarea name="required" required placeholder="This field is required" /&gt;{% endset %}
+    {{ ui.story('Required', requiredPreview, requiredCode) }}
+
+    {# With Initial Value #}
+    {% set valuePreview %}
+        <div class="max-w-lg">
+            <twig:Ui:input:textarea name="value" rows="3">This is pre-filled content in the textarea.</twig:Ui:input:textarea>
+        </div>
+    {% endset %}
+    {% set valueCode %}&lt;twig:Ui:input:textarea name="value"&gt;
+    This is pre-filled content in the textarea.
+&lt;/twig:Ui:input:textarea&gt;{% endset %}
+    {{ ui.story('With Initial Value', valuePreview, valueCode) }}
+</div>

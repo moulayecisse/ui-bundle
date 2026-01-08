@@ -1,0 +1,83 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Default Badge #}
+    {% set defaultPreview %}
+        <twig:Ui:badge>Default Badge</twig:Ui:badge>
+    {% endset %}
+    {% set defaultCode %}{% verbatim %}<twig:Ui:badge>Default Badge</twig:Ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Default', defaultPreview, defaultCode) }}
+
+    {# All Variants #}
+    {% set variantsPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:badge>Default</twig:Ui:badge>
+            <twig:Ui:badge variant="primary">Primary</twig:Ui:badge>
+            <twig:Ui:badge variant="success">Success</twig:Ui:badge>
+            <twig:Ui:badge variant="error">Error</twig:Ui:badge>
+            <twig:Ui:badge variant="warning">Warning</twig:Ui:badge>
+            <twig:Ui:badge variant="info">Info</twig:Ui:badge>
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:Ui:badge>Default</twig:Ui:badge>
+<twig:Ui:badge variant="primary">Primary</twig:Ui:badge>
+<twig:Ui:badge variant="success">Success</twig:Ui:badge>
+<twig:Ui:badge variant="error">Error</twig:Ui:badge>
+<twig:Ui:badge variant="warning">Warning</twig:Ui:badge>
+<twig:Ui:badge variant="info">Info</twig:Ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('All Variants', variantsPreview, variantsCode) }}
+
+    {# Outline Style #}
+    {% set outlinePreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:badge outline>Default</twig:Ui:badge>
+            <twig:Ui:badge variant="primary" outline>Primary</twig:Ui:badge>
+            <twig:Ui:badge variant="success" outline>Success</twig:Ui:badge>
+            <twig:Ui:badge variant="error" outline>Error</twig:Ui:badge>
+        </div>
+    {% endset %}
+    {% set outlineCode %}{% verbatim %}<twig:Ui:badge outline>Default</twig:Ui:badge>
+<twig:Ui:badge variant="primary" outline>Primary</twig:Ui:badge>
+<twig:Ui:badge variant="success" outline>Success</twig:Ui:badge>
+<twig:Ui:badge variant="error" outline>Error</twig:Ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Outline Style', outlinePreview, outlineCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="flex flex-wrap items-center gap-3">
+            <twig:Ui:badge size="sm" variant="primary">Small</twig:Ui:badge>
+            <twig:Ui:badge size="md" variant="primary">Medium</twig:Ui:badge>
+            <twig:Ui:badge size="lg" variant="primary">Large</twig:Ui:badge>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:badge size="sm" variant="primary">Small</twig:Ui:badge>
+<twig:Ui:badge size="md" variant="primary">Medium</twig:Ui:badge>
+<twig:Ui:badge size="lg" variant="primary">Large</twig:Ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# With Dot Indicator #}
+    {% set dotPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:badge variant="success" dot>Online</twig:Ui:badge>
+            <twig:Ui:badge variant="error" dot>Offline</twig:Ui:badge>
+            <twig:Ui:badge variant="warning" dot>Away</twig:Ui:badge>
+        </div>
+    {% endset %}
+    {% set dotCode %}{% verbatim %}<twig:Ui:badge variant="success" dot>Online</twig:Ui:badge>
+<twig:Ui:badge variant="error" dot>Offline</twig:Ui:badge>
+<twig:Ui:badge variant="warning" dot>Away</twig:Ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('With Dot Indicator', dotPreview, dotCode) }}
+
+    {# With Icons #}
+    {% set iconsPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:badge variant="success" icon="lucide:check">Completed</twig:Ui:badge>
+            <twig:Ui:badge variant="warning" icon="lucide:clock">Pending</twig:Ui:badge>
+            <twig:Ui:badge variant="error" icon="lucide:x">Failed</twig:Ui:badge>
+        </div>
+    {% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:Ui:badge variant="success" icon="lucide:check">Completed</twig:Ui:badge>
+<twig:Ui:badge variant="warning" icon="lucide:clock">Pending</twig:Ui:badge>
+<twig:Ui:badge variant="error" icon="lucide:x">Failed</twig:Ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+</div>

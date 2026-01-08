@@ -1,0 +1,149 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'value', type: 'number', default: '0', description: 'Current progress value' },
+        { name: 'max', type: 'number', default: '100', description: 'Maximum value for progress' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Height of the progress bar' },
+        { name: 'variant', type: "'default' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Color variant' },
+        { name: 'showLabel', type: 'boolean', default: 'false', description: 'Show percentage label' },
+        { name: 'striped', type: 'boolean', default: 'false', description: 'Add striped pattern' },
+        { name: 'animated', type: 'boolean', default: 'false', description: 'Animate the stripes' },
+        { name: 'indeterminate', type: 'boolean', default: 'false', description: 'Show indeterminate loading state' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Basic Progress #}
+    {% set basicPreview %}
+        <div class="max-w-lg space-y-4">
+            <div>
+                <span class="text-sm text-gray-600 dark:text-gray-400 mb-1 block">25%</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 25%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-sm text-gray-600 dark:text-gray-400 mb-1 block">50%</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 50%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-sm text-gray-600 dark:text-gray-400 mb-1 block">75%</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set basicCode %}&lt;twig:Ui:progress value="25" /&gt;
+&lt;twig:Ui:progress value="50" /&gt;
+&lt;twig:Ui:progress value="75" /&gt;{% endset %}
+    {{ ui.story('Basic Progress', basicPreview, basicCode) }}
+
+    {# With Label #}
+    {% set labelPreview %}
+        <div class="max-w-lg">
+            <div class="mb-1 flex justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Progress</span>
+                <span class="font-medium text-gray-900 dark:text-white">60%</span>
+            </div>
+            <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+            </div>
+        </div>
+    {% endset %}
+    {% set labelCode %}&lt;twig:Ui:progress value="60" showLabel /&gt;{% endset %}
+    {{ ui.story('With Label', labelPreview, labelCode) }}
+
+    {# Color Variants #}
+    {% set variantsPreview %}
+        <div class="max-w-lg space-y-3">
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Default</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Success</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Warning</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-yellow-500 rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Error</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-500 rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set variantsCode %}&lt;twig:Ui:progress value="60" variant="default" /&gt;
+&lt;twig:Ui:progress value="60" variant="success" /&gt;
+&lt;twig:Ui:progress value="60" variant="warning" /&gt;
+&lt;twig:Ui:progress value="60" variant="error" /&gt;{% endset %}
+    {{ ui.story('Color Variants', variantsPreview, variantsCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="max-w-lg space-y-4">
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Small (sm)</span>
+                <div class="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Medium (md)</span>
+                <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Large (lg)</span>
+                <div class="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}&lt;twig:Ui:progress value="60" size="sm" /&gt;
+&lt;twig:Ui:progress value="60" size="md" /&gt;
+&lt;twig:Ui:progress value="60" size="lg" /&gt;{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# Striped & Animated #}
+    {% set stripedPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Use <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">striped</code> for a striped pattern and <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">animated</code> for moving stripes.
+            </p>
+            <div class="space-y-3">
+                <div class="text-xs text-gray-500">Striped</div>
+                <div class="text-xs text-gray-500">Animated (striped + animated)</div>
+            </div>
+        </div>
+    {% endset %}
+    {% set stripedCode %}&lt;twig:Ui:progress value="60" striped /&gt;
+&lt;twig:Ui:progress value="60" striped animated /&gt;{% endset %}
+    {{ ui.story('Striped & Animated', stripedPreview, stripedCode) }}
+
+    {# Indeterminate #}
+    {% set indeterminatePreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Use <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">indeterminate</code> for loading states when progress is unknown.
+            </p>
+        </div>
+    {% endset %}
+    {% set indeterminateCode %}&lt;twig:Ui:progress indeterminate /&gt;{% endset %}
+    {{ ui.story('Indeterminate', indeterminatePreview, indeterminateCode) }}
+</div>

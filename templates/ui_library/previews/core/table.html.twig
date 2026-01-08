@@ -1,0 +1,126 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the table element' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'thead', description: 'Table header rows (&lt;twig:Ui:tr&gt; with &lt;twig:Ui:th&gt; cells)' },
+        { name: 'tbody', description: 'Table body rows (&lt;twig:Ui:tr&gt; with &lt;twig:Ui:td&gt; cells)' },
+        { name: 'tfoot', description: 'Optional table footer rows' },
+    ]) }}
+
+    {# Related Components #}
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+        <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Related Components</h4>
+        <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">tr</code> - Table row</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">th</code> - Table header cell</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">td</code> - Table data cell</li>
+        </ul>
+    </div>
+
+    {# Basic Table #}
+    {% set basicPreview %}
+        <table class="min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700">
+            <thead>
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Email</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Role</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-black">
+                <tr>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">John Doe</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">john@example.com</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Admin</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Jane Smith</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">jane@example.com</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Editor</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Bob Wilson</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">bob@example.com</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">User</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endset %}
+    {% set basicCode %}&lt;twig:Ui:table&gt;
+    {% verbatim %}{% block thead %}{% endverbatim %}
+        &lt;twig:Ui:tr&gt;
+            &lt;twig:Ui:th&gt;Name&lt;/twig:Ui:th&gt;
+            &lt;twig:Ui:th&gt;Email&lt;/twig:Ui:th&gt;
+            &lt;twig:Ui:th&gt;Role&lt;/twig:Ui:th&gt;
+        &lt;/twig:Ui:tr&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+    {% verbatim %}{% block tbody %}{% endverbatim %}
+        &lt;twig:Ui:tr&gt;
+            &lt;twig:Ui:td&gt;John Doe&lt;/twig:Ui:td&gt;
+            &lt;twig:Ui:td&gt;john@example.com&lt;/twig:Ui:td&gt;
+            &lt;twig:Ui:td&gt;Admin&lt;/twig:Ui:td&gt;
+        &lt;/twig:Ui:tr&gt;
+        ...
+    {% verbatim %}{% endblock %}{% endverbatim %}
+&lt;/twig:Ui:table&gt;{% endset %}
+    {{ ui.story('Basic Table', basicPreview, basicCode) }}
+
+    {# With Actions #}
+    {% set actionsPreview %}
+        <table class="min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700">
+            <thead>
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Price</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Stock</th>
+                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-black">
+                <tr>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Widget A</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">$29.99</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">150</td>
+                    <td class="px-4 py-3 text-sm text-right">
+                        <twig:Ui:button size="sm" variant="ghost">Edit</twig:Ui:button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Widget B</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">$49.99</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">75</td>
+                    <td class="px-4 py-3 text-sm text-right">
+                        <twig:Ui:button size="sm" variant="ghost">Edit</twig:Ui:button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% endset %}
+    {% set actionsCode %}&lt;twig:Ui:table&gt;
+    {% verbatim %}{% block thead %}{% endverbatim %}
+        &lt;twig:Ui:tr&gt;
+            &lt;twig:Ui:th&gt;Product&lt;/twig:Ui:th&gt;
+            &lt;twig:Ui:th&gt;Price&lt;/twig:Ui:th&gt;
+            &lt;twig:Ui:th&gt;Stock&lt;/twig:Ui:th&gt;
+            &lt;twig:Ui:th class="text-right"&gt;Actions&lt;/twig:Ui:th&gt;
+        &lt;/twig:Ui:tr&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+    {% verbatim %}{% block tbody %}{% endverbatim %}
+        &lt;twig:Ui:tr&gt;
+            &lt;twig:Ui:td&gt;Widget A&lt;/twig:Ui:td&gt;
+            &lt;twig:Ui:td&gt;$29.99&lt;/twig:Ui:td&gt;
+            &lt;twig:Ui:td&gt;150&lt;/twig:Ui:td&gt;
+            &lt;twig:Ui:td class="text-right"&gt;
+                &lt;twig:Ui:button size="sm" variant="ghost"&gt;Edit&lt;/twig:Ui:button&gt;
+            &lt;/twig:Ui:td&gt;
+        &lt;/twig:Ui:tr&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+&lt;/twig:Ui:table&gt;{% endset %}
+    {{ ui.story('With Actions', actionsPreview, actionsCode) }}
+</div>

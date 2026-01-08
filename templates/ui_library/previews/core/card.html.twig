@@ -1,0 +1,114 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'title', type: 'string', default: "''", description: 'Card title text' },
+        { name: 'description', type: 'string', default: "''", description: 'Card description below title' },
+        { name: 'divide', type: 'boolean', default: 'false', description: 'Show dividers between header, content, and footer' },
+        { name: 'tag', type: 'string', default: "'div'", description: 'HTML tag for the card container' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'title', description: 'Custom title content (overrides title prop)' },
+        { name: 'description', description: 'Custom description content (overrides description prop)' },
+        { name: 'actions', description: 'Action buttons in the header area' },
+        { name: 'header', description: 'Custom header content' },
+        { name: 'content', description: 'Main card content' },
+        { name: 'footer', description: 'Footer content below main content' },
+    ]) }}
+
+    {# Basic Card #}
+    {% set basicPreview %}
+        <twig:Ui:card title="Basic Card" description="Using title and description props">
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This card uses the title and description props directly.
+                </p>
+            </twig:block>
+        </twig:Ui:card>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:card title="Basic Card" description="Card description">
+    <twig:block name="content">
+        <p>Card content goes here.</p>
+    </twig:block>
+</twig:Ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Card', basicPreview, basicCode) }}
+
+    {# Card with Footer #}
+    {% set footerPreview %}
+        <twig:Ui:card title="Card with Footer">
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This card includes a footer section using a block.
+                </p>
+            </twig:block>
+            <twig:block name="footer">
+                <div class="flex gap-2">
+                    <twig:Ui:button primary>Save</twig:Ui:button>
+                    <twig:Ui:button white>Cancel</twig:Ui:button>
+                </div>
+            </twig:block>
+        </twig:Ui:card>
+    {% endset %}
+    {% set footerCode %}{% verbatim %}<twig:Ui:card title="Card with Footer">
+    <twig:block name="content">
+        <p>Card content here.</p>
+    </twig:block>
+    <twig:block name="footer">
+        <div class="flex gap-2">
+            <twig:Ui:button primary>Save</twig:Ui:button>
+            <twig:Ui:button white>Cancel</twig:Ui:button>
+        </div>
+    </twig:block>
+</twig:Ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Card with Footer', footerPreview, footerCode) }}
+
+    {# Card with Actions #}
+    {% set actionsPreview %}
+        <twig:Ui:card title="Card with Actions" description="Has action buttons in header">
+            <twig:block name="actions">
+                <twig:Ui:button white icon="lucide:more-vertical" />
+            </twig:block>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    The actions block appears in the header area.
+                </p>
+            </twig:block>
+        </twig:Ui:card>
+    {% endset %}
+    {% set actionsCode %}{% verbatim %}<twig:Ui:card title="Card with Actions" description="Has action buttons">
+    <twig:block name="actions">
+        <twig:Ui:button white icon="lucide:more-vertical" />
+    </twig:block>
+    <twig:block name="content">
+        <p>Card content here.</p>
+    </twig:block>
+</twig:Ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Card with Actions', actionsPreview, actionsCode) }}
+
+    {# Card with Dividers #}
+    {% set dividersPreview %}
+        <twig:Ui:card title="Card with Dividers" divide>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    Using divide prop adds separators between sections.
+                </p>
+            </twig:block>
+            <twig:block name="footer">
+                <span class="text-sm text-gray-500">Footer with divider above</span>
+            </twig:block>
+        </twig:Ui:card>
+    {% endset %}
+    {% set dividersCode %}{% verbatim %}<twig:Ui:card title="Card with Dividers" divide>
+    <twig:block name="content">
+        <p>Card content here.</p>
+    </twig:block>
+    <twig:block name="footer">
+        <span>Footer with divider above</span>
+    </twig:block>
+</twig:Ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Card with Dividers', dividersPreview, dividersCode) }}
+</div>

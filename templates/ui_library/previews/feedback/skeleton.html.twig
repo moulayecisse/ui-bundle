@@ -1,0 +1,51 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Text Skeleton #}
+    {% set textPreview %}
+        <div class="space-y-2">
+            <twig:Ui:skeleton width="100%" height="1rem" />
+            <twig:Ui:skeleton width="80%" height="1rem" />
+            <twig:Ui:skeleton width="60%" height="1rem" />
+        </div>
+    {% endset %}
+    {% set textCode %}{% verbatim %}<twig:Ui:skeleton width="100%" height="1rem" />
+<twig:Ui:skeleton width="80%" height="1rem" />
+<twig:Ui:skeleton width="60%" height="1rem" />{% endverbatim %}{% endset %}
+    {{ ui.story('Text Skeleton', textPreview, textCode) }}
+
+    {# Card Skeleton #}
+    {% set cardPreview %}
+        <div class="max-w-sm">
+            <twig:Ui:skeleton variant="card" />
+        </div>
+    {% endset %}
+    {% set cardCode %}{% verbatim %}<twig:Ui:skeleton variant="card" />{% endverbatim %}{% endset %}
+    {{ ui.story('Card Skeleton', cardPreview, cardCode) }}
+
+    {# Avatar with Text #}
+    {% set avatarPreview %}
+        <div class="flex items-center gap-3">
+            <twig:Ui:skeleton variant="circle" width="3rem" height="3rem" />
+            <div class="space-y-2 flex-1">
+                <twig:Ui:skeleton width="40%" height="1rem" />
+                <twig:Ui:skeleton width="60%" height="0.75rem" />
+            </div>
+        </div>
+    {% endset %}
+    {% set avatarCode %}{% verbatim %}<div class="flex items-center gap-3">
+    <twig:Ui:skeleton variant="circle" width="3rem" height="3rem" />
+    <div class="space-y-2 flex-1">
+        <twig:Ui:skeleton width="40%" height="1rem" />
+        <twig:Ui:skeleton width="60%" height="0.75rem" />
+    </div>
+</div>{% endverbatim %}{% endset %}
+    {{ ui.story('Avatar with Text', avatarPreview, avatarCode) }}
+
+    {# Table Skeleton #}
+    {% set tablePreview %}
+        <twig:Ui:skeleton variant="table" rows="3" />
+    {% endset %}
+    {% set tableCode %}{% verbatim %}<twig:Ui:skeleton variant="table" rows="3" />{% endverbatim %}{% endset %}
+    {{ ui.story('Table Skeleton', tablePreview, tableCode) }}
+</div>

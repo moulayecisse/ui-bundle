@@ -1,0 +1,84 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Basic Notification List #}
+    {% set basicPreview %}
+        <div class="max-w-sm bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+            </div>
+            <twig:Ui:notification-list>
+                <twig:Ui:notification-item
+                    title="New message"
+                    message="You have a new message from John Doe"
+                    time="2 minutes ago"
+                    unread
+                />
+                <twig:Ui:notification-item
+                    title="Order shipped"
+                    message="Your order #12345 has been shipped"
+                    time="1 hour ago"
+                />
+                <twig:Ui:notification-item
+                    title="Payment received"
+                    message="We received your payment of $99.00"
+                    time="Yesterday"
+                />
+            </twig:Ui:notification-list>
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:notification-list>
+    <twig:Ui:notification-item
+        title="New message"
+        message="You have a new message from John Doe"
+        time="2 minutes ago"
+        unread
+    />
+    <twig:Ui:notification-item
+        title="Order shipped"
+        message="Your order #12345 has been shipped"
+        time="1 hour ago"
+    />
+    <twig:Ui:notification-item
+        title="Payment received"
+        message="We received your payment of $99.00"
+        time="Yesterday"
+    />
+</twig:Ui:notification-list>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Notification List', basicPreview, basicCode) }}
+
+    {# With Icons #}
+    {% set iconsPreview %}
+        <div class="max-w-sm bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <twig:Ui:notification-list>
+                <twig:Ui:notification-item
+                    title="New comment"
+                    message="Someone commented on your post"
+                    time="Just now"
+                    icon="heroicons:chat-bubble-left-ellipsis"
+                    unread
+                />
+                <twig:Ui:notification-item
+                    title="New follower"
+                    message="Jane started following you"
+                    time="5 min ago"
+                    icon="heroicons:user-plus"
+                />
+                <twig:Ui:notification-item
+                    title="Like"
+                    message="Your photo was liked by 5 people"
+                    time="1 hour ago"
+                    icon="heroicons:heart"
+                />
+            </twig:Ui:notification-list>
+        </div>
+    {% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:Ui:notification-item
+    title="New comment"
+    message="Someone commented on your post"
+    time="Just now"
+    icon="heroicons:chat-bubble-left-ellipsis"
+    unread
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+</div>

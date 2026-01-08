@@ -1,0 +1,164 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'appName', type: 'string', default: "'App'", description: 'Application name shown in sidebar header' },
+        { name: 'appIcon', type: 'string | null', default: 'null', description: 'SVG path for app icon in sidebar' },
+        { name: 'sidebarClass', type: 'string', default: "'bg-slate-800...'", description: 'CSS classes for sidebar background' },
+        { name: 'showDarkToggle', type: 'boolean', default: 'true', description: 'Show dark mode toggle in header' },
+        { name: 'userName', type: 'string | null', default: 'null', description: 'User name for header user menu' },
+        { name: 'userAvatar', type: 'string | null', default: 'null', description: 'User avatar initials (e.g., "JD")' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'menu', description: 'Sidebar navigation menu content (use &lt;twig:Ui:menu&gt; components)' },
+        { name: 'header_center', description: 'Content in the center of the header (e.g., search bar)' },
+        { name: 'header_actions', description: 'Action buttons in the header (before user menu)' },
+        { name: 'sidebar_footer', description: 'Content at the bottom of the sidebar' },
+        { name: 'user_menu', description: 'Dropdown items for user menu' },
+        { name: 'content', description: 'Main page content area' },
+    ]) }}
+
+    {# About Base Layout #}
+    {% set aboutPreview %}
+        <div class="bg-slate-800 rounded-lg p-8 text-white">
+            <h3 class="text-xl font-bold mb-4">Base Layout</h3>
+            <p class="mb-4">A complete application layout with collapsible sidebar, header with user menu, and main content area.</p>
+            <ul class="list-disc list-inside space-y-2 text-white/90">
+                <li>Responsive sidebar with mobile support</li>
+                <li>Dark mode toggle built-in</li>
+                <li>User menu with avatar</li>
+                <li>Customizable header actions</li>
+                <li>Sidebar menu slot</li>
+            </ul>
+        </div>
+    {% endset %}
+    {% set aboutCode %}&lt;twig:Ui:layout:base-layout
+    appName="My Application"
+    userName="John Doe"
+    userAvatar="JD"
+&gt;
+    {% verbatim %}{% block menu %}{% endverbatim %}
+        &lt;twig:Ui:menu&gt;
+            &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" active href="/" /&gt;
+            &lt;twig:Ui:menu:item label="Users" icon="heroicons:users" href="/users" /&gt;
+            &lt;twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" /&gt;
+        &lt;/twig:Ui:menu&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+
+    {% verbatim %}{% block content %}{% endverbatim %}
+        &lt;!-- Your page content here --&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+&lt;/twig:Ui:layout:base-layout&gt;{% endset %}
+    {{ ui.story('Overview', aboutPreview, aboutCode) }}
+
+    {# Layout Structure #}
+    {% set structurePreview %}
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+            <div class="flex h-64">
+                {# Sidebar representation #}
+                <div class="w-48 bg-slate-800 p-3 flex flex-col">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-6 h-6 bg-white/20 rounded"></div>
+                        <span class="text-white text-sm font-semibold">App Name</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="h-8 bg-primary-500 rounded-lg"></div>
+                        <div class="h-8 bg-white/10 rounded-lg"></div>
+                        <div class="h-8 bg-white/10 rounded-lg"></div>
+                    </div>
+                </div>
+                {# Main area #}
+                <div class="flex-1 flex flex-col">
+                    {# Header #}
+                    <div class="h-12 bg-white dark:bg-slate-950 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4">
+                        <div class="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div class="w-8 h-8 bg-primary-500 rounded-full"></div>
+                        </div>
+                    </div>
+                    {# Content #}
+                    <div class="flex-1 bg-gray-100 dark:bg-slate-900 p-4">
+                        <div class="h-full bg-white dark:bg-slate-800 rounded-lg p-4">
+                            <p class="text-gray-500 text-sm">Content Area</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set structureCode %}{% verbatim %}<!-- Layout Structure -->
++------------------+--------------------------------+
+|     Sidebar      |            Header              |
+|  +------------+  | +----------------------------+ |
+|  | App Logo   |  | | Menu | Actions | User     | |
+|  +------------+  | +----------------------------+ |
+|  | Nav Items  |  +--------------------------------+
+|  | - Item 1   |  |                                |
+|  | - Item 2   |  |         Main Content           |
+|  | - Item 3   |  |                                |
+|  +------------+  |                                |
++------------------+--------------------------------+{% endverbatim %}{% endset %}
+    {{ ui.story('Layout Structure', structurePreview, structureCode) }}
+
+    {# User Menu #}
+    {% set userMenuPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                The user menu appears in the header when userName or userAvatar is provided.
+            </p>
+            <div class="bg-white dark:bg-slate-950 rounded-lg p-3 inline-flex items-center gap-2 shadow">
+                <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-sm font-medium">JD</div>
+                <span class="text-sm text-gray-700 dark:text-gray-300">John Doe</span>
+                <twig:ux:icon name="heroicons:chevron-down" class="size-4 text-gray-400" />
+            </div>
+        </div>
+    {% endset %}
+    {% set userMenuCode %}&lt;twig:Ui:layout:base-layout
+    appName="My App"
+    userName="John Doe"
+    userAvatar="JD"
+&gt;
+    {% verbatim %}{% block user_menu %}{% endverbatim %}
+        &lt;a href="/profile" class="block px-4 py-2 hover:bg-gray-100"&gt;Profile&lt;/a&gt;
+        &lt;a href="/settings" class="block px-4 py-2 hover:bg-gray-100"&gt;Settings&lt;/a&gt;
+        &lt;hr class="my-1"&gt;
+        &lt;a href="/logout" class="block px-4 py-2 hover:bg-gray-100 text-red-600"&gt;Logout&lt;/a&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+    ...
+&lt;/twig:Ui:layout:base-layout&gt;{% endset %}
+    {{ ui.story('User Menu', userMenuPreview, userMenuCode) }}
+
+    {# Header Actions #}
+    {% set headerActionsPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Add custom actions to the header using the header_actions block.
+            </p>
+            <div class="bg-white dark:bg-slate-950 rounded-lg p-3 inline-flex items-center gap-3 shadow">
+                <button class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <twig:ux:icon name="heroicons:bell" class="size-5 text-gray-600 dark:text-gray-400" />
+                </button>
+                <button class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    <twig:ux:icon name="heroicons:cog-6-tooth" class="size-5 text-gray-600 dark:text-gray-400" />
+                </button>
+            </div>
+        </div>
+    {% endset %}
+    {% set headerActionsCode %}&lt;twig:Ui:layout:base-layout appName="My App"&gt;
+    {% verbatim %}{% block header_actions %}{% endverbatim %}
+        &lt;button class="p-2 rounded-lg hover:bg-gray-100"&gt;
+            &lt;twig:ux:icon name="heroicons:bell" class="size-5" /&gt;
+        &lt;/button&gt;
+        &lt;button class="p-2 rounded-lg hover:bg-gray-100"&gt;
+            &lt;twig:ux:icon name="heroicons:cog-6-tooth" class="size-5" /&gt;
+        &lt;/button&gt;
+    {% verbatim %}{% endblock %}{% endverbatim %}
+    ...
+&lt;/twig:Ui:layout:base-layout&gt;{% endset %}
+    {{ ui.story('Header Actions', headerActionsPreview, headerActionsCode) }}
+</div>

@@ -1,0 +1,147 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the accordion container' },
+        { name: 'active', type: 'string | null', default: 'null', description: 'ID of initially open item' },
+        { name: 'multiple', type: 'boolean', default: 'false', description: 'Allow multiple items to be open simultaneously' },
+        { name: 'duration', type: 'number', default: '300', description: 'Animation duration in milliseconds' },
+        { name: 'easing', type: 'string', default: "'ease-out'", description: 'Animation easing function' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Accordion items using &lt;twig:Ui:accordion:item&gt; components' },
+    ]) }}
+
+    {# Related Components #}
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+        <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Related Components</h4>
+        <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">accordion:item</code> - Individual accordion panel with title, icon, badge, disabled props</li>
+        </ul>
+    </div>
+
+    {# Basic Accordion - Static Preview #}
+    {% set basicPreview %}
+        <div class="w-full">
+            <div class="block border-b border-gray-800/10 dark:border-gray-200/10 pb-4 first:pt-0">
+                <h2>
+                    <button type="button" class="group flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                        <span class="flex-1">What is Vue.js?</span>
+                        <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-300 dark:text-gray-700 transition-transform" />
+                    </button>
+                </h2>
+                <div class="pt-2 text-gray-600 dark:text-gray-400">
+                    Vue.js is a progressive JavaScript framework for building user interfaces.
+                </div>
+            </div>
+            <div class="block border-b border-gray-800/10 dark:border-gray-200/10 pb-4 pt-4">
+                <h2>
+                    <button type="button" class="group flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                        <span class="flex-1">How do I get started?</span>
+                        <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-300 dark:text-gray-700 transition-transform rotate-180" />
+                    </button>
+                </h2>
+            </div>
+            <div class="block pb-4 pt-4 last:border-b-0">
+                <h2>
+                    <button type="button" class="group flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                        <span class="flex-1">What about TypeScript support?</span>
+                        <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-300 dark:text-gray-700 transition-transform rotate-180" />
+                    </button>
+                </h2>
+            </div>
+        </div>
+    {% endset %}
+    {% set basicCode %}&lt;twig:Ui:accordion&gt;
+    &lt;twig:Ui:accordion:item title="What is Vue.js?"&gt;
+        Vue.js is a progressive JavaScript framework...
+    &lt;/twig:Ui:accordion:item&gt;
+    &lt;twig:Ui:accordion:item title="How do I get started?"&gt;
+        You can start by reading the documentation...
+    &lt;/twig:Ui:accordion:item&gt;
+&lt;/twig:Ui:accordion&gt;{% endset %}
+    {{ ui.story('Basic Accordion', basicPreview, basicCode) }}
+
+    {# With Icons - Static Preview #}
+    {% set iconsPreview %}
+        <div class="w-full">
+            <div class="block border-b border-gray-800/10 dark:border-gray-200/10 pb-4 first:pt-0">
+                <h2>
+                    <button type="button" class="group flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                        <div class="flex items-center gap-3 flex-1">
+                            <twig:ux:icon name="heroicons:user" class="size-5 shrink-0 text-gray-400 dark:text-gray-500" />
+                            <span class="flex-1">Account Settings</span>
+                        </div>
+                        <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-300 dark:text-gray-700" />
+                    </button>
+                </h2>
+                <div class="pt-2 text-gray-600 dark:text-gray-400 pl-8">
+                    Manage your account preferences and profile information.
+                </div>
+            </div>
+            <div class="block border-b border-gray-800/10 dark:border-gray-200/10 pb-4 pt-4">
+                <h2>
+                    <button type="button" class="group flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                        <div class="flex items-center gap-3 flex-1">
+                            <twig:ux:icon name="heroicons:shield-check" class="size-5 shrink-0 text-gray-400 dark:text-gray-500" />
+                            <span class="flex-1">Security</span>
+                        </div>
+                        <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-300 dark:text-gray-700 rotate-180" />
+                    </button>
+                </h2>
+            </div>
+        </div>
+    {% endset %}
+    {% set iconsCode %}&lt;twig:Ui:accordion&gt;
+    &lt;twig:Ui:accordion:item title="Account Settings" icon="heroicons:user"&gt;
+        Content...
+    &lt;/twig:Ui:accordion:item&gt;
+    &lt;twig:Ui:accordion:item title="Security" icon="heroicons:shield-check"&gt;
+        Content...
+    &lt;/twig:Ui:accordion:item&gt;
+&lt;/twig:Ui:accordion&gt;{% endset %}
+    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+
+    {# With Badges - Static Preview #}
+    {% set badgesPreview %}
+        <div class="w-full">
+            <div class="block border-b border-gray-800/10 dark:border-gray-200/10 pb-4 first:pt-0">
+                <h2>
+                    <button type="button" class="group flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                        <div class="flex items-center gap-3 flex-1">
+                            <span class="flex-1">New Features</span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">3 new</span>
+                        </div>
+                        <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-300 dark:text-gray-700 ml-3" />
+                    </button>
+                </h2>
+                <div class="pt-2 text-gray-600 dark:text-gray-400">
+                    Check out the latest features we've added.
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set badgesCode %}&lt;twig:Ui:accordion&gt;
+    &lt;twig:Ui:accordion:item title="New Features" badge="3 new"&gt;
+        Content...
+    &lt;/twig:Ui:accordion:item&gt;
+&lt;/twig:Ui:accordion&gt;{% endset %}
+    {{ ui.story('With Badges', badgesPreview, badgesCode) }}
+
+    {# Multiple Open #}
+    {% set multiplePreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                Use <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">:multiple="true"</code> to allow multiple accordion items to be open at the same time.
+            </p>
+        </div>
+    {% endset %}
+    {% set multipleCode %}&lt;twig:Ui:accordion :multiple="true"&gt;
+    &lt;twig:Ui:accordion:item title="Section One"&gt;...&lt;/twig:Ui:accordion:item&gt;
+    &lt;twig:Ui:accordion:item title="Section Two"&gt;...&lt;/twig:Ui:accordion:item&gt;
+&lt;/twig:Ui:accordion&gt;{% endset %}
+    {{ ui.story('Multiple Open', multiplePreview, multipleCode) }}
+</div>

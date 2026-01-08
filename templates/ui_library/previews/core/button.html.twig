@@ -1,0 +1,183 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'type', type: "'button' | 'submit' | 'reset'", default: "'button'", description: 'Button type attribute' },
+        { name: 'href', type: 'string', default: "''", description: 'If provided, renders as <a> link instead of <button>' },
+        { name: 'primary', type: 'boolean', default: 'false', description: 'Primary color variant' },
+        { name: 'secondary', type: 'boolean', default: 'false', description: 'Secondary color variant' },
+        { name: 'error', type: 'boolean', default: 'false', description: 'Red/error color variant' },
+        { name: 'success', type: 'boolean', default: 'false', description: 'Green/success color variant' },
+        { name: 'warning', type: 'boolean', default: 'false', description: 'Yellow/warning color variant' },
+        { name: 'info', type: 'boolean', default: 'false', description: 'Blue/info color variant' },
+        { name: 'white', type: 'boolean', default: 'false', description: 'White/outline variant' },
+        { name: 'light', type: 'boolean', default: 'false', description: 'Light outline variant' },
+        { name: 'icon', type: 'string | null', default: 'null', description: 'Icon name (Iconify) shown before content' },
+        { name: 'label', type: 'string | null', default: 'null', description: 'Label text (hidden on mobile)' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Button content (default slot)' },
+    ]) }}
+
+    {# Primary #}
+    {% set primaryPreview %}
+        <twig:Ui:button primary>Primary Button</twig:Ui:button>
+    {% endset %}
+    {% set primaryCode %}{% verbatim %}<twig:Ui:button primary>Primary Button</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Primary', primaryPreview, primaryCode) }}
+
+    {# Secondary #}
+    {% set secondaryPreview %}
+        <twig:Ui:button secondary>Secondary Button</twig:Ui:button>
+    {% endset %}
+    {% set secondaryCode %}{% verbatim %}<twig:Ui:button secondary>Secondary Button</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Secondary', secondaryPreview, secondaryCode) }}
+
+    {# Success #}
+    {% set successPreview %}
+        <twig:Ui:button success>Success Button</twig:Ui:button>
+    {% endset %}
+    {% set successCode %}{% verbatim %}<twig:Ui:button success>Success Button</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Success', successPreview, successCode) }}
+
+    {# Error #}
+    {% set errorPreview %}
+        <twig:Ui:button error>Error Button</twig:Ui:button>
+    {% endset %}
+    {% set errorCode %}{% verbatim %}<twig:Ui:button error>Error Button</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Error', errorPreview, errorCode) }}
+
+    {# Warning #}
+    {% set warningPreview %}
+        <twig:Ui:button warning>Warning Button</twig:Ui:button>
+    {% endset %}
+    {% set warningCode %}{% verbatim %}<twig:Ui:button warning>Warning Button</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Warning', warningPreview, warningCode) }}
+
+    {# All Variants #}
+    {% set allVariantsPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary>Primary</twig:Ui:button>
+            <twig:Ui:button secondary>Secondary</twig:Ui:button>
+            <twig:Ui:button success>Success</twig:Ui:button>
+            <twig:Ui:button error>Error</twig:Ui:button>
+            <twig:Ui:button warning>Warning</twig:Ui:button>
+            <twig:Ui:button info>Info</twig:Ui:button>
+            <twig:Ui:button white>White</twig:Ui:button>
+            <twig:Ui:button light>Light</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set allVariantsCode %}{% verbatim %}<twig:Ui:button primary>Primary</twig:Ui:button>
+<twig:Ui:button secondary>Secondary</twig:Ui:button>
+<twig:Ui:button success>Success</twig:Ui:button>
+<twig:Ui:button error>Error</twig:Ui:button>
+<twig:Ui:button warning>Warning</twig:Ui:button>
+<twig:Ui:button info>Info</twig:Ui:button>
+<twig:Ui:button white>White</twig:Ui:button>
+<twig:Ui:button light>Light</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('All Variants', allVariantsPreview, allVariantsCode) }}
+
+    {# With Left Icon #}
+    {% set withIconPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary icon="lucide:plus">Add Item</twig:Ui:button>
+            <twig:Ui:button success icon="lucide:check">Confirm</twig:Ui:button>
+            <twig:Ui:button error icon="lucide:trash">Delete</twig:Ui:button>
+            <twig:Ui:button info icon="lucide:download">Download</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set withIconCode %}{% verbatim %}<twig:Ui:button primary icon="lucide:plus">Add Item</twig:Ui:button>
+<twig:Ui:button success icon="lucide:check">Confirm</twig:Ui:button>
+<twig:Ui:button error icon="lucide:trash">Delete</twig:Ui:button>
+<twig:Ui:button info icon="lucide:download">Download</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('With Left Icon', withIconPreview, withIconCode) }}
+
+    {# With Right Icon #}
+    {% set rightIconPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary iconRight="lucide:arrow-right">Continue</twig:Ui:button>
+            <twig:Ui:button secondary iconRight="lucide:external-link">Open Link</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set rightIconCode %}{% verbatim %}<twig:Ui:button primary iconRight="lucide:arrow-right">Continue</twig:Ui:button>
+<twig:Ui:button secondary iconRight="lucide:external-link">Open Link</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('With Right Icon', rightIconPreview, rightIconCode) }}
+
+    {# Icon Only #}
+    {% set iconOnlyPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary icon="lucide:plus" />
+            <twig:Ui:button secondary icon="lucide:settings" />
+            <twig:Ui:button white icon="lucide:search" />
+            <twig:Ui:button error icon="lucide:x" />
+        </div>
+    {% endset %}
+    {% set iconOnlyCode %}{% verbatim %}<twig:Ui:button primary icon="lucide:plus" />
+<twig:Ui:button secondary icon="lucide:settings" />
+<twig:Ui:button white icon="lucide:search" />
+<twig:Ui:button error icon="lucide:x" />{% endverbatim %}{% endset %}
+    {{ ui.story('Icon Only', iconOnlyPreview, iconOnlyCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="flex flex-wrap items-center gap-3">
+            <twig:Ui:button primary size="sm">Small</twig:Ui:button>
+            <twig:Ui:button primary size="md">Medium</twig:Ui:button>
+            <twig:Ui:button primary size="lg">Large</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:button primary size="sm">Small</twig:Ui:button>
+<twig:Ui:button primary size="md">Medium</twig:Ui:button>
+<twig:Ui:button primary size="lg">Large</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary disabled>Disabled Primary</twig:Ui:button>
+            <twig:Ui:button secondary disabled>Disabled Secondary</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:button primary disabled>Disabled Primary</twig:Ui:button>
+<twig:Ui:button secondary disabled>Disabled Secondary</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+
+    {# Loading #}
+    {% set loadingPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary loading>Loading...</twig:Ui:button>
+            <twig:Ui:button secondary loading>Please wait</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set loadingCode %}{% verbatim %}<twig:Ui:button primary loading>Loading...</twig:Ui:button>
+<twig:Ui:button secondary loading>Please wait</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Loading', loadingPreview, loadingCode) }}
+
+    {# As Link #}
+    {% set asLinkPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button primary href="#">Link Button</twig:Ui:button>
+            <twig:Ui:button secondary href="#" icon="lucide:external-link">External Link</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set asLinkCode %}{% verbatim %}<twig:Ui:button primary href="#">Link Button</twig:Ui:button>
+<twig:Ui:button secondary href="#" icon="lucide:external-link">External Link</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('As Link', asLinkPreview, asLinkCode) }}
+
+    {# Button Types #}
+    {% set typesPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:button type="button" white>Button</twig:Ui:button>
+            <twig:Ui:button type="submit" primary>Submit</twig:Ui:button>
+            <twig:Ui:button type="reset" secondary>Reset</twig:Ui:button>
+        </div>
+    {% endset %}
+    {% set typesCode %}{% verbatim %}<twig:Ui:button type="button" white>Button</twig:Ui:button>
+<twig:Ui:button type="submit" primary>Submit</twig:Ui:button>
+<twig:Ui:button type="reset" secondary>Reset</twig:Ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Button Types', typesPreview, typesCode) }}
+</div>

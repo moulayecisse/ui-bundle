@@ -1,0 +1,103 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Basic Form #}
+    {% set basicPreview %}
+        <twig:Ui:form action="#" method="POST" class="max-w-lg">
+            <twig:Ui:input name="name" label="Full Name" placeholder="Enter your name" />
+            <twig:Ui:input name="email" type="email" label="Email Address" placeholder="you@example.com" class="mt-4" />
+            <twig:Ui:form-actions class="mt-6">
+                <twig:Ui:button type="submit">Submit</twig:Ui:button>
+            </twig:Ui:form-actions>
+        </twig:Ui:form>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:form action="#" method="POST">
+    <twig:Ui:input name="name" label="Full Name" placeholder="Enter your name" />
+    <twig:Ui:input name="email" type="email" label="Email Address" placeholder="you@example.com" />
+    <twig:Ui:form-actions>
+        <twig:Ui:button type="submit">Submit</twig:Ui:button>
+    </twig:Ui:form-actions>
+</twig:Ui:form>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Form', basicPreview, basicCode) }}
+
+    {# With Form Section #}
+    {% set sectionPreview %}
+        <twig:Ui:form action="#" class="max-w-2xl">
+            <twig:Ui:form-section title="Personal Information" description="Your basic profile information.">
+                <div class="grid grid-cols-2 gap-4">
+                    <twig:Ui:input name="first_name" label="First Name" />
+                    <twig:Ui:input name="last_name" label="Last Name" />
+                </div>
+                <twig:Ui:input name="email" type="email" label="Email" class="mt-4" />
+            </twig:Ui:form-section>
+
+            <twig:Ui:form-section title="Preferences" description="Customize your experience." class="mt-8">
+                <twig:Ui:switch name="newsletter" label="Subscribe to newsletter" />
+                <twig:Ui:switch name="notifications" label="Enable notifications" class="mt-3" />
+            </twig:Ui:form-section>
+
+            <twig:Ui:form-actions class="mt-8">
+                <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+                <twig:Ui:button type="submit">Save Changes</twig:Ui:button>
+            </twig:Ui:form-actions>
+        </twig:Ui:form>
+    {% endset %}
+    {% set sectionCode %}{% verbatim %}<twig:Ui:form action="#">
+    <twig:Ui:form-section title="Personal Information" description="Your basic profile information.">
+        <div class="grid grid-cols-2 gap-4">
+            <twig:Ui:input name="first_name" label="First Name" />
+            <twig:Ui:input name="last_name" label="Last Name" />
+        </div>
+        <twig:Ui:input name="email" type="email" label="Email" />
+    </twig:Ui:form-section>
+
+    <twig:Ui:form-section title="Preferences" description="Customize your experience.">
+        <twig:Ui:switch name="newsletter" label="Subscribe to newsletter" />
+    </twig:Ui:form-section>
+
+    <twig:Ui:form-actions>
+        <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+        <twig:Ui:button type="submit">Save Changes</twig:Ui:button>
+    </twig:Ui:form-actions>
+</twig:Ui:form>{% endverbatim %}{% endset %}
+    {{ ui.story('With Form Sections', sectionPreview, sectionCode) }}
+
+    {# Form Actions Alignment #}
+    {% set actionsPreview %}
+        <div class="space-y-6 max-w-lg">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Left aligned (default)</p>
+                <twig:Ui:form-actions>
+                    <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+                    <twig:Ui:button>Submit</twig:Ui:button>
+                </twig:Ui:form-actions>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Right aligned</p>
+                <twig:Ui:form-actions class="justify-end">
+                    <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+                    <twig:Ui:button>Submit</twig:Ui:button>
+                </twig:Ui:form-actions>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Space between</p>
+                <twig:Ui:form-actions class="justify-between">
+                    <twig:Ui:button variant="ghost">Delete</twig:Ui:button>
+                    <div class="flex gap-3">
+                        <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+                        <twig:Ui:button>Submit</twig:Ui:button>
+                    </div>
+                </twig:Ui:form-actions>
+            </div>
+        </div>
+    {% endset %}
+    {% set actionsCode %}{% verbatim %}<twig:Ui:form-actions>
+    <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+    <twig:Ui:button>Submit</twig:Ui:button>
+</twig:Ui:form-actions>
+
+<twig:Ui:form-actions class="justify-end">...</twig:Ui:form-actions>
+
+<twig:Ui:form-actions class="justify-between">...</twig:Ui:form-actions>{% endverbatim %}{% endset %}
+    {{ ui.story('Form Actions Alignment', actionsPreview, actionsCode) }}
+</div>

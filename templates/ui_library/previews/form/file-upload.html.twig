@@ -1,0 +1,90 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'name', type: 'string | null', default: 'null', description: 'Form field name ([] appended if multiple)' },
+        { name: 'id', type: 'string | null', default: 'null', description: 'Input element ID' },
+        { name: 'accept', type: 'string | null', default: 'null', description: 'Accepted file types (e.g., "image/*", ".pdf")' },
+        { name: 'multiple', type: 'boolean', default: 'false', description: 'Allow multiple file selection' },
+        { name: 'maxSize', type: 'number | null', default: 'null', description: 'Maximum file size in bytes' },
+        { name: 'maxFiles', type: 'number | null', default: 'null', description: 'Maximum number of files allowed' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the file upload' },
+        { name: 'label', type: 'string', default: "'Drop files here...'", description: 'Dropzone label text' },
+        { name: 'description', type: 'string | null', default: 'null', description: 'Help text below the label' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Basic File Upload #}
+    {% set basicPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:file-upload name="file" />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:file-upload name="file" />{% endverbatim %}{% endset %}
+    {{ ui.story('Basic File Upload', basicPreview, basicCode) }}
+
+    {# With Description #}
+    {% set descriptionPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:file-upload
+                name="document"
+                label="Upload Document"
+                description="PDF, DOC, or DOCX files only"
+            />
+        </div>
+    {% endset %}
+    {% set descriptionCode %}{% verbatim %}<twig:Ui:file-upload
+    name="document"
+    label="Upload Document"
+    description="PDF, DOC, or DOCX files only"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Description', descriptionPreview, descriptionCode) }}
+
+    {# Multiple Files #}
+    {% set multiplePreview %}
+        <div class="max-w-lg">
+            <twig:Ui:file-upload
+                name="images"
+                multiple
+                label="Drop images here or click to upload"
+                accept="image/*"
+            />
+        </div>
+    {% endset %}
+    {% set multipleCode %}{% verbatim %}<twig:Ui:file-upload
+    name="images"
+    multiple
+    label="Drop images here or click to upload"
+    accept="image/*"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Multiple Files', multiplePreview, multipleCode) }}
+
+    {# With Max Size #}
+    {% set maxSizePreview %}
+        <div class="max-w-lg">
+            <twig:Ui:file-upload
+                name="avatar"
+                label="Upload avatar"
+                accept="image/png,image/jpeg"
+                :maxSize="5242880"
+            />
+        </div>
+    {% endset %}
+    {% set maxSizeCode %}{% verbatim %}<twig:Ui:file-upload
+    name="avatar"
+    label="Upload avatar"
+    accept="image/png,image/jpeg"
+    :maxSize="5242880"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Max Size (5MB)', maxSizePreview, maxSizeCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:file-upload name="disabled" disabled />
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:file-upload name="disabled" disabled />{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+</div>

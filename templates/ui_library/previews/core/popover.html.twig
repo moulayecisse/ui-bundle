@@ -1,0 +1,81 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'position', type: "'bottom' | 'top' | 'left' | 'right'", default: "'bottom'", description: 'Position of the popover relative to trigger' },
+        { name: 'hover', type: 'boolean', default: 'false', description: 'Open on hover instead of click' },
+        { name: 'width', type: "'auto' | 'sm' | 'md' | 'lg'", default: "'auto'", description: 'Width preset for the popover' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'trigger', description: 'The element that triggers the popover (button, link, etc.)' },
+        { name: 'content', description: 'The popover content (default slot)' },
+    ]) }}
+
+    {# Basic Popover #}
+    {% set basicPreview %}
+        <div class="flex justify-center py-8">
+            <twig:Ui:popover>
+                <twig:block name="trigger">
+                    <twig:Ui:button>Click me</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">This is a popover content.</p>
+            </twig:Ui:popover>
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:popover>
+    {% block trigger %}
+        <twig:Ui:button>Click me</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <p class="text-sm text-gray-700 dark:text-gray-300">This is a popover content.</p>
+    {% endblock %}
+</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Popover', basicPreview, basicCode) }}
+
+    {# Hover Popover #}
+    {% set hoverPreview %}
+        <div class="flex justify-center py-8">
+            <twig:Ui:popover hover>
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline">Hover me</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">This appears on hover.</p>
+            </twig:Ui:popover>
+        </div>
+    {% endset %}
+    {% set hoverCode %}{% verbatim %}<twig:Ui:popover hover>
+    {% block trigger %}
+        <twig:Ui:button variant="outline">Hover me</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <p class="text-sm text-gray-700 dark:text-gray-300">This appears on hover.</p>
+    {% endblock %}
+</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {{ ui.story('Hover Popover', hoverPreview, hoverCode) }}
+
+    {# Width Options - Code Example #}
+    {% set widthsPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Popover supports different width options: <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">auto</code>,
+                <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">sm</code>,
+                <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">md</code>,
+                <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">lg</code>
+            </p>
+            <div class="grid grid-cols-4 gap-2 text-center text-xs">
+                <div class="bg-white dark:bg-gray-900 rounded p-2">auto<br><span class="text-gray-400">min-w-48</span></div>
+                <div class="bg-white dark:bg-gray-900 rounded p-2">sm<br><span class="text-gray-400">w-48</span></div>
+                <div class="bg-white dark:bg-gray-900 rounded p-2">md<br><span class="text-gray-400">w-64</span></div>
+                <div class="bg-white dark:bg-gray-900 rounded p-2">lg<br><span class="text-gray-400">w-80</span></div>
+            </div>
+        </div>
+    {% endset %}
+    {% set widthsCode %}{% verbatim %}<twig:Ui:popover width="sm">...</twig:Ui:popover>
+<twig:Ui:popover width="md">...</twig:Ui:popover>
+<twig:Ui:popover width="lg">...</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {{ ui.story('Width Options', widthsPreview, widthsCode) }}
+</div>

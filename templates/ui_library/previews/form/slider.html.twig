@@ -1,0 +1,61 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'name', type: 'string | null', default: 'null', description: 'Form field name for submission' },
+        { name: 'id', type: 'string | null', default: 'null', description: 'Input element ID' },
+        { name: 'value', type: 'number', default: '0', description: 'Current slider value' },
+        { name: 'min', type: 'number', default: '0', description: 'Minimum value' },
+        { name: 'max', type: 'number', default: '100', description: 'Maximum value' },
+        { name: 'step', type: 'number', default: '1', description: 'Step increment between values' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the slider' },
+        { name: 'showValue', type: 'boolean', default: 'false', description: 'Show min, current, and max values' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Basic Slider #}
+    {% set basicPreview %}
+        <div class="max-w-md">
+            <twig:Ui:slider name="basic" value="50" />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:slider name="basic" value="50" />{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Slider', basicPreview, basicCode) }}
+
+    {# With Value Display #}
+    {% set valuePreview %}
+        <div class="max-w-md">
+            <twig:Ui:slider name="display" value="75" showValue />
+        </div>
+    {% endset %}
+    {% set valueCode %}{% verbatim %}<twig:Ui:slider name="display" value="75" showValue />{% endverbatim %}{% endset %}
+    {{ ui.story('With Value Display', valuePreview, valueCode) }}
+
+    {# Custom Range #}
+    {% set rangePreview %}
+        <div class="max-w-md">
+            <twig:Ui:slider name="range" value="25" min="0" max="50" showValue />
+        </div>
+    {% endset %}
+    {% set rangeCode %}{% verbatim %}<twig:Ui:slider name="range" value="25" min="0" max="50" showValue />{% endverbatim %}{% endset %}
+    {{ ui.story('Custom Range (0-50)', rangePreview, rangeCode) }}
+
+    {# With Steps #}
+    {% set stepsPreview %}
+        <div class="max-w-md">
+            <twig:Ui:slider name="steps" value="50" step="10" showValue />
+        </div>
+    {% endset %}
+    {% set stepsCode %}{% verbatim %}<twig:Ui:slider name="steps" value="50" step="10" showValue />{% endverbatim %}{% endset %}
+    {{ ui.story('With Steps (10)', stepsPreview, stepsCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-md">
+            <twig:Ui:slider name="disabled" value="30" disabled showValue />
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:slider name="disabled" value="30" disabled showValue />{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+</div>

@@ -1,0 +1,106 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Basic Range Slider #}
+    {% set basicPreview %}
+        <div class="max-w-md">
+            <twig:Ui:range-slider
+                minName="price_min"
+                maxName="price_max"
+                minValue="25"
+                maxValue="75"
+            />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:range-slider
+    minName="price_min"
+    maxName="price_max"
+    minValue="25"
+    maxValue="75"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Range Slider', basicPreview, basicCode) }}
+
+    {# Custom Range #}
+    {% set customPreview %}
+        <div class="max-w-md">
+            <twig:Ui:range-slider
+                minName="min_price"
+                maxName="max_price"
+                min="0"
+                max="1000"
+                minValue="200"
+                maxValue="800"
+            />
+        </div>
+    {% endset %}
+    {% set customCode %}{% verbatim %}<twig:Ui:range-slider
+    minName="min_price"
+    maxName="max_price"
+    min="0"
+    max="1000"
+    minValue="200"
+    maxValue="800"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Custom Range (0-1000)', customPreview, customCode) }}
+
+    {# With Steps #}
+    {% set stepsPreview %}
+        <div class="max-w-md">
+            <twig:Ui:range-slider
+                minName="step_min"
+                maxName="step_max"
+                min="0"
+                max="100"
+                step="10"
+                minValue="20"
+                maxValue="80"
+            />
+        </div>
+    {% endset %}
+    {% set stepsCode %}{% verbatim %}<twig:Ui:range-slider
+    min="0"
+    max="100"
+    step="10"
+    minValue="20"
+    maxValue="80"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Steps (10)', stepsPreview, stepsCode) }}
+
+    {# Without Labels #}
+    {% set noLabelsPreview %}
+        <div class="max-w-md">
+            <twig:Ui:range-slider
+                minName="no_labels_min"
+                maxName="no_labels_max"
+                minValue="30"
+                maxValue="70"
+                :showLabels="false"
+            />
+        </div>
+    {% endset %}
+    {% set noLabelsCode %}{% verbatim %}<twig:Ui:range-slider
+    minValue="30"
+    maxValue="70"
+    :showLabels="false"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Without Labels', noLabelsPreview, noLabelsCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-md">
+            <twig:Ui:range-slider
+                minName="disabled_min"
+                maxName="disabled_max"
+                minValue="40"
+                maxValue="60"
+                disabled
+            />
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:range-slider
+    minValue="40"
+    maxValue="60"
+    disabled
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+</div>
