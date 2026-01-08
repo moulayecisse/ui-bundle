@@ -22,17 +22,37 @@
     class="{{ class }}"
 >
     <twig:Ui:card>
-        {# Header section - use ternary instead of if/else with blocks #}
-        {{ hasCustomHeader ? include('@Ui/components/_collapsible-card-custom-header.html.twig', {
-            headerClass: headerClass,
-            headerBlock: headerBlock
-        }) : '' }}
-        {{ not hasCustomHeader ? include('@Ui/components/_collapsible-card-standard-header.html.twig', {
-            title: title,
-            description: description,
-            defaultExpanded: defaultExpanded,
-            actionsBlock: actionsBlock
-        }) : '' }}
+        {# Header - custom or standard mode rendered inline #}
+        <twig:Ui:card:header>
+            <div class="flex items-center justify-between w-full">
+                <div>
+                    {% if hasCustomHeader %}
+                        {{ headerBlock|raw }}
+                    {% else %}
+                        {% if title %}
+                            <h3 class="text-base font-semibold text-gray-800 dark:text-white/90">{{ title }}</h3>
+                        {% endif %}
+                        {% if description %}
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="flex items-center gap-2">
+                    {{ actionsBlock|raw }}
+                    <button
+                        type="button"
+                        data-action="click->cisse--ui-bundle--collapsible-card#toggle"
+                        class="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+                    >
+                        <twig:ux:icon
+                            data-cisse--ui-bundle--collapsible-card-target="icon"
+                            name="{{ defaultExpanded ? 'heroicons:chevron-up-20-solid' : 'heroicons:chevron-down-20-solid' }}"
+                            class="size-5 transition-transform duration-200"
+                        />
+                    </button>
+                </div>
+            </div>
+        </twig:Ui:card:header>
 
         {# Collapsible content #}
         <div
