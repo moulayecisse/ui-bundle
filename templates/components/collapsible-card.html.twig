@@ -1,5 +1,5 @@
 {# templates/components/Ui/collapsible-card.html.twig #}
-{# Expandable/collapsible card component #}
+{# Expandable/collapsible card component - matches cisse-vue-ui CollapsibleCard #}
 {% props
     class = '',
     title = null,
@@ -21,23 +21,31 @@
     data-cisse--ui-bundle--collapsible-card-expanded-value="{{ defaultExpanded ? 'true' : 'false' }}"
     class="{{ class }}"
 >
-    <twig:Ui:card>
-        {# Header - custom or standard mode rendered inline #}
-        <twig:Ui:card:header>
-            <div class="flex items-center justify-between w-full">
-                <div>
-                    {% if hasCustomHeader %}
-                        {{ headerBlock|raw }}
-                    {% else %}
-                        {% if title %}
-                            <h3 class="text-base font-semibold text-gray-800 dark:text-white/90">{{ title }}</h3>
-                        {% endif %}
-                        {% if description %}
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
-                        {% endif %}
+    {# Card container matching Vue CardComponent structure #}
+    <div class="flex flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-slate-950">
+        {% if hasCustomHeader %}
+            {# Custom header mode - button wraps the header content #}
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <button
+                    type="button"
+                    data-action="click->cisse--ui-bundle--collapsible-card#toggle"
+                    class="{{ headerClass }}"
+                >
+                    {{ headerBlock|raw }}
+                </button>
+            </div>
+        {% else %}
+            {# Standard header with title/description/actions #}
+            <div class="flex items-center justify-between border-b border-gray-200 px-5 py-3 dark:border-gray-700">
+                <div class="flex flex-col gap-0.5">
+                    {% if title %}
+                        <span class="text-md font-semibold text-gray-800 dark:text-gray-200">{{ title }}</span>
+                    {% endif %}
+                    {% if description %}
+                        <span class="text-sm font-normal text-gray-600 dark:text-gray-400">{{ description }}</span>
                     {% endif %}
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex gap-2">
                     {{ actionsBlock|raw }}
                     <button
                         type="button"
@@ -46,13 +54,13 @@
                     >
                         <twig:ux:icon
                             data-cisse--ui-bundle--collapsible-card-target="icon"
-                            name="{{ defaultExpanded ? 'heroicons:chevron-up-20-solid' : 'heroicons:chevron-down-20-solid' }}"
-                            class="size-5 transition-transform duration-200"
+                            name="{{ defaultExpanded ? 'lucide:chevron-up' : 'lucide:chevron-down' }}"
+                            class="size-5"
                         />
                     </button>
                 </div>
             </div>
-        </twig:Ui:card:header>
+        {% endif %}
 
         {# Collapsible content #}
         <div
@@ -60,9 +68,9 @@
             class="overflow-hidden transition-all duration-200 ease-out {{ contentClass }}"
             style="{{ defaultExpanded ? '' : 'max-height: 0; opacity: 0;' }}"
         >
-            <twig:Ui:card:content>
+            <div class="{{ hasCustomHeader ? '' : 'space-y-4 p-6' }}">
                 {% block content '' %}
-            </twig:Ui:card:content>
+            </div>
         </div>
-    </twig:Ui:card>
+    </div>
 </div>
