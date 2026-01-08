@@ -1,0 +1,82 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'name', type: 'string | null', default: 'null', description: 'Form field name' },
+        { name: 'id', type: 'string | null', default: 'null', description: 'Input element ID' },
+        { name: 'value', type: 'string', default: "''", description: 'Input value' },
+        { name: 'placeholder', type: 'string', default: "'Enter email address...'", description: 'Placeholder text' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Input size' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disabled state' },
+        { name: 'showValidation', type: 'boolean', default: 'true', description: 'Show validation icons' },
+        { name: 'required', type: 'boolean', default: 'false', description: 'Required field' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Basic Email Input #}
+    {% set basicPreview %}
+        <div class="max-w-md">
+            <twig:Ui:input:email name="email" placeholder="Enter your email..." />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:input:email name="email" placeholder="Enter your email..." />{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Email Input', basicPreview, basicCode) }}
+
+    {# With Label #}
+    {% set labelPreview %}
+        <div class="max-w-md">
+            <twig:Ui:label for="email-label">Email Address</twig:Ui:label>
+            <twig:Ui:input:email name="email-label" id="email-label" required />
+        </div>
+    {% endset %}
+    {% set labelCode %}{% verbatim %}<twig:Ui:label for="email">Email Address</twig:Ui:label>
+<twig:Ui:input:email name="email" id="email" required />{% endverbatim %}{% endset %}
+    {{ ui.story('With Label', labelPreview, labelCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="max-w-md space-y-4">
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Small</span>
+                <twig:Ui:input:email name="email-sm" size="sm" placeholder="Small email input" />
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Medium (default)</span>
+                <twig:Ui:input:email name="email-md" size="md" placeholder="Medium email input" />
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Large</span>
+                <twig:Ui:input:email name="email-lg" size="lg" placeholder="Large email input" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:input:email size="sm" />
+<twig:Ui:input:email size="md" />
+<twig:Ui:input:email size="lg" />{% endverbatim %}{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# Validation States #}
+    {% set validationPreview %}
+        <div class="max-w-md space-y-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Type in the input and blur (click outside) to see validation. Valid emails show a green checkmark, invalid emails show a red alert icon.
+            </p>
+            <twig:Ui:input:email name="email-validate" :showValidation="true" placeholder="Type and blur to validate..." />
+        </div>
+    {% endset %}
+    {% set validationCode %}{% verbatim %}<twig:Ui:input:email name="email" :showValidation="true" />
+
+{# Disable validation #}
+<twig:Ui:input:email name="email" :showValidation="false" />{% endverbatim %}{% endset %}
+    {{ ui.story('Validation', validationPreview, validationCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-md">
+            <twig:Ui:input:email name="email-disabled" value="user@example.com" disabled />
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:input:email name="email" value="user@example.com" disabled />{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+</div>

@@ -1,0 +1,41 @@
+{# templates/components/Ui/type/text.html.twig #}
+{# Text type display component for tables and lists #}
+{% props
+    class = '',
+    value = null,
+    truncate = false,
+    maxLength = null,
+    fallback = '-',
+    capitalize = false,
+    uppercase = false,
+    lowercase = false,
+    monospace = false
+%}
+
+{% set displayValue = value ?? fallback %}
+
+{# Apply text transformations #}
+{% if displayValue is not null and displayValue != fallback %}
+    {% if capitalize %}
+        {% set displayValue = displayValue|capitalize %}
+    {% elseif uppercase %}
+        {% set displayValue = displayValue|upper %}
+    {% elseif lowercase %}
+        {% set displayValue = displayValue|lower %}
+    {% endif %}
+
+    {% if maxLength and displayValue|length > maxLength %}
+        {% set displayValue = displayValue|slice(0, maxLength) ~ '...' %}
+    {% endif %}
+{% endif %}
+
+{% set textClasses = [
+    'text-sm text-gray-900 dark:text-gray-100',
+    truncate ? 'truncate' : '',
+    monospace ? 'font-mono' : '',
+    class
+]|filter(v => v)|join(' ')|tailwind_merge %}
+
+<span class="{{ textClasses }}">
+    {{- displayValue -}}
+</span>

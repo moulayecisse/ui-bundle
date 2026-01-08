@@ -1,0 +1,47 @@
+{% props
+  class = '',
+  name = null,
+  length = 6,
+  size = 'md',
+  disabled = null,
+  autoFocus = true,
+  masked = false,
+%}
+
+{% set sizeClasses = {
+  'sm': { input: 'size-10 text-lg', gap: 'gap-2' },
+  'md': { input: 'size-12 text-xl', gap: 'gap-3' },
+  'lg': { input: 'size-14 text-2xl', gap: 'gap-4' },
+} %}
+
+{% set config = sizeClasses[size] ?? sizeClasses['md'] %}
+
+<div
+  {{ attributes }}
+  data-controller="cisse--ui-bundle--otp"
+  data-cisse--ui-bundle--otp-length-value="{{ length }}"
+  class="{{ ('inline-flex ' ~ config.gap ~ ' ' ~ class)|tailwind_merge }}"
+>
+  {% for i in 1..length %}
+    <input
+      data-cisse--ui-bundle--otp-target="input"
+      data-index="{{ loop.index0 }}"
+      type="{{ masked ? 'password' : 'text' }}"
+      inputmode="numeric"
+      {% if name %}name="{{ name }}-{{ loop.index0 }}"{% endif %}
+      maxlength="1"
+      autocomplete="one-time-code"
+      {{ disabled ? 'disabled' }}
+      {{ autoFocus and loop.first ? 'autofocus' }}
+      class="{{ (config.input ~ ' text-center font-semibold rounded-xl border-2 transition-all bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white border-gray-200 dark:border-slate-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed')|tailwind_merge }}"
+      data-action="input->cisse--ui-bundle--otp#handleInput keydown->cisse--ui-bundle--otp#handleKeydown paste->cisse--ui-bundle--otp#handlePaste focus->cisse--ui-bundle--otp#handleFocus"
+    >
+  {% endfor %}
+
+  {# Hidden input to store the full OTP value #}
+  <input
+    type="hidden"
+    {% if name %}name="{{ name }}"{% endif %}
+    data-cisse--ui-bundle--otp-target="hidden"
+  >
+</div>

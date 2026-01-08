@@ -1,0 +1,69 @@
+{# templates/components/Ui/type/badge.html.twig #}
+{# Badge type display component for tables and lists #}
+{% props
+    class = '',
+    value = null,
+    variant = 'default',
+    size = 'sm',
+    mapping = null,
+    fallback = '-'
+%}
+
+{# Default color mapping #}
+{% set defaultMapping = {
+    'active': 'success',
+    'enabled': 'success',
+    'completed': 'success',
+    'success': 'success',
+    'yes': 'success',
+    'true': 'success',
+    'inactive': 'gray',
+    'disabled': 'gray',
+    'pending': 'warning',
+    'warning': 'warning',
+    'error': 'error',
+    'failed': 'error',
+    'no': 'error',
+    'false': 'error',
+    'info': 'info',
+    'new': 'info'
+} %}
+
+{% set _mapping = mapping ?? defaultMapping %}
+
+{# Determine color from value #}
+{% set color = 'gray' %}
+{% if value is not null %}
+    {% set lowerValue = value|lower %}
+    {% if _mapping[lowerValue] is defined %}
+        {% set color = _mapping[lowerValue] %}
+    {% elseif _mapping[value] is defined %}
+        {% set color = _mapping[value] %}
+    {% endif %}
+{% endif %}
+
+{# Color configurations #}
+{% set colorConfig = {
+    'default': 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300',
+    'gray': 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300',
+    'success': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+    'error': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+    'warning': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
+    'info': 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
+    'primary': 'bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-400'
+} %}
+
+{% set sizeConfig = {
+    'xs': 'px-1.5 py-0.5 text-xs',
+    'sm': 'px-2 py-0.5 text-xs',
+    'md': 'px-2.5 py-1 text-sm',
+    'lg': 'px-3 py-1.5 text-sm'
+} %}
+
+{% set displayValue = value ?? fallback %}
+
+{% set badgeClasses = ('inline-flex items-center font-medium rounded-full ' ~ colorConfig[color] ~ ' ' ~ sizeConfig[size] ~ ' ' ~ class)|tailwind_merge %}
+
+<span class="{{ badgeClasses }}">
+    {{- displayValue -}}
+</span>

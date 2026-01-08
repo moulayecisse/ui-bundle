@@ -5,10 +5,19 @@
     form = null,
     name = null,
     id = null,
-    value = null,
-    required = null,
+    label = null,
+    placeholder = null,
+    hint = null,
+    error = null,
+    required = false,
     autofocus = false,
-    disabled = null, %}
+    disabled = false,
+    readonly = false,
+    maxLength = null,
+    showCount = false,
+    resize = 'vertical',
+    size = 'md',
+%}
 
 {% if form %}
     {% set name = name ?? form.vars.full_name %}
@@ -18,20 +27,71 @@
     {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
+{% set _id = id ?? name %}
+
+{# Resize classes #}
+{% set resizeClasses = {
+    'none': 'resize-none',
+    'vertical': 'resize-y',
+    'horizontal': 'resize-x',
+    'both': 'resize',
+} %}
+
+{# Size classes #}
+{% set sizeClasses = {
+    'sm': 'text-xs px-2.5 py-1.5',
+    'md': 'text-sm px-3 py-2',
+    'lg': 'text-base px-4 py-2.5',
+} %}
+
+{% set hasError = error is not empty %}
+
 {% set contentBlock %}{% block content value %}{% endset %}
 
-<twig:Ui:input-wrapper
+<div {{ attributes }}>
+    {# Label #}
+    {% if label %}
+        <twig:Ui:label for="{{ _id }}" :error="hasError">
+            {{ label }}
+            {% if required %}<span class="text-red-500 ml-0.5">*</span>{% endif %}
+        </twig:Ui:label>
+    {% endif %}
+
+    {# TextArea #}
+    <twig:Ui:input-wrapper
         :disabled="disabled"
-        :class="class"
-><textarea
-  {{ attributes }}
-    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none"
-    rows="{{ rows }}"
-    {{ outerScope.attributes }}
+        class="{{ label ? 'mt-2' : '' }} {{ class }}"
+    >
+        <textarea
+            class="block w-full bg-transparent focus:outline-none {{ sizeClasses[size] ?? sizeClasses['md'] }} {{ resizeClasses[resize] ?? resizeClasses['vertical'] }}"
+            rows="{{ rows }}"
             {% if name %}name="{{ name }}"{% endif %}
-            {% if id %}id="{{ id }}"{% endif %}
+            {% if _id %}id="{{ _id }}"{% endif %}
+            {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+            {% if maxLength %}maxlength="{{ maxLength }}"{% endif %}
             {{ required ? 'required' }}
             {{ autofocus ? 'autofocus' }}
             {{ disabled ? 'disabled' }}
->{{ contentBlock|raw }}</textarea></twig:Ui:input-wrapper>
+            {{ readonly ? 'readonly' }}
+        >{{ contentBlock|raw }}</textarea>
+    </twig:Ui:input-wrapper>
 
+    {# Character count #}
+    {% if showCount or maxLength %}
+        <div class="flex justify-end mt-1">
+            <span class="text-xs text-gray-400">
+                <span data-textarea-count>{{ value|length }}</span>{% if maxLength %} / {{ maxLength }}{% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+    {# Hint #}
+    {% if hint and not hasError %}
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ hint }}</p>
+    {% endif %}
+
+    {# Error #}
+    {% if hasError %}
+        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ error }}</p>
+    {% endif %}
+</div>

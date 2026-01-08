@@ -6,6 +6,10 @@
     divide = false,
     headerAttributes = {},
     tag = 'div',
+    loading = false,
+    loadingLines = 3,
+    loadingAvatar = false,
+    loadingActions = false,
 %}
 
 {% set cardTitleBlock %}{% block title title|raw %}{% endset %}
@@ -17,38 +21,48 @@
 {% set showHeader = cardTitleBlock|trim or cardDescriptionBlock|trim or cardActionsBlock|trim or cardHeaderBlock|trim %}
 {% set showFooter = cardFooterBlock|trim != '' %}
 
-<{{ tag }}
-    {{ attributes }}
-    class="{{ ('flex flex-col rounded-xl bg-white dark:bg-black border border-gray-200 dark:border-gray-800 ' ~ class)|tailwind_merge }}"
->
-    {% block wrapper %}
-        {% if showHeader %}
-            <twig:Ui:card:header {{ ...attributes.nested('header') }}>
-                <twig:Ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:Ui:card:title>
-                <twig:Ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:Ui:card:description>
+{# Loading state - render skeleton #}
+{% if loading %}
+    <twig:Ui:card-skeleton
+        :showAvatar="loadingAvatar"
+        :lines="loadingLines"
+        :showActions="loadingActions"
+        class="{{ class }}"
+    />
+{% else %}
+    <{{ tag }}
+        {{ attributes }}
+        class="{{ ('flex flex-col rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 ' ~ class)|tailwind_merge }}"
+    >
+        {% block wrapper %}
+            {% if showHeader %}
+                <twig:Ui:card:header {{ ...attributes.nested('header') }}>
+                    <twig:Ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:Ui:card:title>
+                    <twig:Ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:Ui:card:description>
 
-                <twig:block name="actions">
-                    <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:Ui:card:actions>
-                </twig:block>
-            </twig:Ui:card:header>
-        {% endif %}
+                    <twig:block name="actions">
+                        <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:Ui:card:actions>
+                    </twig:block>
+                </twig:Ui:card:header>
+            {% endif %}
 
-        {% if divide and showHeader %}
-            <twig:Ui:divider />
-        {% endif %}
+            {% if divide and showHeader %}
+                <twig:Ui:divider />
+            {% endif %}
 
-        <twig:Ui:card:content {{ ...attributes.nested('content') }}>
-            {{ cardContentBlock|raw }}
-        </twig:Ui:card:content>
+            <twig:Ui:card:content {{ ...attributes.nested('content') }}>
+                {{ cardContentBlock|raw }}
+            </twig:Ui:card:content>
 
-        {% if divide and showFooter %}
-            <twig:Ui:divider />
-        {% endif %}
+            {% if divide and showFooter %}
+                <twig:Ui:divider />
+            {% endif %}
 
-        {% if showFooter %}
-            <twig:Ui:card:footer {{ ...attributes.nested('footer') }}>
-                {{ cardFooterBlock|raw }}
-            </twig:Ui:card:footer>
-        {% endif %}
-    {% endblock %}
-</{{ tag }}>
+            {% if showFooter %}
+                <twig:Ui:card:footer {{ ...attributes.nested('footer') }}>
+                    {{ cardFooterBlock|raw }}
+                </twig:Ui:card:footer>
+            {% endif %}
+        {% endblock %}
+    </{{ tag }}>
+{% endif %}

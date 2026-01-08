@@ -1,0 +1,41 @@
+{% props
+  position = 'bottom',
+  hover = false,
+  width = 'auto',
+  class = '',
+%}
+
+{% set widthClasses = {
+  'auto': 'w-auto min-w-48',
+  'sm': 'w-48',
+  'md': 'w-64',
+  'lg': 'w-80',
+} %}
+
+{% set trigger_block %}{% block trigger '' %}{% endset %}
+
+<div
+  {{ attributes }}
+  data-controller="cisse--ui-bundle--popover"
+  data-cisse--ui-bundle--popover-hover-value="{{ hover ? 'true' : 'false' }}"
+  data-cisse--ui-bundle--popover-position-value="{{ position }}"
+  class="{{ ('relative inline-block ' ~ class)|tailwind_merge }}"
+>
+  {# Trigger #}
+  <div
+    data-cisse--ui-bundle--popover-target="trigger"
+    data-action="{{ hover ? 'mouseenter->cisse--ui-bundle--popover#open mouseleave->cisse--ui-bundle--popover#close' : 'click->cisse--ui-bundle--popover#toggle' }}"
+  >
+    {{ trigger_block|raw }}
+  </div>
+
+  {# Popover content #}
+  <div
+    data-cisse--ui-bundle--popover-target="popover"
+    class="absolute z-50 rounded-lg border border-gray-200 bg-white p-4 shadow-lg dark:border-gray-700 dark:bg-gray-800 {{ widthClasses[width] ?? widthClasses['auto'] }}"
+    role="dialog"
+    style="display: none;"
+  >
+    {% block content '' %}
+  </div>
+</div>

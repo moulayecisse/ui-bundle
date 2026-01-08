@@ -1,0 +1,72 @@
+{% props
+  name = null,
+  id = null,
+  checked = false,
+  label = null,
+  description = null,
+  disabled = false,
+  size = 'md',
+  class = '',
+%}
+
+{% set switchSizes = {
+  'sm': 'h-5 w-9',
+  'md': 'h-6 w-11',
+  'lg': 'h-7 w-14',
+} %}
+
+{% set dotSizes = {
+  'sm': 'size-3',
+  'md': 'size-4',
+  'lg': 'size-5',
+} %}
+
+{% set translateSizes = {
+  'sm': 'translate-x-5',
+  'md': 'translate-x-6',
+  'lg': 'translate-x-8',
+} %}
+
+{% set switchId = id ?? name %}
+
+<label
+  {{ attributes }}
+  class="{{ ('inline-flex items-start gap-3 ' ~ (disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer') ~ ' ' ~ class)|tailwind_merge }}"
+>
+  {# Hidden checkbox for form submission #}
+  <input
+    type="checkbox"
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if switchId %}id="{{ switchId }}"{% endif %}
+    {% if checked %}checked{% endif %}
+    {% if disabled %}disabled{% endif %}
+    class="sr-only peer"
+    role="switch"
+    aria-checked="{{ checked ? 'true' : 'false' }}"
+  >
+
+  {# Visual switch #}
+  <span
+    class="{{ switchSizes[size] ?? switchSizes['md'] }} relative inline-flex shrink-0 items-center rounded-full transition-colors focus:outline-hidden peer-focus:ring-2 peer-focus:ring-primary peer-focus:ring-offset-2 {{ checked ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600' }}"
+  >
+    <span
+      class="{{ dotSizes[size] ?? dotSizes['md'] }} inline-block transform rounded-full bg-white shadow-sm transition-transform {{ checked ? (translateSizes[size] ?? translateSizes['md']) : 'translate-x-1' }}"
+      aria-hidden="true"
+    ></span>
+  </span>
+
+  {% if label or description %}
+    <div class="flex flex-col">
+      {% if label %}
+        <span class="text-sm font-medium text-gray-900 dark:text-white">
+          {{ label }}
+        </span>
+      {% endif %}
+      {% if description %}
+        <span class="text-sm text-gray-500 dark:text-gray-400">
+          {{ description }}
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
+</label>

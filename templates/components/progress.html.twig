@@ -1,0 +1,82 @@
+{% props
+  value = 0,
+  max = 100,
+  size = 'md',
+  variant = 'default',
+  showLabel = false,
+  striped = false,
+  animated = false,
+  indeterminate = false,
+  class = '',
+%}
+
+{% set percentage = indeterminate ? 100 : ((value / max) * 100)|clamp(0, 100) %}
+
+{% set sizeClasses = {
+  'sm': 'h-1',
+  'md': 'h-2',
+  'lg': 'h-4',
+} %}
+
+{% set variantClasses = {
+  'default': 'bg-primary',
+  'success': 'bg-green-500',
+  'warning': 'bg-yellow-500',
+  'error': 'bg-red-500',
+} %}
+
+<div {{ attributes }} class="{{ ('w-full ' ~ class)|tailwind_merge }}">
+  {% if showLabel and not indeterminate %}
+    <div class="mb-1 flex justify-between text-sm">
+      <span class="text-gray-600 dark:text-gray-400">Progress</span>
+      <span class="font-medium text-gray-900 dark:text-white">{{ percentage|round }}%</span>
+    </div>
+  {% endif %}
+
+  <div
+    class="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 {{ sizeClasses[size] ?? sizeClasses['md'] }}"
+    role="progressbar"
+    {% if not indeterminate %}aria-valuenow="{{ value }}"{% endif %}
+    aria-valuemin="0"
+    aria-valuemax="{{ max }}"
+  >
+    <div
+      class="h-full rounded-full transition-all duration-300 {{ variantClasses[variant] ?? variantClasses['default'] }} {{ striped ? 'progress-striped' : '' }} {{ animated ? 'progress-animated' : '' }} {{ indeterminate ? 'progress-indeterminate' : '' }}"
+      style="width: {{ indeterminate ? '30%' : percentage ~ '%' }};"
+    ></div>
+  </div>
+</div>
+
+<style>
+.progress-striped {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.progress-animated {
+  animation: progress-stripes 1s linear infinite;
+}
+
+@keyframes progress-stripes {
+  from { background-position: 1rem 0; }
+  to { background-position: 0 0; }
+}
+
+.progress-indeterminate {
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+</style>

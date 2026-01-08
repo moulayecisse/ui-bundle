@@ -42,7 +42,7 @@
         <!-- Backdrop -->
         <div
                 data-cisse--ui-bundle--slide-over-target="backdrop"
-                class="fixed inset-0 bg-gray-500/75 dark:bg-gray-950/75"
+                class="fixed inset-0 bg-black/50"
                 aria-hidden="true"
         ></div>
 
@@ -58,44 +58,35 @@
                             data-size="{{ size }}"
                             class="pointer-events-auto w-screen max-w-2xl data-[size=sm]:max-w-md data-[size=lg]:max-w-4xl data-[size=xl]:max-w-6xl data-[size=full]:max-w-full"
                     >
-                        <div class="flex h-full flex-col overflow-y-scroll bg-white dark:bg-black shadow-xl">
-                            <div class="flex-1">
-                                <!-- Header -->
-                                <div class="bg-primary px-4 py-6 sm:px-6">
-                                    <div class="flex items-start justify-between space-x-3">
-                                        <div class="space-y-1">
-                                            {% if title %}
-                                                <h2 class="text-base font-semibold text-black" id="slide-over-title">
-                                                    {{ title }}
-                                                </h2>
-                                            {% endif %}
-                                            {% if description %}
-                                                <p class="text-sm text-black/90">{{ description }}</p>
-                                            {% endif %}
-                                        </div>
-                                        <div class="flex h-7 items-center">
-                                            <button
-                                                    data-cisse--ui-bundle--slide-over-target="closeButton"
-                                                    data-action="click->cisse--ui-bundle--slide-over#close"
-                                                    type="button"
-                                                    class="relative text-black hover:text-black/90 transition-colors"
-                                                    aria-label="Close slide-over"
-                                            >
-                                                <span class="absolute -inset-2.5"></span>
-                                                <span class="sr-only">Close panel</span>
-                                                <twig:ux:icon
-                                                        name="heroicons:x-mark-16-solid"
-                                                        class="size-6"
-                                                />
-                                            </button>
-                                        </div>
+                        <div class="flex h-full flex-col overflow-y-scroll bg-white dark:bg-gray-900 shadow-xl">
+                            <!-- Header -->
+                            {% if title or description %}
+                                <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                                    <div>
+                                        {% if title %}
+                                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white" id="slide-over-title">
+                                                {{ title }}
+                                            </h2>
+                                        {% endif %}
+                                        {% if description %}
+                                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
+                                        {% endif %}
                                     </div>
+                                    <button
+                                        data-cisse--ui-bundle--slide-over-target="closeButton"
+                                        data-action="click->cisse--ui-bundle--slide-over#close"
+                                        type="button"
+                                        class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        aria-label="Close slide-over"
+                                    >
+                                        <twig:ux:icon name="heroicons:x-mark" class="size-5" />
+                                    </button>
                                 </div>
+                            {% endif %}
 
-                                <!-- Content -->
-                                <div class="relative flex-1 px-4 py-6 sm:px-6">
-                                    {% block content '' %}
-                                </div>
+                            <!-- Content -->
+                            <div class="flex-1 overflow-y-auto p-4">
+                                {% block content '' %}
                             </div>
 
                             <!-- Footer -->

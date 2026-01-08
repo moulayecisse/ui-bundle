@@ -1,0 +1,85 @@
+{% props
+  stats = [],
+  cols = null,
+  gap = 'md',
+  variant = 'default',
+  size = 'md',
+  iconPosition = 'top',
+  iconRounded = 'xl',
+  hideIconBg = false,
+  color = 'primary',
+  labelFirst = false,
+  compact = false,
+  clickable = false,
+  centered = null,
+  invertTrendColors = false,
+  hideTrendIcon = false,
+  class = '',
+%}
+
+{# Gap classes #}
+{% set gapClass = {
+  'none': 'gap-0',
+  'xs': 'gap-1 sm:gap-2',
+  'sm': 'gap-2 sm:gap-3',
+  'md': 'gap-3 sm:gap-4',
+  'lg': 'gap-4 sm:gap-6',
+  'xl': 'gap-6 sm:gap-8',
+}[gap] ?? 'gap-3 sm:gap-4' %}
+
+{# Column classes #}
+{% set colsClass = '' %}
+{% if cols %}
+  {% set colsClass = {
+    1: 'grid-cols-1',
+    2: 'grid-cols-2',
+    3: 'grid-cols-3',
+    4: 'grid-cols-2 sm:grid-cols-4',
+    5: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5',
+    6: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6',
+  }[cols] ?? 'grid-cols-1' %}
+{% else %}
+  {# Auto columns based on stats length #}
+  {% set statsCount = stats|length %}
+  {% if statsCount == 1 %}
+    {% set colsClass = 'grid-cols-1' %}
+  {% elseif statsCount == 2 %}
+    {% set colsClass = 'grid-cols-2' %}
+  {% elseif statsCount == 3 %}
+    {% set colsClass = 'grid-cols-3' %}
+  {% elseif statsCount == 4 %}
+    {% set colsClass = 'grid-cols-2 sm:grid-cols-4' %}
+  {% else %}
+    {% set colsClass = 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' %}
+  {% endif %}
+{% endif %}
+
+<div {{ attributes }} class="{{ ('grid ' ~ gapClass ~ ' ' ~ colsClass ~ ' ' ~ class)|tailwind_merge }}">
+  {% for stat in stats %}
+    <twig:Ui:stat-item
+      :label="stat.label ?? ''"
+      :value="stat.value ?? ''"
+      :description="stat.description ?? ''"
+      :prefix="stat.prefix ?? ''"
+      :suffix="stat.suffix ?? ''"
+      :icon="stat.icon ?? null"
+      :iconPosition="iconPosition"
+      :iconRounded="iconRounded"
+      :hideIconBg="hideIconBg"
+      :change="stat.change ?? null"
+      :changeLabel="stat.changeLabel ?? null"
+      :trend="stat.trend ?? null"
+      :size="size"
+      :variant="variant"
+      :color="stat.color ?? color"
+      :labelFirst="labelFirst"
+      :compact="compact"
+      :clickable="clickable"
+      :centered="centered"
+      :invertTrendColors="invertTrendColors"
+      :hideTrendIcon="hideTrendIcon"
+    />
+  {% endfor %}
+
+  {% block content '' %}
+</div>

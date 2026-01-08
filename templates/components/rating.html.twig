@@ -1,0 +1,58 @@
+{% props
+  value = 0,
+  max = 5,
+  allowHalf = false,
+  readonly = false,
+  disabled = false,
+  size = 'md',
+  filledIcon = 'heroicons:star-solid',
+  emptyIcon = 'heroicons:star',
+  color = 'text-yellow-400',
+  showValue = false,
+  name = null,
+  class = '',
+%}
+
+{% set sizeClasses = {
+  'sm': 'size-4',
+  'md': 'size-6',
+  'lg': 'size-8',
+} %}
+
+{% set sizeClass = sizeClasses[size] ?? sizeClasses['md'] %}
+
+<div {{ attributes }} class="{{ ('flex items-center gap-1 ' ~ class)|tailwind_merge }}" data-controller="cisse--ui-bundle--rating" data-cisse--ui-bundle--rating-value-value="{{ value }}" data-cisse--ui-bundle--rating-max-value="{{ max }}" data-cisse--ui-bundle--rating-allow-half-value="{{ allowHalf ? 'true' : 'false' }}">
+  {# Hidden input for form submission #}
+  {% if name %}
+    <input type="hidden" name="{{ name }}" value="{{ value }}" data-cisse--ui-bundle--rating-target="input">
+  {% endif %}
+
+  <div class="flex items-center" data-action="mouseleave->cisse--ui-bundle--rating#handleMouseLeave">
+    {% for i in 1..max %}
+      {% set isFull = value >= i %}
+      {% set isHalf = allowHalf and value >= (i - 0.5) and value < i %}
+
+      <button
+        type="button"
+        class="relative focus:outline-hidden focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 rounded {{ (readonly or disabled) ? 'cursor-default' : 'cursor-pointer' }} {{ disabled ? 'opacity-50' : '' }}"
+        {{ (readonly or disabled) ? 'disabled' }}
+        data-index="{{ i }}"
+        data-action="click->cisse--ui-bundle--rating#handleClick mousemove->cisse--ui-bundle--rating#handleMouseMove"
+      >
+        {# Empty star (background) #}
+        <twig:ux:icon :name="emptyIcon" class="{{ sizeClass }} text-gray-300 dark:text-gray-600" />
+
+        {# Filled star (overlay) #}
+        <div class="absolute inset-0 overflow-hidden" style="width: {{ isFull ? '100%' : (isHalf ? '50%' : '0%') }};">
+          <twig:ux:icon :name="filledIcon" class="{{ sizeClass }} {{ color }}" />
+        </div>
+      </button>
+    {% endfor %}
+  </div>
+
+  {% if showValue %}
+    <span class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300" data-cisse--ui-bundle--rating-target="display">
+      {{ allowHalf ? value|number_format(1) : value|number_format(0) }}
+    </span>
+  {% endif %}
+</div>

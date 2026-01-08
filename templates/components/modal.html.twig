@@ -4,24 +4,29 @@
     closeOnBackdrop = true,
     closeOnEscape = true,
     open = false,
+    title = null,
+    description = null,
+    closeButtonLabel = 'Close',
     class = ''
 %}
 
+{% set headerBlock %}{% block header '' %}{% endset %}
+{% set footerBlock %}{% block footer '' %}{% endset %}
+{% set showHeader = title or headerBlock|trim %}
+{% set showFooter = footerBlock|trim %}
 
 <div
-        {{ attributes }}
-        data-controller="cisse--ui-bundle--modal"
-        data-cisse--ui-bundle--modal-close-on-backdrop-value="{{ closeOnBackdrop ? 'true' : 'false' }}"
-        data-cisse--ui-bundle--modal-close-on-escape-value="{{ closeOnEscape ? 'true' : 'false' }}"
-        data-cisse--ui-bundle--modal-open-value="{{ open ? 'true' : 'false' }}"
-        data-cisse--ui-bundle--modal-size-value="{{ size }}"
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--modal"
+    data-cisse--ui-bundle--modal-close-on-backdrop-value="{{ closeOnBackdrop ? 'true' : 'false' }}"
+    data-cisse--ui-bundle--modal-close-on-escape-value="{{ closeOnEscape ? 'true' : 'false' }}"
+    data-cisse--ui-bundle--modal-open-value="{{ open ? 'true' : 'false' }}"
+    data-cisse--ui-bundle--modal-size-value="{{ size }}"
 >
     <!-- Trigger -->
     <div data-action="click->cisse--ui-bundle--modal#toggle">
         {% block trigger %}
-            <button
-                    class="px-4 py-3 text-sm font-medium text-white rounded-lg bg-primary-500 shadow-theme-xs hover:bg-primary-600 transition-colors"
-            >
+            <button class="px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary hover:bg-primary/90 transition-colors">
                 Open Modal
             </button>
         {% endblock %}
@@ -29,40 +34,75 @@
 
     <!-- Modal -->
     <div
-            data-cisse--ui-bundle--modal-target="modal"
-            class="fixed inset-0 flex items-center justify-center p-5 overflow-y-auto z-50 {{ class }}"
-            style="display: none;"
-            role="dialog"
-            aria-modal="true"
-            aria-hidden="true"
+        data-cisse--ui-bundle--modal-target="modal"
+        class="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-50 {{ class }}"
+        style="display: none;"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
     >
         <!-- Backdrop -->
         <div
-                data-cisse--ui-bundle--modal-target="backdrop"
-                class="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"
+            data-cisse--ui-bundle--modal-target="backdrop"
+            class="fixed inset-0 h-full w-full bg-black/50"
         ></div>
 
         <!-- Content -->
         <div
-                data-cisse--ui-bundle--modal-target="content"
-                data-size="{{ size }}"
-                class="relative w-full max-w-[584px] data-[size=sm]:max-w-sm data-[size=lg]:max-w-2xl data-[size=xl]:max-w-4xl data-[size=full]:max-w-full data-[size=full]:mx-4 rounded-xl bg-white p-6 dark:bg-black lg:p-10 shadow-2xl"
+            data-cisse--ui-bundle--modal-target="content"
+            data-size="{{ size }}"
+            class="relative flex max-h-[90vh] w-full flex-col max-w-3xl data-[size=sm]:max-w-md data-[size=lg]:max-w-5xl data-[size=xl]:max-w-7xl data-[size=full]:max-w-full data-[size=full]:mx-4 rounded-lg bg-white dark:bg-gray-900 shadow-xl"
         >
-            <!-- Close Button -->
-            <button
+            <!-- Header -->
+            {% if showHeader %}
+                <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                            {% if headerBlock|trim %}
+                                {{ headerBlock|raw }}
+                            {% else %}
+                                {{ title }}
+                            {% endif %}
+                        </h3>
+                        {% if description %}
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
+                        {% endif %}
+                    </div>
+                    <button
+                        data-cisse--ui-bundle--modal-target="closeButton"
+                        data-action="click->cisse--ui-bundle--modal#close"
+                        class="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+                        type="button"
+                        aria-label="Close dialog"
+                    >
+                        <twig:ux:icon name="lucide:x" class="size-5" />
+                        <span class="sr-only">{{ closeButtonLabel }}</span>
+                    </button>
+                </div>
+            {% else %}
+                <!-- Close Button (when no header) -->
+                <button
                     data-cisse--ui-bundle--modal-target="closeButton"
                     data-action="click->cisse--ui-bundle--modal#close"
-                    class="group absolute right-3 top-3 z-10 flex size-8 items-center justify-center rounded-full bg-gray-200 text-gray-500 transition-colors hover:bg-gray-300 hover:text-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-gray-200 sm:right-6 sm:top-6"
-                    aria-label="Close modal"
-            >
-                <twig:ux:icon
-                        name="heroicons:x-mark-16-solid"
-                        class="size-4 transition-colors fill-current"
-                />
-            </button>
+                    class="absolute right-4 top-4 z-10 rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+                    type="button"
+                    aria-label="Close dialog"
+                >
+                    <twig:ux:icon name="lucide:x" class="size-5" />
+                </button>
+            {% endif %}
 
-            <!-- Modal Content -->
-            {% block content '' %}
+            <!-- Body -->
+            <div class="flex-1 overflow-y-auto px-6 py-4">
+                {% block content '' %}
+            </div>
+
+            <!-- Footer -->
+            {% if showFooter %}
+                <div class="flex items-center justify-end gap-3 border-t border-gray-200 dark:border-gray-700 px-6 py-4">
+                    {{ footerBlock|raw }}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

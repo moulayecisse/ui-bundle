@@ -1,0 +1,63 @@
+{# templates/components/Ui/notification-item.html.twig #}
+{# Single notification item component #}
+{% props
+    class = '',
+    id = null,
+    type = 'info',
+    title = '',
+    message = '',
+    dismissible = true
+%}
+
+{% set typeConfig = {
+    'info': { icon: 'heroicons:information-circle-20-solid', bgClass: 'bg-blue-50 dark:bg-blue-900/20', iconClass: 'text-blue-500', titleClass: 'text-blue-800 dark:text-blue-200' },
+    'success': { icon: 'heroicons:check-circle-20-solid', bgClass: 'bg-green-50 dark:bg-green-900/20', iconClass: 'text-green-500', titleClass: 'text-green-800 dark:text-green-200' },
+    'warning': { icon: 'heroicons:exclamation-triangle-20-solid', bgClass: 'bg-yellow-50 dark:bg-yellow-900/20', iconClass: 'text-yellow-500', titleClass: 'text-yellow-800 dark:text-yellow-200' },
+    'error': { icon: 'heroicons:x-circle-20-solid', bgClass: 'bg-red-50 dark:bg-red-900/20', iconClass: 'text-red-500', titleClass: 'text-red-800 dark:text-red-200' }
+} %}
+
+{% set config = typeConfig[type] ?? typeConfig['info'] %}
+
+{% set class = ('rounded-lg p-4 shadow-lg border border-gray-200 dark:border-gray-700 ' ~ config.bgClass ~ ' ' ~ class)|tailwind_merge %}
+
+<div
+    {{ attributes }}
+    data-notification-id="{{ id }}"
+    class="{{ class }}"
+>
+    <div class="flex items-start gap-3">
+        {# Icon #}
+        <twig:ux:icon
+            name="{{ config.icon }}"
+            class="size-5 flex-shrink-0 {{ config.iconClass }}"
+        />
+
+        {# Content #}
+        <div class="flex-1 min-w-0">
+            {% if title %}
+                <p class="text-sm font-semibold {{ config.titleClass }}">
+                    {{ title }}
+                </p>
+            {% endif %}
+            {% if message %}
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    {{ message }}
+                </p>
+            {% endif %}
+            {% block content '' %}
+        </div>
+
+        {# Dismiss button #}
+        {% if dismissible %}
+            <button
+                type="button"
+                data-action="click->cisse--ui-bundle--notification-list#dismiss"
+                data-notification-id="{{ id }}"
+                class="flex-shrink-0 rounded p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Dismiss notification"
+            >
+                <twig:ux:icon name="heroicons:x-mark-20-solid" class="size-4" />
+            </button>
+        {% endif %}
+    </div>
+</div>

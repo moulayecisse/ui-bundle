@@ -1,0 +1,49 @@
+{# templates/components/Ui/type/number.html.twig #}
+{# Number type display component for tables and lists #}
+{% props
+    class = '',
+    value = null,
+    decimals = null,
+    locale = 'en',
+    currency = null,
+    prefix = '',
+    suffix = '',
+    fallback = '-',
+    align = 'right'
+%}
+
+{% set displayValue = fallback %}
+
+{% if value is not null %}
+    {% if currency %}
+        {# Format as currency #}
+        {% set displayValue = value|number_format(decimals ?? 2, '.', ',') %}
+        {% if currency == 'EUR' %}
+            {% set displayValue = displayValue ~ ' €' %}
+        {% elseif currency == 'USD' %}
+            {% set displayValue = '$ ' ~ displayValue %}
+        {% elseif currency == 'GBP' %}
+            {% set displayValue = '£ ' ~ displayValue %}
+        {% else %}
+            {% set displayValue = displayValue ~ ' ' ~ currency %}
+        {% endif %}
+    {% elseif decimals is not null %}
+        {% set displayValue = value|number_format(decimals, '.', ',') %}
+    {% else %}
+        {% set displayValue = value|number_format(0, '.', ',') %}
+    {% endif %}
+
+    {% set displayValue = prefix ~ displayValue ~ suffix %}
+{% endif %}
+
+{% set alignClasses = {
+    'left': 'text-left',
+    'center': 'text-center',
+    'right': 'text-right'
+} %}
+
+{% set textClasses = ('text-sm text-gray-900 dark:text-gray-100 tabular-nums ' ~ alignClasses[align] ~ ' ' ~ class)|tailwind_merge %}
+
+<span class="{{ textClasses }}">
+    {{- displayValue -}}
+</span>

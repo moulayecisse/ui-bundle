@@ -1,0 +1,49 @@
+{% props
+  message = '',
+  type = 'info',
+  title = null,
+  closable = true,
+  duration = 5000,
+  class = '',
+%}
+
+{% set typeConfig = {
+  'success': { icon: 'lucide:check-circle', bg: 'bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800', iconColor: 'text-green-500' },
+  'error': { icon: 'lucide:x-circle', bg: 'bg-red-50 border-red-200 dark:bg-red-950 dark:border-red-800', iconColor: 'text-red-500' },
+  'warning': { icon: 'lucide:alert-triangle', bg: 'bg-yellow-50 border-yellow-200 dark:bg-yellow-950 dark:border-yellow-800', iconColor: 'text-yellow-500' },
+  'info': { icon: 'lucide:info', bg: 'bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800', iconColor: 'text-blue-500' },
+} %}
+
+{% set config = typeConfig[type] ?? typeConfig['info'] %}
+
+<div
+  {{ attributes }}
+  data-controller="cisse--ui-bundle--toast"
+  data-cisse--ui-bundle--toast-duration-value="{{ duration }}"
+  class="{{ ('flex items-start gap-3 rounded-lg border p-4 shadow-lg ' ~ config.bg ~ ' ' ~ class)|tailwind_merge }}"
+  role="alert"
+>
+  <twig:ux:icon :name="config.icon" class="size-5 shrink-0 {{ config.iconColor }}" aria-hidden="true" />
+
+  <div class="flex-1 min-w-0">
+    {% if title %}
+      <p class="font-medium text-gray-900 dark:text-white">
+        {% block title %}{{ title }}{% endblock %}
+      </p>
+    {% endif %}
+    <p class="text-sm text-gray-700 dark:text-gray-300">
+      {% block message %}{{ message }}{% endblock %}
+    </p>
+  </div>
+
+  {% if closable %}
+    <button
+      type="button"
+      class="shrink-0 rounded p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+      aria-label="Dismiss notification"
+      data-action="click->cisse--ui-bundle--toast#close"
+    >
+      <twig:ux:icon name="lucide:x" class="size-4" aria-hidden="true" />
+    </button>
+  {% endif %}
+</div>

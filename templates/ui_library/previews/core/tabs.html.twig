@@ -3,73 +3,152 @@
 <div class="space-y-6">
     {# Props Documentation #}
     {{ ui.props([
-        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the tabs container' },
-        { name: 'current', type: 'string', default: "''", description: 'ID/href of the currently active tab' },
+        { name: 'tabs', type: 'array', default: '[]', description: 'Array of tab objects with key, label, icon, disabled' },
+        { name: 'current', type: 'string', default: "''", description: 'Key of the currently active tab' },
+        { name: 'variant', type: "'underline' | 'pills' | 'boxed'", default: "'underline'", description: 'Tab style variant' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'content', description: 'Tab items using &lt;twig:Ui:tabs:item&gt; components' },
+        { name: 'content', description: 'Tab items (when not using tabs prop)' },
+        { name: 'panels', description: 'Tab panel content' },
     ]) }}
 
-    {# Related Components #}
-    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
-        <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Related Components</h4>
-        <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">tabs:item</code> - Individual tab with href, current, color, disabled props</li>
-        </ul>
-    </div>
-
-    {# Basic Tabs - Static Preview #}
-    {% set basicPreview %}
-        <div class="border-b border-gray-200 dark:border-gray-800">
-            <nav class="-mb-px flex space-x-8">
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-primary text-primary">Dashboard</a>
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400">Settings</a>
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400">Profile</a>
-            </nav>
-        </div>
+    {# Underline Variant (default) #}
+    {% set underlinePreview %}
+        <twig:Ui:tabs
+            variant="underline"
+            current="dashboard"
+            :tabs="[
+                { key: 'dashboard', label: 'Dashboard' },
+                { key: 'settings', label: 'Settings' },
+                { key: 'profile', label: 'Profile' }
+            ]"
+        />
     {% endset %}
-    {% set basicCode %}&lt;twig:Ui:tabs&gt;
-    &lt;twig:Ui:tabs:item href="#tab1" current&gt;Dashboard&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#tab2"&gt;Settings&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#tab3"&gt;Profile&lt;/twig:Ui:tabs:item&gt;
-&lt;/twig:Ui:tabs&gt;{% endset %}
-    {{ ui.story('Basic Tabs', basicPreview, basicCode) }}
+    {% set underlineCode %}{% verbatim %}<twig:Ui:tabs
+    variant="underline"
+    current="dashboard"
+    :tabs="[
+        { key: 'dashboard', label: 'Dashboard' },
+        { key: 'settings', label: 'Settings' },
+        { key: 'profile', label: 'Profile' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Underline Variant', underlinePreview, underlineCode) }}
 
-    {# Tab Colors - Static Preview #}
-    {% set colorsPreview %}
-        <div class="border-b border-gray-200 dark:border-gray-800">
-            <nav class="-mb-px flex space-x-8">
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-primary text-primary">Primary</a>
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-green-600">Success</a>
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-red-600">Error</a>
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-yellow-600">Warning</a>
-            </nav>
-        </div>
+    {# Pills Variant #}
+    {% set pillsPreview %}
+        <twig:Ui:tabs
+            variant="pills"
+            current="overview"
+            :tabs="[
+                { key: 'overview', label: 'Overview' },
+                { key: 'analytics', label: 'Analytics' },
+                { key: 'reports', label: 'Reports' }
+            ]"
+        />
     {% endset %}
-    {% set colorsCode %}&lt;twig:Ui:tabs&gt;
-    &lt;twig:Ui:tabs:item href="#" color="primary" current&gt;Primary&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#" color="success"&gt;Success&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#" color="error"&gt;Error&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#" color="warning"&gt;Warning&lt;/twig:Ui:tabs:item&gt;
-&lt;/twig:Ui:tabs&gt;{% endset %}
-    {{ ui.story('Tab Colors', colorsPreview, colorsCode) }}
+    {% set pillsCode %}{% verbatim %}<twig:Ui:tabs
+    variant="pills"
+    current="overview"
+    :tabs="[
+        { key: 'overview', label: 'Overview' },
+        { key: 'analytics', label: 'Analytics' },
+        { key: 'reports', label: 'Reports' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Pills Variant', pillsPreview, pillsCode) }}
 
-    {# Disabled Tab - Static Preview #}
+    {# Boxed Variant #}
+    {% set boxedPreview %}
+        <twig:Ui:tabs
+            variant="boxed"
+            current="monthly"
+            :tabs="[
+                { key: 'weekly', label: 'Weekly' },
+                { key: 'monthly', label: 'Monthly' },
+                { key: 'yearly', label: 'Yearly' }
+            ]"
+        />
+    {% endset %}
+    {% set boxedCode %}{% verbatim %}<twig:Ui:tabs
+    variant="boxed"
+    current="monthly"
+    :tabs="[
+        { key: 'weekly', label: 'Weekly' },
+        { key: 'monthly', label: 'Monthly' },
+        { key: 'yearly', label: 'Yearly' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Boxed Variant', boxedPreview, boxedCode) }}
+
+    {# With Icons #}
+    {% set iconsPreview %}
+        <twig:Ui:tabs
+            variant="underline"
+            current="home"
+            :tabs="[
+                { key: 'home', label: 'Home', icon: 'lucide:home' },
+                { key: 'users', label: 'Users', icon: 'lucide:users' },
+                { key: 'settings', label: 'Settings', icon: 'lucide:settings' }
+            ]"
+        />
+    {% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:Ui:tabs
+    variant="underline"
+    current="home"
+    :tabs="[
+        { key: 'home', label: 'Home', icon: 'lucide:home' },
+        { key: 'users', label: 'Users', icon: 'lucide:users' },
+        { key: 'settings', label: 'Settings', icon: 'lucide:settings' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+
+    {# With Disabled Tab #}
     {% set disabledPreview %}
-        <div class="border-b border-gray-200 dark:border-gray-800">
-            <nav class="-mb-px flex space-x-8">
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-primary text-primary">Active</a>
-                <span class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-400 opacity-50 cursor-not-allowed">Disabled</span>
-                <a href="#" class="flex items-center py-2 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400">Normal</a>
-            </nav>
+        <twig:Ui:tabs
+            variant="underline"
+            current="active"
+            :tabs="[
+                { key: 'active', label: 'Active Tab' },
+                { key: 'disabled', label: 'Disabled', disabled: true },
+                { key: 'normal', label: 'Normal Tab' }
+            ]"
+        />
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:Ui:tabs
+    variant="underline"
+    current="active"
+    :tabs="[
+        { key: 'active', label: 'Active Tab' },
+        { key: 'disabled', label: 'Disabled', disabled: true },
+        { key: 'normal', label: 'Normal Tab' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Disabled Tab', disabledPreview, disabledCode) }}
+
+    {# All Variants Comparison #}
+    {% set comparisonPreview %}
+        <div class="space-y-6">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Underline</p>
+                <twig:Ui:tabs variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Pills</p>
+                <twig:Ui:tabs variant="pills" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Boxed</p>
+                <twig:Ui:tabs variant="boxed" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+            </div>
         </div>
     {% endset %}
-    {% set disabledCode %}&lt;twig:Ui:tabs&gt;
-    &lt;twig:Ui:tabs:item href="#" current&gt;Active&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#" disabled&gt;Disabled&lt;/twig:Ui:tabs:item&gt;
-    &lt;twig:Ui:tabs:item href="#"&gt;Normal&lt;/twig:Ui:tabs:item&gt;
-&lt;/twig:Ui:tabs&gt;{% endset %}
-    {{ ui.story('Disabled Tab', disabledPreview, disabledCode) }}
+    {% set comparisonCode %}{% verbatim %}<twig:Ui:tabs variant="underline" ... />
+<twig:Ui:tabs variant="pills" ... />
+<twig:Ui:tabs variant="boxed" ... />{% endverbatim %}{% endset %}
+    {{ ui.story('All Variants Comparison', comparisonPreview, comparisonCode) }}
 </div>

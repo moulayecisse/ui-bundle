@@ -1,0 +1,4 @@
+# UI Bundle routes - auto-loaded in dev environment
+_ui:
+    resource: Cisse\Bundle\Ui\Controller\UiBundleController
+    type: attribute

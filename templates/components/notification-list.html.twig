@@ -1,0 +1,48 @@
+{# templates/components/Ui/notification-list.html.twig #}
+{# Notification list container component #}
+{% props
+    class = '',
+    notifications = [],
+    position = 'top-right',
+    topOffset = null,
+    autoDismiss = false,
+    duration = 5000
+%}
+
+{% set positionClasses = {
+    'top-right': 'top-5 right-5',
+    'top-left': 'top-5 left-5',
+    'bottom-right': 'bottom-5 right-5',
+    'bottom-left': 'bottom-5 left-5'
+} %}
+
+{% set isTopPosition = position starts with 'top' %}
+
+{% set containerClass = ('fixed z-50 flex flex-col gap-3 w-full max-w-sm ' ~ positionClasses[position] ~ ' ' ~ class)|tailwind_merge %}
+
+<div
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--notification-list"
+    data-cisse--ui-bundle--notification-list-auto-dismiss-value="{{ autoDismiss ? 'true' : 'false' }}"
+    data-cisse--ui-bundle--notification-list-duration-value="{{ duration }}"
+    class="{{ containerClass }}"
+    {% if isTopPosition and topOffset %}style="top: {{ topOffset }};"{% endif %}
+>
+    {% for notification in notifications %}
+        <div
+            data-cisse--ui-bundle--notification-list-target="notification"
+            data-notification-id="{{ notification.id }}"
+            class="transform transition-all duration-300 ease-out"
+        >
+            <twig:Ui:notification-item
+                :id="notification.id"
+                :type="notification.type ?? 'info'"
+                :title="notification.title ?? ''"
+                :message="notification.message ?? ''"
+                :dismissible="notification.dismissible ?? true"
+            />
+        </div>
+    {% endfor %}
+
+    {% block content '' %}
+</div>

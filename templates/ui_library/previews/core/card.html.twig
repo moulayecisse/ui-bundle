@@ -7,6 +7,10 @@
         { name: 'description', type: 'string', default: "''", description: 'Card description below title' },
         { name: 'divide', type: 'boolean', default: 'false', description: 'Show dividers between header, content, and footer' },
         { name: 'tag', type: 'string', default: "'div'", description: 'HTML tag for the card container' },
+        { name: 'loading', type: 'boolean', default: 'false', description: 'Show loading skeleton instead of content' },
+        { name: 'loadingLines', type: 'number', default: '3', description: 'Number of skeleton lines when loading' },
+        { name: 'loadingAvatar', type: 'boolean', default: 'false', description: 'Show avatar in loading skeleton' },
+        { name: 'loadingActions', type: 'boolean', default: 'false', description: 'Show action buttons in loading skeleton' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -47,8 +51,8 @@
             </twig:block>
             <twig:block name="footer">
                 <div class="flex gap-2">
-                    <twig:Ui:button primary>Save</twig:Ui:button>
-                    <twig:Ui:button white>Cancel</twig:Ui:button>
+                    <twig:Ui:button variant="primary">Save</twig:Ui:button>
+                    <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
                 </div>
             </twig:block>
         </twig:Ui:card>
@@ -59,8 +63,8 @@
     </twig:block>
     <twig:block name="footer">
         <div class="flex gap-2">
-            <twig:Ui:button primary>Save</twig:Ui:button>
-            <twig:Ui:button white>Cancel</twig:Ui:button>
+            <twig:Ui:button variant="primary">Save</twig:Ui:button>
+            <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
         </div>
     </twig:block>
 </twig:Ui:card>{% endverbatim %}{% endset %}
@@ -70,7 +74,7 @@
     {% set actionsPreview %}
         <twig:Ui:card title="Card with Actions" description="Has action buttons in header">
             <twig:block name="actions">
-                <twig:Ui:button white icon="lucide:more-vertical" />
+                <twig:Ui:button variant="ghost" icon="lucide:more-vertical" />
             </twig:block>
             <twig:block name="content">
                 <p class="text-gray-600 dark:text-gray-400">
@@ -81,7 +85,7 @@
     {% endset %}
     {% set actionsCode %}{% verbatim %}<twig:Ui:card title="Card with Actions" description="Has action buttons">
     <twig:block name="actions">
-        <twig:Ui:button white icon="lucide:more-vertical" />
+        <twig:Ui:button variant="ghost" icon="lucide:more-vertical" />
     </twig:block>
     <twig:block name="content">
         <p>Card content here.</p>
@@ -111,4 +115,34 @@
     </twig:block>
 </twig:Ui:card>{% endverbatim %}{% endset %}
     {{ ui.story('Card with Dividers', dividersPreview, dividersCode) }}
+
+    {# Loading State #}
+    {% set loadingPreview %}
+        <div class="grid grid-cols-2 gap-4">
+            <twig:Ui:card loading />
+            <twig:Ui:card loading :loadingAvatar="true" :loadingActions="true" />
+        </div>
+    {% endset %}
+    {% set loadingCode %}{% verbatim %}{# Basic loading skeleton #}
+<twig:Ui:card loading />
+
+{# Loading with avatar and actions #}
+<twig:Ui:card loading :loadingAvatar="true" :loadingActions="true" />
+
+{# Custom number of lines #}
+<twig:Ui:card loading :loadingLines="5" />{% endverbatim %}{% endset %}
+    {{ ui.story('Loading State', loadingPreview, loadingCode) }}
+
+    {# Loading with Custom Lines #}
+    {% set loadingLinesPreview %}
+        <div class="grid grid-cols-3 gap-4">
+            <twig:Ui:card loading :loadingLines="2" />
+            <twig:Ui:card loading :loadingLines="4" />
+            <twig:Ui:card loading :loadingLines="6" :loadingAvatar="true" />
+        </div>
+    {% endset %}
+    {% set loadingLinesCode %}{% verbatim %}<twig:Ui:card loading :loadingLines="2" />
+<twig:Ui:card loading :loadingLines="4" />
+<twig:Ui:card loading :loadingLines="6" :loadingAvatar="true" />{% endverbatim %}{% endset %}
+    {{ ui.story('Loading with Custom Lines', loadingLinesPreview, loadingLinesCode) }}
 </div>

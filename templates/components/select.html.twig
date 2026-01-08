@@ -1,63 +1,69 @@
 {% props
-  type = 'text',
-  form = null,
-  class = '',
-  value = null,
-  name = null,
-  id = null,
-  required = null,
-  autofocus = null,
-  autocomplete = null,
-    disabled = null,
-  options = null,
+    type = 'text',
+    form = null,
+    class = '',
+    value = null,
+    name = null,
+    id = null,
+    placeholder = 'Sélectionnez une option',
+    required = false,
+    autofocus = false,
+    autocomplete = null,
+    disabled = false,
+    invalid = false,
+    size = 'md',
+    options = [],
 %}
 
-{% set id = id ?? name %}
-{% set for = for ?? id %}
+{% set _id = id ?? name %}
 
 {% if form %}
-  {% set value = value ?? field_value(form) %}
-  {% set name = name ?? field_name(form) %}
-  {% set id = id ?? form.vars.id %}
-  {% set required = required ?? form.vars.required %}
+    {% set value = value ?? field_value(form) %}
+    {% set name = name ?? field_name(form) %}
+    {% set _id = _id ?? form.vars.id %}
+    {% set required = required ?? form.vars.required %}
+    {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
+{# Size classes #}
+{% set sizeClasses = {
+    'sm': 'py-1.5 text-xs',
+    'md': 'py-2 text-sm',
+    'lg': 'py-2.5 text-base',
+} %}
+
 {% set content_block %}{% block content %}
-  {% if options %}
+    {% if placeholder %}
+        <option value="" disabled>{{ placeholder }}</option>
+    {% endif %}
     {% for option in options %}
-      <option value="{{ option.value ?? option }}" {% if option.value or option == value %}selected{% endif %}>
-        {{ option.label ?? option }}
-      </option>
+        <option
+            value="{{ option.value ?? option }}"
+            {% if (option.value is defined and option.value == value) or option == value %}selected{% endif %}
+            {% if option.disabled is defined and option.disabled %}disabled{% endif %}
+        >
+            {{ option.label ?? option }}
+        </option>
     {% endfor %}
-  {% else %}
-    <option value="">Sélectionnez une option</option>
-  {% endif %}
 {% endblock %}{% endset %}
 
-{% set content %}
-{% endset %}
-
-<twig:Ui:input-wrapper :class="class">
-  <div class="w-full grid grid-cols-1">
-    <select
-      {{ outerScope.attributes }}
-      {% if name %}name="{{ name }}"{% endif %}
-      {% if id %}id="{{ id }}"{% endif %}
-      {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
-      type="{{ type }}"
-      {{ required ? 'required' }}
-      {{ autofocus ? 'autofocus' }}
-
-      class="col-start-1 row-start-1 w-full appearance-none py-1.5 pr-8 pl-3 focus:outline-none"
-    >
-      {{ content_block|raw }}
-    </select>
-    <svg
-      class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-      viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-      <path fill-rule="evenodd"
-            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-            clip-rule="evenodd" />
-    </svg>
-  </div>
+<twig:Ui:input-wrapper :class="class" :disabled="disabled">
+    <div class="w-full grid grid-cols-1">
+        <select
+            {{ attributes }}
+            {% if name %}name="{{ name }}"{% endif %}
+            {% if _id %}id="{{ _id }}"{% endif %}
+            {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
+            {{ required ? 'required' }}
+            {{ autofocus ? 'autofocus' }}
+            {{ disabled ? 'disabled' }}
+            class="col-start-1 row-start-1 w-full appearance-none pr-10 pl-3 bg-transparent focus:outline-none cursor-pointer {{ sizeClasses[size] ?? sizeClasses['md'] }}"
+        >
+            {{ content_block|raw }}
+        </select>
+        <twig:ux:icon
+            name="heroicons:chevron-down"
+            class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-gray-500 dark:text-gray-400 sm:size-4"
+        />
+    </div>
 </twig:Ui:input-wrapper>

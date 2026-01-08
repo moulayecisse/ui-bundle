@@ -1,0 +1,142 @@
+{% props
+  appName = '',
+  appIcon = null,
+  headline = '',
+  subHeadline = '',
+  description = '',
+  features = [],
+  gradientFrom = 'from-primary-700',
+  gradientTo = 'to-primary-800',
+  showDecorations = true,
+  showPattern = true,
+  formTitle = null,
+  formSubtitle = null,
+  homeLink = '/',
+  class = '',
+%}
+
+{% set form_block %}{% block form '' %}{% endset %}
+{% set branding_logo_block %}{% block branding_logo '' %}{% endset %}
+{% set mobile_logo_block %}{% block mobile_logo '' %}{% endset %}
+
+<div {{ attributes }} class="{{ ('min-h-screen flex ' ~ class)|tailwind_merge }}">
+  {# Branding Panel (Left Side) #}
+  <div class="hidden lg:flex lg:w-1/2 xl:w-2/5 bg-gradient-to-br {{ gradientFrom }} {{ gradientTo }} relative overflow-hidden">
+    {# Decorations #}
+    {% if showDecorations %}
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-20 -right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+      </div>
+    {% endif %}
+
+    {# Pattern overlay #}
+    {% if showPattern %}
+      <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 24px 24px;"></div>
+    {% endif %}
+
+    <div class="relative flex flex-col justify-center px-12 py-8 w-full">
+      {# Logo #}
+      <div class="mb-10">
+        {% if branding_logo_block|trim %}
+          {{ branding_logo_block|raw }}
+        {% else %}
+          <a href="{{ homeLink }}" class="flex items-center gap-3">
+            {% if appIcon %}
+              <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  {{ appIcon|raw }}
+                </svg>
+              </div>
+            {% endif %}
+            {% if appName %}
+              <span class="text-2xl font-bold text-white">{{ appName }}</span>
+            {% endif %}
+          </a>
+        {% endif %}
+      </div>
+
+      {# Headlines #}
+      {% if headline or subHeadline %}
+        <div class="mb-8">
+          {% if headline %}
+            <h1 class="text-4xl font-light text-white/90 mb-2">{{ headline }}</h1>
+          {% endif %}
+          {% if subHeadline %}
+            <h2 class="text-5xl font-bold text-white">{{ subHeadline }}</h2>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {# Description #}
+      {% if description %}
+        <p class="text-lg text-white/80 mb-8 max-w-md">{{ description }}</p>
+      {% endif %}
+
+      {# Features #}
+      {% if features|length > 0 %}
+        <div class="space-y-4">
+          {% for feature in features %}
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
+                {% if feature.icon %}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    {{ feature.icon|raw }}
+                  </svg>
+                {% else %}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                {% endif %}
+              </div>
+              <span class="text-white/90">{{ feature.text }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Form Panel (Right Side) #}
+  <div class="flex-1 flex flex-col bg-gray-50 dark:bg-gray-900">
+    {# Mobile Logo #}
+    <div class="lg:hidden px-6 py-4">
+      {% if mobile_logo_block|trim %}
+        {{ mobile_logo_block|raw }}
+      {% else %}
+        <a href="{{ homeLink }}" class="flex items-center gap-2">
+          {% if appIcon %}
+            <div class="w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                {{ appIcon|raw }}
+              </svg>
+            </div>
+          {% endif %}
+          {% if appName %}
+            <span class="text-xl font-bold text-gray-900 dark:text-white">{{ appName }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+
+    {# Form Container #}
+    <div class="flex-1 flex items-center justify-center px-6 py-12">
+      <div class="w-full max-w-md">
+        {# Form Header #}
+        {% if formTitle or formSubtitle %}
+          <div class="text-center mb-8">
+            {% if formTitle %}
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ formTitle }}</h2>
+            {% endif %}
+            {% if formSubtitle %}
+              <p class="text-gray-600 dark:text-gray-400">{{ formSubtitle }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {# Form Content #}
+        {{ form_block|raw }}
+      </div>
+    </div>
+  </div>
+</div>

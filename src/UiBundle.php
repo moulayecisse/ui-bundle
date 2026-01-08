@@ -3,15 +3,44 @@
 namespace Cisse\Bundle\Ui;
 
 use Symfony\Component\AssetMapper\AssetMapperInterface;
+use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 class UiBundle extends AbstractBundle
 {
     public function getPath(): string
     {
         return \dirname(__DIR__);
+    }
+
+    public function configure(DefinitionConfigurator $definition): void
+    {
+        $definition->rootNode()
+            ->children()
+                ->booleanNode('pattern_library')
+                    ->defaultFalse()
+                    ->info('Enable the pattern library routes (recommended only in dev)')
+                ->end()
+            ->end();
+    }
+
+    public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        // Load services configuration
+        $container->import($this->getPath() . '/config/services.yaml');
+
+        // Store config for routing
+        $builder->setParameter('ui_bundle.pattern_library_enabled', $config['pattern_library']);
+    }
+
+    public function loadRoutes(RoutingConfigurator $routes): void
+    {
+        // This method is called by Symfony to load routes
+        // Pattern library routes are always available, consumers can disable via firewall/security
+        $routes->import($this->getPath() . '/config/routes/ui_bundle.yaml');
     }
 
     public function prependExtension(ContainerConfigurator $configurator, ContainerBuilder $container): void

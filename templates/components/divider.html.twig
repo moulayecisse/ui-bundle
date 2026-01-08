@@ -1,9 +1,60 @@
-{% props class = '', vertical = false %}
+{% props
+    class = '',
+    orientation = 'horizontal',
+    variant = 'solid',
+    size = 'md',
+    label = null,
+    color = 'default',
+%}
 
-{% set class = ('bg-gray-200 dark:bg-gray-800 ' ~ class)|tailwind_merge %}
+{# Size classes #}
+{% set horizontalSizes = {
+    'sm': 'h-px',
+    'md': 'h-0.5',
+    'lg': 'h-1',
+} %}
 
-{% if vertical %}
-    <div {{ attributes }} class="{{ ('w-0.25 h-full mx-2 ' ~ class)|tailwind_merge }}"></div>
+{% set verticalSizes = {
+    'sm': 'w-px',
+    'md': 'w-0.5',
+    'lg': 'w-1',
+} %}
+
+{# Color classes #}
+{% set colorClasses = {
+    'default': 'bg-gray-200 dark:bg-gray-700',
+    'primary': 'bg-primary-200 dark:bg-primary-800',
+    'muted': 'bg-gray-100 dark:bg-gray-800',
+} %}
+
+{# Variant classes for border style (when using border instead of bg) #}
+{% set variantClasses = {
+    'solid': '',
+    'dashed': 'border-dashed',
+    'dotted': 'border-dotted',
+} %}
+
+{% set sizeClass = orientation == 'vertical' ? (verticalSizes[size] ?? verticalSizes['md']) : (horizontalSizes[size] ?? horizontalSizes['md']) %}
+{% set colorClass = colorClasses[color] ?? colorClasses['default'] %}
+
+{% if not label %}
+    {# Simple divider without label #}
+    <div
+        {{ attributes }}
+        class="{{ (colorClass ~ ' ' ~ (orientation == 'vertical' ? 'h-full mx-2 ' ~ sizeClass : 'w-full my-2 ' ~ sizeClass) ~ ' ' ~ class)|tailwind_merge }}"
+        role="separator"
+        aria-orientation="{{ orientation }}"
+    ></div>
 {% else %}
-    <div {{ attributes }} class="{{ ('w-full h-0.25 my-2 ' ~ class)|tailwind_merge }}"></div>
+    {# Divider with label #}
+    <div
+        {{ attributes }}
+        class="{{ ('flex items-center gap-3 ' ~ (orientation == 'vertical' ? 'flex-col h-full mx-2' : 'w-full my-2') ~ ' ' ~ class)|tailwind_merge }}"
+        role="separator"
+        aria-orientation="{{ orientation }}"
+    >
+        <div class="{{ colorClass }} {{ orientation == 'vertical' ? 'flex-1 ' ~ sizeClass : 'flex-1 ' ~ sizeClass }}"></div>
+        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ label }}</span>
+        <div class="{{ colorClass }} {{ orientation == 'vertical' ? 'flex-1 ' ~ sizeClass : 'flex-1 ' ~ sizeClass }}"></div>
+    </div>
 {% endif %}

@@ -1,0 +1,143 @@
+{# templates/components/Ui/combobox.html.twig #}
+{# Searchable select dropdown component #}
+{% props
+    class = '',
+    options = [],
+    value = null,
+    name = 'combobox',
+    placeholder = 'Select...',
+    searchPlaceholder = 'Search...',
+    multiple = false,
+    disabled = false,
+    clearable = false,
+    noResultsText = 'No results found',
+    size = 'md'
+%}
+
+{% set sizeClasses = {
+    'sm': 'py-1.5 text-xs',
+    'md': 'py-2 text-sm',
+    'lg': 'py-2.5 text-base'
+} %}
+
+{% set class = ('relative ' ~ class)|tailwind_merge %}
+
+<div
+    {{ attributes }}
+    data-controller="cisse--ui-bundle--combobox"
+    data-cisse--ui-bundle--combobox-multiple-value="{{ multiple ? 'true' : 'false' }}"
+    data-cisse--ui-bundle--combobox-options-value="{{ options|json_encode }}"
+    class="{{ class }}"
+>
+    {# Hidden input(s) for form submission #}
+    {% if multiple %}
+        <input type="hidden" name="{{ name }}" data-cisse--ui-bundle--combobox-target="input" value="{{ value is iterable ? value|json_encode : '' }}" />
+    {% else %}
+        <input type="hidden" name="{{ name }}" data-cisse--ui-bundle--combobox-target="input" value="{{ value }}" />
+    {% endif %}
+
+    {# Trigger #}
+    <div
+        data-cisse--ui-bundle--combobox-target="trigger"
+        data-action="click->cisse--ui-bundle--combobox#toggle"
+        class="flex items-center gap-2 px-3 {{ sizeClasses[size] }} rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 {{ disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-gray-400 dark:hover:border-slate-500' }} transition-colors"
+    >
+        {# Display value #}
+        <span
+            data-cisse--ui-bundle--combobox-target="display"
+            class="flex-1 truncate {{ value ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500' }}"
+        >
+            {% if value %}
+                {% set selectedLabels = [] %}
+                {% for option in options %}
+                    {% if multiple %}
+                        {% if value is iterable and option.value in value %}
+                            {% set selectedLabels = selectedLabels|merge([option.label]) %}
+                        {% endif %}
+                    {% else %}
+                        {% if option.value == value %}
+                            {% set selectedLabels = [option.label] %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {{ selectedLabels|join(', ') ?: placeholder }}
+            {% else %}
+                {{ placeholder }}
+            {% endif %}
+        </span>
+
+        {# Actions #}
+        <div class="flex items-center gap-1">
+            {% if clearable and value %}
+                <button
+                    type="button"
+                    data-action="click->cisse--ui-bundle--combobox#clear"
+                    class="rounded p-0.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                    aria-label="Clear selection"
+                >
+                    <twig:ux:icon name="heroicons:x-mark-20-solid" class="size-4" />
+                </button>
+            {% endif %}
+
+            <twig:ux:icon
+                data-cisse--ui-bundle--combobox-target="chevron"
+                name="heroicons:chevron-down-20-solid"
+                class="size-4 text-gray-400 transition-transform"
+            />
+        </div>
+    </div>
+
+    {# Dropdown #}
+    <div
+        data-cisse--ui-bundle--combobox-target="dropdown"
+        class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900 hidden"
+    >
+        {# Search input #}
+        <div class="px-2 pb-2">
+            <input
+                type="text"
+                data-cisse--ui-bundle--combobox-target="search"
+                data-action="input->cisse--ui-bundle--combobox#filter keydown->cisse--ui-bundle--combobox#handleKeydown"
+                placeholder="{{ searchPlaceholder }}"
+                class="w-full px-3 py-2 text-sm border border-gray-200 dark:border-slate-600 rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+            />
+        </div>
+
+        {# Options list #}
+        <div data-cisse--ui-bundle--combobox-target="options">
+            {% for option in options %}
+                <button
+                    type="button"
+                    data-action="click->cisse--ui-bundle--combobox#select"
+                    data-value="{{ option.value }}"
+                    data-label="{{ option.label }}"
+                    data-cisse--ui-bundle--combobox-target="option"
+                    {% if option.disabled is defined and option.disabled %}disabled{% endif %}
+                    class="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors {{ option.disabled is defined and option.disabled ? 'cursor-not-allowed text-gray-400 dark:text-gray-500' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }}"
+                >
+                    {% if multiple %}
+                        <span class="flex size-4 items-center justify-center rounded border border-gray-300 dark:border-gray-600" data-cisse--ui-bundle--combobox-target="checkbox">
+                            {# Check icon will be added by JS when selected #}
+                        </span>
+                    {% endif %}
+                    <span class="flex-1">{{ option.label }}</span>
+                    {% if not multiple %}
+                        <twig:ux:icon
+                            name="heroicons:check-20-solid"
+                            class="size-4 text-primary hidden"
+                            data-cisse--ui-bundle--combobox-target="check"
+                        />
+                    {% endif %}
+                </button>
+            {% endfor %}
+        </div>
+
+        {# No results #}
+        <div
+            data-cisse--ui-bundle--combobox-target="noResults"
+            class="px-3 py-2 text-center text-sm text-gray-500 dark:text-gray-400 hidden"
+        >
+            {{ noResultsText }}
+        </div>
+    </div>
+</div>

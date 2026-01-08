@@ -1,0 +1,191 @@
+{% props
+  label = '',
+  value = '',
+  description = '',
+  prefix = '',
+  suffix = '',
+  icon = null,
+  iconPosition = 'top',
+  iconRounded = 'xl',
+  hideIconBg = false,
+  change = null,
+  changeLabel = null,
+  trend = null,
+  trendOnly = false,
+  hideTrendIcon = false,
+  invertTrendColors = false,
+  size = 'md',
+  variant = 'default',
+  color = 'primary',
+  clickable = false,
+  centered = null,
+  labelFirst = false,
+  compact = false,
+  class = '',
+%}
+
+{# Determine centering #}
+{% set isCentered = centered ?? (iconPosition in ['top', 'bottom']) %}
+
+{# Determine effective trend #}
+{% set effectiveTrend = trend %}
+{% if effectiveTrend is null and change is not null %}
+  {% if change > 0 %}
+    {% set effectiveTrend = 'up' %}
+  {% elseif change < 0 %}
+    {% set effectiveTrend = 'down' %}
+  {% else %}
+    {% set effectiveTrend = 'neutral' %}
+  {% endif %}
+{% endif %}
+
+{# Size configurations #}
+{% set sizeConfig = {
+  'xs': { padding: 'p-3', icon: 'size-6', iconInner: 'size-3', value: 'text-lg font-bold', label: 'text-xs', description: 'text-xs', change: 'text-xs', gap: 'gap-0.5' },
+  'sm': { padding: 'p-4', icon: 'size-8', iconInner: 'size-4', value: 'text-xl font-bold', label: 'text-xs', description: 'text-xs', change: 'text-xs', gap: 'gap-1' },
+  'md': { padding: 'p-5', icon: 'size-10', iconInner: 'size-5', value: 'text-2xl sm:text-3xl font-bold', label: 'text-xs sm:text-sm', description: 'text-xs sm:text-sm', change: 'text-xs', gap: 'gap-2' },
+  'lg': { padding: 'p-6', icon: 'size-12', iconInner: 'size-6', value: 'text-3xl sm:text-4xl font-bold', label: 'text-sm sm:text-base', description: 'text-sm', change: 'text-sm', gap: 'gap-3' },
+  'xl': { padding: 'p-8', icon: 'size-14', iconInner: 'size-7', value: 'text-4xl sm:text-5xl font-bold', label: 'text-base sm:text-lg', description: 'text-sm sm:text-base', change: 'text-sm', gap: 'gap-4' },
+}[size] ?? sizeConfig['md'] %}
+
+{# Icon rounded classes #}
+{% set iconRoundedClass = {
+  'none': 'rounded-none',
+  'sm': 'rounded-sm',
+  'md': 'rounded-md',
+  'lg': 'rounded-lg',
+  'xl': 'rounded-xl',
+  'full': 'rounded-full',
+}[iconRounded] ?? 'rounded-xl' %}
+
+{# Color-based icon background #}
+{% set iconBgClass = '' %}
+{% if not hideIconBg %}
+  {% set iconBgClass = {
+    'primary': 'bg-primary-100 dark:bg-primary-900/30',
+    'secondary': 'bg-secondary-100 dark:bg-secondary-900/30',
+    'success': 'bg-emerald-100 dark:bg-emerald-900/30',
+    'warning': 'bg-amber-100 dark:bg-amber-900/30',
+    'danger': 'bg-red-100 dark:bg-red-900/30',
+    'info': 'bg-blue-100 dark:bg-blue-900/30',
+  }[color] ?? 'bg-primary-100 dark:bg-primary-900/30' %}
+{% endif %}
+
+{# Icon color #}
+{% set iconColorClass = {
+  'primary': 'text-primary-600 dark:text-primary-400',
+  'secondary': 'text-secondary-600 dark:text-secondary-400',
+  'success': 'text-emerald-600 dark:text-emerald-400',
+  'warning': 'text-amber-600 dark:text-amber-400',
+  'danger': 'text-red-600 dark:text-red-400',
+  'info': 'text-blue-600 dark:text-blue-400',
+}[color] ?? 'text-primary-600 dark:text-primary-400' %}
+
+{# Trend color classes #}
+{% set trendColorClass = 'text-gray-500' %}
+{% if effectiveTrend == 'up' %}
+  {% set trendColorClass = invertTrendColors ? 'text-red-500' : 'text-emerald-500' %}
+{% elseif effectiveTrend == 'down' %}
+  {% set trendColorClass = invertTrendColors ? 'text-emerald-500' : 'text-red-500' %}
+{% endif %}
+
+{# Trend icon #}
+{% set trendIcon = 'heroicons:minus' %}
+{% if effectiveTrend == 'up' %}
+  {% set trendIcon = 'heroicons:arrow-trending-up' %}
+{% elseif effectiveTrend == 'down' %}
+  {% set trendIcon = 'heroicons:arrow-trending-down' %}
+{% endif %}
+
+{# Layout classes #}
+{% set layoutClass = 'flex flex-col' %}
+{% set iconMarginClass = 'mb-2' %}
+{% if iconPosition == 'bottom' %}
+  {% set layoutClass = 'flex flex-col-reverse' %}
+  {% set iconMarginClass = 'mt-2' %}
+{% elseif iconPosition == 'left' %}
+  {% set layoutClass = 'flex flex-row items-center' %}
+  {% set iconMarginClass = 'mr-3' %}
+{% elseif iconPosition == 'right' %}
+  {% set layoutClass = 'flex flex-row-reverse items-center' %}
+  {% set iconMarginClass = 'ml-3' %}
+{% endif %}
+
+{% set centerClass = isCentered ? 'items-center text-center' : '' %}
+
+{# Card base classes #}
+{% set baseClass = 'bg-white dark:bg-gray-800 rounded-xl shadow-sm ' ~ sizeConfig.padding %}
+{% if variant == 'outline' %}
+  {% set baseClass = baseClass ~ ' border border-gray-200 dark:border-gray-700 shadow-none' %}
+{% elseif variant == 'flat' %}
+  {% set baseClass = baseClass ~ ' shadow-none' %}
+{% elseif variant == 'glass' %}
+  {% set baseClass = 'backdrop-blur-lg bg-white/10 rounded-xl ' ~ sizeConfig.padding %}
+{% endif %}
+
+{% if clickable %}
+  {% set baseClass = baseClass ~ ' cursor-pointer hover:shadow-md transition-shadow' %}
+{% endif %}
+
+<div {{ attributes }} class="{{ (baseClass ~ ' ' ~ class)|tailwind_merge }}">
+  <div class="{{ layoutClass }} {{ centerClass }}">
+    {# Icon #}
+    {% if icon %}
+      <div class="{{ sizeConfig.icon }} {{ iconRoundedClass }} {{ iconBgClass }} {{ iconMarginClass }} flex items-center justify-center flex-shrink-0">
+        {% block icon %}
+          <twig:ux:icon :name="icon" class="{{ sizeConfig.iconInner }} {{ iconColorClass }}" />
+        {% endblock %}
+      </div>
+    {% endif %}
+
+    {# Content #}
+    <div class="flex flex-col {{ sizeConfig.gap }} {{ iconPosition in ['left', 'right'] ? 'flex-1 min-w-0' : '' }}">
+      {# Label (if labelFirst) #}
+      {% if labelFirst %}
+        <div class="{{ sizeConfig.label }} text-gray-500 dark:text-gray-400">
+          {% block label %}{{ label }}{% endblock %}
+        </div>
+      {% endif %}
+
+      {# Value #}
+      <div class="{{ sizeConfig.value }} text-gray-900 dark:text-white">
+        {% block value %}
+          {% if prefix %}<span class="mr-0.5">{{ prefix }}</span>{% endif %}
+          {{ value }}
+          {% if suffix %}<span class="ml-0.5">{{ suffix }}</span>{% endif %}
+        {% endblock %}
+      </div>
+
+      {# Label (if not labelFirst) #}
+      {% if not labelFirst %}
+        <div class="{{ sizeConfig.label }} text-gray-500 dark:text-gray-400">
+          {{ block('label') }}
+        </div>
+      {% endif %}
+
+      {# Description #}
+      {% if description %}
+        <div class="{{ sizeConfig.description }} text-gray-400 dark:text-gray-500">
+          {% block description %}{{ description }}{% endblock %}
+        </div>
+      {% endif %}
+
+      {# Change indicator #}
+      {% if change is not null or trend %}
+        <div class="mt-1 font-medium inline-flex items-center gap-1 {{ sizeConfig.change }} {{ trendColorClass }}">
+          {% if not hideTrendIcon %}
+            <twig:ux:icon :name="trendIcon" class="size-3.5" />
+          {% endif %}
+          {% if not trendOnly and change is not null %}
+            <span>{{ change >= 0 ? '+' : '' }}{{ change }}%</span>
+          {% endif %}
+          {% if changeLabel %}
+            <span class="text-gray-400">{{ changeLabel }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% block extra '' %}
+</div>
