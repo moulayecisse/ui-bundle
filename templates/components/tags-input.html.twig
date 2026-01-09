@@ -56,9 +56,7 @@
             class="rounded-full hover:bg-primary-200 dark:hover:bg-primary-800/50 transition-colors p-0.5"
             data-action="click->cisse--ui-bundle--tags-input#removeTag:prevent:stop"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="text-primary-500 {{ currentSize.icon }}" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <twig:ux:icon name="heroicons:x-mark" class="text-primary-500 {{ currentSize.icon }}" />
           </button>
         {% endif %}
       </span>
