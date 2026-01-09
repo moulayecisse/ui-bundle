@@ -1,6 +1,7 @@
 {% props
   class = '',
   disabled = null,
+  invalid = false,
   size = 'md',
   variant = 'default',
   rounded = 'lg',
@@ -32,13 +33,16 @@
 {% set currentVariant = variantConfig[variant] ?? variantConfig['default'] %}
 {% set currentRounded = variant == 'flushed' ? '' : (roundedConfig[rounded] ?? roundedConfig['lg']) %}
 
-{% set baseClasses = 'relative flex w-full outline-1 -outline-offset-1 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary dark:focus-within:outline-primary text-gray-900 dark:text-gray-100 disabled:cursor-not-allowed disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:outline-gray-200 dark:disabled:outline-gray-800' %}
+{% set baseClasses = 'relative flex w-full outline-1 -outline-offset-1 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus-within:outline-2 focus-within:-outline-offset-2 text-gray-900 dark:text-gray-100 disabled:cursor-not-allowed disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:outline-gray-200 dark:disabled:outline-gray-800' %}
 
-{% set class = (baseClasses ~ ' ' ~ currentSize.text ~ ' ' ~ currentSize.height ~ ' ' ~ currentVariant ~ ' ' ~ currentRounded ~ ' ' ~ class)|tailwind_merge %}
+{% set invalidClasses = invalid ? 'outline-red-500 dark:outline-red-500 focus-within:outline-red-500 dark:focus-within:outline-red-500' : 'focus-within:outline-primary dark:focus-within:outline-primary' %}
+
+{% set class = (baseClasses ~ ' ' ~ invalidClasses ~ ' ' ~ currentSize.text ~ ' ' ~ currentSize.height ~ ' ' ~ currentVariant ~ ' ' ~ currentRounded ~ ' ' ~ class)|tailwind_merge %}
 
 <div
   {{ attributes }}
   {% if disabled %}disabled{% endif %}
+  {% if invalid %}data-invalid="true"{% endif %}
   data-size="{{ size }}"
   data-variant="{{ variant }}"
   class="{{ class ?? '' }}"
