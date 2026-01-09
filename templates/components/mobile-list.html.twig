@@ -28,21 +28,25 @@
     {% else %}
         {# Select All Header (when selectable) #}
         {% if selectable and items|length > 0 %}
-            <twig:Ui:card>
-                <div class="flex items-center gap-3 p-3">
-                    <twig:Ui:input:checkbox
-                        data-cisse--ui-bundle--mobile-list-target="selectAllCheckbox"
-                        data-action="change->cisse--ui-bundle--mobile-list#selectAll"
-                    />
-                    <span class="text-sm text-gray-600 dark:text-gray-400">
-                        Select all
-                    </span>
-                    <span
-                        data-cisse--ui-bundle--mobile-list-target="selectedCount"
-                        class="text-sm text-primary font-medium hidden"
-                    ></span>
-                </div>
-            </twig:Ui:card>
+            {% if selectAllBlock|trim %}
+                {{ selectAllBlock|raw }}
+            {% else %}
+                <twig:Ui:card>
+                    <div class="flex items-center gap-3 p-3">
+                        <twig:Ui:input:checkbox
+                            data-cisse--ui-bundle--mobile-list-target="selectAllCheckbox"
+                            data-action="change->cisse--ui-bundle--mobile-list#selectAll"
+                        />
+                        <span class="text-sm text-gray-600 dark:text-gray-400">
+                            Select all
+                        </span>
+                        <span
+                            data-cisse--ui-bundle--mobile-list-target="selectedCount"
+                            class="text-sm text-primary font-medium hidden"
+                        ></span>
+                    </div>
+                </twig:Ui:card>
+            {% endif %}
         {% endif %}
 
         {# Items List #}

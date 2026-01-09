@@ -36,14 +36,18 @@
     >
         {% block wrapper %}
             {% if showHeader %}
-                <twig:Ui:card:header {{ ...attributes.nested('header') }}>
-                    <twig:Ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:Ui:card:title>
-                    <twig:Ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:Ui:card:description>
+                {% if cardHeaderBlock|trim %}
+                    {{ cardHeaderBlock|raw }}
+                {% else %}
+                    <twig:Ui:card:header {{ ...attributes.nested('header') }}>
+                        <twig:Ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:Ui:card:title>
+                        <twig:Ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:Ui:card:description>
 
-                    <twig:block name="actions">
-                        <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:Ui:card:actions>
-                    </twig:block>
-                </twig:Ui:card:header>
+                        <twig:block name="actions">
+                            <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:Ui:card:actions>
+                        </twig:block>
+                    </twig:Ui:card:header>
+                {% endif %}
             {% endif %}
 
             {% if divide and showHeader %}
