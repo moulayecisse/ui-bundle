@@ -14,37 +14,34 @@
 {% set rightBlock %}{% block right '' %}{% endset %}
 {% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
 
-{% set linkClass = ('relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]/sub:bg-primary group-data-[active=true]/sub:hover:bg-primary/90 dark:group-data-[active=true]/sub:hover:bg-primary/90 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
-
+{# This component renders differently in inline submenu vs flyout #}
 <li
-        {{ attributes.without('class') }}
-        data-active="{{ active ? 'true' : 'false' }}"
-        class="group/sub {{ attributes.render('class') }}"
+    {{ attributes.without('class') }}
+    data-active="{{ active ? 'true' : 'false' }}"
+    class="group/sub {{ attributes.render('class') }}"
 >
     <a
-            href="{{ href ?? '#' }}"
-            class="{{ linkClass }}"
-            {% if disabled %}aria-disabled="true"{% endif %}
+        href="{{ href ?? '#' }}"
+        class="flex items-center gap-3 px-4 py-2 text-sm transition-colors {{ active ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700' }} {{ disabled ? 'opacity-50 pointer-events-none' : '' }}"
+        {% if disabled %}aria-disabled="true"{% endif %}
     >
         {% block content %}
-            {% block icon %}
-                {% set iconClass = ('size-4 shrink-0 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
-
+            {# Icon #}
+            {% if icon %}
                 <twig:ux:icon
-                        name="{{ icon ?: 'heroicons:minus-16-solid' }}"
-                        class="{{ iconClass }}"
+                    name="{{ icon }}"
+                    class="size-4 shrink-0"
                 />
-            {% endblock %}
+            {% endif %}
 
-            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground group-data-[collapsed=true]/sidebar:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
-
-            <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
+            {# Label #}
+            <span class="flex-1">
                 {% block label label %}
             </span>
 
             {# Right slot: badge, count, or custom content #}
             {% if hasRightSlot %}
-                <span class="flex items-center gap-2 group-data-[collapsed=true]/sidebar:hidden">
+                <span class="flex items-center gap-2">
                     {% if rightBlock is not empty %}
                         {{ rightBlock|raw }}
                     {% endif %}
@@ -54,19 +51,12 @@
                     {% endif %}
 
                     {% if count is not null %}
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground/80">
+                        <span class="text-xs font-medium {{ active ? 'text-primary/80' : 'text-gray-500' }}">
                             {{ count }}
                         </span>
                     {% endif %}
                 </span>
             {% endif %}
-
-            {# Popover for collapsed state #}
-            <div class="hidden group-data-[collapsed=true]/sidebar:group-hover/sub:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
-                {{ label }}
-                {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
-                {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
-            </div>
         {% endblock %}
     </a>
 </li>

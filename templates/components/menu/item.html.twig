@@ -17,35 +17,32 @@
 {% set rightBlock %}{% block right '' %}{% endset %}
 {% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
 
-{% set linkClass = ('group/link relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]/item:bg-primary dark:group-data-[active=true]/item:bg-primary group-data-[active=true]/item:hover:bg-primary/90 dark:group-data-[active=true]/item:hover:bg-primary/90 group-data-[collapsed=true]/sidebar:justify-center group-data-[collapsed=true]/sidebar:px-2 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
-
 <div
-        {{ attributes.without('class') }}
-        data-cisse--ui-bundle--menu-target="item"
-        data-active="{{ active ? 'true' : 'false' }}"
-        class="group/item relative {{ attributes.render('class') }}"
+    {{ attributes.without('class') }}
+    data-cisse--ui-bundle--menu-target="item"
+    data-active="{{ active ? 'true' : 'false' }}"
+    data-action="mouseenter->cisse--ui-bundle--menu#showFlyout mouseenter->cisse--ui-bundle--menu#cancelHideFlyout mouseleave->cisse--ui-bundle--menu#scheduleHideFlyout"
+    class="group/item w-full relative {{ attributes.render('class') }}"
 >
     <a
-            {% if haveChildren %}
-                data-action="click->cisse--ui-bundle--menu#toggle"
-            {% endif %}
-            href="{{ haveChildren ? 'javascript:void(0)' : (href ?? '#') }}"
-            class="{{ linkClass }}"
-            {% if disabled %}aria-disabled="true"{% endif %}
+        {% if haveChildren %}
+            data-action="click->cisse--ui-bundle--menu#toggle"
+        {% endif %}
+        href="{{ haveChildren ? 'javascript:void(0)' : (href ?? '#') }}"
+        class="group/link relative flex w-full items-center justify-center gap-2 py-2 px-3 rounded-lg transition-colors duration-200 {{ disabled ? 'opacity-50 pointer-events-none' : '' }} group-data-[collapsed=true]/sidebar:px-0"
+        {% if disabled %}aria-disabled="true"{% endif %}
     >
         {% block content %}
-            {% block icon %}
-                {% set iconClass = ('size-5 shrink-0 transition-all duration-300 text-gray-600 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground dark:group-data-[active=true]/item:text-primary-foreground group-data-[collapsed=true]/sidebar:size-7 ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
-
+            {# Icon #}
+            <div class="relative">
                 <twig:ux:icon
-                        name="{{ icon ?: 'heroicons:bars-3-16-solid' }}"
-                        class="{{ iconClass }}"
+                    name="{{ icon ?: 'heroicons:squares-2x2' }}"
+                    class="transition-all duration-300 {{ active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80' }} size-5 group-data-[collapsed=true]/sidebar:size-8"
                 />
-            {% endblock %}
+            </div>
 
-            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground dark:group-data-[active=true]/item:text-primary-foreground group-data-[collapsed=true]/sidebar:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
-
-            <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
+            {# Label - hidden when collapsed #}
+            <span class="flex-1 text-left text-sm font-semibold whitespace-nowrap transition-colors {{ active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80' }} group-data-[collapsed=true]/sidebar:hidden">
                 {% block label label|raw %}
             </span>
 
@@ -61,20 +58,11 @@
                     {% endif %}
 
                     {% if count is not null %}
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground/80">
+                        <span class="text-xs font-medium {{ active ? 'text-white/80' : 'text-white/50' }}">
                             {{ count }}
                         </span>
                     {% endif %}
                 </span>
-            {% endif %}
-
-            {# Tooltip popover for collapsed state (items without children) #}
-            {% if not haveChildren %}
-                <div class="hidden group-data-[collapsed=true]/sidebar:group-hover/item:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
-                    {{ label }}
-                    {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
-                    {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
-                </div>
             {% endif %}
 
             {# Chevron for expandable items #}
@@ -85,16 +73,16 @@
                     {% endif %}
 
                     {% if count is not null %}
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground/80">
+                        <span class="text-xs font-medium {{ active ? 'text-white/80' : 'text-white/50' }}">
                             {{ count }}
                         </span>
                     {% endif %}
 
                     <twig:ux:icon
-                            name="heroicons:chevron-down-20-solid"
-                            data-cisse--ui-bundle--menu-target="chevron"
-                            data-open="{{ expanded ? 'true' : 'false' }}"
-                            class="size-4 transition-transform duration-300 ease-in-out {{ expanded ? 'rotate-180' : 'rotate-0' }} text-gray-600 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground dark:group-data-[active=true]/item:text-primary-foreground"
+                        name="lucide:chevron-right"
+                        data-cisse--ui-bundle--menu-target="chevron"
+                        data-open="{{ expanded ? 'true' : 'false' }}"
+                        class="size-4 transition-transform duration-200 {{ expanded ? 'rotate-90' : 'rotate-0' }} {{ active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80' }}"
                     />
                 </span>
             {% endif %}
@@ -108,20 +96,32 @@
         </twig:Ui:menu:sub>
     {% endif %}
 
-    {# Flyout submenu for collapsed state #}
+    {# Flyout template for collapsed state - will be cloned to body by JS #}
     {% if haveChildren %}
         <div
-            class="group/sidebar hidden group-data-[collapsed=true]/sidebar:group-hover/item:block absolute left-full ml-2 top-0 z-50 min-w-48 rounded-lg border border-gray-200 bg-white py-2 shadow-lg dark:border-gray-700 dark:bg-gray-800"
-            data-collapsed="false"
+            data-cisse--ui-bundle--menu-target="flyout"
+            class="hidden min-w-48 rounded-lg border border-gray-200 bg-white py-2 shadow-lg dark:border-gray-700 dark:bg-gray-800"
         >
             {# Label header #}
             <div class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
                 {{ label }}
             </div>
-            {# Children #}
-            <div class="flex flex-col">
+            {# Children - rendered as flyout items #}
+            <div class="flex flex-col" data-flyout-children>
                 {{ childrenBlock|raw }}
             </div>
+        </div>
+    {% endif %}
+
+    {# Tooltip for items without children when collapsed #}
+    {% if not haveChildren %}
+        <div
+            data-cisse--ui-bundle--menu-target="flyout"
+            class="hidden px-3 py-1.5 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded-lg shadow-lg whitespace-nowrap"
+        >
+            {{ label }}
+            {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
+            {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
         </div>
     {% endif %}
 </div>
