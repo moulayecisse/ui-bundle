@@ -4,11 +4,14 @@
     {# Props Documentation #}
     {{ ui.props([
         { name: 'appName', type: 'string', default: "''", description: 'Application name shown with logo' },
-        { name: 'appIcon', type: 'string | null', default: 'null', description: 'SVG path for app icon' },
+        { name: 'appIcon', type: 'string | null', default: 'null', description: 'Icon name (e.g., "heroicons:cube")' },
+        { name: 'appIconClass', type: 'string', default: "'w-7 h-7 text-white'", description: 'CSS classes for app icon' },
         { name: 'headline', type: 'string', default: "''", description: 'Main headline text (e.g., "Welcome to")' },
         { name: 'subHeadline', type: 'string', default: "''", description: 'Sub-headline text (e.g., "MyApp Platform")' },
         { name: 'description', type: 'string', default: "''", description: 'Description text below headlines' },
-        { name: 'features', type: 'array', default: '[]', description: 'List of feature objects with text and optional icon' },
+        { name: 'features', type: 'array', default: '[]', description: 'List of features: { text, icon?, iconClass? } or strings' },
+        { name: 'featureIcon', type: 'string', default: "'heroicons:check'", description: 'Default icon for features' },
+        { name: 'featureIconClass', type: 'string', default: "'w-5 h-5 text-white'", description: 'Default CSS classes for feature icons' },
         { name: 'gradientFrom', type: 'string', default: "'from-primary-700'", description: 'Starting gradient class' },
         { name: 'gradientTo', type: 'string', default: "'to-primary-800'", description: 'Ending gradient class' },
         { name: 'showDecorations', type: 'boolean', default: 'true', description: 'Show decorative blur circles' },
@@ -16,6 +19,8 @@
         { name: 'formTitle', type: 'string | null', default: 'null', description: 'Title above the form' },
         { name: 'formSubtitle', type: 'string | null', default: 'null', description: 'Subtitle above the form' },
         { name: 'homeLink', type: 'string', default: "'/'", description: 'URL for logo link' },
+        { name: 'brandingClass', type: 'string', default: "''", description: 'Additional CSS classes for branding panel' },
+        { name: 'formPanelClass', type: 'string', default: "''", description: 'Additional CSS classes for form panel' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
