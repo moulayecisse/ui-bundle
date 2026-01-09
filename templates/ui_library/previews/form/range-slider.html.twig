@@ -1,6 +1,23 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'min', type: 'number', default: '0', description: 'Minimum range value' },
+        { name: 'max', type: 'number', default: '100', description: 'Maximum range value' },
+        { name: 'step', type: 'number', default: '1', description: 'Step increment between values' },
+        { name: 'minValue', type: 'number', default: '25', description: 'Initial lower bound value' },
+        { name: 'maxValue', type: 'number', default: '75', description: 'Initial upper bound value' },
+        { name: 'minName', type: 'string', default: "'range_min'", description: 'Form field name for min value' },
+        { name: 'maxName', type: 'string', default: "'range_max'", description: 'Form field name for max value' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the slider' },
+        { name: 'showLabels', type: 'boolean', default: 'true', description: 'Show current value labels' },
+        { name: 'showMinMax', type: 'boolean', default: 'true', description: 'Show min/max range labels' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Slider track and handle size' },
+        { name: 'color', type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger'", default: "'primary'", description: 'Slider color theme' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
     {# Basic Range Slider #}
     {% set basicPreview %}
         <div class="max-w-md">
@@ -103,4 +120,41 @@
     disabled
 />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="max-w-md space-y-8">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Small</p>
+                <twig:Ui:range-slider minName="size_sm_min" maxName="size_sm_max" size="sm" minValue="20" maxValue="80" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
+                <twig:Ui:range-slider minName="size_md_min" maxName="size_md_max" size="md" minValue="25" maxValue="75" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Large</p>
+                <twig:Ui:range-slider minName="size_lg_min" maxName="size_lg_max" size="lg" minValue="30" maxValue="70" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:range-slider size="sm" minValue="20" maxValue="80" />
+<twig:Ui:range-slider size="md" minValue="25" maxValue="75" />
+<twig:Ui:range-slider size="lg" minValue="30" maxValue="70" />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
+
+    {# Color Variants #}
+    {% set colorsPreview %}
+        <div class="max-w-md space-y-6">
+            <twig:Ui:range-slider minName="color_primary_min" maxName="color_primary_max" color="primary" minValue="20" maxValue="80" :showMinMax="false" />
+            <twig:Ui:range-slider minName="color_success_min" maxName="color_success_max" color="success" minValue="25" maxValue="75" :showMinMax="false" />
+            <twig:Ui:range-slider minName="color_warning_min" maxName="color_warning_max" color="warning" minValue="30" maxValue="70" :showMinMax="false" />
+            <twig:Ui:range-slider minName="color_danger_min" maxName="color_danger_max" color="danger" minValue="35" maxValue="65" :showMinMax="false" />
+        </div>
+    {% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:Ui:range-slider color="primary" minValue="20" maxValue="80" />
+<twig:Ui:range-slider color="success" minValue="25" maxValue="75" />
+<twig:Ui:range-slider color="warning" minValue="30" maxValue="70" />
+<twig:Ui:range-slider color="danger" minValue="35" maxValue="65" />{% endverbatim %}{% endset %}
+    {{ ui.story('Color Variants', colorsPreview, colorsCode) }}
 </div>

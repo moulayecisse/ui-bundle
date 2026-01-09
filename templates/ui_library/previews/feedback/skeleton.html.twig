@@ -1,6 +1,18 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'variant', type: "'text' | 'circular' | 'rectangular' | 'rounded' | 'avatar' | 'button' | 'input' | 'card'", default: "'text'", description: 'Skeleton shape variant' },
+        { name: 'width', type: 'string | null', default: 'null', description: 'Custom width (CSS value)' },
+        { name: 'height', type: 'string | null', default: 'null', description: 'Custom height (CSS value)' },
+        { name: 'lines', type: 'number', default: '1', description: 'Number of lines (text variant only)' },
+        { name: 'animate', type: 'boolean', default: 'true', description: 'Enable pulse animation' },
+        { name: 'speed', type: "'slow' | 'normal' | 'fast'", default: "'normal'", description: 'Animation speed' },
+        { name: 'color', type: "'default' | 'primary' | 'light'", default: "'default'", description: 'Background color theme' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
     {# Text Skeleton #}
     {% set textPreview %}
         <div class="space-y-2">
@@ -48,4 +60,74 @@
     {% endset %}
     {% set tableCode %}{% verbatim %}<twig:Ui:skeleton variant="table" rows="3" />{% endverbatim %}{% endset %}
     {{ ui.story('Table Skeleton', tablePreview, tableCode) }}
+
+    {# Animation Speeds #}
+    {% set speedsPreview %}
+        <div class="space-y-4">
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Slow</p>
+                <twig:Ui:skeleton width="100%" height="1rem" speed="slow" />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Normal (default)</p>
+                <twig:Ui:skeleton width="100%" height="1rem" speed="normal" />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Fast</p>
+                <twig:Ui:skeleton width="100%" height="1rem" speed="fast" />
+            </div>
+        </div>
+    {% endset %}
+    {% set speedsCode %}{% verbatim %}<twig:Ui:skeleton speed="slow" />
+<twig:Ui:skeleton speed="normal" />
+<twig:Ui:skeleton speed="fast" />{% endverbatim %}{% endset %}
+    {{ ui.story('Animation Speeds', speedsPreview, speedsCode) }}
+
+    {# Color Variants #}
+    {% set colorsPreview %}
+        <div class="space-y-4">
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Default</p>
+                <twig:Ui:skeleton width="100%" height="1rem" color="default" />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Primary</p>
+                <twig:Ui:skeleton width="100%" height="1rem" color="primary" />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Light</p>
+                <twig:Ui:skeleton width="100%" height="1rem" color="light" />
+            </div>
+        </div>
+    {% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:Ui:skeleton color="default" />
+<twig:Ui:skeleton color="primary" />
+<twig:Ui:skeleton color="light" />{% endverbatim %}{% endset %}
+    {{ ui.story('Color Variants', colorsPreview, colorsCode) }}
+
+    {# More Variants #}
+    {% set moreVariantsPreview %}
+        <div class="space-y-4">
+            <div class="flex items-center gap-4">
+                <twig:Ui:skeleton variant="avatar" />
+                <span class="text-xs text-gray-500">Avatar</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex-1">
+                    <twig:Ui:skeleton variant="button" width="8rem" />
+                </div>
+                <span class="text-xs text-gray-500">Button</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex-1">
+                    <twig:Ui:skeleton variant="input" />
+                </div>
+                <span class="text-xs text-gray-500">Input</span>
+            </div>
+        </div>
+    {% endset %}
+    {% set moreVariantsCode %}{% verbatim %}<twig:Ui:skeleton variant="avatar" />
+<twig:Ui:skeleton variant="button" width="8rem" />
+<twig:Ui:skeleton variant="input" />{% endverbatim %}{% endset %}
+    {{ ui.story('More Variants', moreVariantsPreview, moreVariantsCode) }}
 </div>

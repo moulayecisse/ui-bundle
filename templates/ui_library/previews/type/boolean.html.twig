@@ -4,6 +4,15 @@
     {# Props Documentation #}
     {{ ui.props([
         { name: 'value', type: 'boolean', default: 'false', description: 'The boolean value to display' },
+        { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Display size' },
+        { name: 'variant', type: "'icon' | 'text' | 'badge'", default: "'icon'", description: 'Display style' },
+        { name: 'trueIcon', type: 'string', default: "'heroicons:check-16-solid'", description: 'Icon for true value (icon variant)' },
+        { name: 'falseIcon', type: 'string', default: "'heroicons:x-mark-16-solid'", description: 'Icon for false value (icon variant)' },
+        { name: 'trueColor', type: 'string', default: "'text-green-600'", description: 'Color class for true value' },
+        { name: 'falseColor', type: 'string', default: "'text-red-600'", description: 'Color class for false value' },
+        { name: 'trueLabel', type: 'string', default: "'Yes'", description: 'Label for true value (text/badge variants)' },
+        { name: 'falseLabel', type: 'string', default: "'No'", description: 'Label for false value (text/badge variants)' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
     {# Basic Boolean #}
@@ -92,4 +101,101 @@
 &lt;twig:Ui:boolean :value="true" /&gt;
 &lt;twig:Ui:boolean :value="entity.isActive" /&gt;{% endset %}
     {{ ui.story('Various Value Types', dynamicPreview, dynamicCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500">XS:</span>
+                <twig:Ui:boolean :value="true" size="xs" />
+                <twig:Ui:boolean :value="false" size="xs" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500">SM:</span>
+                <twig:Ui:boolean :value="true" size="sm" />
+                <twig:Ui:boolean :value="false" size="sm" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500">MD:</span>
+                <twig:Ui:boolean :value="true" size="md" />
+                <twig:Ui:boolean :value="false" size="md" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500">LG:</span>
+                <twig:Ui:boolean :value="true" size="lg" />
+                <twig:Ui:boolean :value="false" size="lg" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}&lt;twig:Ui:boolean :value="true" size="xs" /&gt;
+&lt;twig:Ui:boolean :value="true" size="sm" /&gt;
+&lt;twig:Ui:boolean :value="true" size="md" /&gt;
+&lt;twig:Ui:boolean :value="true" size="lg" /&gt;{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
+
+    {# Display Variants #}
+    {% set variantsPreview %}
+        <div class="space-y-4">
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500 w-20">Icon:</span>
+                <twig:Ui:boolean :value="true" variant="icon" />
+                <twig:Ui:boolean :value="false" variant="icon" />
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500 w-20">Text:</span>
+                <twig:Ui:boolean :value="true" variant="text" />
+                <twig:Ui:boolean :value="false" variant="text" />
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500 w-20">Badge:</span>
+                <twig:Ui:boolean :value="true" variant="badge" />
+                <twig:Ui:boolean :value="false" variant="badge" />
+            </div>
+        </div>
+    {% endset %}
+    {% set variantsCode %}&lt;twig:Ui:boolean :value="true" variant="icon" /&gt;
+&lt;twig:Ui:boolean :value="true" variant="text" /&gt;
+&lt;twig:Ui:boolean :value="true" variant="badge" /&gt;{% endset %}
+    {{ ui.story('Display Variants', variantsPreview, variantsCode) }}
+
+    {# Custom Labels #}
+    {% set labelsPreview %}
+        <div class="space-y-4">
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500 w-32">Active/Inactive:</span>
+                <twig:Ui:boolean :value="true" variant="text" trueLabel="Active" falseLabel="Inactive" />
+                <twig:Ui:boolean :value="false" variant="text" trueLabel="Active" falseLabel="Inactive" />
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-sm text-gray-500 w-32">Enabled/Disabled:</span>
+                <twig:Ui:boolean :value="true" variant="badge" trueLabel="Enabled" falseLabel="Disabled" />
+                <twig:Ui:boolean :value="false" variant="badge" trueLabel="Enabled" falseLabel="Disabled" />
+            </div>
+        </div>
+    {% endset %}
+    {% set labelsCode %}&lt;twig:Ui:boolean :value="true" variant="text" trueLabel="Active" falseLabel="Inactive" /&gt;
+&lt;twig:Ui:boolean :value="true" variant="badge" trueLabel="Enabled" falseLabel="Disabled" /&gt;{% endset %}
+    {{ ui.story('Custom Labels', labelsPreview, labelsCode) }}
+
+    {# Custom Icons #}
+    {% set iconsPreview %}
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-500">Published:</span>
+                <twig:Ui:boolean :value="true" trueIcon="heroicons:eye-16-solid" falseIcon="heroicons:eye-slash-16-solid" trueColor="text-blue-600" falseColor="text-gray-400" />
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-500">Locked:</span>
+                <twig:Ui:boolean :value="true" trueIcon="heroicons:lock-closed-16-solid" falseIcon="heroicons:lock-open-16-solid" trueColor="text-amber-600" falseColor="text-gray-400" />
+            </div>
+        </div>
+    {% endset %}
+    {% set iconsCode %}&lt;twig:Ui:boolean
+    :value="true"
+    trueIcon="heroicons:eye-16-solid"
+    falseIcon="heroicons:eye-slash-16-solid"
+    trueColor="text-blue-600"
+    falseColor="text-gray-400"
+/&gt;{% endset %}
+    {{ ui.story('Custom Icons & Colors', iconsPreview, iconsCode) }}
 </div>

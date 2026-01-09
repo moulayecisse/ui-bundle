@@ -8,8 +8,10 @@
         { name: 'value', type: 'string', default: "'#3b82f6'", description: 'Current color value (hex format)' },
         { name: 'swatches', type: 'array', default: '[20 colors]', description: 'Preset color swatches to display' },
         { name: 'showInput', type: 'boolean', default: 'true', description: 'Show text/native color input below swatches' },
+        { name: 'showValue', type: 'boolean', default: 'true', description: 'Show hex value next to color preview' },
         { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the color picker' },
         { name: 'label', type: 'string | null', default: 'null', description: 'Label text above the picker' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Picker trigger size' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -57,4 +59,33 @@
     {% endset %}
     {% set disabledCode %}{% verbatim %}<twig:Ui:color-picker name="disabled" label="Disabled" value="#64748b" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="flex items-end gap-4">
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Small</p>
+                <twig:Ui:color-picker name="size-sm" size="sm" value="#ef4444" />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Medium</p>
+                <twig:Ui:color-picker name="size-md" size="md" value="#22c55e" />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Large</p>
+                <twig:Ui:color-picker name="size-lg" size="lg" value="#3b82f6" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:color-picker size="sm" value="#ef4444" />
+<twig:Ui:color-picker size="md" value="#22c55e" />
+<twig:Ui:color-picker size="lg" value="#3b82f6" />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
+
+    {# Without Value Display #}
+    {% set noValuePreview %}
+        <twig:Ui:color-picker name="no-value" value="#8b5cf6" :showValue="false" />
+    {% endset %}
+    {% set noValueCode %}{% verbatim %}<twig:Ui:color-picker value="#8b5cf6" :showValue="false" />{% endverbatim %}{% endset %}
+    {{ ui.story('Without Value Display', noValuePreview, noValueCode) }}
 </div>

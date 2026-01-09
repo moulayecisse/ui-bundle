@@ -12,6 +12,10 @@
         { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the file upload' },
         { name: 'label', type: 'string', default: "'Drop files here...'", description: 'Dropzone label text' },
         { name: 'description', type: 'string | null', default: 'null', description: 'Help text below the label' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Dropzone size (padding, icon, text)' },
+        { name: 'variant', type: "'default' | 'solid' | 'minimal'", default: "'default'", description: 'Dropzone visual style' },
+        { name: 'showIcon', type: 'boolean', default: 'true', description: 'Show upload icon' },
+        { name: 'showFileList', type: 'boolean', default: 'true', description: 'Show list of selected files' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -87,4 +91,57 @@
     {% endset %}
     {% set disabledCode %}{% verbatim %}<twig:Ui:file-upload name="disabled" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="max-w-lg space-y-6">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Small</p>
+                <twig:Ui:file-upload name="size-sm" size="sm" label="Upload file" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
+                <twig:Ui:file-upload name="size-md" size="md" label="Upload file" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Large</p>
+                <twig:Ui:file-upload name="size-lg" size="lg" label="Upload file" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:file-upload size="sm" label="Upload file" />
+<twig:Ui:file-upload size="md" label="Upload file" />
+<twig:Ui:file-upload size="lg" label="Upload file" />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
+
+    {# Style Variants #}
+    {% set variantsPreview %}
+        <div class="max-w-lg space-y-6">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Default (dashed border)</p>
+                <twig:Ui:file-upload name="var-default" variant="default" label="Drop files here" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Solid (filled background)</p>
+                <twig:Ui:file-upload name="var-solid" variant="solid" label="Drop files here" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Minimal</p>
+                <twig:Ui:file-upload name="var-minimal" variant="minimal" label="Drop files here" />
+            </div>
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:Ui:file-upload variant="default" label="Drop files here" />
+<twig:Ui:file-upload variant="solid" label="Drop files here" />
+<twig:Ui:file-upload variant="minimal" label="Drop files here" />{% endverbatim %}{% endset %}
+    {{ ui.story('Style Variants', variantsPreview, variantsCode) }}
+
+    {# Without Icon #}
+    {% set noIconPreview %}
+        <div class="max-w-lg">
+            <twig:Ui:file-upload name="no-icon" :showIcon="false" label="Click to upload" description="Or drag and drop files" />
+        </div>
+    {% endset %}
+    {% set noIconCode %}{% verbatim %}<twig:Ui:file-upload :showIcon="false" label="Click to upload" description="Or drag and drop" />{% endverbatim %}{% endset %}
+    {{ ui.story('Without Icon', noIconPreview, noIconCode) }}
 </div>
