@@ -40,7 +40,7 @@
             </ul>
         </div>
     {% endset %}
-    {% set aboutCode %}{% verbatim %}<twig:Ui:layout:auth-layout
+    {% set aboutCode %}{% verbatim %}<twig:Ui:layout:auth
     appName="MyApp"
     headline="Welcome to"
     subHeadline="MyApp Platform"
@@ -60,7 +60,7 @@
             <twig:Ui:button type="submit" class="w-full">Sign In</twig:Ui:button>
         </twig:Ui:form>
     {% endblock %}
-</twig:Ui:layout:auth-layout>{% endverbatim %}{% endset %}
+</twig:Ui:layout:auth>{% endverbatim %}{% endset %}
     {{ ui.story('Overview', aboutPreview, aboutCode) }}
 
     {# Layout Structure #}
@@ -140,12 +140,12 @@
             </div>
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:layout:auth-layout
+    {% set colorsCode %}{% verbatim %}<twig:Ui:layout:auth
     gradientFrom="from-violet-700"
     gradientTo="to-purple-800"
     ...
 >
     {% block form %}...{% endblock %}
-</twig:Ui:layout:auth-layout>{% endverbatim %}{% endset %}
+</twig:Ui:layout:auth>{% endverbatim %}{% endset %}
     {{ ui.story('Color Themes', colorsPreview, colorsCode) }}
 </div>
