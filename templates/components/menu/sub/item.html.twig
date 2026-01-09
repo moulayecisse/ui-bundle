@@ -36,7 +36,7 @@
                 />
             {% endblock %}
 
-            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground in-data-[collapsed]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground group-data-[collapsed=true]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
 
             <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
                 {% block label label %}
@@ -44,7 +44,7 @@
 
             {# Right slot: badge, count, or custom content #}
             {% if hasRightSlot %}
-                <span class="flex items-center gap-2 in-data-[collapsed]:hidden">
+                <span class="flex items-center gap-2 group-data-[collapsed=true]:hidden">
                     {% if rightBlock is not empty %}
                         {{ rightBlock|raw }}
                     {% endif %}
@@ -62,7 +62,7 @@
             {% endif %}
 
             {# Popover for collapsed state #}
-            <div class="hidden in-data-[collapsed]:group-hover/sub:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
+            <div class="hidden group-data-[collapsed=true]:group-hover/sub:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
                 {{ label }}
                 {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
                 {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}

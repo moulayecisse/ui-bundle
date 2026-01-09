@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['sidebar', 'backdrop', 'sunIcon', 'moonIcon', 'appName', 'menuContainer'];
+    static targets = ['sidebar', 'backdrop', 'sunIcon', 'moonIcon'];
 
     connect() {
         this.sidebarOpen = window.innerWidth >= 1024; // Open by default on desktop
@@ -65,37 +65,13 @@ export default class extends Controller {
     }
 
     applyCollapsedState() {
-        // Collapse sidebar to w-16 (icon width)
-        this.sidebarTarget.classList.remove('lg:w-60');
-        this.sidebarTarget.classList.add('lg:w-16');
-
-        // Hide app name
-        if (this.hasAppNameTarget) {
-            this.appNameTarget.classList.add('lg:hidden');
-        }
-
-        // Center menu items
-        if (this.hasMenuContainerTarget) {
-            this.menuContainerTarget.classList.remove('items-start');
-            this.menuContainerTarget.classList.add('items-center');
-        }
+        // Set data-collapsed attribute - CSS handles the rest via Tailwind data variants
+        this.sidebarTarget.dataset.collapsed = 'true';
     }
 
     removeCollapsedState() {
-        // Expand sidebar to w-60
-        this.sidebarTarget.classList.remove('lg:w-16');
-        this.sidebarTarget.classList.add('lg:w-60');
-
-        // Show app name
-        if (this.hasAppNameTarget) {
-            this.appNameTarget.classList.remove('lg:hidden');
-        }
-
-        // Align menu items to start
-        if (this.hasMenuContainerTarget) {
-            this.menuContainerTarget.classList.remove('items-center');
-            this.menuContainerTarget.classList.add('items-start');
-        }
+        // Remove data-collapsed attribute
+        delete this.sidebarTarget.dataset.collapsed;
     }
 
     toggleDark() {
