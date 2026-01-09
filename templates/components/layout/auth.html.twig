@@ -79,7 +79,7 @@
           {% for feature in features %}
             <div class="flex items-center gap-3">
               <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center flex-shrink-0">
-                {% if feature.icon %}
+                {% if feature.icon is defined and feature.icon %}
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     {{ feature.icon|raw }}
                   </svg>
@@ -89,7 +89,7 @@
                   </svg>
                 {% endif %}
               </div>
-              <span class="text-white/90">{{ feature.text }}</span>
+              <span class="text-white/90">{{ feature.text ?? feature }}</span>
             </div>
           {% endfor %}
         </div>
