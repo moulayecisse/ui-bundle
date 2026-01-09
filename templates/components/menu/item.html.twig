@@ -3,62 +3,108 @@
     active = null,
     href = null,
     label = null,
-    icon = null
+    icon = null,
+    badge = null,
+    badgeVariant = 'default',
+    count = null,
+    expanded = false,
+    disabled = false,
+    class = '',
 %}
 
 {% set childrenBlock %}{% block children '' %}{% endset %}
 {% set haveChildren = childrenBlock is not empty %}
+{% set rightBlock %}{% block right '' %}{% endset %}
+{% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
+
+{% set linkClass = ('group/link relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]:bg-primary dark:group-data-[active=true]:bg-primary group-data-[active=true]:hover:bg-primary/90 dark:group-data-[active=true]:hover:bg-primary/90 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
 
 <div
-        {{ attributes }}
+        {{ attributes.without('class') }}
         data-cisse--ui-bundle--menu-target="item"
         data-active="{{ active ? 'true' : 'false' }}"
-        class="group"
+        class="group {{ attributes.render('class') }}"
 >
     <a
             {% if haveChildren %}
                 data-action="click->cisse--ui-bundle--menu#toggle"
             {% endif %}
             href="{{ haveChildren ? 'javascript:void(0)' : (href ?? '#') }}"
-            class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]:bg-primary  dark:group-data-[active=true]:bg-primary group-data-[active=true]:hover:bg-primary/90 dark:group-data-[active=true]:hover:bg-primary/90"
+            class="{{ linkClass }}"
+            {% if disabled %}aria-disabled="true"{% endif %}
     >
         {% block content %}
             {% block icon %}
-                {% if icon %}
-                    <twig:ux:icon
-                            name="{{ icon }}"
-                            class="size-4 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground"
-                    />
-                {% else %}
-                    <twig:ux:icon
-                            name="heroicons:bars-3-16-solid"
-                            class="size-4 transition-colors  text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground"
-                    />
-                {% endif %}
+                {% set iconClass = ('size-4 flex-shrink-0 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
+
+                <twig:ux:icon
+                        name="{{ icon ?: 'heroicons:bars-3-16-solid' }}"
+                        class="{{ iconClass }}"
+                        {{ ...attributes.nested('icon').without('class') }}
+                />
             {% endblock %}
 
-            <span class="transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground  dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden">
+            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+
+            <span
+                    {{ ...attributes.nested('label').without('class') }}
+                    class="{{ labelClass }}"
+            >
                 {% block label label|raw %}
             </span>
-            
-            <!-- Popover for collapsed state -->
+
+            {# Right slot: badge, count, or custom content #}
+            {% if hasRightSlot and not haveChildren %}
+                <span class="flex items-center gap-2 in-data-[collapsed]:hidden">
+                    {% if rightBlock is not empty %}
+                        {{ rightBlock|raw }}
+                    {% endif %}
+
+                    {% if badge %}
+                        <twig:Ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:Ui:badge>
+                    {% endif %}
+
+                    {% if count is not null %}
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]:text-primary-foreground/80">
+                            {{ count }}
+                        </span>
+                    {% endif %}
+                </span>
+            {% endif %}
+
+            {# Popover for collapsed state #}
             <div class="hidden in-data-[collapsed]:group-hover:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
                 {{ label }}
+                {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
+                {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
             </div>
 
+            {# Chevron for expandable items #}
             {% if haveChildren %}
-                <twig:ux:icon
-                        name="heroicons:chevron-down-20-solid"
-                        data-cisse--ui-bundle--menu-target="chevron"
-                        data-open="false"
-                        class="size-4 absolute top-1/2 right-2.5 -translate-y-1/2 transition-transform duration-300 ease-in-out rotate-0 text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground  dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden"
-                />
+                <span class="flex items-center gap-2 in-data-[collapsed]:hidden">
+                    {% if badge %}
+                        <twig:Ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:Ui:badge>
+                    {% endif %}
+
+                    {% if count is not null %}
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]:text-primary-foreground/80">
+                            {{ count }}
+                        </span>
+                    {% endif %}
+
+                    <twig:ux:icon
+                            name="heroicons:chevron-down-20-solid"
+                            data-cisse--ui-bundle--menu-target="chevron"
+                            data-open="{{ expanded ? 'true' : 'false' }}"
+                            class="size-4 transition-transform duration-300 ease-in-out {{ expanded ? 'rotate-180' : 'rotate-0' }} text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground"
+                    />
+                </span>
             {% endif %}
         {% endblock %}
     </a>
 
     {% if haveChildren %}
-        <twig:Ui:menu:sub>
+        <twig:Ui:menu:sub :expanded="expanded">
             {{ childrenBlock|raw }}
         </twig:Ui:menu:sub>
     {% endif %}

@@ -3,33 +3,73 @@
     active = null,
     href = null,
     label = null,
-    icon = null
+    icon = null,
+    badge = null,
+    badgeVariant = 'default',
+    count = null,
+    disabled = false,
+    class = '',
 %}
 
+{% set rightBlock %}{% block right '' %}{% endset %}
+{% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
+
+{% set linkClass = ('relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]/sub:bg-primary group-data-[active=true]/sub:hover:bg-primary/90 dark:group-data-[active=true]/sub:hover:bg-primary/90 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
+
 <li
-        {{ attributes }}
+        {{ attributes.without('class') }}
         data-active="{{ active ? 'true' : 'false' }}"
-        class="group/sub"
+        class="group/sub {{ attributes.render('class') }}"
 >
     <a
             href="{{ href ?? '#' }}"
-            class="relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]/sub:bg-primary group-data-[active=true]/sub:hover:bg-primary/90 dark:group-data-[active=true]/sub:hover:bg-primary/90"
+            class="{{ linkClass }}"
+            {% if disabled %}aria-disabled="true"{% endif %}
     >
         {% block content %}
             {% block icon %}
+                {% set iconClass = ('size-4 flex-shrink-0 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
+
                 <twig:ux:icon
-                        name="{{ icon ?: 'heroicons:bars-3-16-solid' }}"
-                        class="size-4 transition-colors flex-shrink-0 text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground"
+                        name="{{ icon ?: 'heroicons:minus-16-solid' }}"
+                        class="{{ iconClass }}"
+                        {{ ...attributes.nested('icon').without('class') }}
                 />
             {% endblock %}
 
-            <span class="transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground in-data-[collapsed]:hidden">
+            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground in-data-[collapsed]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+
+            <span
+                    {{ ...attributes.nested('label').without('class') }}
+                    class="{{ labelClass }}"
+            >
                 {% block label label %}
             </span>
-            
-            <!-- Popover for collapsed state -->
-            <div class="hidden in-data-[collapsed]:group-hover:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
+
+            {# Right slot: badge, count, or custom content #}
+            {% if hasRightSlot %}
+                <span class="flex items-center gap-2 in-data-[collapsed]:hidden">
+                    {% if rightBlock is not empty %}
+                        {{ rightBlock|raw }}
+                    {% endif %}
+
+                    {% if badge %}
+                        <twig:Ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:Ui:badge>
+                    {% endif %}
+
+                    {% if count is not null %}
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground/80">
+                            {{ count }}
+                        </span>
+                    {% endif %}
+                </span>
+            {% endif %}
+
+            {# Popover for collapsed state #}
+            <div class="hidden in-data-[collapsed]:group-hover/sub:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
                 {{ label }}
+                {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
+                {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
             </div>
         {% endblock %}
     </a>

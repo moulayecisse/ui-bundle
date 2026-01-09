@@ -1,13 +1,16 @@
 {# templates/components/Ui/menu/sub.html.twig #}
-{% props class = '' %}
+{% props
+    expanded = false,
+    class = '',
+%}
 
 {% set class = ('overflow-hidden ' ~ class)|tailwind_merge %}
 
 <div
         {{ attributes }}
         data-cisse--ui-bundle--menu-target="submenu"
-        data-open="false"
-        class="{{ class }} hidden"
+        data-open="{{ expanded ? 'true' : 'false' }}"
+        class="{{ class }}{{ expanded ? '' : ' hidden' }}"
 >
     <ul class="flex flex-col gap-1 mt-2 pl-9">
         {% block content '' %}
