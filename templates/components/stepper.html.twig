@@ -1,64 +1,103 @@
 {% props
-  steps = [],
-  currentStep = 0,
-  orientation = 'horizontal',
-  class = '',
+    steps = [],
+    currentStep = 0,
+    orientation = 'horizontal',
+    size = 'md',
+    variant = 'default',
+    clickable = false,
+    showNumbers = true,
+    color = 'primary',
+    class = '',
 %}
+
+{# Size configurations #}
+{% set sizeConfig = {
+    'sm': { circle: 'size-8', icon: 'size-4', text: 'text-xs', lineTop: 'top-4', lineLeft: 'left-4', gap: 'gap-2', title: 'text-xs', desc: 'text-xs' },
+    'md': { circle: 'size-12', icon: 'size-6', text: 'text-sm', lineTop: 'top-6', lineLeft: 'left-6', gap: 'gap-4', title: 'text-sm', desc: 'text-xs' },
+    'lg': { circle: 'size-16', icon: 'size-8', text: 'text-base', lineTop: 'top-8', lineLeft: 'left-8', gap: 'gap-6', title: 'text-base', desc: 'text-sm' },
+} %}
+
+{% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
+
+{# Color configurations #}
+{% set colorConfig = {
+    'primary': { active: 'border-primary bg-primary', text: 'text-primary' },
+    'success': { active: 'border-green-500 bg-green-500', text: 'text-green-500' },
+    'info': { active: 'border-blue-500 bg-blue-500', text: 'text-blue-500' },
+} %}
+
+{% set colors = colorConfig[color] ?? colorConfig['primary'] %}
 
 {# Find current step index #}
 {% set currentIndex = currentStep %}
 {% for step in steps %}
-  {% if step.key is defined and step.key == currentStep %}
-    {% set currentIndex = loop.index0 %}
-  {% endif %}
+    {% if step.key is defined and step.key == currentStep %}
+        {% set currentIndex = loop.index0 %}
+    {% endif %}
 {% endfor %}
 
-<div {{ attributes }} class="{{ ('w-full ' ~ class)|tailwind_merge }}">
-  <div class="{{ orientation == 'horizontal' ? 'relative flex items-start justify-between' : 'relative flex flex-col gap-4' }}">
+<div
+    {{ attributes }}
+    class="{{ ('w-full ' ~ class)|tailwind_merge }}"
+    data-size="{{ size }}"
+    data-orientation="{{ orientation }}"
+    data-variant="{{ variant }}"
+>
+    <div class="{{ orientation == 'horizontal' ? 'relative flex items-start justify-between' : 'relative flex flex-col ' ~ sizes.gap }}">
 
-    {% if orientation == 'horizontal' %}
-      {# Horizontal Progress Line - Background #}
-      <div class="absolute left-0 top-6 h-0.5 w-full bg-gray-200 dark:bg-gray-700" aria-hidden="true"></div>
-      {# Horizontal Progress Line - Active #}
-      {% set progressWidth = steps|length > 1 ? (currentIndex / (steps|length - 1)) * 100 : 0 %}
-      <div class="absolute left-0 top-6 h-0.5 bg-primary transition-all duration-500 ease-in-out" style="width: {{ progressWidth }}%;" aria-hidden="true"></div>
-    {% endif %}
-
-    {% for step in steps %}
-      {% set isComplete = loop.index0 < currentIndex %}
-      {% set isActive = loop.index0 == currentIndex %}
-      {% set isPending = loop.index0 > currentIndex %}
-
-      <div class="{{ orientation == 'horizontal' ? 'relative flex flex-1 flex-col items-center' : 'relative flex items-start gap-4' }}">
-
-        {# Vertical Line #}
-        {% if orientation == 'vertical' and not loop.last %}
-          <div class="absolute left-6 top-12 h-full w-0.5 -translate-x-1/2 {{ isComplete ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700' }}"></div>
+        {% if orientation == 'horizontal' %}
+            {# Horizontal Progress Line - Background #}
+            <div class="absolute left-0 {{ sizes.lineTop }} h-0.5 w-full bg-gray-200 dark:bg-gray-700" aria-hidden="true"></div>
+            {# Horizontal Progress Line - Active #}
+            {% set progressWidth = steps|length > 1 ? (currentIndex / (steps|length - 1)) * 100 : 0 %}
+            <div class="absolute left-0 {{ sizes.lineTop }} h-0.5 {{ colors.active|split(' ')|last }} transition-all duration-500 ease-in-out" style="width: {{ progressWidth }}%;" aria-hidden="true"></div>
         {% endif %}
 
-        {# Step Circle #}
-        <div class="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 {{ (isActive or isComplete) ? 'border-primary bg-primary text-white shadow-lg' : 'border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500' }}">
-          {% if isComplete %}
-            <twig:ux:icon name="lucide:check" class="size-6" />
-          {% elseif step.icon is defined and step.icon %}
-            <twig:ux:icon :name="step.icon" class="size-6" />
-          {% else %}
-            <span class="text-sm font-semibold">{{ loop.index }}</span>
-          {% endif %}
-        </div>
+        {% for step in steps %}
+            {% set isComplete = loop.index0 < currentIndex %}
+            {% set isActive = loop.index0 == currentIndex %}
+            {% set isPending = loop.index0 > currentIndex %}
+            {% set stepUrl = step.url ?? null %}
 
-        {# Step Content #}
-        <div class="{{ orientation == 'horizontal' ? 'mt-4 flex flex-col items-center text-center' : 'flex flex-col pt-2' }}">
-          <p class="text-sm font-semibold transition-colors {{ (isActive or isComplete) ? 'text-primary dark:text-primary' : 'text-gray-500 dark:text-gray-400' }}">
-            {{ step.title }}
-          </p>
-          {% if step.description is defined and step.description %}
-            <p class="mt-1 text-xs {{ isActive ? 'text-gray-600 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400' }}">
-              {{ step.description }}
-            </p>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-  </div>
+            {% set stepTag = (clickable and (isComplete or stepUrl)) ? 'a' : 'div' %}
+            {% set stepHref = stepUrl ?? (clickable and isComplete ? '#step-' ~ loop.index0 : null) %}
+
+            <{{ stepTag }}
+                {% if stepHref %}href="{{ stepHref }}"{% endif %}
+                class="{{ orientation == 'horizontal' ? 'relative flex flex-1 flex-col items-center' : 'relative flex items-start ' ~ sizes.gap }} {{ clickable and (isComplete or stepUrl) ? 'cursor-pointer group' : '' }}"
+                {% if step.key is defined %}data-step-key="{{ step.key }}"{% endif %}
+                data-step-index="{{ loop.index0 }}"
+                data-step-status="{{ isComplete ? 'complete' : (isActive ? 'active' : 'pending') }}"
+            >
+
+                {# Vertical Line #}
+                {% if orientation == 'vertical' and not loop.last %}
+                    <div class="absolute {{ sizes.lineLeft }} top-12 h-full w-0.5 -translate-x-1/2 transition-colors {{ isComplete ? colors.active|split(' ')|last : 'bg-gray-200 dark:bg-gray-700' }}"></div>
+                {% endif %}
+
+                {# Step Circle #}
+                <div class="relative z-10 flex {{ sizes.circle }} shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 {{ (isActive or isComplete) ? colors.active ~ ' text-white shadow-lg' : 'border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500' }} {{ clickable and (isComplete or stepUrl) ? 'group-hover:scale-110' : '' }}">
+                    {% if isComplete %}
+                        <twig:ux:icon name="lucide:check" class="{{ sizes.icon }}" />
+                    {% elseif step.icon is defined and step.icon %}
+                        <twig:ux:icon :name="step.icon" class="{{ sizes.icon }}" />
+                    {% elseif showNumbers %}
+                        <span class="{{ sizes.text }} font-semibold">{{ loop.index }}</span>
+                    {% endif %}
+                </div>
+
+                {# Step Content #}
+                <div class="{{ orientation == 'horizontal' ? 'mt-4 flex flex-col items-center text-center' : 'flex flex-col pt-2' }}">
+                    <p class="{{ sizes.title }} font-semibold transition-colors {{ (isActive or isComplete) ? colors.text ~ ' dark:' ~ colors.text : 'text-gray-500 dark:text-gray-400' }}">
+                        {{ step.title }}
+                    </p>
+                    {% if step.description is defined and step.description %}
+                        <p class="mt-1 {{ sizes.desc }} {{ isActive ? 'text-gray-600 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400' }}">
+                            {{ step.description }}
+                        </p>
+                    {% endif %}
+                </div>
+            </{{ stepTag }}>
+        {% endfor %}
+    </div>
 </div>

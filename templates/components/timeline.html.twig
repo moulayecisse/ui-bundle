@@ -1,110 +1,164 @@
 {% props
-  items = [],
-  orientation = 'vertical',
-  class = '',
+    items = [],
+    orientation = 'vertical',
+    size = 'md',
+    variant = 'default',
+    alternating = false,
+    animated = false,
+    class = '',
 %}
+
+{# Size configurations #}
+{% set sizeConfig = {
+    'sm': { dot: 'size-6', icon: 'size-3', title: 'text-xs', desc: 'text-xs', date: 'text-xs', gap: 'gap-3', pb: 'pb-6', lineLeft: 'left-3', lineTop: 'top-6' },
+    'md': { dot: 'size-8', icon: 'size-4', title: 'text-sm', desc: 'text-sm', date: 'text-xs', gap: 'gap-4', pb: 'pb-8', lineLeft: 'left-4', lineTop: 'top-8' },
+    'lg': { dot: 'size-10', icon: 'size-5', title: 'text-base', desc: 'text-sm', date: 'text-sm', gap: 'gap-5', pb: 'pb-10', lineLeft: 'left-5', lineTop: 'top-10' },
+} %}
+
+{% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
 
 {# Status classes mapping #}
 {% set statusClasses = {
-  'completed': { dot: 'bg-green-500', line: 'bg-green-500', icon: 'text-white' },
-  'current': { dot: 'bg-primary-500 ring-4 ring-primary-100 dark:ring-primary-900', line: 'bg-gray-200 dark:bg-gray-700', icon: 'text-white' },
-  'error': { dot: 'bg-red-500', line: 'bg-red-500', icon: 'text-white' },
-  'upcoming': { dot: 'bg-gray-300 dark:bg-gray-600', line: 'bg-gray-200 dark:bg-gray-700', icon: 'text-gray-500 dark:text-gray-400' },
+    'completed': { dot: 'bg-green-500', line: 'bg-green-500', icon: 'text-white' },
+    'current': { dot: 'bg-primary-500 ring-4 ring-primary-100 dark:ring-primary-900', line: 'bg-gray-200 dark:bg-gray-700', icon: 'text-white' },
+    'error': { dot: 'bg-red-500', line: 'bg-red-500', icon: 'text-white' },
+    'warning': { dot: 'bg-yellow-500', line: 'bg-yellow-500', icon: 'text-white' },
+    'info': { dot: 'bg-blue-500', line: 'bg-blue-500', icon: 'text-white' },
+    'upcoming': { dot: 'bg-gray-300 dark:bg-gray-600', line: 'bg-gray-200 dark:bg-gray-700', icon: 'text-gray-500 dark:text-gray-400' },
 } %}
 
 {# Default icons for statuses #}
 {% set defaultIcons = {
-  'completed': 'heroicons:check',
-  'error': 'heroicons:x-mark',
+    'completed': 'heroicons:check',
+    'error': 'heroicons:x-mark',
+    'warning': 'heroicons:exclamation-triangle',
+    'info': 'heroicons:information-circle',
 } %}
 
 {% if orientation == 'vertical' %}
-  {# Vertical Timeline #}
-  <div {{ attributes }} class="{{ ('relative ' ~ class)|tailwind_merge }}">
-    {% for item in items %}
-      {% set status = item.status ?? 'upcoming' %}
-      {% set classes = statusClasses[status] ?? statusClasses['upcoming'] %}
-      {% set icon = item.icon ?? defaultIcons[status] ?? null %}
+    {# Vertical Timeline #}
+    <div
+        {{ attributes }}
+        class="{{ ('relative ' ~ class)|tailwind_merge }}"
+        data-size="{{ size }}"
+        data-variant="{{ variant }}"
+        data-orientation="vertical"
+    >
+        {% for item in items %}
+            {% set status = item.status ?? 'upcoming' %}
+            {% set classes = statusClasses[status] ?? statusClasses['upcoming'] %}
+            {% set icon = item.icon ?? defaultIcons[status] ?? null %}
+            {% set isAlternate = alternating and loop.index is even %}
 
-      <div class="relative pb-8 last:pb-0">
-        {# Connecting line #}
-        {% if not loop.last %}
-          <div class="absolute left-4 top-8 w-0.5 h-full -ml-px {{ classes.line }}"></div>
-        {% endif %}
+            <div class="relative {{ sizes.pb }} last:pb-0 {{ animated ? 'animate-fade-in' : '' }}" style="{{ animated ? 'animation-delay: ' ~ (loop.index0 * 100) ~ 'ms' : '' }}">
+                {# Connecting line #}
+                {% if not loop.last %}
+                    <div class="absolute {{ sizes.lineLeft }} {{ sizes.lineTop }} w-0.5 h-full -ml-px transition-colors {{ classes.line }}"></div>
+                {% endif %}
 
-        <div class="flex items-start gap-4">
-          {# Dot/Icon #}
-          <div class="relative z-10 flex items-center justify-center size-8 rounded-full shrink-0 {{ classes.dot }}">
-            {% if icon %}
-              <twig:ux:icon :name="icon" class="size-4 {{ classes.icon }}" />
-            {% endif %}
-          </div>
+                <div class="flex items-start {{ sizes.gap }} {{ isAlternate ? 'flex-row-reverse text-right' : '' }}">
+                    {# Dot/Icon #}
+                    <div class="relative z-10 flex items-center justify-center {{ sizes.dot }} rounded-full shrink-0 transition-all {{ classes.dot }} {{ animated ? 'hover:scale-110' : '' }}">
+                        {% if icon %}
+                            <twig:ux:icon :name="icon" class="{{ sizes.icon }} {{ classes.icon }}" />
+                        {% endif %}
+                    </div>
 
-          {# Content #}
-          <div class="flex-1 min-w-0 pt-0.5">
-            <div class="flex items-center justify-between gap-2">
-              <h3 class="text-sm font-medium text-gray-900 dark:text-white">
-                {{ item.title ?? '' }}
-              </h3>
-              {% if item.date is defined and item.date %}
-                <time class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                  {{ item.date }}
-                </time>
-              {% endif %}
+                    {# Content #}
+                    <div class="flex-1 min-w-0 pt-0.5">
+                        <div class="flex items-center justify-between gap-2 {{ isAlternate ? 'flex-row-reverse' : '' }}">
+                            <h3 class="{{ sizes.title }} font-medium text-gray-900 dark:text-white">
+                                {{ item.title ?? '' }}
+                            </h3>
+                            {% if item.date is defined and item.date %}
+                                <time class="{{ sizes.date }} text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                                    {{ item.date }}
+                                </time>
+                            {% endif %}
+                        </div>
+                        {% if item.description is defined and item.description %}
+                            <p class="mt-1 {{ sizes.desc }} text-gray-600 dark:text-gray-400">
+                                {{ item.description }}
+                            </p>
+                        {% endif %}
+
+                        {# Tags/badges #}
+                        {% if item.tags is defined and item.tags %}
+                            <div class="mt-2 flex flex-wrap gap-1 {{ isAlternate ? 'justify-end' : '' }}">
+                                {% for tag in item.tags %}
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                                        {{ tag }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {# Custom block for each item #}
+                        {% set itemBlockName = 'item_' ~ loop.index %}
+                        {% if block(itemBlockName) is defined %}
+                            {{ block(itemBlockName) }}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            {% if item.description is defined and item.description %}
-              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                {{ item.description }}
-              </p>
-            {% endif %}
+        {% endfor %}
 
-            {# Custom block for each item #}
-            {% set itemBlockName = 'item_' ~ loop.index %}
-            {% if block(itemBlockName) is defined %}
-              {{ block(itemBlockName) }}
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-
-    {% block content '' %}
-  </div>
+        {% block content '' %}
+    </div>
 {% else %}
-  {# Horizontal Timeline #}
-  <div {{ attributes }} class="{{ ('flex items-start overflow-x-auto pb-4 ' ~ class)|tailwind_merge }}">
-    {% for item in items %}
-      {% set status = item.status ?? 'upcoming' %}
-      {% set classes = statusClasses[status] ?? statusClasses['upcoming'] %}
-      {% set icon = item.icon ?? defaultIcons[status] ?? null %}
+    {# Horizontal Timeline #}
+    <div
+        {{ attributes }}
+        class="{{ ('flex items-start overflow-x-auto pb-4 ' ~ class)|tailwind_merge }}"
+        data-size="{{ size }}"
+        data-variant="{{ variant }}"
+        data-orientation="horizontal"
+    >
+        {% for item in items %}
+            {% set status = item.status ?? 'upcoming' %}
+            {% set classes = statusClasses[status] ?? statusClasses['upcoming'] %}
+            {% set icon = item.icon ?? defaultIcons[status] ?? null %}
 
-      <div class="flex flex-col items-center shrink-0 {{ not loop.last ? 'flex-1' : '' }}">
-        <div class="flex items-center w-full">
-          {# Dot/Icon #}
-          <div class="relative z-10 flex items-center justify-center size-8 rounded-full shrink-0 {{ classes.dot }}">
-            {% if icon %}
-              <twig:ux:icon :name="icon" class="size-4 {{ classes.icon }}" />
-            {% endif %}
-          </div>
+            <div class="flex flex-col items-center shrink-0 {{ not loop.last ? 'flex-1' : '' }} {{ animated ? 'animate-fade-in' : '' }}" style="{{ animated ? 'animation-delay: ' ~ (loop.index0 * 100) ~ 'ms' : '' }}">
+                <div class="flex items-center w-full">
+                    {# Dot/Icon #}
+                    <div class="relative z-10 flex items-center justify-center {{ sizes.dot }} rounded-full shrink-0 transition-all {{ classes.dot }} {{ animated ? 'hover:scale-110' : '' }}">
+                        {% if icon %}
+                            <twig:ux:icon :name="icon" class="{{ sizes.icon }} {{ classes.icon }}" />
+                        {% endif %}
+                    </div>
 
-          {# Connecting line #}
-          {% if not loop.last %}
-            <div class="flex-1 h-0.5 mx-2 {{ classes.line }}"></div>
-          {% endif %}
-        </div>
+                    {# Connecting line #}
+                    {% if not loop.last %}
+                        <div class="flex-1 h-0.5 mx-2 transition-colors {{ classes.line }}"></div>
+                    {% endif %}
+                </div>
 
-        {# Content #}
-        <div class="mt-2 text-center max-w-[120px]">
-          <h3 class="text-xs font-medium text-gray-900 dark:text-white">
-            {{ item.title ?? '' }}
-          </h3>
-          {% if item.date is defined and item.date %}
-            <time class="text-xs text-gray-500 dark:text-gray-400">
-              {{ item.date }}
-            </time>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-  </div>
+                {# Content #}
+                <div class="mt-2 text-center max-w-[120px]">
+                    <h3 class="{{ sizes.title }} font-medium text-gray-900 dark:text-white">
+                        {{ item.title ?? '' }}
+                    </h3>
+                    {% if item.date is defined and item.date %}
+                        <time class="{{ sizes.date }} text-gray-500 dark:text-gray-400">
+                            {{ item.date }}
+                        </time>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if animated %}
+<style>
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
+    opacity: 0;
+}
+</style>
 {% endif %}

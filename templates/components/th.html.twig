@@ -1,8 +1,40 @@
-{% props class = '', first = false %}
-{% set class = ('px-3 py-3.5 text-left text-slate-900 text-sm font-semibold dark:text-slate-100 ' ~ class ~ (first ? 'pl-4 sm:pl-0'))|tailwind_merge %}
+{% props
+    class = '',
+    first = false,
+    sortable = false,
+    sorted = null,
+    align = 'left',
+    width = null,
+    nowrap = false,
+%}
+
+{% set alignClasses = {
+    'left': 'text-left',
+    'center': 'text-center',
+    'right': 'text-right',
+} %}
+
+{% set baseClass = 'px-3 py-3.5 text-slate-900 text-sm font-semibold dark:text-slate-100 in-data-[compact=true]:py-2 in-data-[size=sm]:text-xs in-data-[size=lg]:text-base' %}
+{% set class = (baseClass ~ ' ' ~ (alignClasses[align] ?? alignClasses['left']) ~ ' ' ~ (first ? 'pl-4 sm:pl-0 ' : '') ~ (nowrap ? 'whitespace-nowrap ' : '') ~ (sortable ? 'cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800 ' : '') ~ class)|tailwind_merge %}
+
 <th
-        {{ attributes }}
-        class="{{ class }}"
+    {{ attributes }}
+    class="{{ class }}"
+    {% if width %}style="width: {{ width }};"{% endif %}
+    {% if sortable %}
+        data-sortable="true"
+        {% if sorted %}data-sorted="{{ sorted }}"{% endif %}
+    {% endif %}
 >
-    {% block content '' %}
+    {% if sortable %}
+        <div class="flex items-center gap-1 {{ align == 'right' ? 'justify-end' : (align == 'center' ? 'justify-center' : '') }}">
+            {% block content '' %}
+            <span class="flex flex-col">
+                <twig:ux:icon name="heroicons:chevron-up-16-solid" class="size-3 {{ sorted == 'asc' ? 'text-primary' : 'text-gray-400' }} -mb-1" />
+                <twig:ux:icon name="heroicons:chevron-down-16-solid" class="size-3 {{ sorted == 'desc' ? 'text-primary' : 'text-gray-400' }}" />
+            </span>
+        </div>
+    {% else %}
+        {% block content '' %}
+    {% endif %}
 </th>

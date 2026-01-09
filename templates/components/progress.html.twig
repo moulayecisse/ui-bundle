@@ -1,82 +1,142 @@
 {% props
-  value = 0,
-  max = 100,
-  size = 'md',
-  variant = 'default',
-  showLabel = false,
-  striped = false,
-  animated = false,
-  indeterminate = false,
-  class = '',
+    value = 0,
+    max = 100,
+    size = 'md',
+    variant = 'default',
+    color = null,
+    showLabel = false,
+    label = null,
+    labelPosition = 'top',
+    showValue = true,
+    valueFormat = 'percent',
+    striped = false,
+    animated = false,
+    indeterminate = false,
+    rounded = true,
+    class = '',
 %}
 
 {% set percentage = indeterminate ? 100 : ((value / max) * 100)|clamp(0, 100) %}
 
 {% set sizeClasses = {
-  'sm': 'h-1',
-  'md': 'h-2',
-  'lg': 'h-4',
+    'xs': 'h-0.5',
+    'sm': 'h-1',
+    'md': 'h-2',
+    'lg': 'h-4',
+    'xl': 'h-6',
 } %}
 
 {% set variantClasses = {
-  'default': 'bg-primary',
-  'success': 'bg-green-500',
-  'warning': 'bg-yellow-500',
-  'error': 'bg-red-500',
+    'default': 'bg-primary',
+    'success': 'bg-green-500',
+    'warning': 'bg-yellow-500',
+    'error': 'bg-red-500',
+    'info': 'bg-blue-500',
+    'gradient': 'bg-gradient-to-r from-primary to-purple-500',
 } %}
 
-<div {{ attributes }} class="{{ ('w-full ' ~ class)|tailwind_merge }}">
-  {% if showLabel and not indeterminate %}
-    <div class="mb-1 flex justify-between text-sm">
-      <span class="text-gray-600 dark:text-gray-400">Progress</span>
-      <span class="font-medium text-gray-900 dark:text-white">{{ percentage|round }}%</span>
-    </div>
-  {% endif %}
+{# Custom color support #}
+{% set barColorClass = color ? 'bg-' ~ color : (variantClasses[variant] ?? variantClasses['default']) %}
 
-  <div
-    class="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 {{ sizeClasses[size] ?? sizeClasses['md'] }}"
-    role="progressbar"
-    {% if not indeterminate %}aria-valuenow="{{ value }}"{% endif %}
-    aria-valuemin="0"
-    aria-valuemax="{{ max }}"
-  >
+{# Label size classes #}
+{% set labelSizeClasses = {
+    'xs': 'text-xs',
+    'sm': 'text-xs',
+    'md': 'text-sm',
+    'lg': 'text-sm',
+    'xl': 'text-base',
+} %}
+
+{% set labelBlock %}{% block label label ?? 'Progress' %}{% endset %}
+
+{# Format the value display #}
+{% if valueFormat == 'percent' %}
+    {% set valueDisplay = percentage|round ~ '%' %}
+{% elseif valueFormat == 'fraction' %}
+    {% set valueDisplay = value ~ '/' ~ max %}
+{% elseif valueFormat == 'value' %}
+    {% set valueDisplay = value %}
+{% else %}
+    {% set valueDisplay = percentage|round ~ '%' %}
+{% endif %}
+
+<div
+    {{ attributes }}
+    class="{{ ('w-full ' ~ class)|tailwind_merge }}"
+    data-size="{{ size }}"
+    data-variant="{{ variant }}"
+>
+    {# Top label #}
+    {% if showLabel and labelPosition == 'top' and not indeterminate %}
+        <div class="mb-1 flex justify-between {{ labelSizeClasses[size] ?? 'text-sm' }}">
+            <span class="text-gray-600 dark:text-gray-400">{{ labelBlock|raw }}</span>
+            {% if showValue %}
+                <span class="font-medium text-gray-900 dark:text-white">{{ valueDisplay }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# Progress bar container #}
     <div
-      class="h-full rounded-full transition-all duration-300 {{ variantClasses[variant] ?? variantClasses['default'] }} {{ striped ? 'progress-striped' : '' }} {{ animated ? 'progress-animated' : '' }} {{ indeterminate ? 'progress-indeterminate' : '' }}"
-      style="width: {{ indeterminate ? '30%' : percentage ~ '%' }};"
-    ></div>
-  </div>
+        class="w-full overflow-hidden {{ rounded ? 'rounded-full' : '' }} bg-gray-200 dark:bg-gray-700 {{ sizeClasses[size] ?? sizeClasses['md'] }} {{ size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' ? 'relative' : '' }}"
+        role="progressbar"
+        {% if not indeterminate %}aria-valuenow="{{ value }}"{% endif %}
+        aria-valuemin="0"
+        aria-valuemax="{{ max }}"
+        {% if label %}aria-label="{{ label }}"{% endif %}
+    >
+        <div
+            class="h-full {{ rounded ? 'rounded-full' : '' }} transition-all duration-300 {{ barColorClass }} {{ striped ? 'progress-striped' : '' }} {{ animated ? 'progress-animated' : '' }} {{ indeterminate ? 'progress-indeterminate' : '' }} {{ size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' ? 'flex items-center justify-center' : '' }}"
+            style="width: {{ indeterminate ? '30%' : percentage ~ '%' }};"
+        >
+            {# Inside label for large sizes #}
+            {% if size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' and not indeterminate and percentage > 10 %}
+                <span class="text-xs font-medium text-white px-2">{{ valueDisplay }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    {# Bottom label #}
+    {% if showLabel and labelPosition == 'bottom' and not indeterminate %}
+        <div class="mt-1 flex justify-between {{ labelSizeClasses[size] ?? 'text-sm' }}">
+            <span class="text-gray-600 dark:text-gray-400">{{ labelBlock|raw }}</span>
+            {% if showValue %}
+                <span class="font-medium text-gray-900 dark:text-white">{{ valueDisplay }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
 </div>
 
 <style>
 .progress-striped {
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
-  background-size: 1rem 1rem;
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
 }
 
 .progress-animated {
-  animation: progress-stripes 1s linear infinite;
+    animation: progress-stripes 1s linear infinite;
 }
 
 @keyframes progress-stripes {
-  from { background-position: 1rem 0; }
-  to { background-position: 0 0; }
+    from { background-position: 1rem 0; }
+    to { background-position: 0 0; }
 }
 
 .progress-indeterminate {
-  animation: progress-indeterminate 1.5s ease-in-out infinite;
+    animation: progress-indeterminate 1.5s ease-in-out infinite;
 }
 
 @keyframes progress-indeterminate {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(400%); }
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
 }
 </style>

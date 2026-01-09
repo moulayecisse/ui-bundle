@@ -1,93 +1,137 @@
 {# @var \Cisse\Bundle\Ui\Model\Pagination pagination #}
 {# @var \Cisse\Bundle\Ui\Model\Page page #}
-{% props pagination, class = '' %}
+{% props
+    pagination,
+    class = '',
+    size = 'md',
+    variant = 'default',
+    showInfo = true,
+    showMobile = true,
+    maxVisible = 5,
+    previousLabel = 'Previous',
+    nextLabel = 'Next',
+    showingLabel = 'Showing',
+    toLabel = 'to',
+    ofLabel = 'of',
+    resultsLabel = 'results',
+%}
 
-{% set class = ('flex items-center justify-between border-t border-gray-200 dark:border-gray-800 px-4 py-3 sm:px-6 ' ~ class)|tailwind_merge %}
+{# Size classes #}
+{% set sizeClasses = {
+    'sm': { button: 'px-2 py-1 text-xs', icon: 'size-4', page: 'px-3 py-1' },
+    'md': { button: 'px-2 py-2 text-sm', icon: 'size-5', page: 'px-4 py-2' },
+    'lg': { button: 'px-3 py-3 text-base', icon: 'size-6', page: 'px-5 py-3' },
+} %}
 
-<div {{ attributes }} class="{{ class }}">
-  <div class="flex flex-1 justify-between sm:hidden">
-    <a href="#"
-       class="relative inline-flex items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">Précédent</a>
-    <a href="#"
-       class="relative ml-3 inline-flex items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">Suivant</a>
-  </div>
-  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-    <div>
-      <p class="text-sm text-gray-700 dark:text-gray-300">
-        Affichage de
-        <span class="font-medium">{{ pagination.firstElement }}</span>
-        à
-        <span class="font-medium">{{ pagination.lastElement }}</span>
-        sur
-        <span class="font-medium">{{ pagination.total }}</span>
-        élements
-      </p>
-    </div>
-    <div>
-      <nav class="isolate inline-flex -space-x-px rounded-lg shadow-xs" aria-label="Pagination">
-        <a
-          href="{{ pagination.firstPage }}"
-          class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0"
-        >
-          <span class="sr-only">Précédent</span>
-          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-            <path fill-rule="evenodd"
-                  d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
-                  clip-rule="evenodd"></path>
-          </svg>
-        </a>
+{% set sizes = sizeClasses[size] ?? sizeClasses['md'] %}
 
-        {% set leftDots = false %}
-        {% set riqhtDots = false %}
-        {% set max = 5 %}
-        {% for page in pagination.pages %}
-          {% if (page.page != 1 and page.page < pagination.page - max) or (page.page != pagination.totalPages and page.page > pagination.page + max) %}
-            {% set showDots = false %}
-            {% if not leftDots and page.page < pagination.page - max %}
-              {% set showDots = true %}
-              {% set leftDots = true %}
-            {% elseif not riqhtDots and pagination.totalPages and page.page > pagination.page + max %}
-              {% set showDots = true %}
-              {% set riqhtDots = true %}
-            {% endif %}
+{# Variant classes #}
+{% set variantClasses = {
+    'default': 'border-t border-gray-200 dark:border-gray-800',
+    'simple': '',
+    'card': 'rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900',
+} %}
 
-            {% if showDots %}
-              <span
-                class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset focus:outline-offset-0"
-              >
-                ...
-              </span>
-            {% endif %}
-          {% elseif page.page != pagination.totalPages and page.page > pagination.page + max %}
-            {% if not riqhtDots %}
-              {% set riqhtDots = true %}
+{% set class = ('flex items-center justify-between px-4 py-3 sm:px-6 ' ~ (variantClasses[variant] ?? variantClasses['default']) ~ ' ' ~ class)|tailwind_merge %}
 
-              <span
-                class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset focus:outline-offset-0">...</span>
-            {% endif %}
-          {% else %}
+<div {{ attributes }} class="{{ class }}" data-size="{{ size }}" data-variant="{{ variant }}">
+    {# Mobile navigation #}
+    {% if showMobile %}
+        <div class="flex flex-1 justify-between sm:hidden">
             <a
-              href="{{ page }}"
-              data-current="{{ page.page == pagination.page ? 'true' : 'false' }}"
-              class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 data-[current=true]:z-10 data-[current=true]:bg-primary data-[current=true]:text-primary-foreground dark:data-[current=true]:text-primary-foreground data-[current=true]:focus-visible:outline-2 data-[current=true]:focus-visible:outline-offset-2 data-[current=true]:focus-visible:outline-primary data-[current=true]:ring-primary"
+                href="{{ pagination.previousPage ?? '#' }}"
+                class="relative inline-flex items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 {{ sizes.button }} font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 {{ pagination.previousPage is null ? 'opacity-50 pointer-events-none' : '' }}"
             >
-              {{ page.page }}
+                {{ previousLabel }}
             </a>
-          {% endif %}
-        {% endfor %}
+            <a
+                href="{{ pagination.nextPage ?? '#' }}"
+                class="relative ml-3 inline-flex items-center rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 {{ sizes.button }} font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 {{ pagination.nextPage is null ? 'opacity-50 pointer-events-none' : '' }}"
+            >
+                {{ nextLabel }}
+            </a>
+        </div>
+    {% endif %}
 
+    {# Desktop navigation #}
+    <div class="{{ showMobile ? 'hidden sm:flex' : 'flex' }} sm:flex-1 sm:items-center sm:justify-between">
+        {# Info section #}
+        {% if showInfo %}
+            <div>
+                <p class="{{ sizes.button }} text-gray-700 dark:text-gray-300">
+                    {{ showingLabel }}
+                    <span class="font-medium">{{ pagination.firstElement }}</span>
+                    {{ toLabel }}
+                    <span class="font-medium">{{ pagination.lastElement }}</span>
+                    {{ ofLabel }}
+                    <span class="font-medium">{{ pagination.total }}</span>
+                    {{ resultsLabel }}
+                </p>
+            </div>
+        {% endif %}
 
-        <a
-          href="{{ pagination.nextPage }}"
-          class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0">
-          <span class="sr-only">Suivant</span>
-          <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-            <path fill-rule="evenodd"
-                  d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"></path>
-          </svg>
-        </a>
-      </nav>
+        {# Pagination nav #}
+        <div>
+            <nav class="isolate inline-flex -space-x-px rounded-lg shadow-xs" aria-label="Pagination">
+                {# Previous button #}
+                <a
+                    href="{{ pagination.previousPage ?? pagination.firstPage }}"
+                    class="relative inline-flex items-center rounded-l-md {{ sizes.button }} text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 {{ pagination.previousPage is null ? 'opacity-50 pointer-events-none' : '' }}"
+                    {% if pagination.previousPage is null %}aria-disabled="true"{% endif %}
+                >
+                    <span class="sr-only">{{ previousLabel }}</span>
+                    <twig:ux:icon name="heroicons:chevron-left-20-solid" class="{{ sizes.icon }}" />
+                </a>
+
+                {# Page numbers #}
+                {% set leftDots = false %}
+                {% set rightDots = false %}
+                {% set max = maxVisible %}
+                {% for page in pagination.pages %}
+                    {% if (page.page != 1 and page.page < pagination.page - max) or (page.page != pagination.totalPages and page.page > pagination.page + max) %}
+                        {% set showDots = false %}
+                        {% if not leftDots and page.page < pagination.page - max %}
+                            {% set showDots = true %}
+                            {% set leftDots = true %}
+                        {% elseif not rightDots and pagination.totalPages and page.page > pagination.page + max %}
+                            {% set showDots = true %}
+                            {% set rightDots = true %}
+                        {% endif %}
+
+                        {% if showDots %}
+                            <span class="relative inline-flex items-center {{ sizes.page }} font-semibold text-gray-700 dark:text-gray-300 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset">
+                                ...
+                            </span>
+                        {% endif %}
+                    {% elseif page.page != pagination.totalPages and page.page > pagination.page + max %}
+                        {% if not rightDots %}
+                            {% set rightDots = true %}
+                            <span class="relative inline-flex items-center {{ sizes.page }} font-semibold text-gray-700 dark:text-gray-300 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset">
+                                ...
+                            </span>
+                        {% endif %}
+                    {% else %}
+                        <a
+                            href="{{ page }}"
+                            data-current="{{ page.page == pagination.page ? 'true' : 'false' }}"
+                            class="relative inline-flex items-center {{ sizes.page }} font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 data-[current=true]:z-10 data-[current=true]:bg-primary data-[current=true]:text-primary-foreground dark:data-[current=true]:text-primary-foreground data-[current=true]:focus-visible:outline-2 data-[current=true]:focus-visible:outline-offset-2 data-[current=true]:focus-visible:outline-primary data-[current=true]:ring-primary"
+                            {% if page.page == pagination.page %}aria-current="page"{% endif %}
+                        >
+                            {{ page.page }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+                {# Next button #}
+                <a
+                    href="{{ pagination.nextPage ?? pagination.lastPage }}"
+                    class="relative inline-flex items-center rounded-r-md {{ sizes.button }} text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 {{ pagination.nextPage is null ? 'opacity-50 pointer-events-none' : '' }}"
+                    {% if pagination.nextPage is null %}aria-disabled="true"{% endif %}
+                >
+                    <span class="sr-only">{{ nextLabel }}</span>
+                    <twig:ux:icon name="heroicons:chevron-right-20-solid" class="{{ sizes.icon }}" />
+                </a>
+            </nav>
+        </div>
     </div>
-  </div>
 </div>

@@ -1,17 +1,61 @@
-{% props class = '' %}
+{% props
+    class = '',
+    striped = false,
+    hover = false,
+    bordered = false,
+    compact = false,
+    size = 'md',
+    variant = 'default',
+    stickyHeader = false,
+    responsive = true,
+%}
 
-{% set class = ('min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700 ' ~ class)|tailwind_merge %}
+{# Size classes for cells - applied via CSS variables #}
+{% set sizeClasses = {
+    'sm': 'text-xs',
+    'md': 'text-sm',
+    'lg': 'text-base',
+} %}
 
-<table {{ attributes }} class="{{ class }}">
+{# Variant classes #}
+{% set variantClasses = {
+    'default': '',
+    'card': 'rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden',
+    'simple': 'divide-y-0',
+} %}
+
+{% set tableClass = ('min-w-full divide-y divide-slate-300 dark:divide-slate-700 ' ~ (sizeClasses[size] ?? sizeClasses['md']) ~ ' ' ~ (variantClasses[variant] ?? '') ~ ' ' ~ class)|tailwind_merge %}
+
+{% set tbodyClass = 'divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900' %}
+{% if striped %}
+    {% set tbodyClass = tbodyClass ~ ' [&>tr:nth-child(even)]:bg-gray-50 dark:[&>tr:nth-child(even)]:bg-gray-800/50' %}
+{% endif %}
+{% if hover %}
+    {% set tbodyClass = tbodyClass ~ ' [&>tr]:hover:bg-gray-50 dark:[&>tr]:hover:bg-gray-800/50 [&>tr]:transition-colors' %}
+{% endif %}
+
+{% set wrapperClass = responsive ? 'overflow-x-auto' : '' %}
+
+{% if responsive %}
+<div class="{{ wrapperClass }}">
+{% endif %}
+
+<table
+    {{ attributes }}
+    data-striped="{{ striped ? 'true' : 'false' }}"
+    data-hover="{{ hover ? 'true' : 'false' }}"
+    data-bordered="{{ bordered ? 'true' : 'false' }}"
+    data-compact="{{ compact ? 'true' : 'false' }}"
+    data-size="{{ size }}"
+    class="{{ tableClass }}"
+>
     {% block content %}
 
-    <thead>
+    <thead class="{{ stickyHeader ? 'sticky top-0 z-10 bg-white dark:bg-gray-900' : '' }}">
         {% block thead '' %}
     </thead>
 
-    <tbody
-            class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900"
-    >
+    <tbody class="{{ tbodyClass }}">
         {% block tbody '' %}
     </tbody>
 
@@ -20,3 +64,7 @@
     </tfoot>
     {% endblock %}
 </table>
+
+{% if responsive %}
+</div>
+{% endif %}
