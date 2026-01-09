@@ -26,7 +26,7 @@
 
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'form', description: 'The login/register form content' },
+        { name: 'content', description: 'The login/register form content' },
         { name: 'branding_logo', description: 'Custom logo for the branding panel (desktop)' },
         { name: 'mobile_logo', description: 'Custom logo for mobile view' },
     ]) }}
@@ -58,7 +58,7 @@
         { text: '24/7 Support' }
     ]"
 >
-    {% block form %}
+    {% block content %}
         <twig:Ui:form action="/login" method="POST">
             <twig:Ui:input name="email" type="email" label="Email" />
             <twig:Ui:input name="password" type="password" label="Password" />
@@ -150,7 +150,7 @@
     gradientTo="to-purple-800"
     ...
 >
-    {% block form %}...{% endblock %}
+    {% block content %}...{% endblock %}
 </twig:Ui:layout:auth>{% endverbatim %}{% endset %}
     {{ ui.story('Color Themes', colorsPreview, colorsCode) }}
 </div>
