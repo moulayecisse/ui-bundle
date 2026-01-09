@@ -35,8 +35,9 @@ class UiBundle extends AbstractBundle
         // Store config for routing
         $builder->setParameter('ui_bundle.pattern_library_enabled', $config['pattern_library']);
 
-        // Load profiler services only when Twig profiling is enabled (typically dev mode)
-        if ($builder->hasDefinition('twig.profile') || $builder->hasAlias('twig.profile')) {
+        // Load profiler services only when WebProfilerBundle is enabled (dev mode)
+        $bundles = $builder->getParameter('kernel.bundles');
+        if (isset($bundles['WebProfilerBundle'])) {
             $container->import($this->getPath() . '/config/services_profiler.yaml');
         }
     }
