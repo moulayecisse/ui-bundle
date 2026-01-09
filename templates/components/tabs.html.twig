@@ -3,8 +3,25 @@
     class = '',
     current = '',
     tabs = [],
-    variant = 'underline'
+    variant = 'underline',
+    size = 'md',
+    fullWidth = false,
+    orientation = 'horizontal',
+    animated = true,
 %}
+
+{# Size configurations #}
+{% set sizeClasses = {
+    'sm': 'text-xs px-3 py-1.5',
+    'md': 'text-sm px-4 py-2',
+    'lg': 'text-base px-5 py-2.5',
+} %}
+
+{% set iconSizes = {
+    'sm': 'size-3',
+    'md': 'size-4',
+    'lg': 'size-5',
+} %}
 
 {# Variant classes matching Vue Tabs #}
 {% set variantClasses = {
@@ -29,12 +46,21 @@
 } %}
 
 {% set currentVariant = variantClasses[variant] ?? variantClasses['underline'] %}
-{% set containerClass = ('flex ' ~ currentVariant.container ~ ' ' ~ class)|tailwind_merge %}
+{% set orientationClasses = {
+    'horizontal': 'flex-row',
+    'vertical': 'flex-col',
+} %}
+{% set containerClass = ('flex ' ~ (orientationClasses[orientation] ?? 'flex-row') ~ ' ' ~ currentVariant.container ~ ' ' ~ (fullWidth ? 'w-full' : '') ~ ' ' ~ class)|tailwind_merge %}
+{% set tabSizeClass = sizeClasses[size] ?? sizeClasses['md'] %}
+{% set iconSize = iconSizes[size] ?? iconSizes['md'] %}
 
 <div
     {{ attributes }}
     data-controller="cisse--ui-bundle--tabs"
     data-cisse--ui-bundle--tabs-current-value="{{ current }}"
+    data-orientation="{{ orientation }}"
+    data-animated="{{ animated ? 'true' : 'false' }}"
+    class="{{ orientation == 'vertical' ? 'flex gap-4' : '' }}"
 >
     <div class="{{ containerClass }}" role="tablist">
         {# If tabs array is provided, render tabs from it #}
@@ -48,12 +74,15 @@
                     data-key="{{ tab.key }}"
                     aria-selected="{{ current == tab.key ? 'true' : 'false' }}"
                     {% if tab.disabled is defined and tab.disabled %}disabled{% endif %}
-                    class="text-sm font-medium transition-colors focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 {{ currentVariant.tab }} {{ current == tab.key ? currentVariant.active : currentVariant.inactive }}"
+                    class="font-medium {{ animated ? 'transition-colors' : '' }} focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 {{ tabSizeClass }} {{ currentVariant.tab }} {{ current == tab.key ? currentVariant.active : currentVariant.inactive }} {{ fullWidth ? 'flex-1 justify-center' : '' }} inline-flex items-center"
                 >
                     {% if tab.icon is defined and tab.icon %}
-                        <twig:ux:icon name="{{ tab.icon }}" class="size-4 mr-1.5 inline-block" />
+                        <twig:ux:icon name="{{ tab.icon }}" class="{{ iconSize }} mr-1.5" />
                     {% endif %}
                     {{ tab.label }}
+                    {% if tab.badge is defined and tab.badge %}
+                        <twig:Ui:badge size="sm" class="ml-2">{{ tab.badge }}</twig:Ui:badge>
+                    {% endif %}
                 </button>
             {% endfor %}
         {% else %}
@@ -61,7 +90,7 @@
             {% block content '' %}
         {% endif %}
     </div>
-    <div class="mt-4" data-cisse--ui-bundle--tabs-target="panels">
+    <div class="{{ orientation == 'vertical' ? 'flex-1' : 'mt-4' }}" data-cisse--ui-bundle--tabs-target="panels">
         {% block panels '' %}
     </div>
 </div>

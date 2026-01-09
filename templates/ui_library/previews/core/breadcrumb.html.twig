@@ -1,33 +1,162 @@
-<div class="space-y-8">
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'items', type: 'array', default: '[]', description: 'Array of breadcrumb items with label, href, icon' },
+        { name: 'separator', type: 'string', default: "'heroicons:chevron-right'", description: 'Icon name for separator' },
+        { name: 'homeIcon', type: 'string', default: "'heroicons:home'", description: 'Icon for home/first item' },
+        { name: 'showHomeIcon', type: 'boolean', default: 'true', description: 'Show icon on first item' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Text and icon size' },
+        { name: 'variant', type: "'default' | 'pills' | 'bordered'", default: "'default'", description: 'Visual style variant' },
+        { name: 'maxItems', type: 'number | null', default: 'null', description: 'Max items to show (truncates middle)' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
     {# Basic Breadcrumb #}
-    <div>
-        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Basic Breadcrumb</h3>
-        <twig:Ui:breadcrumb>
-            <twig:Ui:breadcrumb-item href="#">Home</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item href="#">Products</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item>Current Page</twig:Ui:breadcrumb-item>
-        </twig:Ui:breadcrumb>
-    </div>
+    {% set basicPreview %}
+        <twig:Ui:breadcrumb :items="[
+            { label: 'Home', href: '#' },
+            { label: 'Products', href: '#' },
+            { label: 'Current Page' }
+        ]" />
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:Ui:breadcrumb :items="[
+    { label: 'Home', href: '#' },
+    { label: 'Products', href: '#' },
+    { label: 'Current Page' }
+]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Breadcrumb', basicPreview, basicCode) }}
 
     {# With Icons #}
-    <div>
-        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">With Icons</h3>
-        <twig:Ui:breadcrumb>
-            <twig:Ui:breadcrumb-item href="#" icon="lucide:home">Home</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item href="#" icon="lucide:folder">Category</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item icon="lucide:file">Document</twig:Ui:breadcrumb-item>
-        </twig:Ui:breadcrumb>
-    </div>
+    {% set iconsPreview %}
+        <twig:Ui:breadcrumb :items="[
+            { label: 'Home', href: '#', icon: 'lucide:home' },
+            { label: 'Category', href: '#', icon: 'lucide:folder' },
+            { label: 'Document', icon: 'lucide:file' }
+        ]" />
+    {% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:Ui:breadcrumb :items="[
+    { label: 'Home', href: '#', icon: 'lucide:home' },
+    { label: 'Category', href: '#', icon: 'lucide:folder' },
+    { label: 'Document', icon: 'lucide:file' }
+]" />{% endverbatim %}{% endset %}
+    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="space-y-4">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Small</p>
+                <twig:Ui:breadcrumb size="sm" :items="[
+                    { label: 'Home', href: '#' },
+                    { label: 'Products', href: '#' },
+                    { label: 'Details' }
+                ]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
+                <twig:Ui:breadcrumb size="md" :items="[
+                    { label: 'Home', href: '#' },
+                    { label: 'Products', href: '#' },
+                    { label: 'Details' }
+                ]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Large</p>
+                <twig:Ui:breadcrumb size="lg" :items="[
+                    { label: 'Home', href: '#' },
+                    { label: 'Products', href: '#' },
+                    { label: 'Details' }
+                ]" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:breadcrumb size="sm" :items="[...]" />
+<twig:Ui:breadcrumb size="md" :items="[...]" />
+<twig:Ui:breadcrumb size="lg" :items="[...]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
+
+    {# Variant Styles #}
+    {% set variantsPreview %}
+        <div class="space-y-4">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Default</p>
+                <twig:Ui:breadcrumb variant="default" :items="[
+                    { label: 'Home', href: '#' },
+                    { label: 'Products', href: '#' },
+                    { label: 'Details' }
+                ]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Pills</p>
+                <twig:Ui:breadcrumb variant="pills" :items="[
+                    { label: 'Home', href: '#' },
+                    { label: 'Products', href: '#' },
+                    { label: 'Details' }
+                ]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Bordered</p>
+                <twig:Ui:breadcrumb variant="bordered" :items="[
+                    { label: 'Home', href: '#' },
+                    { label: 'Products', href: '#' },
+                    { label: 'Details' }
+                ]" />
+            </div>
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:Ui:breadcrumb variant="default" :items="[...]" />
+<twig:Ui:breadcrumb variant="pills" :items="[...]" />
+<twig:Ui:breadcrumb variant="bordered" :items="[...]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Variant Styles', variantsPreview, variantsCode) }}
+
+    {# Without Home Icon #}
+    {% set noIconPreview %}
+        <twig:Ui:breadcrumb :showHomeIcon="false" :items="[
+            { label: 'Home', href: '#' },
+            { label: 'Products', href: '#' },
+            { label: 'Details' }
+        ]" />
+    {% endset %}
+    {% set noIconCode %}{% verbatim %}<twig:Ui:breadcrumb :showHomeIcon="false" :items="[
+    { label: 'Home', href: '#' },
+    { label: 'Products', href: '#' },
+    { label: 'Details' }
+]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Without Home Icon', noIconPreview, noIconCode) }}
+
+    {# Custom Separator #}
+    {% set separatorPreview %}
+        <twig:Ui:breadcrumb separator="lucide:slash" :items="[
+            { label: 'Home', href: '#' },
+            { label: 'Products', href: '#' },
+            { label: 'Details' }
+        ]" />
+    {% endset %}
+    {% set separatorCode %}{% verbatim %}<twig:Ui:breadcrumb separator="lucide:slash" :items="[
+    { label: 'Home', href: '#' },
+    { label: 'Products', href: '#' },
+    { label: 'Details' }
+]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Custom Separator', separatorPreview, separatorCode) }}
 
     {# Longer Path #}
-    <div>
-        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Longer Path</h3>
-        <twig:Ui:breadcrumb>
-            <twig:Ui:breadcrumb-item href="#">Dashboard</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item href="#">Settings</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item href="#">Account</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item href="#">Security</twig:Ui:breadcrumb-item>
-            <twig:Ui:breadcrumb-item>Two-Factor Auth</twig:Ui:breadcrumb-item>
-        </twig:Ui:breadcrumb>
-    </div>
+    {% set longPreview %}
+        <twig:Ui:breadcrumb :items="[
+            { label: 'Dashboard', href: '#' },
+            { label: 'Settings', href: '#' },
+            { label: 'Account', href: '#' },
+            { label: 'Security', href: '#' },
+            { label: 'Two-Factor Auth' }
+        ]" />
+    {% endset %}
+    {% set longCode %}{% verbatim %}<twig:Ui:breadcrumb :items="[
+    { label: 'Dashboard', href: '#' },
+    { label: 'Settings', href: '#' },
+    { label: 'Account', href: '#' },
+    { label: 'Security', href: '#' },
+    { label: 'Two-Factor Auth' }
+]" />{% endverbatim %}{% endset %}
+    {{ ui.story('Longer Path', longPreview, longCode) }}
 </div>

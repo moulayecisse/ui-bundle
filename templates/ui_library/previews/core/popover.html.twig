@@ -5,7 +5,11 @@
     {{ ui.props([
         { name: 'position', type: "'bottom' | 'top' | 'left' | 'right'", default: "'bottom'", description: 'Position of the popover relative to trigger' },
         { name: 'hover', type: 'boolean', default: 'false', description: 'Open on hover instead of click' },
-        { name: 'width', type: "'auto' | 'sm' | 'md' | 'lg'", default: "'auto'", description: 'Width preset for the popover' },
+        { name: 'width', type: "'auto' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'auto'", description: 'Width preset for the popover' },
+        { name: 'offset', type: 'number', default: '8', description: 'Distance from trigger element in pixels' },
+        { name: 'arrow', type: 'boolean', default: 'false', description: 'Show arrow pointing to trigger' },
+        { name: 'closeOnClickOutside', type: 'boolean', default: 'true', description: 'Close when clicking outside' },
+        { name: 'variant', type: "'default' | 'dark' | 'transparent'", default: "'default'", description: 'Visual style variant' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -78,4 +82,81 @@
 <twig:Ui:popover width="md">...</twig:Ui:popover>
 <twig:Ui:popover width="lg">...</twig:Ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('Width Options', widthsPreview, widthsCode) }}
+
+    {# With Arrow #}
+    {% set arrowPreview %}
+        <div class="flex justify-center py-8">
+            <twig:Ui:popover arrow>
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline">With Arrow</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Notice the arrow pointing to the button.</p>
+            </twig:Ui:popover>
+        </div>
+    {% endset %}
+    {% set arrowCode %}{% verbatim %}<twig:Ui:popover arrow>
+    {% block trigger %}
+        <twig:Ui:button variant="outline">With Arrow</twig:Ui:button>
+    {% endblock %}
+    {% block content %}
+        <p>Notice the arrow pointing to the button.</p>
+    {% endblock %}
+</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {{ ui.story('With Arrow', arrowPreview, arrowCode) }}
+
+    {# Variant Styles #}
+    {% set variantsPreview %}
+        <div class="flex justify-center gap-4 py-8">
+            <twig:Ui:popover variant="default">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline">Default</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Default light variant.</p>
+            </twig:Ui:popover>
+            <twig:Ui:popover variant="dark">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline">Dark</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm">Dark variant popover.</p>
+            </twig:Ui:popover>
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:Ui:popover variant="default">...</twig:Ui:popover>
+<twig:Ui:popover variant="dark">...</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {{ ui.story('Variant Styles', variantsPreview, variantsCode) }}
+
+    {# Position Examples #}
+    {% set positionsPreview %}
+        <div class="flex flex-wrap justify-center gap-4 py-12">
+            <twig:Ui:popover position="top">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Top</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Popover on top</p>
+            </twig:Ui:popover>
+            <twig:Ui:popover position="bottom">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Bottom</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Popover on bottom</p>
+            </twig:Ui:popover>
+            <twig:Ui:popover position="left">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Left</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Popover on left</p>
+            </twig:Ui:popover>
+            <twig:Ui:popover position="right">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Right</twig:Ui:button>
+                </twig:block>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Popover on right</p>
+            </twig:Ui:popover>
+        </div>
+    {% endset %}
+    {% set positionsCode %}{% verbatim %}<twig:Ui:popover position="top">...</twig:Ui:popover>
+<twig:Ui:popover position="bottom">...</twig:Ui:popover>
+<twig:Ui:popover position="left">...</twig:Ui:popover>
+<twig:Ui:popover position="right">...</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {{ ui.story('Positions', positionsPreview, positionsCode) }}
 </div>

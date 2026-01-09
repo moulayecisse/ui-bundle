@@ -3,42 +3,83 @@
   separator = 'heroicons:chevron-right',
   homeIcon = 'heroicons:home',
   showHomeIcon = true,
+  size = 'md',
+  variant = 'default',
+  maxItems = null,
   class = '',
 %}
 
-<nav {{ attributes }} aria-label="Breadcrumb" class="{{ class }}">
-  <ol class="flex items-center flex-wrap gap-1 text-sm">
+{# Size configurations #}
+{% set sizeConfig = {
+    'sm': { text: 'text-xs', icon: 'size-3', gap: 'gap-0.5 mx-1' },
+    'md': { text: 'text-sm', icon: 'size-4', gap: 'gap-1 mx-2' },
+    'lg': { text: 'text-base', icon: 'size-5', gap: 'gap-1.5 mx-3' },
+} %}
+
+{# Variant configurations #}
+{% set variantConfig = {
+    'default': { item: '', active: 'font-medium', separator: 'text-gray-400 dark:text-gray-500' },
+    'pills': { item: 'px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800', active: 'font-medium bg-primary/10 text-primary', separator: 'text-gray-400 dark:text-gray-500' },
+    'bordered': { item: 'px-2 py-0.5 border border-gray-200 dark:border-gray-700 rounded', active: 'font-medium border-primary text-primary', separator: 'text-gray-400 dark:text-gray-500' },
+} %}
+
+{% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
+{% set variants = variantConfig[variant] ?? variantConfig['default'] %}
+
+{# Handle maxItems truncation #}
+{% set displayItems = items %}
+{% set truncated = false %}
+{% if maxItems and items|length > maxItems %}
+    {% set truncated = true %}
+    {% set firstItems = items|slice(0, 1) %}
+    {% set lastItems = items|slice(-(maxItems - 2)) %}
+    {% set displayItems = firstItems %}
+{% endif %}
+
+<nav {{ attributes }} aria-label="Breadcrumb" class="{{ class }}" data-size="{{ size }}" data-variant="{{ variant }}">
+  <ol class="flex items-center flex-wrap gap-1 {{ sizes.text }}">
     {% for item in items %}
       <li class="flex items-center">
         {# Separator #}
         {% if not loop.first %}
-          <twig:ux:icon :name="separator" class="size-4 mx-2 text-gray-400 dark:text-gray-500 shrink-0" />
+          <twig:ux:icon :name="separator" class="{{ sizes.icon }} {{ sizes.gap }} {{ variants.separator }} shrink-0" />
         {% endif %}
 
-        {# Item #}
-        {% set isLast = loop.last %}
-        {% set itemClass = isLast
-          ? 'text-gray-900 dark:text-white font-medium cursor-default'
-          : 'text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400' %}
+        {# Truncation ellipsis #}
+        {% if truncated and loop.index == 2 %}
+          <span class="flex items-center {{ sizes.gap }} text-gray-400 dark:text-gray-500">...</span>
+          <twig:ux:icon :name="separator" class="{{ sizes.icon }} {{ sizes.gap }} {{ variants.separator }} shrink-0" />
+        {% endif %}
 
-        {% if item.href is defined and item.href and not isLast %}
-          <a href="{{ item.href }}" class="flex items-center gap-1.5 transition-colors {{ itemClass }}">
-            {% if loop.first and showHomeIcon %}
-              <twig:ux:icon :name="item.icon ?? homeIcon" class="size-4" />
-            {% elseif item.icon is defined and item.icon %}
-              <twig:ux:icon :name="item.icon" class="size-4" />
-            {% endif %}
-            <span>{{ item.label }}</span>
-          </a>
+        {# Skip middle items when truncated #}
+        {% if truncated and loop.index > 1 and loop.index <= (items|length - maxItems + 2) %}
+          {# Skip this item #}
         {% else %}
-          <span class="flex items-center gap-1.5 transition-colors {{ itemClass }}" {% if isLast %}aria-current="page"{% endif %}>
-            {% if loop.first and showHomeIcon %}
-              <twig:ux:icon :name="item.icon ?? homeIcon" class="size-4" />
-            {% elseif item.icon is defined and item.icon %}
-              <twig:ux:icon :name="item.icon" class="size-4" />
-            {% endif %}
-            <span>{{ item.label }}</span>
-          </span>
+          {# Item #}
+          {% set isLast = loop.last %}
+          {% set itemClass = isLast
+            ? ('text-gray-900 dark:text-white ' ~ variants.active ~ ' cursor-default ' ~ variants.item)
+            : ('text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary ' ~ variants.item) %}
+
+          {% if item.href is defined and item.href and not isLast %}
+            <a href="{{ item.href }}" class="flex items-center gap-1.5 transition-colors {{ itemClass }}">
+              {% if loop.first and showHomeIcon %}
+                <twig:ux:icon :name="item.icon ?? homeIcon" class="{{ sizes.icon }}" />
+              {% elseif item.icon is defined and item.icon %}
+                <twig:ux:icon :name="item.icon" class="{{ sizes.icon }}" />
+              {% endif %}
+              <span>{{ item.label }}</span>
+            </a>
+          {% else %}
+            <span class="flex items-center gap-1.5 transition-colors {{ itemClass }}" {% if isLast %}aria-current="page"{% endif %}>
+              {% if loop.first and showHomeIcon %}
+                <twig:ux:icon :name="item.icon ?? homeIcon" class="{{ sizes.icon }}" />
+              {% elseif item.icon is defined and item.icon %}
+                <twig:ux:icon :name="item.icon" class="{{ sizes.icon }}" />
+              {% endif %}
+              <span>{{ item.label }}</span>
+            </span>
+          {% endif %}
         {% endif %}
       </li>
     {% endfor %}

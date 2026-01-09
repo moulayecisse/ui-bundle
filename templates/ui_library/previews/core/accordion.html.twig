@@ -8,6 +8,10 @@
         { name: 'multiple', type: 'boolean', default: 'false', description: 'Allow multiple items to be open simultaneously' },
         { name: 'duration', type: 'number', default: '300', description: 'Animation duration in milliseconds' },
         { name: 'easing', type: 'string', default: "'ease-out'", description: 'Animation easing function' },
+        { name: 'variant', type: "'default' | 'bordered' | 'separated' | 'card'", default: "'default'", description: 'Visual style variant' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Accordion item size' },
+        { name: 'iconPosition', type: "'left' | 'right'", default: "'right'", description: 'Position of expand/collapse icon' },
+        { name: 'flush', type: 'boolean', default: 'false', description: 'Remove borders between items' },
     ]) }}
 
     {# Slots Documentation #}
@@ -144,4 +148,81 @@
     &lt;twig:Ui:accordion:item title="Section Two"&gt;...&lt;/twig:Ui:accordion:item&gt;
 &lt;/twig:Ui:accordion&gt;{% endset %}
     {{ ui.story('Multiple Open', multiplePreview, multipleCode) }}
+
+    {# Variant Examples #}
+    {% set variantsPreview %}
+        <div class="space-y-8">
+            <div>
+                <p class="text-sm font-medium text-gray-500 mb-2">Bordered Variant</p>
+                <div class="w-full border border-gray-200 dark:border-gray-700 rounded-lg divide-y divide-gray-200 dark:divide-gray-700">
+                    <div class="px-4 py-4">
+                        <button class="flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                            <span>Bordered Item 1</span>
+                            <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-400" />
+                        </button>
+                        <div class="pt-2 text-gray-600 dark:text-gray-400">Content with border styling.</div>
+                    </div>
+                    <div class="px-4 py-4">
+                        <button class="flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                            <span>Bordered Item 2</span>
+                            <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-400 rotate-180" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-gray-500 mb-2">Card Variant</p>
+                <div class="w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm divide-y divide-gray-200 dark:divide-gray-700">
+                    <div class="px-4 py-4">
+                        <button class="flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                            <span>Card Item 1</span>
+                            <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-400" />
+                        </button>
+                        <div class="pt-2 text-gray-600 dark:text-gray-400">Content with card styling.</div>
+                    </div>
+                    <div class="px-4 py-4">
+                        <button class="flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                            <span>Card Item 2</span>
+                            <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-400 rotate-180" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-gray-500 mb-2">Separated Variant</p>
+                <div class="w-full space-y-2">
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg px-4 py-4">
+                        <button class="flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                            <span>Separated Item 1</span>
+                            <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-400" />
+                        </button>
+                        <div class="pt-2 text-gray-600 dark:text-gray-400">Content with separated styling.</div>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg px-4 py-4">
+                        <button class="flex w-full items-center justify-between text-left font-medium text-gray-800 dark:text-gray-200">
+                            <span>Separated Item 2</span>
+                            <twig:ux:icon name="heroicons:chevron-up-20-solid" class="size-5 text-gray-400 rotate-180" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set variantsCode %}&lt;twig:Ui:accordion variant="bordered"&gt;...&lt;/twig:Ui:accordion&gt;
+&lt;twig:Ui:accordion variant="card"&gt;...&lt;/twig:Ui:accordion&gt;
+&lt;twig:Ui:accordion variant="separated"&gt;...&lt;/twig:Ui:accordion&gt;{% endset %}
+    {{ ui.story('Variant Examples', variantsPreview, variantsCode) }}
+
+    {# Size Examples #}
+    {% set sizesPreview %}
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                Use <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">size="sm"</code>, <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">size="md"</code>, or <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">size="lg"</code> to control text and padding size.
+            </p>
+        </div>
+    {% endset %}
+    {% set sizesCode %}&lt;twig:Ui:accordion size="sm"&gt;...&lt;/twig:Ui:accordion&gt;
+&lt;twig:Ui:accordion size="md"&gt;...&lt;/twig:Ui:accordion&gt;
+&lt;twig:Ui:accordion size="lg"&gt;...&lt;/twig:Ui:accordion&gt;{% endset %}
+    {{ ui.story('Size Options', sizesPreview, sizesCode) }}
 </div>

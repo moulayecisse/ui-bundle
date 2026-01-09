@@ -3,10 +3,22 @@
     active = null,
     multiple = false,
     duration = 300,
-    easing = 'ease-out'
+    easing = 'ease-out',
+    variant = 'default',
+    size = 'md',
+    iconPosition = 'right',
+    flush = false,
 %}
 
-{% set class = ('w-full ' ~ class)|tailwind_merge %}
+{# Variant classes #}
+{% set variantClasses = {
+    'default': '',
+    'bordered': 'border border-gray-200 dark:border-gray-700 rounded-lg divide-y divide-gray-200 dark:divide-gray-700',
+    'separated': 'space-y-2',
+    'card': 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm divide-y divide-gray-200 dark:divide-gray-700',
+} %}
+
+{% set class = ('w-full group ' ~ (variantClasses[variant] ?? '') ~ ' ' ~ class)|tailwind_merge %}
 
 <div
         {{ attributes }}
@@ -15,6 +27,10 @@
         data-cisse--ui-bundle--accordion-multiple-value="{{ multiple ? 'true' : 'false' }}"
         data-cisse--ui-bundle--accordion-duration-value="{{ duration }}"
         data-cisse--ui-bundle--accordion-easing-value="{{ easing }}"
+        data-variant="{{ variant }}"
+        data-size="{{ size }}"
+        data-icon-position="{{ iconPosition }}"
+        data-flush="{{ flush ? 'true' : 'false' }}"
         class="{{ class }}"
 >
     {% block content '' %}
