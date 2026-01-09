@@ -27,12 +27,13 @@ class UiExtension extends Extension implements PrependExtensionInterface
     public function prepend(ContainerBuilder $container): void
     {
         $bundles = $container->getParameter('kernel.bundles');
-        
+
         if (isset($bundles['TwigBundle'])) {
             $bundlePath = dirname(__DIR__, 2);
             $container->prependExtensionConfig('twig', [
                 'paths' => [
                     $bundlePath.'/templates/components' => 'ui',
+                    $bundlePath.'/templates/data_collector' => 'ui',
                 ],
             ]);
         }
