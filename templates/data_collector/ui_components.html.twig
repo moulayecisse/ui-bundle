@@ -24,6 +24,10 @@
             <b>Render time</b>
             <span>{{ '%0.2f'|format(collector.totalDuration * 1000) }} ms</span>
         </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Pattern Library</b>
+            <span><a href="/_ui" target="_blank">/_ui</a></span>
+        </div>
     {% endset %}
 
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { 'link': profiler_url }) }}
@@ -47,11 +51,12 @@
 {% endblock %}
 
 {% block panel %}
-    <h2>UI Components</h2>
+    <h2>UI Components <a href="/_ui" target="_blank" class="btn btn-sm">Open Pattern Library</a></h2>
 
     {% if collector.totalCount == 0 %}
         <div class="empty">
             <p>No UI components were rendered on this page.</p>
+            <p><a href="/_ui" target="_blank">Browse available components in the Pattern Library</a></p>
         </div>
     {% else %}
         <div class="metrics">
@@ -76,13 +81,22 @@
             <thead>
                 <tr>
                     <th>Component</th>
+                    <th>Pattern Library</th>
                     <th class="text-right">Render Count</th>
                 </tr>
             </thead>
             <tbody>
                 {% for name, count in collector.components %}
+                    {% set libraryUrl = _self.get_library_url(name) %}
                     <tr>
                         <td><code>&lt;twig:Ui:{{ name|replace({':': ':'}) }}&gt;</code></td>
+                        <td>
+                            {% if libraryUrl %}
+                                <a href="{{ libraryUrl }}" target="_blank">{{ libraryUrl }}</a>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
                         <td class="text-right">{{ count }}</td>
                     </tr>
                 {% endfor %}
@@ -98,12 +112,47 @@
     {% endif %}
 {% endblock %}
 
+{% macro get_library_url(name) %}
+    {# Map component names to pattern library URLs #}
+    {# Component name format: "button", "card:header", "input:text" #}
+    {% set baseName = name|split(':')|first %}
+
+    {# Category mapping #}
+    {% set coreComponents = ['button', 'badge', 'avatar', 'card', 'collapsible-card', 'divider', 'alert', 'tabs', 'accordion', 'menu', 'breadcrumb', 'timeline', 'stepper', 'tooltip', 'popover', 'modal', 'slide-over', 'dark-mode-toggle', 'filter-tabs', 'stat-item', 'stats', 'empty-state', 'table', 'datalist'] %}
+    {% set formComponents = ['input', 'textarea', 'select', 'combobox', 'checkbox', 'switch', 'form', 'input-group', 'input-wrapper', 'file-upload', 'slider', 'range-slider', 'tags-input', 'icon-picker', 'rating', 'color-picker', 'label'] %}
+    {% set feedbackComponents = ['loading-spinner', 'progress', 'skeleton', 'toast', 'toast-container', 'notification-list', 'notification-item', 'confirm-dialog', 'pagination'] %}
+    {% set layoutComponents = ['base-layout', 'auth-layout', 'page-layout', 'page-hero', 'layout'] %}
+    {% set typeComponents = ['type', 'boolean'] %}
+
+    {% set category = null %}
+    {% if baseName in coreComponents %}
+        {% set category = 'core' %}
+    {% elseif baseName in formComponents %}
+        {% set category = 'form' %}
+    {% elseif baseName in feedbackComponents %}
+        {% set category = 'feedback' %}
+    {% elseif baseName in layoutComponents %}
+        {% set category = 'layout' %}
+    {% elseif baseName in typeComponents %}
+        {% set category = 'type' %}
+    {% endif %}
+
+    {% if category %}
+        {{- '/_ui/component/' ~ category ~ '/' ~ baseName -}}
+    {% endif %}
+{% endmacro %}
+
 {% macro render_hierarchy(items) %}
     <ul>
         {% for item in items %}
+            {% set libraryUrl = _self.get_library_url(item.name) %}
             <li>
                 <div class="sf-tree-item">
-                    <code>&lt;twig:Ui:{{ item.name }}&gt;</code>
+                    {% if libraryUrl %}
+                        <a href="{{ libraryUrl }}" target="_blank"><code>&lt;twig:Ui:{{ item.name }}&gt;</code></a>
+                    {% else %}
+                        <code>&lt;twig:Ui:{{ item.name }}&gt;</code>
+                    {% endif %}
                     <span class="text-muted">({{ '%0.3f'|format(item.duration * 1000) }} ms)</span>
                 </div>
                 {% if item.children|length > 0 %}
