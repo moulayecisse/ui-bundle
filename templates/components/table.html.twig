@@ -34,7 +34,7 @@
     {% set tbodyClass = tbodyClass ~ ' [&>tr]:hover:bg-gray-50 dark:[&>tr]:hover:bg-gray-800/50 [&>tr]:transition-colors' %}
 {% endif %}
 
-{% set wrapperClass = responsive ? 'overflow-x-auto' : '' %}
+{% set wrapperClass = responsive ? 'ui-scrollbar overflow-x-auto' : '' %}
 
 {% if responsive %}
 <div class="{{ wrapperClass }}">

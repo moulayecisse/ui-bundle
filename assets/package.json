@@ -1,6 +1,7 @@
 {
   "name": "@cisse/ui",
   "version": "1.0.0",
+  "style": "styles/ui-scrollbar.css",
   "symfony": {
     "controllers": {
       "accordion": {

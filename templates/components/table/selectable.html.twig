@@ -14,7 +14,7 @@
 {% set _identifier = identifier %}
 {% set tfootContent %}{% block tfoot '' %}{% endset %}
 
-{% set class = ('font-nunito overflow-x-auto sm:-mx-6 lg:-mx-8 ' ~ class)|tailwind_merge %}
+{% set class = ('font-nunito ui-scrollbar overflow-x-auto sm:-mx-6 lg:-mx-8 ' ~ class)|tailwind_merge %}
 
 <div
         {{ attributes }}
