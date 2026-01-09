@@ -1,6 +1,19 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Props Documentation - notification-item #}
+    {{ ui.props([
+        { name: 'id', type: 'string | null', default: 'null', description: 'Notification identifier' },
+        { name: 'type', type: "'info' | 'success' | 'warning' | 'error'", default: "'info'", description: 'Notification type (affects colors and default icon)' },
+        { name: 'title', type: 'string', default: "''", description: 'Notification title' },
+        { name: 'message', type: 'string', default: "''", description: 'Notification message body' },
+        { name: 'dismissible', type: 'boolean', default: 'true', description: 'Show dismiss button' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Notification size' },
+        { name: 'icon', type: 'string | null', default: 'null', description: 'Custom icon (overrides type default)' },
+        { name: 'showIcon', type: 'boolean', default: 'true', description: 'Show notification icon' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
     {# Basic Notification List #}
     {% set basicPreview %}
         <div class="max-w-sm bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -81,4 +94,72 @@
     unread
 />{% endverbatim %}{% endset %}
     {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+
+    {# Type Variants #}
+    {% set typesPreview %}
+        <div class="max-w-sm space-y-3">
+            <twig:Ui:notification-item
+                type="info"
+                title="Information"
+                message="Here is some helpful information for you."
+            />
+            <twig:Ui:notification-item
+                type="success"
+                title="Success"
+                message="Your changes have been saved successfully."
+            />
+            <twig:Ui:notification-item
+                type="warning"
+                title="Warning"
+                message="Please review the changes before continuing."
+            />
+            <twig:Ui:notification-item
+                type="error"
+                title="Error"
+                message="Something went wrong. Please try again."
+            />
+        </div>
+    {% endset %}
+    {% set typesCode %}{% verbatim %}<twig:Ui:notification-item type="info" title="Information" message="..." />
+<twig:Ui:notification-item type="success" title="Success" message="..." />
+<twig:Ui:notification-item type="warning" title="Warning" message="..." />
+<twig:Ui:notification-item type="error" title="Error" message="..." />{% endverbatim %}{% endset %}
+    {{ ui.story('Type Variants', typesPreview, typesCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="max-w-sm space-y-3">
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Small</p>
+                <twig:Ui:notification-item
+                    type="success"
+                    size="sm"
+                    title="Small notification"
+                    message="This is a compact notification."
+                />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Medium (default)</p>
+                <twig:Ui:notification-item
+                    type="success"
+                    size="md"
+                    title="Medium notification"
+                    message="This is the default notification size."
+                />
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-2">Large</p>
+                <twig:Ui:notification-item
+                    type="success"
+                    size="lg"
+                    title="Large notification"
+                    message="This is a larger notification with more prominence."
+                />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:notification-item size="sm" title="Small" message="..." />
+<twig:Ui:notification-item size="md" title="Medium" message="..." />
+<twig:Ui:notification-item size="lg" title="Large" message="..." />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 </div>

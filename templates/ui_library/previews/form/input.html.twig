@@ -11,6 +11,9 @@
         { name: 'required', type: 'boolean | null', default: 'null', description: 'Whether field is required' },
         { name: 'autofocus', type: 'boolean', default: 'false', description: 'Autofocus on page load' },
         { name: 'autocomplete', type: 'string | null', default: 'null', description: 'Autocomplete attribute value' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Input size (affects height and text)' },
+        { name: 'variant', type: "'default' | 'filled' | 'flushed' | 'unstyled'", default: "'default'", description: 'Input visual style' },
+        { name: 'rounded', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'", description: 'Border radius' },
         { name: 'form', type: 'FormView | null', default: 'null', description: 'Symfony form field for auto-configuration' },
         { name: 'options', type: 'array | null', default: 'null', description: 'Options for choice/select type' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
@@ -82,4 +85,47 @@
 <twig:Ui:input name="number" type="number" label="Number" placeholder="0" />
 <twig:Ui:input name="date" type="date" label="Date" />{% endverbatim %}{% endset %}
     {{ ui.story('Input Types', typesPreview, typesCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="max-w-md space-y-4">
+            <twig:Ui:input name="size-sm" size="sm" label="Small" placeholder="Small input" />
+            <twig:Ui:input name="size-md" size="md" label="Medium (default)" placeholder="Medium input" />
+            <twig:Ui:input name="size-lg" size="lg" label="Large" placeholder="Large input" />
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:Ui:input size="sm" label="Small" placeholder="Small input" />
+<twig:Ui:input size="md" label="Medium" placeholder="Medium input" />
+<twig:Ui:input size="lg" label="Large" placeholder="Large input" />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
+
+    {# Style Variants #}
+    {% set variantsPreview %}
+        <div class="max-w-md space-y-4">
+            <twig:Ui:input name="var-default" variant="default" label="Default" placeholder="Default variant" />
+            <twig:Ui:input name="var-filled" variant="filled" label="Filled" placeholder="Filled variant" />
+            <twig:Ui:input name="var-flushed" variant="flushed" label="Flushed" placeholder="Flushed variant" />
+            <twig:Ui:input name="var-unstyled" variant="unstyled" label="Unstyled" placeholder="Unstyled variant" />
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:Ui:input variant="default" label="Default" />
+<twig:Ui:input variant="filled" label="Filled" />
+<twig:Ui:input variant="flushed" label="Flushed" />
+<twig:Ui:input variant="unstyled" label="Unstyled" />{% endverbatim %}{% endset %}
+    {{ ui.story('Style Variants', variantsPreview, variantsCode) }}
+
+    {# Rounded Variants #}
+    {% set roundedPreview %}
+        <div class="max-w-md space-y-4">
+            <twig:Ui:input name="round-none" rounded="none" placeholder="No rounding" />
+            <twig:Ui:input name="round-sm" rounded="sm" placeholder="Small rounding" />
+            <twig:Ui:input name="round-lg" rounded="lg" placeholder="Large rounding (default)" />
+            <twig:Ui:input name="round-full" rounded="full" placeholder="Full rounding" />
+        </div>
+    {% endset %}
+    {% set roundedCode %}{% verbatim %}<twig:Ui:input rounded="none" placeholder="No rounding" />
+<twig:Ui:input rounded="sm" placeholder="Small rounding" />
+<twig:Ui:input rounded="lg" placeholder="Large rounding" />
+<twig:Ui:input rounded="full" placeholder="Full rounding" />{% endverbatim %}{% endset %}
+    {{ ui.story('Rounded Variants', roundedPreview, roundedCode) }}
 </div>
