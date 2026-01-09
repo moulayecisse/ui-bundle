@@ -1,6 +1,24 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'title', type: 'string', default: "''", description: 'Hero title text' },
+        { name: 'subtitle', type: 'string | null', default: 'null', description: 'Subtitle text below title' },
+        { name: 'badge', type: 'string | null', default: 'null', description: 'Badge text displayed above title' },
+        { name: 'badgeIcon', type: 'string | null', default: 'null', description: 'SVG icon path for badge' },
+        { name: 'showBlobs', type: 'boolean', default: 'true', description: 'Show animated background blobs' },
+        { name: 'showWave', type: 'boolean', default: 'true', description: 'Show wave decoration at bottom' },
+        { name: 'stats', type: 'array', default: '[]', description: 'Stats array: { label, value, icon? }' },
+        { name: 'colorScheme', type: 'string', default: "'primary'", description: 'Color theme: primary, cyan, violet, emerald, rose, amber, blue, teal' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Additional content below stats' },
+    ]) }}
+
     {# Basic Hero #}
     {% set basicPreview %}
         <div class="rounded-lg overflow-hidden">
