@@ -2,11 +2,30 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["item", "submenu", "chevron"]
+    static targets = ["item", "submenu", "chevron", "flyout"]
     static values = {}
 
     connect() {
         this.initializeMenuItems()
+        this.setupFlyoutContainer()
+    }
+
+    disconnect() {
+        // Clean up flyout container
+        if (this.flyoutContainer) {
+            this.flyoutContainer.remove()
+        }
+    }
+
+    setupFlyoutContainer() {
+        // Create a container at body level for flyouts
+        this.flyoutContainer = document.getElementById('ui-menu-flyout-container')
+        if (!this.flyoutContainer) {
+            this.flyoutContainer = document.createElement('div')
+            this.flyoutContainer.id = 'ui-menu-flyout-container'
+            this.flyoutContainer.className = 'fixed inset-0 pointer-events-none z-[9999]'
+            document.body.appendChild(this.flyoutContainer)
+        }
     }
 
     initializeMenuItems() {
@@ -140,6 +159,88 @@ export default class extends Controller {
             // Just hide without animation
             submenu.classList.remove('block')
             submenu.classList.add('hidden')
+        }
+    }
+
+    // Flyout methods for collapsed sidebar
+    showFlyout(event) {
+        const menuItem = event.currentTarget.closest('[data-cisse--ui-bundle--menu-target="item"]')
+        if (!menuItem) return
+
+        const flyoutTemplate = menuItem.querySelector('[data-cisse--ui-bundle--menu-target="flyout"]')
+        if (!flyoutTemplate) return
+
+        // Check if sidebar is collapsed
+        const sidebar = document.querySelector('[data-collapsed="true"]')
+        if (!sidebar) return
+
+        // Clone the flyout content
+        const flyout = flyoutTemplate.cloneNode(true)
+        flyout.removeAttribute('data-cisse--ui-bundle--menu-target')
+        flyout.id = 'ui-active-flyout'
+        flyout.style.display = 'block'
+        flyout.classList.remove('hidden')
+        flyout.classList.add('pointer-events-auto')
+
+        // Position the flyout
+        const rect = menuItem.getBoundingClientRect()
+        flyout.style.position = 'fixed'
+        flyout.style.left = `${rect.right + 8}px`
+        flyout.style.top = `${rect.top}px`
+
+        // Add hover handlers to keep flyout open
+        flyout.addEventListener('mouseenter', () => {
+            this.cancelHideFlyout()
+        })
+        flyout.addEventListener('mouseleave', () => {
+            this.scheduleHideFlyout()
+        })
+
+        // Clear any existing flyout
+        this.hideFlyoutImmediate()
+
+        // Add to container
+        this.flyoutContainer.appendChild(flyout)
+
+        // Animate in
+        flyout.style.opacity = '0'
+        flyout.style.transform = 'scale(0.95)'
+        flyout.offsetHeight // Force reflow
+        flyout.style.transition = 'opacity 0.15s ease-out, transform 0.15s ease-out'
+        flyout.style.opacity = '1'
+        flyout.style.transform = 'scale(1)'
+    }
+
+    scheduleHideFlyout() {
+        this.hideTimeout = setTimeout(() => {
+            this.hideFlyout()
+        }, 100)
+    }
+
+    cancelHideFlyout() {
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout)
+            this.hideTimeout = null
+        }
+    }
+
+    hideFlyout() {
+        const flyout = document.getElementById('ui-active-flyout')
+        if (!flyout) return
+
+        flyout.style.transition = 'opacity 0.1s ease-in, transform 0.1s ease-in'
+        flyout.style.opacity = '0'
+        flyout.style.transform = 'scale(0.95)'
+
+        setTimeout(() => {
+            flyout.remove()
+        }, 100)
+    }
+
+    hideFlyoutImmediate() {
+        const flyout = document.getElementById('ui-active-flyout')
+        if (flyout) {
+            flyout.remove()
         }
     }
 
