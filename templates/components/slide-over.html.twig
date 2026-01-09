@@ -7,6 +7,9 @@
     closeOnBackdrop = true,
     closeOnEscape = true,
     open = false,
+    hideCloseButton = false,
+    showHeader = true,
+    variant = 'default',
     class = ''
 %}
 
@@ -58,29 +61,36 @@
                             data-size="{{ size }}"
                             class="pointer-events-auto w-screen max-w-2xl data-[size=sm]:max-w-md data-[size=lg]:max-w-4xl data-[size=xl]:max-w-6xl data-[size=full]:max-w-full"
                     >
-                        <div class="flex h-full flex-col overflow-y-scroll bg-white dark:bg-gray-900 shadow-xl">
+                        {% set variantClasses = {
+                            'default': 'bg-white dark:bg-gray-900',
+                            'dark': 'bg-gray-900 dark:bg-gray-950 text-white',
+                            'transparent': 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm',
+                        } %}
+                        <div class="flex h-full flex-col overflow-y-scroll {{ variantClasses[variant] ?? variantClasses['default'] }} shadow-xl">
                             <!-- Header -->
-                            {% if title or description %}
+                            {% if showHeader and (title or description) %}
                                 <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                                     <div>
                                         {% if title %}
-                                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white" id="slide-over-title">
+                                            <h2 class="text-lg font-semibold {{ variant == 'dark' ? 'text-white' : 'text-gray-900 dark:text-white' }}" id="slide-over-title">
                                                 {{ title }}
                                             </h2>
                                         {% endif %}
                                         {% if description %}
-                                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
+                                            <p class="mt-1 text-sm {{ variant == 'dark' ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400' }}">{{ description }}</p>
                                         {% endif %}
                                     </div>
-                                    <button
-                                        data-cisse--ui-bundle--slide-over-target="closeButton"
-                                        data-action="click->cisse--ui-bundle--slide-over#close"
-                                        type="button"
-                                        class="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
-                                        aria-label="Close slide-over"
-                                    >
-                                        <twig:ux:icon name="heroicons:x-mark" class="size-5" />
-                                    </button>
+                                    {% if not hideCloseButton %}
+                                        <button
+                                            data-cisse--ui-bundle--slide-over-target="closeButton"
+                                            data-action="click->cisse--ui-bundle--slide-over#close"
+                                            type="button"
+                                            class="p-1 {{ variant == 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }} rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                                            aria-label="Close slide-over"
+                                        >
+                                            <twig:ux:icon name="heroicons:x-mark" class="size-5" />
+                                        </button>
+                                    {% endif %}
                                 </div>
                             {% endif %}
 

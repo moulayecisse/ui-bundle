@@ -12,8 +12,27 @@
     showMinMax = true,
     minName = 'range_min',
     maxName = 'range_max',
-    formatLabel = null
+    formatLabel = null,
+    size = 'md',
+    color = 'primary',
 %}
+
+{% set sizeConfig = {
+    'sm': { track: 'h-1', handle: 'size-4', label: 'text-xs', minMax: 'text-xs' },
+    'md': { track: 'h-2', handle: 'size-5', label: 'text-sm', minMax: 'text-xs' },
+    'lg': { track: 'h-3', handle: 'size-6', label: 'text-base', minMax: 'text-sm' },
+} %}
+
+{% set colorConfig = {
+    'primary': { range: 'bg-primary-500', handle: 'border-primary-500' },
+    'secondary': { range: 'bg-secondary-500', handle: 'border-secondary-500' },
+    'success': { range: 'bg-green-500', handle: 'border-green-500' },
+    'warning': { range: 'bg-yellow-500', handle: 'border-yellow-500' },
+    'danger': { range: 'bg-red-500', handle: 'border-red-500' },
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+{% set currentColor = colorConfig[color] ?? colorConfig['primary'] %}
 
 {% set class = ('space-y-2 ' ~ class)|tailwind_merge %}
 
@@ -32,7 +51,7 @@
 
     {# Labels row #}
     {% if showLabels %}
-        <div class="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300">
+        <div class="flex justify-between {{ currentSize.label }} font-medium text-gray-700 dark:text-gray-300">
             <span data-cisse--ui-bundle--range-slider-target="minLabel">{{ minValue }}</span>
             <span data-cisse--ui-bundle--range-slider-target="maxLabel">{{ maxValue }}</span>
         </div>
@@ -42,32 +61,32 @@
     <div
         data-cisse--ui-bundle--range-slider-target="track"
         data-action="click->cisse--ui-bundle--range-slider#handleTrackClick"
-        class="relative h-2 rounded-full cursor-pointer {{ disabled ? 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-200 dark:bg-gray-700' }}"
+        class="relative {{ currentSize.track }} rounded-full cursor-pointer {{ disabled ? 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-200 dark:bg-gray-700' }}"
     >
         {# Active range #}
         <div
             data-cisse--ui-bundle--range-slider-target="range"
-            class="absolute h-full rounded-full {{ disabled ? 'bg-gray-400' : 'bg-primary-500' }}"
+            class="absolute h-full rounded-full {{ disabled ? 'bg-gray-400' : currentColor.range }}"
         ></div>
 
         {# Min handle #}
         <div
             data-cisse--ui-bundle--range-slider-target="minHandle"
             data-action="mousedown->cisse--ui-bundle--range-slider#handleMinMouseDown touchstart->cisse--ui-bundle--range-slider#handleMinTouchStart"
-            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-5 rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white border-primary-500 cursor-grab hover:shadow-md active:cursor-grabbing' }}"
+            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 {{ currentSize.handle }} rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white ' ~ currentColor.handle ~ ' cursor-grab hover:shadow-md active:cursor-grabbing' }}"
         ></div>
 
         {# Max handle #}
         <div
             data-cisse--ui-bundle--range-slider-target="maxHandle"
             data-action="mousedown->cisse--ui-bundle--range-slider#handleMaxMouseDown touchstart->cisse--ui-bundle--range-slider#handleMaxTouchStart"
-            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-5 rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white border-primary-500 cursor-grab hover:shadow-md active:cursor-grabbing' }}"
+            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 {{ currentSize.handle }} rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white ' ~ currentColor.handle ~ ' cursor-grab hover:shadow-md active:cursor-grabbing' }}"
         ></div>
     </div>
 
     {# Min/Max labels #}
     {% if showMinMax %}
-        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+        <div class="flex justify-between {{ currentSize.minMax }} text-gray-500 dark:text-gray-400">
             <span>{{ min }}</span>
             <span>{{ max }}</span>
         </div>

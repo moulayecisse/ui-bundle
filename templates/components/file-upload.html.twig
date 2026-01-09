@@ -8,10 +8,29 @@
   disabled = false,
   label = 'Drop files here or click to upload',
   description = null,
+  size = 'md',
+  variant = 'default',
+  showIcon = true,
+  showFileList = true,
   class = '',
 %}
 
 {% set maxSizeFormatted = maxSize ? (maxSize >= 1048576 ? ((maxSize / 1048576)|number_format(1) ~ ' MB') : ((maxSize / 1024)|number_format(1) ~ ' KB')) : null %}
+
+{% set sizeConfig = {
+  'sm': { padding: 'p-4', icon: 'size-8', labelText: 'text-xs', descText: 'text-xs', gap: 'space-y-1' },
+  'md': { padding: 'p-8', icon: 'size-12', labelText: 'text-sm', descText: 'text-xs', gap: 'space-y-2' },
+  'lg': { padding: 'p-12', icon: 'size-16', labelText: 'text-base', descText: 'text-sm', gap: 'space-y-3' },
+} %}
+
+{% set variantConfig = {
+  'default': 'border-2 border-dashed rounded-lg',
+  'solid': 'border rounded-lg bg-gray-50 dark:bg-gray-800/50',
+  'minimal': 'border border-dashed rounded',
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+{% set currentVariant = variantConfig[variant] ?? variantConfig['default'] %}
 
 <div
   {{ attributes }}
@@ -19,6 +38,8 @@
   data-cisse--ui-bundle--file-upload-max-size-value="{{ maxSize ?? '' }}"
   data-cisse--ui-bundle--file-upload-max-files-value="{{ maxFiles ?? '' }}"
   data-cisse--ui-bundle--file-upload-accept-value="{{ accept ?? '' }}"
+  data-size="{{ size }}"
+  data-variant="{{ variant }}"
   class="{{ ('space-y-4 ' ~ class)|tailwind_merge }}"
 >
   {# Dropzone #}
@@ -30,7 +51,7 @@
       dragleave->cisse--ui-bundle--file-upload#dragleave
       click->cisse--ui-bundle--file-upload#click
     "
-    class="relative border-2 border-dashed rounded-lg p-8 text-center transition-colors {{ disabled ? 'border-gray-200 bg-gray-50 cursor-not-allowed dark:border-gray-700 dark:bg-gray-800' : 'cursor-pointer border-gray-300 hover:border-primary-400 hover:bg-gray-50 dark:border-gray-600 dark:hover:border-primary-500 dark:hover:bg-gray-800' }}"
+    class="relative {{ currentVariant }} {{ currentSize.padding }} text-center transition-colors {{ disabled ? 'border-gray-200 bg-gray-50 cursor-not-allowed dark:border-gray-700 dark:bg-gray-800' : 'cursor-pointer border-gray-300 hover:border-primary-400 hover:bg-gray-50 dark:border-gray-600 dark:hover:border-primary-500 dark:hover:bg-gray-800' }}"
   >
     <input
       data-cisse--ui-bundle--file-upload-target="input"
@@ -44,20 +65,22 @@
       data-action="change->cisse--ui-bundle--file-upload#change"
     >
 
-    <div class="space-y-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="size-12 mx-auto text-gray-400" data-cisse--ui-bundle--file-upload-target="icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-      </svg>
-      <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
+    <div class="{{ currentSize.gap }}">
+      {% if showIcon %}
+        <svg xmlns="http://www.w3.org/2000/svg" class="{{ currentSize.icon }} mx-auto text-gray-400" data-cisse--ui-bundle--file-upload-target="icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+        </svg>
+      {% endif %}
+      <p class="{{ currentSize.labelText }} font-medium text-gray-700 dark:text-gray-300">
         {{ label }}
       </p>
       {% if description %}
-        <p class="text-xs text-gray-500 dark:text-gray-400">
+        <p class="{{ currentSize.descText }} text-gray-500 dark:text-gray-400">
           {{ description }}
         </p>
       {% endif %}
       {% if maxSizeFormatted %}
-        <p class="text-xs text-gray-500 dark:text-gray-400">
+        <p class="{{ currentSize.descText }} text-gray-500 dark:text-gray-400">
           Max size: {{ maxSizeFormatted }}
         </p>
       {% endif %}
@@ -65,7 +88,9 @@
   </div>
 
   {# File list #}
-  <ul data-cisse--ui-bundle--file-upload-target="fileList" class="space-y-2 hidden"></ul>
+  {% if showFileList %}
+    <ul data-cisse--ui-bundle--file-upload-target="fileList" class="space-y-2 hidden"></ul>
+  {% endif %}
 
   {# File item template #}
   <template data-cisse--ui-bundle--file-upload-target="template">

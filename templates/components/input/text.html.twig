@@ -9,6 +9,9 @@
   autofocus = null,
   autocomplete = null,
   disabled = null,
+  size = 'md',
+  variant = 'default',
+  rounded = 'lg',
 %}
 
 {% set id = id ?? name %}
@@ -22,14 +25,25 @@
   {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
+{% set paddingConfig = {
+  'sm': 'px-2.5 py-1',
+  'md': 'px-3 py-1.5',
+  'lg': 'px-4 py-2',
+} %}
+
+{% set currentPadding = paddingConfig[size] ?? paddingConfig['md'] %}
+
 <twig:Ui:input-wrapper
   :disabled="disabled"
+  :size="size"
+  :variant="variant"
+  :rounded="rounded"
   :class="class"
 >
   <!--suppress HtmlFormInputWithoutLabel -->
   <input
     {{ attributes }}
-    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none"
+    class="{{ 'block w-full bg-transparent focus:outline-none ' ~ currentPadding }}"
     {{ outerScope.attributes }}
     {% if value is not null %}value="{{ value }}"{% endif %}
     {% if name %}name="{{ name }}"{% endif %}

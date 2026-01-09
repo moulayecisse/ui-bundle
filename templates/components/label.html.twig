@@ -4,6 +4,10 @@
   class = '',
   label = null,
   required = null,
+  size = 'md',
+  weight = 'medium',
+  hideRequired = false,
+  optionalText = null,
 %}
 
 {% if form %}
@@ -12,7 +16,23 @@
   {% set required = required is not null ? required : form.vars.required %}
 {% endif %}
 
-  {% set class = ('block text-sm/6 font-medium text-gray-900 dark:text-gray-100 ' ~ class)|tailwind_merge %}
+{% set sizeConfig = {
+  'sm': 'text-xs',
+  'md': 'text-sm/6',
+  'lg': 'text-base',
+} %}
+
+{% set weightConfig = {
+  'normal': 'font-normal',
+  'medium': 'font-medium',
+  'semibold': 'font-semibold',
+  'bold': 'font-bold',
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+{% set currentWeight = weightConfig[weight] ?? weightConfig['medium'] %}
+
+{% set class = ('block text-gray-900 dark:text-gray-100 ' ~ currentSize ~ ' ' ~ currentWeight ~ ' ' ~ class)|tailwind_merge %}
 
 <label
   {{ attributes }}
@@ -21,8 +41,10 @@
 >
   {% block content %}
     {{ label ?? '' }}
-    {% if required %}
+    {% if required and not hideRequired %}
       <span class="text-red-500" aria-hidden="true">*</span>
+    {% elseif not required and optionalText %}
+      <span class="text-gray-400 dark:text-gray-500 font-normal">({{ optionalText }})</span>
     {% endif %}
   {% endblock %}
 </label>

@@ -1,12 +1,40 @@
-{% props value = false %}
+{% props
+    value = false,
+    size = 'md',
+    variant = 'icon',
+    trueIcon = 'heroicons:check-16-solid',
+    falseIcon = 'heroicons:x-mark-16-solid',
+    trueColor = 'text-green-600',
+    falseColor = 'text-red-600',
+    trueLabel = 'Yes',
+    falseLabel = 'No',
+    class = '',
+%}
 
-<twig:ux:icon 
-    name="heroicons:check-16-solid" 
-    data-value="{{ value ? 'true' : 'false' }}"
-    class="size-5 text-red-600 data-[value=true]:text-green-600 data-[value=true]:block data-[value=false]:hidden"
-/>
-<twig:ux:icon 
-    name="heroicons:x-mark-16-solid" 
-    data-value="{{ value ? 'true' : 'false' }}"
-    class="size-5 text-red-600 data-[value=false]:text-red-600 data-[value=false]:block data-[value=true]:hidden"
-/>
+{% set sizeConfig = {
+    'xs': { icon: 'size-3', text: 'text-xs', badge: 'px-1.5 py-0.5 text-xs' },
+    'sm': { icon: 'size-4', text: 'text-sm', badge: 'px-2 py-0.5 text-xs' },
+    'md': { icon: 'size-5', text: 'text-sm', badge: 'px-2.5 py-1 text-sm' },
+    'lg': { icon: 'size-6', text: 'text-base', badge: 'px-3 py-1.5 text-base' },
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+
+{% if variant == 'icon' %}
+    <twig:ux:icon
+        name="{{ trueIcon }}"
+        data-value="{{ value ? 'true' : 'false' }}"
+        class="{{ currentSize.icon }} {{ trueColor }} data-[value=true]:block data-[value=false]:hidden {{ class }}"
+    />
+    <twig:ux:icon
+        name="{{ falseIcon }}"
+        data-value="{{ value ? 'true' : 'false' }}"
+        class="{{ currentSize.icon }} {{ falseColor }} data-[value=false]:block data-[value=true]:hidden {{ class }}"
+    />
+{% elseif variant == 'text' %}
+    <span data-value="{{ value ? 'true' : 'false' }}" class="{{ currentSize.text }} font-medium {{ trueColor }} data-[value=true]:block data-[value=false]:hidden {{ class }}">{{ trueLabel }}</span>
+    <span data-value="{{ value ? 'true' : 'false' }}" class="{{ currentSize.text }} font-medium {{ falseColor }} data-[value=false]:block data-[value=true]:hidden {{ class }}">{{ falseLabel }}</span>
+{% elseif variant == 'badge' %}
+    <span data-value="{{ value ? 'true' : 'false' }}" class="{{ currentSize.badge }} rounded-full font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 data-[value=true]:inline-flex data-[value=false]:hidden {{ class }}">{{ trueLabel }}</span>
+    <span data-value="{{ value ? 'true' : 'false' }}" class="{{ currentSize.badge }} rounded-full font-medium bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 data-[value=false]:inline-flex data-[value=true]:hidden {{ class }}">{{ falseLabel }}</span>
+{% endif %}
