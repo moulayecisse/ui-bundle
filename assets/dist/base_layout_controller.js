@@ -4,7 +4,7 @@ export default class extends Controller {
     static targets = ['sidebar', 'backdrop', 'sunIcon', 'moonIcon'];
 
     connect() {
-        this.sidebarOpen = false;
+        this.sidebarOpen = window.innerWidth >= 1024; // Open by default on desktop
         this.handleResize = this.handleResize.bind(this);
         window.addEventListener('resize', this.handleResize);
     }
@@ -14,9 +14,21 @@ export default class extends Controller {
     }
 
     handleResize() {
-        // Close sidebar on large screens when resizing
-        if (window.innerWidth >= 1024 && this.sidebarOpen) {
-            this.closeSidebar();
+        // Reset sidebar state when crossing the lg breakpoint
+        if (window.innerWidth >= 1024) {
+            // On desktop: remove mobile classes, apply desktop state
+            this.sidebarTarget.classList.remove('max-lg:-translate-x-full');
+            this.backdropTarget.classList.add('hidden');
+            if (!this.sidebarOpen) {
+                this.sidebarTarget.classList.add('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+            }
+        } else {
+            // On mobile: remove desktop classes, apply mobile state
+            this.sidebarTarget.classList.remove('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+            if (!this.sidebarOpen) {
+                this.sidebarTarget.classList.add('max-lg:-translate-x-full');
+                this.backdropTarget.classList.add('hidden');
+            }
         }
     }
 
@@ -30,14 +42,26 @@ export default class extends Controller {
 
     openSidebar() {
         this.sidebarOpen = true;
-        this.sidebarTarget.classList.remove('max-lg:-translate-x-full');
-        this.backdropTarget.classList.remove('hidden');
+        if (window.innerWidth >= 1024) {
+            // Desktop: remove collapse classes
+            this.sidebarTarget.classList.remove('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+        } else {
+            // Mobile: slide in
+            this.sidebarTarget.classList.remove('max-lg:-translate-x-full');
+            this.backdropTarget.classList.remove('hidden');
+        }
     }
 
     closeSidebar() {
         this.sidebarOpen = false;
-        this.sidebarTarget.classList.add('max-lg:-translate-x-full');
-        this.backdropTarget.classList.add('hidden');
+        if (window.innerWidth >= 1024) {
+            // Desktop: add collapse classes
+            this.sidebarTarget.classList.add('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+        } else {
+            // Mobile: slide out
+            this.sidebarTarget.classList.add('max-lg:-translate-x-full');
+            this.backdropTarget.classList.add('hidden');
+        }
     }
 
     toggleDark() {
