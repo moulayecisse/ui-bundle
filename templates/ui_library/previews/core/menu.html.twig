@@ -1,109 +1,231 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
-    {# Props Documentation #}
+    {# Menu Container Props #}
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Menu Container</h3>
     {{ ui.props([
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the menu container' },
     ]) }}
 
+    {# Menu Item Props #}
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8">Menu Item</h3>
+    {{ ui.props([
+        { name: 'label', type: 'string', default: 'null', description: 'Menu item label text' },
+        { name: 'href', type: 'string', default: 'null', description: 'Link URL (ignored if item has children)' },
+        { name: 'icon', type: 'string', default: 'null', description: 'Icon name (e.g., heroicons:home)' },
+        { name: 'active', type: 'boolean', default: 'false', description: 'Whether the item is currently active' },
+        { name: 'badge', type: 'string', default: 'null', description: 'Badge text to display' },
+        { name: 'badgeVariant', type: 'string', default: "'default'", description: 'Badge variant (default, success, warning, error, info)' },
+        { name: 'count', type: 'number', default: 'null', description: 'Count number to display' },
+        { name: 'expanded', type: 'boolean', default: 'false', description: 'Start with submenu expanded (for items with children)' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the menu item' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Sub Item Props #}
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8">Submenu Item</h3>
+    {{ ui.props([
+        { name: 'label', type: 'string', default: 'null', description: 'Submenu item label text' },
+        { name: 'href', type: 'string', default: 'null', description: 'Link URL' },
+        { name: 'icon', type: 'string', default: 'null', description: 'Icon name' },
+        { name: 'active', type: 'boolean', default: 'false', description: 'Whether the item is currently active' },
+        { name: 'badge', type: 'string', default: 'null', description: 'Badge text to display' },
+        { name: 'badgeVariant', type: 'string', default: "'default'", description: 'Badge variant' },
+        { name: 'count', type: 'number', default: 'null', description: 'Count number to display' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the submenu item' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'content', description: 'Menu items using &lt;twig:Ui:menu:item&gt; components' },
+        { name: 'content', description: 'Menu items content' },
+        { name: 'children', description: '(menu:item) Submenu items using &lt;twig:Ui:menu:sub:item&gt;' },
+        { name: 'right', description: '(menu:item, menu:sub:item) Custom content in the right slot' },
+        { name: 'icon', description: '(menu:item, menu:sub:item) Custom icon slot' },
+        { name: 'label', description: '(menu:item, menu:sub:item) Custom label slot' },
     ]) }}
 
     {# Related Components #}
     <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
         <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Related Components</h4>
         <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">menu:item</code> - Individual menu item with icon, label, href, active state</li>
-            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">menu:sub</code> - Submenu container</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">menu</code> - Menu container with Stimulus controller</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">menu:item</code> - Menu item with icon, label, badge, count, and submenu support</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">menu:sub</code> - Submenu container (auto-generated when using children block)</li>
             <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">menu:sub:item</code> - Submenu item for nested navigation</li>
         </ul>
     </div>
 
-    {# Basic Menu - Static Preview #}
+    {# Basic Menu #}
     {% set basicPreview %}
         <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
-            <div class="space-y-1">
-                <a href="#" class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm bg-primary text-white">
-                    <twig:ux:icon name="heroicons:home" class="size-4" />
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <twig:ux:icon name="heroicons:users" class="size-4" />
-                    <span>Users</span>
-                </a>
-                <a href="#" class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <twig:ux:icon name="heroicons:cog-6-tooth" class="size-4" />
-                    <span>Settings</span>
-                </a>
-            </div>
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Dashboard" icon="heroicons:home" active />
+                <twig:Ui:menu:item label="Users" icon="heroicons:users" href="/users" />
+                <twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" />
+            </twig:Ui:menu>
         </div>
     {% endset %}
     {% set basicCode %}&lt;twig:Ui:menu&gt;
     &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" active /&gt;
-    &lt;twig:Ui:menu:item label="Users" icon="heroicons:users" /&gt;
-    &lt;twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" /&gt;
+    &lt;twig:Ui:menu:item label="Users" icon="heroicons:users" href="/users" /&gt;
+    &lt;twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" /&gt;
 &lt;/twig:Ui:menu&gt;{% endset %}
     {{ ui.story('Basic Menu', basicPreview, basicCode) }}
 
-    {# With Links - Static Preview #}
-    {% set linksPreview %}
+    {# With Badges and Counts #}
+    {% set badgesPreview %}
         <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
-            <div class="space-y-1">
-                <a href="/" class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <twig:ux:icon name="heroicons:home" class="size-4" />
-                    <span>Home</span>
-                </a>
-                <a href="/about" class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <twig:ux:icon name="heroicons:information-circle" class="size-4" />
-                    <span>About</span>
-                </a>
-                <a href="/contact" class="group relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                    <twig:ux:icon name="heroicons:envelope" class="size-4" />
-                    <span>Contact</span>
-                </a>
-            </div>
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Inbox" icon="heroicons:inbox" badge="5" badgeVariant="error" href="/inbox" />
+                <twig:Ui:menu:item label="Messages" icon="heroicons:chat-bubble-left" :count="12" href="/messages" />
+                <twig:Ui:menu:item label="Notifications" icon="heroicons:bell" badge="New" badgeVariant="success" href="/notifications" />
+                <twig:Ui:menu:item label="Tasks" icon="heroicons:clipboard-document-list" :count="3" badge="!" badgeVariant="warning" href="/tasks" />
+            </twig:Ui:menu>
         </div>
     {% endset %}
-    {% set linksCode %}&lt;twig:Ui:menu&gt;
-    &lt;twig:Ui:menu:item label="Home" icon="heroicons:home" href="/" /&gt;
-    &lt;twig:Ui:menu:item label="About" icon="heroicons:information-circle" href="/about" /&gt;
-    &lt;twig:Ui:menu:item label="Contact" icon="heroicons:envelope" href="/contact" /&gt;
+    {% set badgesCode %}&lt;twig:Ui:menu&gt;
+    &lt;twig:Ui:menu:item label="Inbox" icon="heroicons:inbox" badge="5" badgeVariant="error" href="/inbox" /&gt;
+    &lt;twig:Ui:menu:item label="Messages" icon="heroicons:chat-bubble-left" :count="12" href="/messages" /&gt;
+    &lt;twig:Ui:menu:item label="Notifications" icon="heroicons:bell" badge="New" badgeVariant="success" /&gt;
+    &lt;twig:Ui:menu:item label="Tasks" icon="heroicons:clipboard-document-list" :count="3" badge="!" badgeVariant="warning" /&gt;
 &lt;/twig:Ui:menu&gt;{% endset %}
-    {{ ui.story('With Links', linksPreview, linksCode) }}
+    {{ ui.story('With Badges and Counts', badgesPreview, badgesCode) }}
 
-    {# Submenu Example (Code Only) #}
+    {# With Submenu #}
     {% set submenuPreview %}
-        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                Menu items can contain submenus by nesting <code class="bg-gray-200 dark:bg-gray-700 px-1 rounded">menu:sub:item</code> components inside a parent item.
-            </p>
-            <div class="max-w-xs bg-white dark:bg-gray-900 rounded-lg p-3">
-                <div class="space-y-1">
-                    <div class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 dark:text-gray-400">
-                        <twig:ux:icon name="heroicons:cube" class="size-4" />
-                        <span>Products</span>
-                        <twig:ux:icon name="heroicons:chevron-down" class="size-4 ml-auto" />
-                    </div>
-                    <div class="pl-6 space-y-1">
-                        <a href="#" class="block px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400">All Products</a>
-                        <a href="#" class="block px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400">Categories</a>
-                        <a href="#" class="block px-3 py-1.5 text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400">Inventory</a>
-                    </div>
-                </div>
-            </div>
+        <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Dashboard" icon="heroicons:home" href="/dashboard" />
+                <twig:Ui:menu:item label="Products" icon="heroicons:cube" :count="24">
+                    {% block children %}
+                        <twig:Ui:menu:sub:item label="All Products" href="/products" />
+                        <twig:Ui:menu:sub:item label="Categories" href="/categories" badge="3" />
+                        <twig:Ui:menu:sub:item label="Inventory" href="/inventory" :count="156" />
+                    {% endblock %}
+                </twig:Ui:menu:item>
+                <twig:Ui:menu:item label="Orders" icon="heroicons:shopping-cart" badge="New" badgeVariant="info" href="/orders" />
+            </twig:Ui:menu>
         </div>
     {% endset %}
     {% set submenuCode %}&lt;twig:Ui:menu&gt;
-    &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" /&gt;
-    &lt;twig:Ui:menu:item label="Products" icon="heroicons:cube"&gt;
-        {# Children become submenu items #}
-        &lt;twig:Ui:menu:sub:item label="All Products" href="/products" /&gt;
-        &lt;twig:Ui:menu:sub:item label="Categories" href="/categories" /&gt;
-        &lt;twig:Ui:menu:sub:item label="Inventory" href="/inventory" /&gt;
+    &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" href="/dashboard" /&gt;
+    &lt;twig:Ui:menu:item label="Products" icon="heroicons:cube" :count="24"&gt;
+        {%verbatim%}{% block children %}{%endverbatim%}
+            &lt;twig:Ui:menu:sub:item label="All Products" href="/products" /&gt;
+            &lt;twig:Ui:menu:sub:item label="Categories" href="/categories" badge="3" /&gt;
+            &lt;twig:Ui:menu:sub:item label="Inventory" href="/inventory" :count="156" /&gt;
+        {%verbatim%}{% endblock %}{%endverbatim%}
     &lt;/twig:Ui:menu:item&gt;
-    &lt;twig:Ui:menu:item label="Orders" icon="heroicons:shopping-cart" /&gt;
+    &lt;twig:Ui:menu:item label="Orders" icon="heroicons:shopping-cart" badge="New" badgeVariant="info" /&gt;
 &lt;/twig:Ui:menu&gt;{% endset %}
     {{ ui.story('With Submenu', submenuPreview, submenuCode) }}
+
+    {# Expanded Submenu #}
+    {% set expandedPreview %}
+        <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" :expanded="true">
+                    {% block children %}
+                        <twig:Ui:menu:sub:item label="General" href="/settings/general" active />
+                        <twig:Ui:menu:sub:item label="Security" href="/settings/security" />
+                        <twig:Ui:menu:sub:item label="Notifications" href="/settings/notifications" />
+                    {% endblock %}
+                </twig:Ui:menu:item>
+            </twig:Ui:menu>
+        </div>
+    {% endset %}
+    {% set expandedCode %}&lt;twig:Ui:menu&gt;
+    &lt;twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" :expanded="true"&gt;
+        {%verbatim%}{% block children %}{%endverbatim%}
+            &lt;twig:Ui:menu:sub:item label="General" href="/settings/general" active /&gt;
+            &lt;twig:Ui:menu:sub:item label="Security" href="/settings/security" /&gt;
+            &lt;twig:Ui:menu:sub:item label="Notifications" href="/settings/notifications" /&gt;
+        {%verbatim%}{% endblock %}{%endverbatim%}
+    &lt;/twig:Ui:menu:item&gt;
+&lt;/twig:Ui:menu&gt;{% endset %}
+    {{ ui.story('Expanded Submenu', expandedPreview, expandedCode) }}
+
+    {# Disabled Items #}
+    {% set disabledPreview %}
+        <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Dashboard" icon="heroicons:home" href="/dashboard" />
+                <twig:Ui:menu:item label="Analytics" icon="heroicons:chart-bar" :disabled="true" badge="Pro" badgeVariant="warning" />
+                <twig:Ui:menu:item label="Reports" icon="heroicons:document-chart-bar" :disabled="true" />
+            </twig:Ui:menu>
+        </div>
+    {% endset %}
+    {% set disabledCode %}&lt;twig:Ui:menu&gt;
+    &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" href="/dashboard" /&gt;
+    &lt;twig:Ui:menu:item label="Analytics" icon="heroicons:chart-bar" :disabled="true" badge="Pro" badgeVariant="warning" /&gt;
+    &lt;twig:Ui:menu:item label="Reports" icon="heroicons:document-chart-bar" :disabled="true" /&gt;
+&lt;/twig:Ui:menu&gt;{% endset %}
+    {{ ui.story('Disabled Items', disabledPreview, disabledCode) }}
+
+    {# Custom Right Slot #}
+    {% set customRightPreview %}
+        <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Status" icon="heroicons:signal" href="/status">
+                    {% block right %}
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    {% endblock %}
+                </twig:Ui:menu:item>
+                <twig:Ui:menu:item label="Sync" icon="heroicons:arrow-path" href="/sync">
+                    {% block right %}
+                        <span class="text-xs text-gray-500">2m ago</span>
+                    {% endblock %}
+                </twig:Ui:menu:item>
+            </twig:Ui:menu>
+        </div>
+    {% endset %}
+    {% set customRightCode %}&lt;twig:Ui:menu&gt;
+    &lt;twig:Ui:menu:item label="Status" icon="heroicons:signal" href="/status"&gt;
+        {%verbatim%}{% block right %}{%endverbatim%}
+            &lt;span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"&gt;&lt;/span&gt;
+        {%verbatim%}{% endblock %}{%endverbatim%}
+    &lt;/twig:Ui:menu:item&gt;
+    &lt;twig:Ui:menu:item label="Sync" icon="heroicons:arrow-path" href="/sync"&gt;
+        {%verbatim%}{% block right %}{%endverbatim%}
+            &lt;span class="text-xs text-gray-500"&gt;2m ago&lt;/span&gt;
+        {%verbatim%}{% endblock %}{%endverbatim%}
+    &lt;/twig:Ui:menu:item&gt;
+&lt;/twig:Ui:menu&gt;{% endset %}
+    {{ ui.story('Custom Right Slot', customRightPreview, customRightCode) }}
+
+    {# Full Example #}
+    {% set fullPreview %}
+        <div class="max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
+            <twig:Ui:menu>
+                <twig:Ui:menu:item label="Dashboard" icon="heroicons:home" active href="/dashboard" />
+                <twig:Ui:menu:item label="Inbox" icon="heroicons:inbox" badge="12" badgeVariant="error" href="/inbox" />
+                <twig:Ui:menu:item label="Projects" icon="heroicons:folder" :count="8" :expanded="true">
+                    {% block children %}
+                        <twig:Ui:menu:sub:item label="Active" href="/projects/active" :count="5" />
+                        <twig:Ui:menu:sub:item label="Archived" href="/projects/archived" :count="3" />
+                        <twig:Ui:menu:sub:item label="Create New" href="/projects/new" badge="+" badgeVariant="success" />
+                    {% endblock %}
+                </twig:Ui:menu:item>
+                <twig:Ui:menu:item label="Team" icon="heroicons:user-group" href="/team" />
+                <twig:Ui:menu:item label="Billing" icon="heroicons:credit-card" :disabled="true" badge="Pro" badgeVariant="warning" />
+                <twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" />
+            </twig:Ui:menu>
+        </div>
+    {% endset %}
+    {% set fullCode %}&lt;twig:Ui:menu&gt;
+    &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" active href="/dashboard" /&gt;
+    &lt;twig:Ui:menu:item label="Inbox" icon="heroicons:inbox" badge="12" badgeVariant="error" href="/inbox" /&gt;
+    &lt;twig:Ui:menu:item label="Projects" icon="heroicons:folder" :count="8" :expanded="true"&gt;
+        {%verbatim%}{% block children %}{%endverbatim%}
+            &lt;twig:Ui:menu:sub:item label="Active" href="/projects/active" :count="5" /&gt;
+            &lt;twig:Ui:menu:sub:item label="Archived" href="/projects/archived" :count="3" /&gt;
+            &lt;twig:Ui:menu:sub:item label="Create New" href="/projects/new" badge="+" badgeVariant="success" /&gt;
+        {%verbatim%}{% endblock %}{%endverbatim%}
+    &lt;/twig:Ui:menu:item&gt;
+    &lt;twig:Ui:menu:item label="Team" icon="heroicons:user-group" href="/team" /&gt;
+    &lt;twig:Ui:menu:item label="Billing" icon="heroicons:credit-card" :disabled="true" badge="Pro" badgeVariant="warning" /&gt;
+    &lt;twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" /&gt;
+&lt;/twig:Ui:menu&gt;{% endset %}
+    {{ ui.story('Full Example', fullPreview, fullCode) }}
 </div>
