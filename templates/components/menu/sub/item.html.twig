@@ -28,7 +28,7 @@
     >
         {% block content %}
             {% block icon %}
-                {% set iconClass = ('size-4 flex-shrink-0 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
+                {% set iconClass = ('size-4 shrink-0 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/sub:text-primary-foreground dark:group-data-[active=true]/sub:text-primary-foreground ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
 
                 <twig:ux:icon
                         name="{{ icon ?: 'heroicons:minus-16-solid' }}"

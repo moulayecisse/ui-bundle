@@ -41,7 +41,7 @@
         {% if showIcon %}
             <twig:ux:icon
                 name="{{ displayIcon }}"
-                class="{{ currentSize.icon }} flex-shrink-0 {{ config.iconClass }}"
+                class="{{ currentSize.icon }} shrink-0 {{ config.iconClass }}"
             />
         {% endif %}
 
@@ -66,7 +66,7 @@
                 type="button"
                 data-action="click->cisse--ui-bundle--notification-list#dismiss"
                 data-notification-id="{{ id }}"
-                class="flex-shrink-0 rounded p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+                class="shrink-0 rounded p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 transition-colors"
                 aria-label="Dismiss notification"
             >
                 <twig:ux:icon name="heroicons:x-mark-20-solid" class="size-4" />
