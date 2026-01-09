@@ -25,9 +25,7 @@
   class="{{ ('flex items-center rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent dark:border-gray-600 dark:bg-gray-800 ' ~ currentSize.wrapper ~ ' ' ~ (disabled ? 'bg-gray-100 dark:bg-gray-900 cursor-not-allowed opacity-60' : '') ~ ' ' ~ class)|tailwind_merge }}"
 >
   {# Icon #}
-  <svg xmlns="http://www.w3.org/2000/svg" class="{{ currentSize.icon }} text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-  </svg>
+  <twig:ux:icon name="heroicons:envelope" class="{{ currentSize.icon }} text-gray-400 shrink-0" />
 
   {# Input #}
   <input
@@ -45,11 +43,7 @@
 
   {# Validation icon #}
   <div data-cisse--ui-bundle--email-input-target="status" class="shrink-0 hidden">
-    <svg data-icon="valid" xmlns="http://www.w3.org/2000/svg" class="size-5 text-emerald-500 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-    <svg data-icon="invalid" xmlns="http://www.w3.org/2000/svg" class="size-5 text-red-500 hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-    </svg>
+    <twig:ux:icon name="heroicons:check-circle" data-icon="valid" class="size-5 text-emerald-500 hidden" />
+    <twig:ux:icon name="heroicons:exclamation-circle" data-icon="invalid" class="size-5 text-red-500 hidden" />
   </div>
 </div>
