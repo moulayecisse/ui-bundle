@@ -29,7 +29,7 @@
   {# Sidebar - collapses to w-16 on desktop, slides out on mobile #}
   <aside
     data-cisse--ui-bundle--base-layout-target="sidebar"
-    class="group max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 data-[collapsed=true]:lg:w-16 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full {{ sidebarClass }}"
+    class="group/sidebar max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 data-[collapsed=true]:lg:w-16 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full {{ sidebarClass }}"
   >
     {# Sidebar Header #}
     <div class="flex h-16 items-center px-3">
@@ -41,7 +41,7 @@
             </svg>
           </div>
         {% endif %}
-        <span class="flex-1 text-lg font-semibold text-white transition-opacity duration-300 group-data-[collapsed=true]:lg:hidden">
+        <span class="flex-1 text-lg font-semibold text-white transition-opacity duration-300 group-data-[collapsed=true]/sidebar:lg:hidden">
           {{ appName }}
         </span>
       </div>
@@ -56,7 +56,7 @@
 
     {# Menu Items #}
     <div
-      class="ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start group-data-[collapsed=true]:items-center transition-all duration-300"
+      class="ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start group-data-[collapsed=true]/sidebar:items-center transition-all duration-300"
     >
       {{ menu_block|raw }}
     </div>
