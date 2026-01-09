@@ -5,8 +5,11 @@
   confirmText = 'Confirm',
   cancelText = 'Cancel',
   variant = 'info',
+  size = 'sm',
   loading = false,
   icon = null,
+  hideIcon = false,
+  centered = true,
   class = '',
 %}
 
@@ -20,12 +23,21 @@
 {% set config = variantConfig[variant] ?? variantConfig['info'] %}
 {% set iconName = icon ?? config.icon %}
 
-<twig:Ui:modal :open="open" size="sm" {{ attributes }}>
-  <div class="text-center {{ class }}">
+{% set iconSizeConfig = {
+  'sm': { wrapper: 'size-12', icon: 'size-6' },
+  'default': { wrapper: 'size-14', icon: 'size-8' },
+  'lg': { wrapper: 'size-16', icon: 'size-10' },
+} %}
+{% set currentIconSize = iconSizeConfig[size] ?? iconSizeConfig['default'] %}
+
+<twig:Ui:modal :open="open" :size="size" :centered="centered" {{ attributes }}>
+  <div class="{{ centered ? 'text-center' : '' }} {{ class }}">
     {# Icon #}
-    <div class="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
-      <twig:ux:icon :name="iconName" class="size-8 {{ config.iconClass }}" />
-    </div>
+    {% if not hideIcon %}
+      <div class="{{ centered ? 'mx-auto' : '' }} mb-4 flex {{ currentIconSize.wrapper }} items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+        <twig:ux:icon :name="iconName" class="{{ currentIconSize.icon }} {{ config.iconClass }}" />
+      </div>
+    {% endif %}
 
     {# Title #}
     <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -38,7 +50,7 @@
     </p>
 
     {# Actions #}
-    <div class="flex justify-center gap-3">
+    <div class="flex {{ centered ? 'justify-center' : 'justify-end' }} gap-3">
       {% block actions %}
         <twig:Ui:button
           type="button"

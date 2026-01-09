@@ -4,11 +4,21 @@
   value = '#3b82f6',
   swatches = ['#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c55e', '#10b981', '#14b8a6', '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e', '#78716c', '#737373', '#000000'],
   showInput = true,
+  showValue = true,
   disabled = false,
   label = null,
+  size = 'md',
+  variant = 'default',
   class = '',
 %}
 
+{% set sizeConfig = {
+  'sm': { trigger: 'px-2 py-1.5', preview: 'size-5', text: 'text-xs', swatch: 'size-6', gap: 'gap-1.5' },
+  'md': { trigger: 'px-3 py-2', preview: 'size-6', text: 'text-sm', swatch: 'size-8', gap: 'gap-2' },
+  'lg': { trigger: 'px-4 py-2.5', preview: 'size-7', text: 'text-base', swatch: 'size-10', gap: 'gap-2.5' },
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
 {% set lightColors = ['#ffffff', '#f9fafb', '#f3f4f6', '#e5e7eb', '#eab308', '#f59e0b'] %}
 
 <div
@@ -27,17 +37,19 @@
     type="button"
     data-cisse--ui-bundle--color-picker-target="trigger"
     data-action="click->cisse--ui-bundle--color-picker#toggle"
-    class="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors {{ disabled ? 'opacity-50 cursor-not-allowed' : '' }}"
+    class="flex items-center {{ currentSize.gap }} {{ currentSize.trigger }} border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors {{ disabled ? 'opacity-50 cursor-not-allowed' : '' }}"
     {{ disabled ? 'disabled' }}
   >
     <span
       data-cisse--ui-bundle--color-picker-target="preview"
-      class="size-6 rounded border border-gray-200 dark:border-gray-600"
+      class="{{ currentSize.preview }} rounded border border-gray-200 dark:border-gray-600"
       style="background-color: {{ value }};"
     ></span>
-    <span data-cisse--ui-bundle--color-picker-target="valueDisplay" class="text-sm font-mono text-gray-700 dark:text-gray-300">
-      {{ value }}
-    </span>
+    {% if showValue %}
+      <span data-cisse--ui-bundle--color-picker-target="valueDisplay" class="{{ currentSize.text }} font-mono text-gray-700 dark:text-gray-300">
+        {{ value }}
+      </span>
+    {% endif %}
     <svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-gray-400 transition-transform" data-cisse--ui-bundle--color-picker-target="chevron" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
     </svg>
@@ -58,13 +70,13 @@
     class="absolute z-50 mt-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden"
   >
     {# Swatches #}
-    <div class="grid grid-cols-5 gap-2 mb-3">
+    <div class="grid grid-cols-5 {{ currentSize.gap }} mb-3">
       {% for color in swatches %}
         <button
           type="button"
           data-color="{{ color }}"
           data-action="click->cisse--ui-bundle--color-picker#selectColor"
-          class="size-8 rounded-lg border-2 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 {{ value == color ? 'border-primary-500 ring-2 ring-primary-500 ring-offset-1' : 'border-transparent' }}"
+          class="{{ currentSize.swatch }} rounded-lg border-2 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 {{ value == color ? 'border-primary-500 ring-2 ring-primary-500 ring-offset-1' : 'border-transparent' }}"
           style="background-color: {{ color }};"
           title="{{ color }}"
         >

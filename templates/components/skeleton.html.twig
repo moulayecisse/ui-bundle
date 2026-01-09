@@ -4,6 +4,8 @@
   height = null,
   lines = 1,
   animate = true,
+  speed = 'normal',
+  color = 'default',
   class = '',
 %}
 
@@ -12,27 +14,44 @@
   'circular': 'rounded-full',
   'rectangular': '',
   'rounded': 'rounded-lg',
+  'avatar': 'rounded-full',
+  'button': 'h-10 rounded-lg',
+  'input': 'h-10 rounded-lg',
+  'card': 'rounded-xl',
 } %}
 
-{% set animateClass = animate ? 'animate-pulse' : '' %}
+{% set colorClasses = {
+  'default': 'bg-gray-200 dark:bg-gray-700',
+  'primary': 'bg-primary-200 dark:bg-primary-800',
+  'light': 'bg-gray-100 dark:bg-gray-800',
+} %}
+
+{% set speedClasses = {
+  'slow': 'animate-[pulse_3s_ease-in-out_infinite]',
+  'normal': 'animate-pulse',
+  'fast': 'animate-[pulse_1s_ease-in-out_infinite]',
+} %}
+
+{% set animateClass = animate ? (speedClasses[speed] ?? speedClasses['normal']) : '' %}
 {% set variantClass = variantClasses[variant] ?? variantClasses['text'] %}
+{% set colorClass = colorClasses[color] ?? colorClasses['default'] %}
 
 {% if variant == 'text' and lines > 1 %}
   <div {{ attributes }} class="{{ ('space-y-2 ' ~ class)|tailwind_merge }}" aria-hidden="true">
     {% for i in 1..lines %}
       <div
-        class="bg-gray-200 dark:bg-gray-700 {{ variantClass }} {{ animateClass }}"
+        class="{{ colorClass }} {{ variantClass }} {{ animateClass }}"
         style="width: {{ loop.last ? '75%' : (width ?? '100%') }}; {{ height ? 'height: ' ~ height : '' }}"
       ></div>
     {% endfor %}
   </div>
 {% else %}
-  {% set defaultWidth = variant == 'circular' ? '3rem' : '100%' %}
-  {% set defaultHeight = variant == 'circular' ? '3rem' : (variant == 'text' ? '1rem' : '6rem') %}
+  {% set defaultWidth = variant in ['circular', 'avatar'] ? '3rem' : '100%' %}
+  {% set defaultHeight = variant in ['circular', 'avatar'] ? '3rem' : (variant == 'text' ? '1rem' : (variant in ['button', 'input'] ? '2.5rem' : '6rem')) %}
 
   <div
     {{ attributes }}
-    class="{{ ('bg-gray-200 dark:bg-gray-700 ' ~ variantClass ~ ' ' ~ animateClass ~ ' ' ~ class)|tailwind_merge }}"
+    class="{{ (colorClass ~ ' ' ~ variantClass ~ ' ' ~ animateClass ~ ' ' ~ class)|tailwind_merge }}"
     style="width: {{ width ?? defaultWidth }}; height: {{ height ?? defaultHeight }};"
     aria-hidden="true"
   ></div>

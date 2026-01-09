@@ -3,10 +3,16 @@
   items = [],
   hideHeader = false,
   hideFooter = false,
+  size = 'default',
+  variant = 'default',
+  striped = false,
+  hover = true,
+  emptyMessage = 'No results found',
+  responsive = true,
   class = '',
 %}
 
-<twig:Ui:table :class="class" :attributes="attributes">
+<twig:Ui:table :class="class" :size="size" :variant="variant" :striped="striped" :hover="hover" :responsive="responsive" :attributes="attributes">
   {% if not hideHeader %}
     <twig:Ui:thead {{ ...attributes.nested('thead') }}>
       <twig:Ui:tr>
@@ -52,7 +58,7 @@
       </twig:Ui:tr>
     {% else %}
       <twig:Ui:tr>
-        <twig:Ui:td colspan="{{ fields|length }}" class="text-center">Aucun résultat trouvé</twig:Ui:td>
+        <twig:Ui:td colspan="{{ fields|length }}" class="text-center text-gray-500 dark:text-gray-400 py-8">{{ emptyMessage }}</twig:Ui:td>
       </twig:Ui:tr>
     {% endfor %}
   </twig:Ui:tbody>

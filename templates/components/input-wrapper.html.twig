@@ -1,12 +1,46 @@
 {% props
   class = '',
-  disabled = null, %}
+  disabled = null,
+  size = 'md',
+  variant = 'default',
+  rounded = 'lg',
+%}
 
-{% set class = ('relative flex w-full rounded-lg text-base sm:text-sm/6 outline-1 -outline-offset-1 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary dark:focus-within:outline-primary bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 outline-gray-300 dark:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:outline-gray-200 dark:disabled:outline-gray-800 ' ~ class)|tailwind_merge %}
+{% set sizeConfig = {
+  'sm': { text: 'text-xs', height: 'min-h-8' },
+  'md': { text: 'text-sm', height: 'min-h-10' },
+  'lg': { text: 'text-base', height: 'min-h-12' },
+} %}
+
+{% set variantConfig = {
+  'default': 'bg-white dark:bg-gray-900 outline-gray-300 dark:outline-gray-700',
+  'filled': 'bg-gray-100 dark:bg-gray-800 outline-transparent',
+  'flushed': 'bg-transparent border-0 border-b-2 border-gray-300 dark:border-gray-700 rounded-none outline-none',
+  'unstyled': 'bg-transparent border-0 outline-none',
+} %}
+
+{% set roundedConfig = {
+  'none': 'rounded-none',
+  'sm': 'rounded-sm',
+  'md': 'rounded-md',
+  'lg': 'rounded-lg',
+  'xl': 'rounded-xl',
+  'full': 'rounded-full',
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+{% set currentVariant = variantConfig[variant] ?? variantConfig['default'] %}
+{% set currentRounded = variant == 'flushed' ? '' : (roundedConfig[rounded] ?? roundedConfig['lg']) %}
+
+{% set baseClasses = 'relative flex w-full outline-1 -outline-offset-1 placeholder:text-gray-400 dark:placeholder:text-gray-600 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-primary dark:focus-within:outline-primary text-gray-900 dark:text-gray-100 disabled:cursor-not-allowed disabled:bg-gray-50 dark:disabled:bg-gray-800 disabled:text-gray-500 dark:disabled:text-gray-500 disabled:outline-gray-200 dark:disabled:outline-gray-800' %}
+
+{% set class = (baseClasses ~ ' ' ~ currentSize.text ~ ' ' ~ currentSize.height ~ ' ' ~ currentVariant ~ ' ' ~ currentRounded ~ ' ' ~ class)|tailwind_merge %}
 
 <div
   {{ attributes }}
   {% if disabled %}disabled{% endif %}
+  data-size="{{ size }}"
+  data-variant="{{ variant }}"
   class="{{ class ?? '' }}"
 >
   {% block content '' %}
