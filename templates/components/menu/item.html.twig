@@ -117,11 +117,11 @@
     {% if not haveChildren %}
         <div
             data-cisse--ui-bundle--menu-target="flyout"
-            class="hidden px-3 py-1.5 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded-lg shadow-lg whitespace-nowrap"
+            class="hidden px-3 py-2 rounded-lg border border-gray-200 bg-white text-gray-700 text-sm shadow-lg whitespace-nowrap dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
         >
             {{ label }}
-            {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
-            {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
+            {% if badge %}<span class="ml-2 text-xs text-gray-500 dark:text-gray-400">({{ badge }})</span>{% endif %}
+            {% if count is not null %}<span class="ml-2 text-xs text-gray-500 dark:text-gray-400">({{ count }})</span>{% endif %}
         </div>
     {% endif %}
 </div>
