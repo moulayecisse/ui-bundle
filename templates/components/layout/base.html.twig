@@ -26,7 +26,8 @@
     class="absolute z-40 h-full w-full bg-slate-950/20 lg:hidden dark:bg-white/20 hidden"
   ></div>
 
-  {# Sidebar #}
+  {# Sidebar - collapses to w-16 on desktop, slides out on mobile #}
+  {# Safelist for dynamic classes: lg:w-16 lg:w-60 lg:hidden items-center #}
   <aside
     data-cisse--ui-bundle--base-layout-target="sidebar"
     class="max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 flex-col justify-between gap-10 transition-all duration-300 ease-in-out max-lg:-translate-x-full {{ sidebarClass }}"
@@ -35,13 +36,16 @@
     <div class="flex h-16 items-center px-3">
       <div class="flex flex-1 items-center gap-3 justify-center">
         {% if appIcon %}
-          <div class="flex size-8 items-center justify-center rounded-lg bg-white/20">
+          <div class="flex size-8 items-center justify-center rounded-lg bg-white/20 shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               {{ appIcon|raw }}
             </svg>
           </div>
         {% endif %}
-        <span class="flex-1 text-lg font-semibold text-white">
+        <span
+          data-cisse--ui-bundle--base-layout-target="appName"
+          class="flex-1 text-lg font-semibold text-white transition-opacity duration-300"
+        >
           {{ appName }}
         </span>
       </div>
@@ -55,7 +59,10 @@
     </div>
 
     {# Menu Items #}
-    <div class="ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start">
+    <div
+      data-cisse--ui-bundle--base-layout-target="menuContainer"
+      class="ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start transition-all duration-300"
+    >
       {{ menu_block|raw }}
     </div>
 

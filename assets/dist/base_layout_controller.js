@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-    static targets = ['sidebar', 'backdrop', 'sunIcon', 'moonIcon'];
+    static targets = ['sidebar', 'backdrop', 'sunIcon', 'moonIcon', 'appName', 'menuContainer'];
 
     connect() {
         this.sidebarOpen = window.innerWidth >= 1024; // Open by default on desktop
@@ -20,11 +20,11 @@ export default class extends Controller {
             this.sidebarTarget.classList.remove('max-lg:-translate-x-full');
             this.backdropTarget.classList.add('hidden');
             if (!this.sidebarOpen) {
-                this.sidebarTarget.classList.add('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+                this.applyCollapsedState();
             }
         } else {
-            // On mobile: remove desktop classes, apply mobile state
-            this.sidebarTarget.classList.remove('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+            // On mobile: remove desktop collapsed state, apply mobile state
+            this.removeCollapsedState();
             if (!this.sidebarOpen) {
                 this.sidebarTarget.classList.add('max-lg:-translate-x-full');
                 this.backdropTarget.classList.add('hidden');
@@ -43,8 +43,8 @@ export default class extends Controller {
     openSidebar() {
         this.sidebarOpen = true;
         if (window.innerWidth >= 1024) {
-            // Desktop: remove collapse classes
-            this.sidebarTarget.classList.remove('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+            // Desktop: expand sidebar
+            this.removeCollapsedState();
         } else {
             // Mobile: slide in
             this.sidebarTarget.classList.remove('max-lg:-translate-x-full');
@@ -55,12 +55,46 @@ export default class extends Controller {
     closeSidebar() {
         this.sidebarOpen = false;
         if (window.innerWidth >= 1024) {
-            // Desktop: add collapse classes
-            this.sidebarTarget.classList.add('lg:-translate-x-full', 'lg:w-0', 'lg:overflow-hidden');
+            // Desktop: collapse sidebar to icon width
+            this.applyCollapsedState();
         } else {
             // Mobile: slide out
             this.sidebarTarget.classList.add('max-lg:-translate-x-full');
             this.backdropTarget.classList.add('hidden');
+        }
+    }
+
+    applyCollapsedState() {
+        // Collapse sidebar to w-16 (icon width)
+        this.sidebarTarget.classList.remove('lg:w-60');
+        this.sidebarTarget.classList.add('lg:w-16');
+
+        // Hide app name
+        if (this.hasAppNameTarget) {
+            this.appNameTarget.classList.add('lg:hidden');
+        }
+
+        // Center menu items
+        if (this.hasMenuContainerTarget) {
+            this.menuContainerTarget.classList.remove('items-start');
+            this.menuContainerTarget.classList.add('items-center');
+        }
+    }
+
+    removeCollapsedState() {
+        // Expand sidebar to w-60
+        this.sidebarTarget.classList.remove('lg:w-16');
+        this.sidebarTarget.classList.add('lg:w-60');
+
+        // Show app name
+        if (this.hasAppNameTarget) {
+            this.appNameTarget.classList.remove('lg:hidden');
+        }
+
+        // Align menu items to start
+        if (this.hasMenuContainerTarget) {
+            this.menuContainerTarget.classList.remove('items-center');
+            this.menuContainerTarget.classList.add('items-start');
         }
     }
 
