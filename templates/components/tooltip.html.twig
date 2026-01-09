@@ -13,7 +13,7 @@
 
 {# Variant configurations #}
 {% set variantConfig = {
-    'dark': { bg: 'bg-black bg-opacity-90', text: 'text-white', arrow: 'bg-black bg-opacity-90' },
+    'dark': { bg: 'bg-black/90', text: 'text-white', arrow: 'bg-black/90' },
     'light': { bg: 'bg-white border border-gray-200 shadow-lg', text: 'text-gray-900', arrow: 'bg-white' },
     'primary': { bg: 'bg-primary', text: 'text-primary-foreground', arrow: 'bg-primary' },
 } %}
@@ -55,7 +55,7 @@
       class="absolute w-auto text-sm top-0 left-1/2 -translate-x-1/2 -mt-0.5 -translate-y-full data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:-ml-0.5 data-[position=left]:left-0 data-[position=left]:-translate-x-full data-[position=bottom]:bottom-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-mb-0.5 data-[position=bottom]:translate-y-full data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-mr-0.5 data-[position=right]:right-0 data-[position=right]:translate-x-full"
     >
       <div class="relative {{ sizeStyles }} {{ variantStyles.text }} {{ variantStyles.bg }} rounded">
-        <div class="flex-shrink-0 block whitespace-nowrap">
+        <div class="shrink-0 block whitespace-nowrap">
           {{ tooltipBlock|raw }}
         </div>
 

@@ -131,7 +131,7 @@
   <div class="{{ layoutClass }} {{ centerClass }}">
     {# Icon #}
     {% if icon %}
-      <div class="{{ sizeConfig.icon }} {{ iconRoundedClass }} {{ iconBgClass }} {{ iconMarginClass }} flex items-center justify-center flex-shrink-0">
+      <div class="{{ sizeConfig.icon }} {{ iconRoundedClass }} {{ iconBgClass }} {{ iconMarginClass }} flex items-center justify-center shrink-0">
         {% block icon %}
           <twig:ux:icon :name="icon" class="{{ sizeConfig.iconInner }} {{ iconColorClass }}" />
         {% endblock %}
