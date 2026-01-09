@@ -1,0 +1,74 @@
+/**
+ * UI Bundle - Custom Scrollbar Styles
+ *
+ * Import this file in your application to enable custom scrollbar styling
+ * for UI Bundle components.
+ *
+ * Usage:
+ *   @import '@cisse/ui-bundle/assets/styles/ui-scrollbar.css';
+ *
+ * Classes:
+ *   .ui-scrollbar      - Standard scrollbar for light backgrounds
+ *   .ui-scrollbar-dark - Scrollbar for dark backgrounds (e.g., sidebar)
+ */
+
+/* Standard scrollbar for light backgrounds */
+.ui-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(156 163 175 / 0.5) transparent;
+}
+
+.ui-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ui-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ui-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(156 163 175 / 0.5);
+  border-radius: 9999px;
+}
+
+.ui-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(156 163 175 / 0.7);
+}
+
+/* Dark variant for dark backgrounds (sidebar, dark panels) */
+.ui-scrollbar-dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.2) transparent;
+}
+
+.ui-scrollbar-dark::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ui-scrollbar-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ui-scrollbar-dark::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.2);
+  border-radius: 9999px;
+}
+
+.ui-scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: rgb(255 255 255 / 0.4);
+}
+
+/* Dark mode variant for light backgrounds */
+.dark .ui-scrollbar {
+  scrollbar-color: rgb(100 116 139 / 0.5) transparent;
+}
+
+.dark .ui-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(100 116 139 / 0.5);
+}
+
+.dark .ui-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139 / 0.7);
+}
