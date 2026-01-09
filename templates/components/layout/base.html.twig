@@ -27,10 +27,9 @@
   ></div>
 
   {# Sidebar - collapses to w-16 on desktop, slides out on mobile #}
-  {# Safelist for dynamic classes: lg:w-16 lg:w-60 lg:hidden items-center #}
   <aside
     data-cisse--ui-bundle--base-layout-target="sidebar"
-    class="max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 flex-col justify-between gap-10 transition-all duration-300 ease-in-out max-lg:-translate-x-full {{ sidebarClass }}"
+    class="max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full {{ sidebarClass }}"
   >
     {# Sidebar Header #}
     <div class="flex h-16 items-center px-3">
