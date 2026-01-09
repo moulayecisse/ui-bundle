@@ -60,9 +60,9 @@
   >
     {% block content %}
       {% for child in (form.children ?? [])|filter(child => child.vars.name != '_token') %}
-        {% set field_name = child.vars.name %}
-        {% if block(field_name) is defined %}
-          {{ block(field_name) }}
+        {% set childName = child.vars.name %}
+        {% if block(childName) is defined %}
+          {{ block(childName) }}
         {% else %}
           {% if 'hidden' in child.vars.block_prefixes %}
             <input type="hidden" name="{{ field_name(child) }}" value="{{ field_value(child) }}">

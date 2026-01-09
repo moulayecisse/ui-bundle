@@ -28,14 +28,16 @@
         {% block content %}
             {# Icon #}
             {% if icon %}
+                {% set iconClass = ('size-4 shrink-0 ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
                 <twig:ux:icon
                     name="{{ icon }}"
-                    class="size-4 shrink-0"
+                    class="{{ iconClass }}"
                 />
             {% endif %}
 
             {# Label #}
-            <span class="flex-1">
+            {% set labelClass = ('flex-1 ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+            <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
                 {% block label label %}
             </span>
 

@@ -1,0 +1,43 @@
+{# templates/components/Ui/form/search-input.html.twig #}
+{% props
+  class = '',
+  name = null,
+  value = null,
+  placeholder = 'Search...',
+  size = 'md',
+  variant = 'default',
+  rounded = 'lg',
+  disabled = null,
+  autofocus = null,
+%}
+
+{% set sizeConfig = {
+  'sm': { padding: 'pl-8 pr-2.5 py-1', icon: 'size-4 left-2' },
+  'md': { padding: 'pl-10 pr-3 py-1.5', icon: 'size-5 left-3' },
+  'lg': { padding: 'pl-12 pr-4 py-2', icon: 'size-6 left-3' },
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+
+<twig:Ui:input-wrapper
+  :disabled="disabled"
+  :size="size"
+  :variant="variant"
+  :rounded="rounded"
+  :class="class"
+>
+  <twig:ux:icon
+    name="heroicons:magnifying-glass"
+    class="absolute top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none {{ currentSize.icon }}"
+  />
+  <input
+    {{ attributes }}
+    type="search"
+    class="block w-full bg-transparent focus:outline-none {{ currentSize.padding }}"
+    {% if name %}name="{{ name }}"{% endif %}
+    {% if value is not null %}value="{{ value }}"{% endif %}
+    {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
+    {{ disabled ? 'disabled' }}
+    {{ autofocus ? 'autofocus' }}
+  >
+</twig:Ui:input-wrapper>

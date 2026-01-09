@@ -3,10 +3,10 @@
   form = null,
   placeholder = null,
   name = null,
-  field_name = null,
-  field_value = null,
-  token_field_name = null,
-  token_field_value = null,
+  inputName = null,
+  inputValue = null,
+  tokenName = null,
+  tokenValue = null,
   method = null,
   action = null,
   size = 'md',
@@ -16,13 +16,13 @@
 %}
 
 {% if form %}
-  {% set token_field_name = token_field_name ?? field_name(form._token) %}
-  {% set token_field_value = token_field_value ?? field_value(form._token) %}
+  {% set tokenName = tokenName ?? field_name(form._token) %}
+  {% set tokenValue = tokenValue ?? field_value(form._token) %}
   {% for child in form.children %}
     {% if child.vars.name != '_token' %}
       {% set placeholder = placeholder ?? child.vars.attr.placeholder ?? null %}
-      {% set field_name = field_name ?? field_name(child) %}
-      {% set field_value = field_value ?? field_value(child) %}
+      {% set inputName = inputName ?? field_name(child) %}
+      {% set inputValue = inputValue ?? field_value(child) %}
     {% endif %}
   {% endfor %}
 
@@ -40,14 +40,14 @@
   class="{{ class }}"
 >
   <twig:Ui:form:search-input
-    class="mb-10 "
     :placeholder="placeholder"
-    :name="field_name"
-    :value="field_value"
+    :name="inputName"
+    :value="inputValue"
+    :size="size"
     :attributes="attributes.nested('input')"
   />
 
-  {% if token_field_name and token_field_value %}
-    <input class="hidden" type="hidden" name="{{ token_field_name }}" value="{{ token_field_value }}">
+  {% if tokenName and tokenValue %}
+    <input type="hidden" name="{{ tokenName }}" value="{{ tokenValue }}">
   {% endif %}
 </form>

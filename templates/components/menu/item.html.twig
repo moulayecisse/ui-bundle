@@ -34,15 +34,17 @@
     >
         {% block content %}
             {# Icon #}
+            {% set iconClass = ('transition-all duration-300 size-5 group-data-[collapsed=true]/sidebar:size-8 ' ~ (active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80') ~ ' ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
             <div class="relative">
                 <twig:ux:icon
                     name="{{ icon ?: 'heroicons:squares-2x2' }}"
-                    class="transition-all duration-300 {{ active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80' }} size-5 group-data-[collapsed=true]/sidebar:size-8"
+                    class="{{ iconClass }}"
                 />
             </div>
 
             {# Label - hidden when collapsed #}
-            <span class="flex-1 text-left text-sm font-semibold whitespace-nowrap transition-colors {{ active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80' }} group-data-[collapsed=true]/sidebar:hidden">
+            {% set labelClass = ('flex-1 text-left text-sm font-semibold whitespace-nowrap transition-colors group-data-[collapsed=true]/sidebar:hidden ' ~ (active ? 'text-white' : 'text-white/50 group-hover/link:text-white/80') ~ ' ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+            <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
                 {% block label label|raw %}
             </span>
 
