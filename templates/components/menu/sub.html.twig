@@ -4,7 +4,7 @@
     class = '',
 %}
 
-{% set class = ('overflow-hidden ' ~ class)|tailwind_merge %}
+{% set class = ('overflow-hidden group-data-[collapsed=true]:hidden ' ~ class)|tailwind_merge %}
 
 <div
         {{ attributes }}

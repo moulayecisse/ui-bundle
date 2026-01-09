@@ -17,7 +17,7 @@
 {% set rightBlock %}{% block right '' %}{% endset %}
 {% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
 
-{% set linkClass = ('group/link relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]:bg-primary dark:group-data-[active=true]:bg-primary group-data-[active=true]:hover:bg-primary/90 dark:group-data-[active=true]:hover:bg-primary/90 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
+{% set linkClass = ('group/link relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]:bg-primary dark:group-data-[active=true]:bg-primary group-data-[active=true]:hover:bg-primary/90 dark:group-data-[active=true]:hover:bg-primary/90 group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
 
 <div
         {{ attributes.without('class') }}
@@ -35,7 +35,7 @@
     >
         {% block content %}
             {% block icon %}
-                {% set iconClass = ('size-4 shrink-0 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
+                {% set iconClass = ('size-5 shrink-0 transition-all duration-300 text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground group-data-[collapsed=true]:size-7 ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
 
                 <twig:ux:icon
                         name="{{ icon ?: 'heroicons:bars-3-16-solid' }}"
@@ -43,7 +43,7 @@
                 />
             {% endblock %}
 
-            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground group-data-[collapsed=true]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
 
             <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
                 {% block label label|raw %}
@@ -51,7 +51,7 @@
 
             {# Right slot: badge, count, or custom content #}
             {% if hasRightSlot and not haveChildren %}
-                <span class="flex items-center gap-2 in-data-[collapsed]:hidden">
+                <span class="flex items-center gap-2 group-data-[collapsed=true]:hidden">
                     {% if rightBlock is not empty %}
                         {{ rightBlock|raw }}
                     {% endif %}
@@ -69,7 +69,7 @@
             {% endif %}
 
             {# Popover for collapsed state #}
-            <div class="hidden in-data-[collapsed]:group-hover:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
+            <div class="hidden group-data-[collapsed=true]:group-hover/link:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
                 {{ label }}
                 {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
                 {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
@@ -77,7 +77,7 @@
 
             {# Chevron for expandable items #}
             {% if haveChildren %}
-                <span class="flex items-center gap-2 in-data-[collapsed]:hidden">
+                <span class="flex items-center gap-2 group-data-[collapsed=true]:hidden">
                     {% if badge %}
                         <twig:Ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:Ui:badge>
                     {% endif %}
