@@ -7,8 +7,20 @@
     title = null,
     description = null,
     closeButtonLabel = 'Close',
+    hideCloseButton = false,
+    centered = true,
+    scrollBehavior = 'inside',
+    position = 'center',
+    fullScreen = false,
     class = ''
 %}
+
+{# Position configurations #}
+{% set positionClasses = {
+    'center': 'items-center justify-center',
+    'top': 'items-start justify-center pt-10',
+    'bottom': 'items-end justify-center pb-10',
+} %}
 
 {% set headerBlock %}{% block header '' %}{% endset %}
 {% set footerBlock %}{% block footer '' %}{% endset %}
@@ -35,7 +47,9 @@
     <!-- Modal -->
     <div
         data-cisse--ui-bundle--modal-target="modal"
-        class="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto z-50 {{ class }}"
+        data-position="{{ position }}"
+        data-scroll-behavior="{{ scrollBehavior }}"
+        class="fixed inset-0 flex {{ positionClasses[position] ?? positionClasses['center'] }} p-4 {{ scrollBehavior == 'outside' ? 'overflow-y-auto' : 'overflow-hidden' }} z-50 {{ class }}"
         style="display: none;"
         role="dialog"
         aria-modal="true"
@@ -50,8 +64,9 @@
         <!-- Content -->
         <div
             data-cisse--ui-bundle--modal-target="content"
-            data-size="{{ size }}"
-            class="relative flex max-h-[90vh] w-full flex-col max-w-3xl data-[size=sm]:max-w-md data-[size=lg]:max-w-5xl data-[size=xl]:max-w-7xl data-[size=full]:max-w-full data-[size=full]:mx-4 rounded-lg bg-white dark:bg-gray-900 shadow-xl"
+            data-size="{{ fullScreen ? 'full' : size }}"
+            data-full-screen="{{ fullScreen ? 'true' : 'false' }}"
+            class="relative flex {{ scrollBehavior == 'inside' ? 'max-h-[90vh]' : '' }} w-full flex-col max-w-3xl data-[size=sm]:max-w-md data-[size=lg]:max-w-5xl data-[size=xl]:max-w-7xl data-[size=full]:max-w-full data-[size=full]:mx-0 data-[size=full]:h-full data-[full-screen=true]:!rounded-none data-[full-screen=true]:!h-screen data-[full-screen=true]:!max-h-screen rounded-lg bg-white dark:bg-gray-900 shadow-xl"
         >
             <!-- Header -->
             {% if showHeader %}
@@ -68,32 +83,36 @@
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
                         {% endif %}
                     </div>
+                    {% if not hideCloseButton %}
+                        <button
+                            data-cisse--ui-bundle--modal-target="closeButton"
+                            data-action="click->cisse--ui-bundle--modal#close"
+                            class="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+                            type="button"
+                            aria-label="Close dialog"
+                        >
+                            <twig:ux:icon name="lucide:x" class="size-5" />
+                            <span class="sr-only">{{ closeButtonLabel }}</span>
+                        </button>
+                    {% endif %}
+                </div>
+            {% else %}
+                {% if not hideCloseButton %}
+                    <!-- Close Button (when no header) -->
                     <button
                         data-cisse--ui-bundle--modal-target="closeButton"
                         data-action="click->cisse--ui-bundle--modal#close"
-                        class="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+                        class="absolute right-4 top-4 z-10 rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
                         type="button"
                         aria-label="Close dialog"
                     >
                         <twig:ux:icon name="lucide:x" class="size-5" />
-                        <span class="sr-only">{{ closeButtonLabel }}</span>
                     </button>
-                </div>
-            {% else %}
-                <!-- Close Button (when no header) -->
-                <button
-                    data-cisse--ui-bundle--modal-target="closeButton"
-                    data-action="click->cisse--ui-bundle--modal#close"
-                    class="absolute right-4 top-4 z-10 rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
-                    type="button"
-                    aria-label="Close dialog"
-                >
-                    <twig:ux:icon name="lucide:x" class="size-5" />
-                </button>
+                {% endif %}
             {% endif %}
 
             <!-- Body -->
-            <div class="flex-1 overflow-y-auto px-6 py-4">
+            <div class="flex-1 {{ scrollBehavior == 'inside' ? 'overflow-y-auto' : 'overflow-visible' }} px-6 py-4">
                 {% block content '' %}
             </div>
 

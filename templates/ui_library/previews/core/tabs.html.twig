@@ -3,9 +3,13 @@
 <div class="space-y-6">
     {# Props Documentation #}
     {{ ui.props([
-        { name: 'tabs', type: 'array', default: '[]', description: 'Array of tab objects with key, label, icon, disabled' },
+        { name: 'tabs', type: 'array', default: '[]', description: 'Array of tab objects with key, label, icon, badge, disabled' },
         { name: 'current', type: 'string', default: "''", description: 'Key of the currently active tab' },
         { name: 'variant', type: "'underline' | 'pills' | 'boxed'", default: "'underline'", description: 'Tab style variant' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Tab size (text and padding)' },
+        { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch tabs to fill container width' },
+        { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Tab layout orientation' },
+        { name: 'animated', type: 'boolean', default: 'true', description: 'Enable transition animations' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -151,4 +155,110 @@
 <twig:Ui:tabs variant="pills" ... />
 <twig:Ui:tabs variant="boxed" ... />{% endverbatim %}{% endset %}
     {{ ui.story('All Variants Comparison', comparisonPreview, comparisonCode) }}
+
+    {# Size Variants #}
+    {% set sizePreview %}
+        <div class="space-y-6">
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Small</p>
+                <twig:Ui:tabs size="sm" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
+                <twig:Ui:tabs size="md" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+            </div>
+            <div>
+                <p class="text-sm text-gray-500 mb-2">Large</p>
+                <twig:Ui:tabs size="lg" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizeCode %}{% verbatim %}<twig:Ui:tabs size="sm" ... />
+<twig:Ui:tabs size="md" ... />
+<twig:Ui:tabs size="lg" ... />{% endverbatim %}{% endset %}
+    {{ ui.story('Size Variants', sizePreview, sizeCode) }}
+
+    {# Full Width #}
+    {% set fullWidthPreview %}
+        <twig:Ui:tabs
+            fullWidth
+            variant="boxed"
+            current="tab1"
+            :tabs="[
+                { key: 'tab1', label: 'Account' },
+                { key: 'tab2', label: 'Notifications' },
+                { key: 'tab3', label: 'Security' }
+            ]"
+        />
+    {% endset %}
+    {% set fullWidthCode %}{% verbatim %}<twig:Ui:tabs
+    fullWidth
+    variant="boxed"
+    current="tab1"
+    :tabs="[
+        { key: 'tab1', label: 'Account' },
+        { key: 'tab2', label: 'Notifications' },
+        { key: 'tab3', label: 'Security' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Full Width', fullWidthPreview, fullWidthCode) }}
+
+    {# With Badges #}
+    {% set badgesPreview %}
+        <twig:Ui:tabs
+            variant="underline"
+            current="inbox"
+            :tabs="[
+                { key: 'inbox', label: 'Inbox', badge: '12' },
+                { key: 'drafts', label: 'Drafts', badge: '3' },
+                { key: 'sent', label: 'Sent' }
+            ]"
+        />
+    {% endset %}
+    {% set badgesCode %}{% verbatim %}<twig:Ui:tabs
+    variant="underline"
+    current="inbox"
+    :tabs="[
+        { key: 'inbox', label: 'Inbox', badge: '12' },
+        { key: 'drafts', label: 'Drafts', badge: '3' },
+        { key: 'sent', label: 'Sent' }
+    ]"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Badges', badgesPreview, badgesCode) }}
+
+    {# Vertical Orientation #}
+    {% set verticalPreview %}
+        <twig:Ui:tabs
+            orientation="vertical"
+            variant="pills"
+            current="general"
+            :tabs="[
+                { key: 'general', label: 'General', icon: 'lucide:settings' },
+                { key: 'security', label: 'Security', icon: 'lucide:shield' },
+                { key: 'notifications', label: 'Notifications', icon: 'lucide:bell' },
+                { key: 'billing', label: 'Billing', icon: 'lucide:credit-card' }
+            ]"
+        >
+            <twig:block name="panels">
+                <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                    <p class="text-gray-600 dark:text-gray-400">Tab panel content goes here...</p>
+                </div>
+            </twig:block>
+        </twig:Ui:tabs>
+    {% endset %}
+    {% set verticalCode %}{% verbatim %}<twig:Ui:tabs
+    orientation="vertical"
+    variant="pills"
+    current="general"
+    :tabs="[
+        { key: 'general', label: 'General', icon: 'lucide:settings' },
+        { key: 'security', label: 'Security', icon: 'lucide:shield' },
+        { key: 'notifications', label: 'Notifications', icon: 'lucide:bell' }
+    ]"
+>
+    {% block panels %}
+        <div>Tab content...</div>
+    {% endblock %}
+</twig:Ui:tabs>{% endverbatim %}{% endset %}
+    {{ ui.story('Vertical Orientation', verticalPreview, verticalCode) }}
 </div>

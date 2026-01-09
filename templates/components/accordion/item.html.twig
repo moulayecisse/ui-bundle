@@ -4,10 +4,21 @@
     class = '',
     disabled = false,
     badge = null,
-    icon = null
+    icon = null,
+    size = null,
+    iconPosition = null,
 %}
 
-{% set class = ('block border-b border-gray-800/10 dark:border-gray-200/10 pb-4 pt-4 first:pt-0 last:border-b-0 last:pb-0 ' ~ class)|tailwind_merge %}
+{# Size configurations #}
+{% set sizeConfig = {
+    'sm': { padding: 'pb-3 pt-3', text: 'text-sm', icon: 'size-4', content: 'text-sm' },
+    'md': { padding: 'pb-4 pt-4', text: 'text-base', icon: 'size-5', content: 'text-base' },
+    'lg': { padding: 'pb-5 pt-5', text: 'text-lg', icon: 'size-6', content: 'text-base' },
+} %}
+
+{% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
+
+{% set class = ('block border-b border-gray-800/10 dark:border-gray-200/10 ' ~ sizes.padding ~ ' first:pt-0 last:border-b-0 last:pb-0 group-data-[variant=bordered]:border-0 group-data-[variant=card]:border-0 group-data-[variant=bordered]:px-4 group-data-[variant=card]:px-4 group-data-[variant=separated]:bg-gray-50 group-data-[variant=separated]:dark:bg-gray-800 group-data-[variant=separated]:rounded-lg group-data-[variant=separated]:border-0 group-data-[variant=separated]:px-4 group-data-[flush=true]:border-0 ' ~ class)|tailwind_merge %}
 
 <div
         data-cisse--ui-bundle--accordion-target="item"
@@ -18,23 +29,22 @@
                 type="button"
                 data-cisse--ui-bundle--accordion-target="button"
                 data-action="click->cisse--ui-bundle--accordion#toggle keydown->cisse--ui-bundle--accordion#keydown"
+                data-icon-position="{{ iconPosition ?? 'right' }}"
                 {% if disabled %}disabled{% endif %}
-                class="group flex w-full items-center justify-between text-left font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400 dark:disabled:text-gray-600 disabled:hover:text-gray-400 dark:disabled:hover:text-gray-600"
+                class="flex w-full items-center justify-between text-left font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded {{ sizes.text }} text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400 dark:disabled:text-gray-600 disabled:hover:text-gray-400 dark:disabled:hover:text-gray-600 data-[icon-position=left]:flex-row-reverse"
         >
             <div class="flex items-center gap-3 flex-1">
                 {% if icon %}
                     <twig:ux:icon
                             name="{{ icon }}"
-                            class="size-5 shrink-0 text-gray-400 dark:text-gray-500"
+                            class="{{ sizes.icon }} shrink-0 text-gray-400 dark:text-gray-500"
                     />
                 {% endif %}
 
                 <span class="flex-1">{% block title title|raw %}</span>
 
                 {% if badge %}
-                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                        {{ badge }}
-                    </span>
+                    <twig:Ui:badge size="sm" color="info">{{ badge }}</twig:Ui:badge>
                 {% endif %}
             </div>
 
@@ -42,14 +52,14 @@
                     name="heroicons:chevron-up-20-solid"
                     data-cisse--ui-bundle--accordion-target="icon"
                     data-open="false"
-                    class="size-5 shrink-0 text-gray-300 dark:text-gray-700 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-transform duration-300 ease-in-out rotate-0 ml-3"
+                    class="{{ sizes.icon }} shrink-0 text-gray-300 dark:text-gray-700 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-transform duration-300 ease-in-out rotate-0 ml-3 data-[icon-position=left]:ml-0 data-[icon-position=left]:mr-3"
             />
         </button>
     </h2>
 
     <div data-cisse--ui-bundle--accordion-target="content">
         {% block content_wrapper %}
-            <div class="pt-2 text-gray-600 dark:text-gray-400">
+            <div class="pt-2 {{ sizes.content }} text-gray-600 dark:text-gray-400 {{ icon ? 'pl-8' : '' }}">
                 {% block content '' %}
             </div>
         {% endblock %}

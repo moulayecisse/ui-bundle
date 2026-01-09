@@ -9,6 +9,11 @@
         { name: 'closeOnBackdrop', type: 'boolean', default: 'true', description: 'Close when clicking backdrop' },
         { name: 'closeOnEscape', type: 'boolean', default: 'true', description: 'Close when pressing Escape key' },
         { name: 'closeButtonLabel', type: 'string', default: "'Close'", description: 'Screen reader label for close button' },
+        { name: 'hideCloseButton', type: 'boolean', default: 'false', description: 'Hide the close button entirely' },
+        { name: 'centered', type: 'boolean', default: 'true', description: 'Center modal vertically' },
+        { name: 'scrollBehavior', type: "'inside' | 'outside'", default: "'inside'", description: 'Where scrollbar appears for long content' },
+        { name: 'position', type: "'center' | 'top' | 'bottom'", default: "'center'", description: 'Vertical position of modal' },
+        { name: 'fullScreen', type: 'boolean', default: 'false', description: 'Display as fullscreen modal' },
         { name: 'open', type: 'boolean', default: 'false', description: 'Initial open state' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
@@ -188,4 +193,92 @@
     {% endblock %}
 </twig:Ui:modal>{% endverbatim %}{% endset %}
     {{ ui.story('Confirmation Dialog Style', confirmPreview, confirmCode) }}
+
+    {# Position Options #}
+    {% set positionPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:Ui:modal position="top" title="Top Position">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Top</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This modal appears at the top of the viewport.</p>
+                </twig:block>
+            </twig:Ui:modal>
+            <twig:Ui:modal position="center" title="Center Position">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Center</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This modal appears centered (default).</p>
+                </twig:block>
+            </twig:Ui:modal>
+            <twig:Ui:modal position="bottom" title="Bottom Position">
+                <twig:block name="trigger">
+                    <twig:Ui:button variant="outline" size="sm">Bottom</twig:Ui:button>
+                </twig:block>
+                <twig:block name="content">
+                    <p class="text-gray-600 dark:text-gray-400">This modal appears at the bottom of the viewport.</p>
+                </twig:block>
+            </twig:Ui:modal>
+        </div>
+    {% endset %}
+    {% set positionCode %}{% verbatim %}<twig:Ui:modal position="top" title="Top">...</twig:Ui:modal>
+<twig:Ui:modal position="center" title="Center">...</twig:Ui:modal>
+<twig:Ui:modal position="bottom" title="Bottom">...</twig:Ui:modal>{% endverbatim %}{% endset %}
+    {{ ui.story('Position Options', positionPreview, positionCode) }}
+
+    {# Hide Close Button #}
+    {% set hideClosePreview %}
+        <twig:Ui:modal title="No Close Button" hideCloseButton :closeOnBackdrop="false">
+            <twig:block name="trigger">
+                <twig:Ui:button variant="outline">Open Modal</twig:Ui:button>
+            </twig:block>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This modal has no close button. Users must use the action buttons to close it.
+                </p>
+            </twig:block>
+            <twig:block name="footer">
+                <twig:Ui:button variant="primary" data-action="click->cisse--ui-bundle--modal#close">Got it</twig:Ui:button>
+            </twig:block>
+        </twig:Ui:modal>
+    {% endset %}
+    {% set hideCloseCode %}{% verbatim %}<twig:Ui:modal title="No Close Button" hideCloseButton :closeOnBackdrop="false">
+    {% block content %}
+        <p>This modal has no close button.</p>
+    {% endblock %}
+    {% block footer %}
+        <twig:Ui:button variant="primary" data-action="click->cisse--ui-bundle--modal#close">Got it</twig:Ui:button>
+    {% endblock %}
+</twig:Ui:modal>{% endverbatim %}{% endset %}
+    {{ ui.story('Hide Close Button', hideClosePreview, hideCloseCode) }}
+
+    {# Fullscreen Modal #}
+    {% set fullscreenPreview %}
+        <twig:Ui:modal title="Fullscreen Modal" fullScreen>
+            <twig:block name="trigger">
+                <twig:Ui:button variant="primary" icon="lucide:maximize">Fullscreen</twig:Ui:button>
+            </twig:block>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This modal takes up the entire screen. Great for complex forms or detailed content.
+                </p>
+            </twig:block>
+            <twig:block name="footer">
+                <twig:Ui:button variant="outline" data-action="click->cisse--ui-bundle--modal#close">Close</twig:Ui:button>
+                <twig:Ui:button variant="primary">Save</twig:Ui:button>
+            </twig:block>
+        </twig:Ui:modal>
+    {% endset %}
+    {% set fullscreenCode %}{% verbatim %}<twig:Ui:modal title="Fullscreen Modal" fullScreen>
+    {% block content %}
+        <p>This modal takes up the entire screen.</p>
+    {% endblock %}
+    {% block footer %}
+        <twig:Ui:button variant="outline" data-action="click->cisse--ui-bundle--modal#close">Close</twig:Ui:button>
+        <twig:Ui:button variant="primary">Save</twig:Ui:button>
+    {% endblock %}
+</twig:Ui:modal>{% endverbatim %}{% endset %}
+    {{ ui.story('Fullscreen Modal', fullscreenPreview, fullscreenCode) }}
 </div>

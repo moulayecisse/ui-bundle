@@ -40,16 +40,12 @@
                 <twig:ux:icon
                         name="{{ icon ?: 'heroicons:bars-3-16-solid' }}"
                         class="{{ iconClass }}"
-                        {{ ...attributes.nested('icon').without('class') }}
                 />
             {% endblock %}
 
             {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground in-data-[collapsed]:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
 
-            <span
-                    {{ ...attributes.nested('label').without('class') }}
-                    class="{{ labelClass }}"
-            >
+            <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
                 {% block label label|raw %}
             </span>
 
