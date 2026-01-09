@@ -17,6 +17,8 @@
 {% set baseClass = 'px-3 py-3.5 text-slate-900 text-sm font-semibold dark:text-slate-100 in-data-[compact=true]:py-2 in-data-[size=sm]:text-xs in-data-[size=lg]:text-base' %}
 {% set class = (baseClass ~ ' ' ~ (alignClasses[align] ?? alignClasses['left']) ~ ' ' ~ (first ? 'pl-4 sm:pl-0 ' : '') ~ (nowrap ? 'whitespace-nowrap ' : '') ~ (sortable ? 'cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800 ' : '') ~ class)|tailwind_merge %}
 
+{% set contentBlock %}{% block content '' %}{% endset %}
+
 <th
     {{ attributes }}
     class="{{ class }}"
@@ -28,13 +30,13 @@
 >
     {% if sortable %}
         <div class="flex items-center gap-1 {{ align == 'right' ? 'justify-end' : (align == 'center' ? 'justify-center' : '') }}">
-            {% block content '' %}
+            {{ contentBlock|raw }}
             <span class="flex flex-col">
                 <twig:ux:icon name="heroicons:chevron-up-16-solid" class="size-3 {{ sorted == 'asc' ? 'text-primary' : 'text-gray-400' }} -mb-1" />
                 <twig:ux:icon name="heroicons:chevron-down-16-solid" class="size-3 {{ sorted == 'desc' ? 'text-primary' : 'text-gray-400' }}" />
             </span>
         </div>
     {% else %}
-        {% block content '' %}
+        {{ contentBlock|raw }}
     {% endif %}
 </th>
