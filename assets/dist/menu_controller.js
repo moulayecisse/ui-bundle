@@ -174,6 +174,9 @@ export default class extends Controller {
         const sidebar = document.querySelector('[data-collapsed="true"]')
         if (!sidebar) return
 
+        // Check if this is a submenu (has children) or simple tooltip
+        const hasChildren = flyoutTemplate.querySelector('[data-flyout-children]') !== null
+
         // Clone the flyout content
         const flyout = flyoutTemplate.cloneNode(true)
         flyout.removeAttribute('data-cisse--ui-bundle--menu-target')
@@ -186,7 +189,15 @@ export default class extends Controller {
         const rect = menuItem.getBoundingClientRect()
         flyout.style.position = 'fixed'
         flyout.style.left = `${rect.right + 8}px`
-        flyout.style.top = `${rect.top}px`
+
+        if (hasChildren) {
+            // Submenu: align to top of menu item
+            flyout.style.top = `${rect.top}px`
+        } else {
+            // Tooltip: center vertically with menu item
+            flyout.style.top = `${rect.top + rect.height / 2}px`
+            flyout.style.transform = 'translateY(-50%)'
+        }
 
         // Add hover handlers to keep flyout open
         flyout.addEventListener('mouseenter', () => {
@@ -202,13 +213,24 @@ export default class extends Controller {
         // Add to container
         this.flyoutContainer.appendChild(flyout)
 
+        // Store whether this is a tooltip for animation
+        flyout.dataset.isTooltip = hasChildren ? 'false' : 'true'
+
         // Animate in
         flyout.style.opacity = '0'
-        flyout.style.transform = 'scale(0.95)'
+        if (hasChildren) {
+            flyout.style.transform = 'scale(0.95)'
+        } else {
+            flyout.style.transform = 'translateY(-50%) scale(0.95)'
+        }
         flyout.offsetHeight // Force reflow
         flyout.style.transition = 'opacity 0.15s ease-out, transform 0.15s ease-out'
         flyout.style.opacity = '1'
-        flyout.style.transform = 'scale(1)'
+        if (hasChildren) {
+            flyout.style.transform = 'scale(1)'
+        } else {
+            flyout.style.transform = 'translateY(-50%) scale(1)'
+        }
     }
 
     scheduleHideFlyout() {
@@ -228,9 +250,15 @@ export default class extends Controller {
         const flyout = document.getElementById('ui-active-flyout')
         if (!flyout) return
 
+        const isTooltip = flyout.dataset.isTooltip === 'true'
+
         flyout.style.transition = 'opacity 0.1s ease-in, transform 0.1s ease-in'
         flyout.style.opacity = '0'
-        flyout.style.transform = 'scale(0.95)'
+        if (isTooltip) {
+            flyout.style.transform = 'translateY(-50%) scale(0.95)'
+        } else {
+            flyout.style.transform = 'scale(0.95)'
+        }
 
         setTimeout(() => {
             flyout.remove()
