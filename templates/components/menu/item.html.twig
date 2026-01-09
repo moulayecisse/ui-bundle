@@ -17,13 +17,13 @@
 {% set rightBlock %}{% block right '' %}{% endset %}
 {% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
 
-{% set linkClass = ('group/link relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]:bg-primary dark:group-data-[active=true]:bg-primary group-data-[active=true]:hover:bg-primary/90 dark:group-data-[active=true]:hover:bg-primary/90 group-data-[collapsed=true]/sidebar:justify-center group-data-[collapsed=true]/sidebar:px-2 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
+{% set linkClass = ('group/link relative flex items-center gap-3 px-3 py-2 font-medium rounded-lg text-sm transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-900 group-data-[active=true]/item:bg-primary dark:group-data-[active=true]/item:bg-primary group-data-[active=true]/item:hover:bg-primary/90 dark:group-data-[active=true]/item:hover:bg-primary/90 group-data-[collapsed=true]/sidebar:justify-center group-data-[collapsed=true]/sidebar:px-2 ' ~ (disabled ? 'opacity-50 pointer-events-none ' : '') ~ class)|tailwind_merge %}
 
 <div
         {{ attributes.without('class') }}
         data-cisse--ui-bundle--menu-target="item"
         data-active="{{ active ? 'true' : 'false' }}"
-        class="group relative {{ attributes.render('class') }}"
+        class="group/item relative {{ attributes.render('class') }}"
 >
     <a
             {% if haveChildren %}
@@ -35,7 +35,7 @@
     >
         {% block content %}
             {% block icon %}
-                {% set iconClass = ('size-5 shrink-0 transition-all duration-300 text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground group-data-[collapsed=true]/sidebar:size-7 ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
+                {% set iconClass = ('size-5 shrink-0 transition-all duration-300 text-gray-600 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground dark:group-data-[active=true]/item:text-primary-foreground group-data-[collapsed=true]/sidebar:size-7 ' ~ attributes.nested('icon').render('class'))|tailwind_merge %}
 
                 <twig:ux:icon
                         name="{{ icon ?: 'heroicons:bars-3-16-solid' }}"
@@ -43,7 +43,7 @@
                 />
             {% endblock %}
 
-            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground group-data-[collapsed=true]/sidebar:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
+            {% set labelClass = ('flex-1 transition-colors text-gray-600 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground dark:group-data-[active=true]/item:text-primary-foreground group-data-[collapsed=true]/sidebar:hidden ' ~ attributes.nested('label').render('class'))|tailwind_merge %}
 
             <span class="{{ labelClass }}" {{ attributes.nested('label').without('class') }}>
                 {% block label label|raw %}
@@ -61,7 +61,7 @@
                     {% endif %}
 
                     {% if count is not null %}
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]:text-primary-foreground/80">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground/80">
                             {{ count }}
                         </span>
                     {% endif %}
@@ -70,7 +70,7 @@
 
             {# Tooltip popover for collapsed state (items without children) #}
             {% if not haveChildren %}
-                <div class="hidden group-data-[collapsed=true]/sidebar:group-hover/link:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
+                <div class="hidden group-data-[collapsed=true]/sidebar:group-hover/item:block absolute left-full ml-2 top-1/2 -translate-y-1/2 z-50 px-2 py-1 bg-gray-900 dark:bg-gray-800 text-white text-sm rounded shadow-lg whitespace-nowrap pointer-events-none">
                     {{ label }}
                     {% if badge %}<span class="ml-2 text-xs opacity-75">({{ badge }})</span>{% endif %}
                     {% if count is not null %}<span class="ml-2 text-xs opacity-75">({{ count }})</span>{% endif %}
@@ -85,7 +85,7 @@
                     {% endif %}
 
                     {% if count is not null %}
-                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]:text-primary-foreground/80">
+                        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground/80">
                             {{ count }}
                         </span>
                     {% endif %}
@@ -94,7 +94,7 @@
                             name="heroicons:chevron-down-20-solid"
                             data-cisse--ui-bundle--menu-target="chevron"
                             data-open="{{ expanded ? 'true' : 'false' }}"
-                            class="size-4 transition-transform duration-300 ease-in-out {{ expanded ? 'rotate-180' : 'rotate-0' }} text-gray-600 dark:text-gray-400 group-data-[active=true]:text-primary-foreground dark:group-data-[active=true]:text-primary-foreground"
+                            class="size-4 transition-transform duration-300 ease-in-out {{ expanded ? 'rotate-180' : 'rotate-0' }} text-gray-600 dark:text-gray-400 group-data-[active=true]/item:text-primary-foreground dark:group-data-[active=true]/item:text-primary-foreground"
                     />
                 </span>
             {% endif %}
@@ -111,7 +111,7 @@
     {# Flyout submenu for collapsed state #}
     {% if haveChildren %}
         <div
-            class="group/sidebar hidden group-data-[collapsed=true]/sidebar:group-hover:block absolute left-full ml-2 top-0 z-50 min-w-48 rounded-lg border border-gray-200 bg-white py-2 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+            class="group/sidebar hidden group-data-[collapsed=true]/sidebar:group-hover/item:block absolute left-full ml-2 top-0 z-50 min-w-48 rounded-lg border border-gray-200 bg-white py-2 shadow-lg dark:border-gray-700 dark:bg-gray-800"
             data-collapsed="false"
         >
             {# Label header #}
