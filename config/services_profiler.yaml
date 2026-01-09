@@ -4,6 +4,6 @@ services:
             $profile: '@twig.profile'
         tags:
             - name: data_collector
-              template: '@ui/data_collector/ui_components.html.twig'
+              template: '@Ui/data_collector/ui_components.html.twig'
               id: ui_components
               priority: 280
