@@ -10,7 +10,7 @@ use Twig\Profiler\Profile;
 
 final class UiComponentDataCollector extends AbstractDataCollector implements LateDataCollectorInterface
 {
-    private const UI_NAMESPACE_PREFIX = '@ui/';
+    private const UI_NAMESPACE_PREFIX = '@Ui/';
 
     public function __construct(
         private readonly Profile $profile,
@@ -88,7 +88,7 @@ final class UiComponentDataCollector extends AbstractDataCollector implements La
 
     private function extractComponentName(string $templateName): string
     {
-        // Convert @ui/card/header.html.twig -> card:header
+        // Convert @Ui/card/header.html.twig -> card:header
         $name = substr($templateName, strlen(self::UI_NAMESPACE_PREFIX));
         $name = str_replace('.html.twig', '', $name);
         $name = str_replace('/', ':', $name);
