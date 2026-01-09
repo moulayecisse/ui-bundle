@@ -169,7 +169,7 @@
             <twig:Ui:menu>
                 <twig:Ui:menu:item label="Status" icon="heroicons:signal" href="/status">
                     {% block right %}
-                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
                     {% endblock %}
                 </twig:Ui:menu:item>
                 <twig:Ui:menu:item label="Sync" icon="heroicons:arrow-path" href="/sync">
@@ -183,7 +183,7 @@
     {% set customRightCode %}&lt;twig:Ui:menu&gt;
     &lt;twig:Ui:menu:item label="Status" icon="heroicons:signal" href="/status"&gt;
         {%verbatim%}{% block right %}{%endverbatim%}
-            &lt;span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"&gt;&lt;/span&gt;
+            &lt;span class="size-2 bg-green-500 rounded-full animate-pulse"&gt;&lt;/span&gt;
         {%verbatim%}{% endblock %}{%endverbatim%}
     &lt;/twig:Ui:menu:item&gt;
     &lt;twig:Ui:menu:item label="Sync" icon="heroicons:arrow-path" href="/sync"&gt;
