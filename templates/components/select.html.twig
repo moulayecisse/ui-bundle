@@ -5,7 +5,7 @@
     value = null,
     name = null,
     id = null,
-    placeholder = 'Sélectionnez une option',
+    placeholder = 'Select an option',
     required = false,
     autofocus = false,
     autocomplete = null,
@@ -13,6 +13,9 @@
     invalid = false,
     size = 'md',
     options = [],
+    icon = null,
+    multiple = false,
+    variant = 'default',
 %}
 
 {% set _id = id ?? name %}
@@ -27,19 +30,30 @@
 
 {# Size classes #}
 {% set sizeClasses = {
-    'sm': 'py-1.5 text-xs',
-    'md': 'py-2 text-sm',
-    'lg': 'py-2.5 text-base',
+    'sm': { padding: 'py-1.5 text-xs', icon: 'size-4', iconPadding: 'pl-8' },
+    'md': { padding: 'py-2 text-sm', icon: 'size-5', iconPadding: 'pl-10' },
+    'lg': { padding: 'py-2.5 text-base', icon: 'size-6', iconPadding: 'pl-12' },
+} %}
+
+{% set sizes = sizeClasses[size] ?? sizeClasses['md'] %}
+
+{# Variant classes #}
+{% set variantClasses = {
+    'default': '',
+    'filled': 'bg-gray-100 dark:bg-gray-800 border-transparent',
+    'underline': 'rounded-none border-x-0 border-t-0 border-b-2',
 } %}
 
 {% set content_block %}{% block content %}
-    {% if placeholder %}
-        <option value="" disabled>{{ placeholder }}</option>
+    {% if placeholder and not multiple %}
+        <option value="" {% if value is null or value == '' %}selected{% endif %} disabled>{{ placeholder }}</option>
     {% endif %}
     {% for option in options %}
+        {% set optionValue = option.value ?? option %}
+        {% set isSelected = multiple ? (optionValue in value) : (optionValue == value) %}
         <option
-            value="{{ option.value ?? option }}"
-            {% if (option.value is defined and option.value == value) or option == value %}selected{% endif %}
+            value="{{ optionValue }}"
+            {% if isSelected %}selected{% endif %}
             {% if option.disabled is defined and option.disabled %}disabled{% endif %}
         >
             {{ option.label ?? option }}
@@ -47,23 +61,38 @@
     {% endfor %}
 {% endblock %}{% endset %}
 
-<twig:Ui:input-wrapper :class="class" :disabled="disabled">
+<twig:Ui:input-wrapper :class="class" :disabled="disabled" :invalid="invalid">
     <div class="w-full grid grid-cols-1">
+        {# Leading icon #}
+        {% if icon %}
+            <twig:ux:icon
+                :name="icon"
+                class="pointer-events-none col-start-1 row-start-1 ml-3 {{ sizes.icon }} self-center justify-self-start text-gray-500 dark:text-gray-400 z-10"
+            />
+        {% endif %}
+
         <select
             {{ attributes }}
-            {% if name %}name="{{ name }}"{% endif %}
+            {% if name %}name="{{ name }}{% if multiple %}[]{% endif %}"{% endif %}
             {% if _id %}id="{{ _id }}"{% endif %}
             {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
             {{ required ? 'required' }}
             {{ autofocus ? 'autofocus' }}
             {{ disabled ? 'disabled' }}
-            class="col-start-1 row-start-1 w-full appearance-none pr-10 pl-3 bg-transparent focus:outline-none cursor-pointer {{ sizeClasses[size] ?? sizeClasses['md'] }}"
+            {{ multiple ? 'multiple' }}
+            data-size="{{ size }}"
+            data-variant="{{ variant }}"
+            class="col-start-1 row-start-1 w-full appearance-none pr-10 {{ icon ? sizes.iconPadding : 'pl-3' }} bg-transparent focus:outline-none cursor-pointer {{ sizes.padding }} {{ variantClasses[variant] ?? '' }} {{ invalid ? 'border-red-500 focus:ring-red-500' : '' }}"
         >
             {{ content_block|raw }}
         </select>
-        <twig:ux:icon
-            name="heroicons:chevron-down"
-            class="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-gray-500 dark:text-gray-400 sm:size-4"
-        />
+
+        {# Dropdown icon #}
+        {% if not multiple %}
+            <twig:ux:icon
+                name="heroicons:chevron-down"
+                class="pointer-events-none col-start-1 row-start-1 mr-3 {{ sizes.icon }} self-center justify-self-end text-gray-500 dark:text-gray-400"
+            />
+        {% endif %}
     </div>
 </twig:Ui:input-wrapper>

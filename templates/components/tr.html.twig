@@ -1,1 +1,28 @@
-<tr {{ attributes }}>{% block content '' %}</tr>
+{% props
+    class = '',
+    selected = false,
+    disabled = false,
+    clickable = false,
+%}
+
+{% set baseClass = '' %}
+{% if selected %}
+    {% set baseClass = baseClass ~ ' bg-primary-50 dark:bg-primary-900/20' %}
+{% endif %}
+{% if disabled %}
+    {% set baseClass = baseClass ~ ' opacity-50 pointer-events-none' %}
+{% endif %}
+{% if clickable %}
+    {% set baseClass = baseClass ~ ' cursor-pointer' %}
+{% endif %}
+
+{% set class = (baseClass ~ ' ' ~ class)|tailwind_merge %}
+
+<tr
+    {{ attributes }}
+    {% if selected %}data-selected="true"{% endif %}
+    {% if disabled %}data-disabled="true"{% endif %}
+    class="{{ class }}"
+>
+    {% block content '' %}
+</tr>

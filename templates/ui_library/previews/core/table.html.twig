@@ -4,6 +4,13 @@
     {# Props Documentation #}
     {{ ui.props([
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for the table element' },
+        { name: 'striped', type: 'boolean', default: 'false', description: 'Alternate row background colors' },
+        { name: 'hover', type: 'boolean', default: 'false', description: 'Highlight rows on hover' },
+        { name: 'compact', type: 'boolean', default: 'false', description: 'Reduce cell padding for compact display' },
+        { name: 'size', type: 'string', default: "'md'", description: 'Table text size (sm, md, lg)' },
+        { name: 'variant', type: 'string', default: "'default'", description: 'Visual style variant (default, card, simple)' },
+        { name: 'stickyHeader', type: 'boolean', default: 'false', description: 'Make header sticky on scroll' },
+        { name: 'responsive', type: 'boolean', default: 'true', description: 'Wrap table in overflow container' },
     ]) }}
 
     {# Slots Documentation #}
@@ -17,40 +24,35 @@
     <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
         <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Related Components</h4>
         <ul class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">tr</code> - Table row</li>
-            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">th</code> - Table header cell</li>
-            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">td</code> - Table data cell</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">tr</code> - Table row (selected, disabled, clickable props)</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">th</code> - Table header cell (sortable, sorted, align, width props)</li>
+            <li><code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">td</code> - Table data cell (align, nowrap, truncate, muted props)</li>
         </ul>
     </div>
 
     {# Basic Table #}
     {% set basicPreview %}
-        <table class="min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700">
-            <thead>
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Email</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Role</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-black">
-                <tr>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">John Doe</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">john@example.com</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Admin</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Jane Smith</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">jane@example.com</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Editor</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Bob Wilson</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">bob@example.com</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">User</td>
-                </tr>
-            </tbody>
-        </table>
+        <twig:Ui:table>
+            {% block thead %}
+                <twig:Ui:tr>
+                    <twig:Ui:th>Name</twig:Ui:th>
+                    <twig:Ui:th>Email</twig:Ui:th>
+                    <twig:Ui:th>Role</twig:Ui:th>
+                </twig:Ui:tr>
+            {% endblock %}
+            {% block tbody %}
+                <twig:Ui:tr>
+                    <twig:Ui:td>John Doe</twig:Ui:td>
+                    <twig:Ui:td>john@example.com</twig:Ui:td>
+                    <twig:Ui:td>Admin</twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr>
+                    <twig:Ui:td>Jane Smith</twig:Ui:td>
+                    <twig:Ui:td>jane@example.com</twig:Ui:td>
+                    <twig:Ui:td>Editor</twig:Ui:td>
+                </twig:Ui:tr>
+            {% endblock %}
+        </twig:Ui:table>
     {% endset %}
     {% set basicCode %}&lt;twig:Ui:table&gt;
     {% verbatim %}{% block thead %}{% endverbatim %}
@@ -66,61 +68,172 @@
             &lt;twig:Ui:td&gt;john@example.com&lt;/twig:Ui:td&gt;
             &lt;twig:Ui:td&gt;Admin&lt;/twig:Ui:td&gt;
         &lt;/twig:Ui:tr&gt;
-        ...
     {% verbatim %}{% endblock %}{% endverbatim %}
 &lt;/twig:Ui:table&gt;{% endset %}
     {{ ui.story('Basic Table', basicPreview, basicCode) }}
 
-    {# With Actions #}
-    {% set actionsPreview %}
-        <table class="min-w-full table-fixed divide-y divide-slate-300 dark:divide-slate-700">
-            <thead>
-                <tr>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Price</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Stock</th>
-                    <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-black">
-                <tr>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Widget A</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">$29.99</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">150</td>
-                    <td class="px-4 py-3 text-sm text-right">
-                        <twig:Ui:button size="sm" variant="ghost">Edit</twig:Ui:button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Widget B</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">$49.99</td>
-                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">75</td>
-                    <td class="px-4 py-3 text-sm text-right">
-                        <twig:Ui:button size="sm" variant="ghost">Edit</twig:Ui:button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    {# Striped and Hover #}
+    {% set stripedPreview %}
+        <twig:Ui:table striped hover>
+            {% block thead %}
+                <twig:Ui:tr>
+                    <twig:Ui:th>Name</twig:Ui:th>
+                    <twig:Ui:th>Email</twig:Ui:th>
+                    <twig:Ui:th>Role</twig:Ui:th>
+                </twig:Ui:tr>
+            {% endblock %}
+            {% block tbody %}
+                <twig:Ui:tr>
+                    <twig:Ui:td>John Doe</twig:Ui:td>
+                    <twig:Ui:td>john@example.com</twig:Ui:td>
+                    <twig:Ui:td>Admin</twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr>
+                    <twig:Ui:td>Jane Smith</twig:Ui:td>
+                    <twig:Ui:td>jane@example.com</twig:Ui:td>
+                    <twig:Ui:td>Editor</twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr>
+                    <twig:Ui:td>Bob Wilson</twig:Ui:td>
+                    <twig:Ui:td>bob@example.com</twig:Ui:td>
+                    <twig:Ui:td>User</twig:Ui:td>
+                </twig:Ui:tr>
+            {% endblock %}
+        </twig:Ui:table>
     {% endset %}
-    {% set actionsCode %}&lt;twig:Ui:table&gt;
-    {% verbatim %}{% block thead %}{% endverbatim %}
-        &lt;twig:Ui:tr&gt;
-            &lt;twig:Ui:th&gt;Product&lt;/twig:Ui:th&gt;
-            &lt;twig:Ui:th&gt;Price&lt;/twig:Ui:th&gt;
-            &lt;twig:Ui:th&gt;Stock&lt;/twig:Ui:th&gt;
-            &lt;twig:Ui:th class="text-right"&gt;Actions&lt;/twig:Ui:th&gt;
-        &lt;/twig:Ui:tr&gt;
-    {% verbatim %}{% endblock %}{% endverbatim %}
-    {% verbatim %}{% block tbody %}{% endverbatim %}
-        &lt;twig:Ui:tr&gt;
-            &lt;twig:Ui:td&gt;Widget A&lt;/twig:Ui:td&gt;
-            &lt;twig:Ui:td&gt;$29.99&lt;/twig:Ui:td&gt;
-            &lt;twig:Ui:td&gt;150&lt;/twig:Ui:td&gt;
-            &lt;twig:Ui:td class="text-right"&gt;
-                &lt;twig:Ui:button size="sm" variant="ghost"&gt;Edit&lt;/twig:Ui:button&gt;
-            &lt;/twig:Ui:td&gt;
-        &lt;/twig:Ui:tr&gt;
-    {% verbatim %}{% endblock %}{% endverbatim %}
+    {% set stripedCode %}&lt;twig:Ui:table striped hover&gt;
+    ...
 &lt;/twig:Ui:table&gt;{% endset %}
-    {{ ui.story('With Actions', actionsPreview, actionsCode) }}
+    {{ ui.story('Striped with Hover', stripedPreview, stripedCode) }}
+
+    {# Sortable Headers #}
+    {% set sortablePreview %}
+        <twig:Ui:table>
+            {% block thead %}
+                <twig:Ui:tr>
+                    <twig:Ui:th sortable sorted="asc">Name</twig:Ui:th>
+                    <twig:Ui:th sortable>Email</twig:Ui:th>
+                    <twig:Ui:th sortable align="right">Amount</twig:Ui:th>
+                </twig:Ui:tr>
+            {% endblock %}
+            {% block tbody %}
+                <twig:Ui:tr>
+                    <twig:Ui:td>Alice</twig:Ui:td>
+                    <twig:Ui:td>alice@example.com</twig:Ui:td>
+                    <twig:Ui:td align="right">$120.00</twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr>
+                    <twig:Ui:td>Bob</twig:Ui:td>
+                    <twig:Ui:td>bob@example.com</twig:Ui:td>
+                    <twig:Ui:td align="right">$85.50</twig:Ui:td>
+                </twig:Ui:tr>
+            {% endblock %}
+        </twig:Ui:table>
+    {% endset %}
+    {% set sortableCode %}&lt;twig:Ui:th sortable sorted="asc"&gt;Name&lt;/twig:Ui:th&gt;
+&lt;twig:Ui:th sortable&gt;Email&lt;/twig:Ui:th&gt;
+&lt;twig:Ui:th sortable align="right"&gt;Amount&lt;/twig:Ui:th&gt;{% endset %}
+    {{ ui.story('Sortable Headers', sortablePreview, sortableCode) }}
+
+    {# Card Variant #}
+    {% set cardPreview %}
+        <twig:Ui:table variant="card" striped>
+            {% block thead %}
+                <twig:Ui:tr>
+                    <twig:Ui:th>Product</twig:Ui:th>
+                    <twig:Ui:th align="right">Price</twig:Ui:th>
+                    <twig:Ui:th align="center">Stock</twig:Ui:th>
+                </twig:Ui:tr>
+            {% endblock %}
+            {% block tbody %}
+                <twig:Ui:tr>
+                    <twig:Ui:td>Widget A</twig:Ui:td>
+                    <twig:Ui:td align="right">$29.99</twig:Ui:td>
+                    <twig:Ui:td align="center">150</twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr>
+                    <twig:Ui:td>Widget B</twig:Ui:td>
+                    <twig:Ui:td align="right">$49.99</twig:Ui:td>
+                    <twig:Ui:td align="center">75</twig:Ui:td>
+                </twig:Ui:tr>
+            {% endblock %}
+        </twig:Ui:table>
+    {% endset %}
+    {% set cardCode %}&lt;twig:Ui:table variant="card" striped&gt;
+    ...
+&lt;/twig:Ui:table&gt;{% endset %}
+    {{ ui.story('Card Variant', cardPreview, cardCode) }}
+
+    {# Row States #}
+    {% set statesPreview %}
+        <twig:Ui:table hover>
+            {% block thead %}
+                <twig:Ui:tr>
+                    <twig:Ui:th>Item</twig:Ui:th>
+                    <twig:Ui:th>Status</twig:Ui:th>
+                </twig:Ui:tr>
+            {% endblock %}
+            {% block tbody %}
+                <twig:Ui:tr selected>
+                    <twig:Ui:td>Selected Row</twig:Ui:td>
+                    <twig:Ui:td><twig:Ui:badge color="primary">Selected</twig:Ui:badge></twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr>
+                    <twig:Ui:td>Normal Row</twig:Ui:td>
+                    <twig:Ui:td><twig:Ui:badge color="gray">Normal</twig:Ui:badge></twig:Ui:td>
+                </twig:Ui:tr>
+                <twig:Ui:tr disabled>
+                    <twig:Ui:td>Disabled Row</twig:Ui:td>
+                    <twig:Ui:td><twig:Ui:badge color="gray">Disabled</twig:Ui:badge></twig:Ui:td>
+                </twig:Ui:tr>
+            {% endblock %}
+        </twig:Ui:table>
+    {% endset %}
+    {% set statesCode %}&lt;twig:Ui:tr selected&gt;...&lt;/twig:Ui:tr&gt;
+&lt;twig:Ui:tr&gt;...&lt;/twig:Ui:tr&gt;
+&lt;twig:Ui:tr disabled&gt;...&lt;/twig:Ui:tr&gt;{% endset %}
+    {{ ui.story('Row States', statesPreview, statesCode) }}
+
+    {# Size Variants #}
+    {% set sizesPreview %}
+        <div class="space-y-8">
+            <div>
+                <p class="text-sm font-medium text-gray-500 mb-2">Small</p>
+                <twig:Ui:table size="sm" compact>
+                    {% block thead %}
+                        <twig:Ui:tr>
+                            <twig:Ui:th>Name</twig:Ui:th>
+                            <twig:Ui:th>Value</twig:Ui:th>
+                        </twig:Ui:tr>
+                    {% endblock %}
+                    {% block tbody %}
+                        <twig:Ui:tr>
+                            <twig:Ui:td>Item 1</twig:Ui:td>
+                            <twig:Ui:td>100</twig:Ui:td>
+                        </twig:Ui:tr>
+                    {% endblock %}
+                </twig:Ui:table>
+            </div>
+            <div>
+                <p class="text-sm font-medium text-gray-500 mb-2">Large</p>
+                <twig:Ui:table size="lg">
+                    {% block thead %}
+                        <twig:Ui:tr>
+                            <twig:Ui:th>Name</twig:Ui:th>
+                            <twig:Ui:th>Value</twig:Ui:th>
+                        </twig:Ui:tr>
+                    {% endblock %}
+                    {% block tbody %}
+                        <twig:Ui:tr>
+                            <twig:Ui:td>Item 1</twig:Ui:td>
+                            <twig:Ui:td>100</twig:Ui:td>
+                        </twig:Ui:tr>
+                    {% endblock %}
+                </twig:Ui:table>
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}&lt;twig:Ui:table size="sm" compact&gt;...&lt;/twig:Ui:table&gt;
+&lt;twig:Ui:table size="lg"&gt;...&lt;/twig:Ui:table&gt;{% endset %}
+    {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 </div>

@@ -1,29 +1,77 @@
 {% props
-  message = 'No results found',
-  icon = 'lucide:inbox',
-  title = null,
-  class = '',
+    message = 'No results found',
+    icon = 'lucide:inbox',
+    title = null,
+    size = 'md',
+    variant = 'default',
+    bordered = false,
+    class = '',
 %}
 
-<div {{ attributes }} class="{{ ('py-12 text-center ' ~ class)|tailwind_merge }}">
-  {% if icon %}
-    <twig:ux:icon :name="icon" class="mx-auto mb-4 size-12 text-gray-400 dark:text-gray-500" />
-  {% endif %}
+{# Size configurations #}
+{% set sizeConfig = {
+    'sm': { padding: 'py-6', icon: 'size-8', title: 'text-base', message: 'text-sm', gap: 'mb-2', actionGap: 'mt-3' },
+    'md': { padding: 'py-12', icon: 'size-12', title: 'text-lg', message: 'text-base', gap: 'mb-4', actionGap: 'mt-4' },
+    'lg': { padding: 'py-16', icon: 'size-16', title: 'text-xl', message: 'text-base', gap: 'mb-6', actionGap: 'mt-6' },
+    'xl': { padding: 'py-24', icon: 'size-20', title: 'text-2xl', message: 'text-lg', gap: 'mb-8', actionGap: 'mt-8' },
+} %}
 
-  {% if title %}
-    <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">
-      {% block title %}{{ title }}{% endblock %}
-    </h3>
-  {% endif %}
+{% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
 
-  <p class="text-gray-500 dark:text-gray-400">
-    {% block message %}{{ message }}{% endblock %}
-  </p>
+{# Variant classes #}
+{% set variantClasses = {
+    'default': '',
+    'card': 'rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700',
+    'dashed': 'rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600',
+} %}
 
-  {% set actionBlock %}{% block action '' %}{% endset %}
-  {% if actionBlock is not empty %}
-    <div class="mt-4">
-      {{ actionBlock|raw }}
-    </div>
-  {% endif %}
+{% set baseClass = (sizes.padding ~ ' text-center ' ~ (variantClasses[variant] ?? '') ~ ' ' ~ class)|tailwind_merge %}
+
+{% set titleBlock %}{% block title title %}{% endset %}
+{% set messageBlock %}{% block message message %}{% endset %}
+{% set actionBlock %}{% block action '' %}{% endset %}
+{% set secondaryActionBlock %}{% block secondaryAction '' %}{% endset %}
+
+<div
+    {{ attributes }}
+    class="{{ baseClass }}"
+    data-size="{{ size }}"
+    data-variant="{{ variant }}"
+>
+    {# Icon #}
+    {% if icon %}
+        <div class="{{ sizes.gap }}">
+            {% block icon %}
+                <twig:ux:icon :name="icon" class="mx-auto {{ sizes.icon }} text-gray-400 dark:text-gray-500" />
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {# Title #}
+    {% if titleBlock|trim %}
+        <h3 class="mb-2 {{ sizes.title }} font-medium text-gray-900 dark:text-white">
+            {{ titleBlock|raw }}
+        </h3>
+    {% endif %}
+
+    {# Message #}
+    {% if messageBlock|trim %}
+        <p class="{{ sizes.message }} text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+            {{ messageBlock|raw }}
+        </p>
+    {% endif %}
+
+    {# Primary action #}
+    {% if actionBlock|trim %}
+        <div class="{{ sizes.actionGap }}">
+            {{ actionBlock|raw }}
+        </div>
+    {% endif %}
+
+    {# Secondary action #}
+    {% if secondaryActionBlock|trim %}
+        <div class="mt-2">
+            {{ secondaryActionBlock|raw }}
+        </div>
+    {% endif %}
 </div>
