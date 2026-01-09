@@ -86,9 +86,9 @@ class UiBundleController extends AbstractController
             'pagination' => ['label' => 'Pagination', 'description' => 'Pagination controls'],
         ],
         'layout' => [
-            'base-layout' => ['label' => 'Base Layout', 'description' => 'Main app layout'],
-            'auth-layout' => ['label' => 'Auth Layout', 'description' => 'Authentication layout'],
-            'page-layout' => ['label' => 'Page Layout', 'description' => 'Page wrapper'],
+            'base' => ['label' => 'Base Layout', 'description' => 'Main app layout'],
+            'auth' => ['label' => 'Auth Layout', 'description' => 'Authentication layout'],
+            'page' => ['label' => 'Page Layout', 'description' => 'Page wrapper'],
             'page-hero' => ['label' => 'Page Hero', 'description' => 'Hero section'],
         ],
         'type' => [

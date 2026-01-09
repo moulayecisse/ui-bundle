@@ -36,7 +36,7 @@
             </ul>
         </div>
     {% endset %}
-    {% set aboutCode %}&lt;twig:Ui:layout:base-layout
+    {% set aboutCode %}&lt;twig:Ui:layout:base
     appName="My Application"
     userName="John Doe"
     userAvatar="JD"
@@ -52,7 +52,7 @@
     {% verbatim %}{% block content %}{% endverbatim %}
         &lt;!-- Your page content here --&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
-&lt;/twig:Ui:layout:base-layout&gt;{% endset %}
+&lt;/twig:Ui:layout:base&gt;{% endset %}
     {{ ui.story('Overview', aboutPreview, aboutCode) }}
 
     {# Layout Structure #}
@@ -118,7 +118,7 @@
             </div>
         </div>
     {% endset %}
-    {% set userMenuCode %}&lt;twig:Ui:layout:base-layout
+    {% set userMenuCode %}&lt;twig:Ui:layout:base
     appName="My App"
     userName="John Doe"
     userAvatar="JD"
@@ -130,7 +130,7 @@
         &lt;a href="/logout" class="block px-4 py-2 hover:bg-gray-100 text-red-600"&gt;Logout&lt;/a&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
     ...
-&lt;/twig:Ui:layout:base-layout&gt;{% endset %}
+&lt;/twig:Ui:layout:base&gt;{% endset %}
     {{ ui.story('User Menu', userMenuPreview, userMenuCode) }}
 
     {# Header Actions #}
@@ -149,7 +149,7 @@
             </div>
         </div>
     {% endset %}
-    {% set headerActionsCode %}&lt;twig:Ui:layout:base-layout appName="My App"&gt;
+    {% set headerActionsCode %}&lt;twig:Ui:layout:base appName="My App"&gt;
     {% verbatim %}{% block header_actions %}{% endverbatim %}
         &lt;button class="p-2 rounded-lg hover:bg-gray-100"&gt;
             &lt;twig:ux:icon name="heroicons:bell" class="size-5" /&gt;
@@ -159,6 +159,6 @@
         &lt;/button&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
     ...
-&lt;/twig:Ui:layout:base-layout&gt;{% endset %}
+&lt;/twig:Ui:layout:base&gt;{% endset %}
     {{ ui.story('Header Actions', headerActionsPreview, headerActionsCode) }}
 </div>

@@ -29,14 +29,14 @@
             </div>
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:layout:page-layout
+    {% set basicCode %}{% verbatim %}<twig:Ui:layout:page
     title="Dashboard"
     description="Welcome to your dashboard overview"
 >
     {% block content %}
         <!-- Page content goes here -->
     {% endblock %}
-</twig:Ui:layout:page-layout>{% endverbatim %}{% endset %}
+</twig:Ui:layout:page>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Page Layout', basicPreview, basicCode) }}
 
     {# With Breadcrumbs #}
@@ -65,7 +65,7 @@
             </div>
         </div>
     {% endset %}
-    {% set breadcrumbsCode %}{% verbatim %}<twig:Ui:layout:page-layout
+    {% set breadcrumbsCode %}{% verbatim %}<twig:Ui:layout:page
     title="Edit User"
     description="Update user information"
     :breadcrumbs="[
@@ -77,7 +77,7 @@
     {% block content %}
         <!-- Content -->
     {% endblock %}
-</twig:Ui:layout:page-layout>{% endverbatim %}{% endset %}
+</twig:Ui:layout:page>{% endverbatim %}{% endset %}
     {{ ui.story('With Breadcrumbs', breadcrumbsPreview, breadcrumbsCode) }}
 
     {# With Actions #}
@@ -100,7 +100,7 @@
             </div>
         </div>
     {% endset %}
-    {% set actionsCode %}{% verbatim %}<twig:Ui:layout:page-layout
+    {% set actionsCode %}{% verbatim %}<twig:Ui:layout:page
     title="Products"
     description="Manage your product catalog"
 >
@@ -111,6 +111,6 @@
     {% block content %}
         <!-- Content -->
     {% endblock %}
-</twig:Ui:layout:page-layout>{% endverbatim %}{% endset %}
+</twig:Ui:layout:page>{% endverbatim %}{% endset %}
     {{ ui.story('With Actions', actionsPreview, actionsCode) }}
 </div>
