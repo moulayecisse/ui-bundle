@@ -15,6 +15,15 @@
     limit = 48
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set labelAttrs = attributes.nested('label') %}
+{% set triggerAttrs = attributes.nested('trigger') %}
+{% set displayAttrs = attributes.nested('display') %}
+{% set modalAttrs = attributes.nested('modal') %}
+{% set searchAttrs = attributes.nested('search') %}
+{% set gridAttrs = attributes.nested('grid') %}
+{% set iconAttrs = attributes.nested('icon') %}
+
 {% set popularIcons = [
     'mdi:heart', 'mdi:star', 'mdi:home', 'mdi:account', 'mdi:email', 'mdi:phone',
     'mdi:calendar', 'mdi:clock', 'mdi:check', 'mdi:close', 'mdi:plus', 'mdi:minus',
@@ -46,7 +55,7 @@
 
     {# Label #}
     {% if label %}
-        <twig:ui:label for="{{ _id }}" :error="error">
+        <twig:ui:label for="{{ _id }}" :error="error" class="{{ labelAttrs.render('class') }}" {{ ...labelAttrs.without('class') }}>
             {{ label }}
             {% if required %}<span class="text-red-500 ml-0.5">*</span>{% endif %}
         </twig:ui:label>
@@ -58,10 +67,11 @@
         type="button"
         data-action="click->cisse--ui-bundle--icon-picker#open"
         {% if disabled %}disabled{% endif %}
-        class="mt-1 flex w-full items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-900 {{ hasError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-primary dark:border-gray-700' }} {{ disabled ? 'cursor-not-allowed bg-gray-50 dark:bg-gray-800' : 'cursor-pointer hover:border-gray-400 dark:hover:border-gray-600' }}"
+        class="{{ ('mt-1 flex w-full items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left text-sm shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-900 ' ~ (hasError ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-primary dark:border-gray-700') ~ ' ' ~ (disabled ? 'cursor-not-allowed bg-gray-50 dark:bg-gray-800' : 'cursor-pointer hover:border-gray-400 dark:hover:border-gray-600') ~ ' ' ~ triggerAttrs.render('class'))|tailwind_merge }}"
+        {{ triggerAttrs.without('class') }}
     >
         {# Selected icon display #}
-        <div data-cisse--ui-bundle--icon-picker-target="display" class="flex items-center gap-2 flex-1 {{ value ? '' : 'hidden' }}">
+        <div data-cisse--ui-bundle--icon-picker-target="display" class="{{ ('flex items-center gap-2 flex-1 ' ~ (value ? '' : 'hidden') ~ ' ' ~ displayAttrs.render('class'))|tailwind_merge }}" {{ displayAttrs.without('class') }}>
             <div class="flex size-8 items-center justify-center rounded bg-gray-100 dark:bg-gray-800">
                 <twig:ux:icon
                     data-cisse--ui-bundle--icon-picker-target="selectedIcon"
@@ -112,7 +122,8 @@
     {# Picker modal #}
     <div
         data-cisse--ui-bundle--icon-picker-target="modal"
-        class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md rounded-lg border border-gray-200 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-gray-900 hidden"
+        class="{{ ('fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md rounded-lg border border-gray-200 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-gray-900 hidden ' ~ modalAttrs.render('class'))|tailwind_merge }}"
+        {{ modalAttrs.without('class') }}
     >
         {# Search input #}
         <div class="relative mb-4">
@@ -122,7 +133,8 @@
                 data-cisse--ui-bundle--icon-picker-target="search"
                 data-action="input->cisse--ui-bundle--icon-picker#search"
                 placeholder="{{ placeholder }}"
-                class="w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500"
+                class="{{ ('w-full rounded-lg border border-gray-300 bg-white py-2 pl-10 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 ' ~ searchAttrs.render('class'))|tailwind_merge }}"
+                {{ searchAttrs.without('class') }}
             />
             <div data-cisse--ui-bundle--icon-picker-target="loader" class="absolute right-3 top-1/2 -translate-y-1/2 hidden">
                 <twig:ux:icon name="heroicons:arrow-path-20-solid" class="size-4 animate-spin text-gray-400" />
@@ -137,13 +149,14 @@
             </div>
 
             {# Icons container #}
-            <div data-cisse--ui-bundle--icon-picker-target="grid" class="grid grid-cols-8 gap-1">
+            <div data-cisse--ui-bundle--icon-picker-target="grid" class="{{ ('grid grid-cols-8 gap-1 ' ~ gridAttrs.render('class'))|tailwind_merge }}" {{ gridAttrs.without('class') }}>
                 {% for icon in popularIcons %}
                     <button
                         type="button"
                         data-action="click->cisse--ui-bundle--icon-picker#select"
                         data-icon="{{ icon }}"
-                        class="icon-button flex size-9 items-center justify-center rounded transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
+                        class="{{ ('icon-button flex size-9 items-center justify-center rounded transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+                        {{ iconAttrs.without('class') }}
                         title="{{ icon }}"
                     >
                         <twig:ux:icon name="{{ icon }}" class="size-5" />

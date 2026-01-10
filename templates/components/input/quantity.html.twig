@@ -11,6 +11,10 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set buttonAttrs = attributes.nested('button') %}
+{% set inputAttrs = attributes.nested('input') %}
+
 {% set sizeClasses = {
   'sm': { 'button': 'size-7', 'icon': 'size-3', 'input': 'text-sm w-10' },
   'md': { 'button': 'size-9', 'icon': 'size-4', 'input': 'text-base w-12' },
@@ -32,7 +36,8 @@
     type="button"
     data-cisse--ui-bundle--quantity-input-target="decrement"
     data-action="click->cisse--ui-bundle--quantity-input#decrement"
-    class="flex items-center justify-center rounded-lg bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 transition-all hover:bg-gray-50 dark:hover:bg-slate-500 hover:border-gray-300 dark:hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-slate-600 shadow-sm {{ currentSize.button }}"
+    class="{{ ('flex items-center justify-center rounded-lg bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 transition-all hover:bg-gray-50 dark:hover:bg-slate-500 hover:border-gray-300 dark:hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-slate-600 shadow-sm ' ~ currentSize.button ~ ' ' ~ buttonAttrs.render('class'))|tailwind_merge }}"
+    {{ buttonAttrs.without('class') }}
     {{ disabled ? 'disabled' }}
   >
     <twig:ux:icon name="heroicons:minus" class="text-gray-600 dark:text-gray-300 {{ currentSize.icon }}" />
@@ -49,7 +54,8 @@
     {{ required ? 'required' }}
     {% if min is not null %}min="{{ min }}"{% endif %}
     {% if max is not null %}max="{{ max }}"{% endif %}
-    class="bg-transparent text-center font-semibold text-gray-900 dark:text-white focus:outline-none appearance-none disabled:opacity-50 {{ currentSize.input }}"
+    class="{{ ('bg-transparent text-center font-semibold text-gray-900 dark:text-white focus:outline-none appearance-none disabled:opacity-50 ' ~ currentSize.input ~ ' ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+    {{ inputAttrs.without('class') }}
     style="-moz-appearance: textfield;"
     data-action="input->cisse--ui-bundle--quantity-input#handleInput"
   >
@@ -59,7 +65,8 @@
     type="button"
     data-cisse--ui-bundle--quantity-input-target="increment"
     data-action="click->cisse--ui-bundle--quantity-input#increment"
-    class="flex items-center justify-center rounded-lg bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 transition-all hover:bg-gray-50 dark:hover:bg-slate-500 hover:border-gray-300 dark:hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-slate-600 shadow-sm {{ currentSize.button }}"
+    class="{{ ('flex items-center justify-center rounded-lg bg-white dark:bg-slate-600 border border-gray-200 dark:border-slate-500 transition-all hover:bg-gray-50 dark:hover:bg-slate-500 hover:border-gray-300 dark:hover:border-slate-400 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-slate-600 shadow-sm ' ~ currentSize.button ~ ' ' ~ buttonAttrs.render('class'))|tailwind_merge }}"
+    {{ buttonAttrs.without('class') }}
     {{ disabled ? 'disabled' }}
   >
     <twig:ux:icon name="heroicons:plus" class="text-gray-600 dark:text-gray-300 {{ currentSize.icon }}" />

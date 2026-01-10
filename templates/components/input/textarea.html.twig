@@ -19,6 +19,14 @@
     size = 'md',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set labelAttrs = attributes.nested('label') %}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set textareaAttrs = attributes.nested('textarea') %}
+{% set countAttrs = attributes.nested('count') %}
+{% set hintAttrs = attributes.nested('hint') %}
+{% set errorAttrs = attributes.nested('error') %}
+
 {% if form %}
     {% set name = name ?? form.vars.full_name %}
     {% set id = id ?? form.vars.id %}
@@ -51,7 +59,7 @@
 <div {{ attributes }}>
     {# Label #}
     {% if label %}
-        <twig:ui:label for="{{ _id }}" :error="hasError">
+        <twig:ui:label for="{{ _id }}" :error="hasError" class="{{ labelAttrs.render('class') }}" {{ ...labelAttrs.without('class') }}>
             {{ label }}
             {% if required %}<span class="text-red-500 ml-0.5">*</span>{% endif %}
         </twig:ui:label>
@@ -60,10 +68,12 @@
     {# TextArea #}
     <twig:ui:input-wrapper
         :disabled="disabled"
-        class="{{ label ? 'mt-2' : '' }} {{ class }}"
+        class="{{ ((label ? 'mt-2' : '') ~ ' ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+        {{ ...wrapperAttrs.without('class') }}
     >
         <textarea
-            class="block w-full bg-transparent focus:outline-none {{ sizeClasses[size] ?? sizeClasses['md'] }} {{ resizeClasses[resize] ?? resizeClasses['vertical'] }}"
+            class="{{ ('block w-full bg-transparent focus:outline-none ' ~ (sizeClasses[size] ?? sizeClasses['md']) ~ ' ' ~ (resizeClasses[resize] ?? resizeClasses['vertical']) ~ ' ' ~ textareaAttrs.render('class'))|tailwind_merge }}"
+            {{ textareaAttrs.without('class') }}
             rows="{{ rows }}"
             {% if name %}name="{{ name }}"{% endif %}
             {% if _id %}id="{{ _id }}"{% endif %}
@@ -78,7 +88,7 @@
 
     {# Character count #}
     {% if showCount or maxLength %}
-        <div class="flex justify-end mt-1">
+        <div class="{{ ('flex justify-end mt-1 ' ~ countAttrs.render('class'))|tailwind_merge }}" {{ countAttrs.without('class') }}>
             <span class="text-xs text-gray-400">
                 <span data-textarea-count>{{ value|length }}</span>{% if maxLength %} / {{ maxLength }}{% endif %}
             </span>
@@ -87,11 +97,11 @@
 
     {# Hint #}
     {% if hint and not hasError %}
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ hint }}</p>
+        <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ hintAttrs.render('class'))|tailwind_merge }}" {{ hintAttrs.without('class') }}>{{ hint }}</p>
     {% endif %}
 
     {# Error #}
     {% if hasError %}
-        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ error }}</p>
+        <p class="{{ ('mt-1 text-sm text-red-600 dark:text-red-400 ' ~ errorAttrs.render('class'))|tailwind_merge }}" {{ errorAttrs.without('class') }}>{{ error }}</p>
     {% endif %}
 </div>
