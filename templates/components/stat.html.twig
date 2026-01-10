@@ -56,7 +56,7 @@
 
 <div {{ attributes }} class="{{ ('grid ' ~ gapClass ~ ' ' ~ colsClass ~ ' ' ~ class)|tailwind_merge }}">
   {% for stat in stats %}
-    <twig:Ui:stat-item
+    <twig:Ui:stat:item
       :label="stat.label ?? ''"
       :value="stat.value ?? ''"
       :description="stat.description ?? ''"
