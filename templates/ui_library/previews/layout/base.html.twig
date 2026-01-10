@@ -14,7 +14,7 @@
 
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'menu', description: 'Sidebar navigation menu content (use &lt;twig:Ui:menu&gt; components)' },
+        { name: 'menu', description: 'Sidebar navigation menu content (use &lt;twig:ui:menu&gt; components)' },
         { name: 'header_center', description: 'Content in the center of the header (e.g., search bar)' },
         { name: 'header_actions', description: 'Action buttons in the header (before user menu)' },
         { name: 'sidebar_footer', description: 'Content at the bottom of the sidebar' },
@@ -36,23 +36,23 @@
             </ul>
         </div>
     {% endset %}
-    {% set aboutCode %}&lt;twig:Ui:layout:base
+    {% set aboutCode %}&lt;twig:ui:layout:base
     appName="My Application"
     userName="John Doe"
     userAvatar="JD"
 &gt;
     {% verbatim %}{% block menu %}{% endverbatim %}
-        &lt;twig:Ui:menu&gt;
-            &lt;twig:Ui:menu:item label="Dashboard" icon="heroicons:home" active href="/" /&gt;
-            &lt;twig:Ui:menu:item label="Users" icon="heroicons:users" href="/users" /&gt;
-            &lt;twig:Ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" /&gt;
-        &lt;/twig:Ui:menu&gt;
+        &lt;twig:ui:menu&gt;
+            &lt;twig:ui:menu:item label="Dashboard" icon="heroicons:home" active href="/" /&gt;
+            &lt;twig:ui:menu:item label="Users" icon="heroicons:users" href="/users" /&gt;
+            &lt;twig:ui:menu:item label="Settings" icon="heroicons:cog-6-tooth" href="/settings" /&gt;
+        &lt;/twig:ui:menu&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
 
     {% verbatim %}{% block content %}{% endverbatim %}
         &lt;!-- Your page content here --&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
-&lt;/twig:Ui:layout:base&gt;{% endset %}
+&lt;/twig:ui:layout:base&gt;{% endset %}
     {{ ui.story('Overview', aboutPreview, aboutCode) }}
 
     {# Layout Structure #}
@@ -118,7 +118,7 @@
             </div>
         </div>
     {% endset %}
-    {% set userMenuCode %}&lt;twig:Ui:layout:base
+    {% set userMenuCode %}&lt;twig:ui:layout:base
     appName="My App"
     userName="John Doe"
     userAvatar="JD"
@@ -130,7 +130,7 @@
         &lt;a href="/logout" class="block px-4 py-2 hover:bg-gray-100 text-red-600"&gt;Logout&lt;/a&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
     ...
-&lt;/twig:Ui:layout:base&gt;{% endset %}
+&lt;/twig:ui:layout:base&gt;{% endset %}
     {{ ui.story('User Menu', userMenuPreview, userMenuCode) }}
 
     {# Header Actions #}
@@ -149,7 +149,7 @@
             </div>
         </div>
     {% endset %}
-    {% set headerActionsCode %}&lt;twig:Ui:layout:base appName="My App"&gt;
+    {% set headerActionsCode %}&lt;twig:ui:layout:base appName="My App"&gt;
     {% verbatim %}{% block header_actions %}{% endverbatim %}
         &lt;button class="p-2 rounded-lg hover:bg-gray-100"&gt;
             &lt;twig:ux:icon name="heroicons:bell" class="size-5" /&gt;
@@ -159,6 +159,6 @@
         &lt;/button&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
     ...
-&lt;/twig:Ui:layout:base&gt;{% endset %}
+&lt;/twig:ui:layout:base&gt;{% endset %}
     {{ ui.story('Header Actions', headerActionsPreview, headerActionsCode) }}
 </div>

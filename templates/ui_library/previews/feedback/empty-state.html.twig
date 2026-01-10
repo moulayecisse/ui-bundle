@@ -1,29 +1,29 @@
 <div class="space-y-8">
     {# Basic Empty State #}
-    <twig:Ui:empty-state
+    <twig:ui:empty-state
         icon="lucide:inbox"
         title="No messages"
         description="You don't have any messages yet. Start a conversation!"
     >
-        <twig:Ui:button primary icon="lucide:plus">New Message</twig:Ui:button>
-    </twig:Ui:empty-state>
+        <twig:ui:button primary icon="lucide:plus">New Message</twig:ui:button>
+    </twig:ui:empty-state>
 
     {# Search Empty State #}
-    <twig:Ui:empty-state
+    <twig:ui:empty-state
         icon="lucide:search"
         title="No results found"
         description="We couldn't find anything matching your search. Try different keywords."
     >
-        <twig:Ui:button white>Clear Search</twig:Ui:button>
-    </twig:Ui:empty-state>
+        <twig:ui:button white>Clear Search</twig:ui:button>
+    </twig:ui:empty-state>
 
     {# Error Empty State #}
-    <twig:Ui:empty-state
+    <twig:ui:empty-state
         icon="lucide:alert-circle"
         title="Something went wrong"
         description="We encountered an error while loading your data. Please try again."
         variant="error"
     >
-        <twig:Ui:button primary>Try Again</twig:Ui:button>
-    </twig:Ui:empty-state>
+        <twig:ui:button primary>Try Again</twig:ui:button>
+    </twig:ui:empty-state>
 </div>

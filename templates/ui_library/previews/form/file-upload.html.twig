@@ -22,23 +22,23 @@
     {# Basic File Upload #}
     {% set basicPreview %}
         <div class="max-w-lg">
-            <twig:Ui:file-upload name="file" />
+            <twig:ui:file-upload name="file" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:file-upload name="file" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:file-upload name="file" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic File Upload', basicPreview, basicCode) }}
 
     {# With Description #}
     {% set descriptionPreview %}
         <div class="max-w-lg">
-            <twig:Ui:file-upload
+            <twig:ui:file-upload
                 name="document"
                 label="Upload Document"
                 description="PDF, DOC, or DOCX files only"
             />
         </div>
     {% endset %}
-    {% set descriptionCode %}{% verbatim %}<twig:Ui:file-upload
+    {% set descriptionCode %}{% verbatim %}<twig:ui:file-upload
     name="document"
     label="Upload Document"
     description="PDF, DOC, or DOCX files only"
@@ -48,7 +48,7 @@
     {# Multiple Files #}
     {% set multiplePreview %}
         <div class="max-w-lg">
-            <twig:Ui:file-upload
+            <twig:ui:file-upload
                 name="images"
                 multiple
                 label="Drop images here or click to upload"
@@ -56,7 +56,7 @@
             />
         </div>
     {% endset %}
-    {% set multipleCode %}{% verbatim %}<twig:Ui:file-upload
+    {% set multipleCode %}{% verbatim %}<twig:ui:file-upload
     name="images"
     multiple
     label="Drop images here or click to upload"
@@ -67,7 +67,7 @@
     {# With Max Size #}
     {% set maxSizePreview %}
         <div class="max-w-lg">
-            <twig:Ui:file-upload
+            <twig:ui:file-upload
                 name="avatar"
                 label="Upload avatar"
                 accept="image/png,image/jpeg"
@@ -75,7 +75,7 @@
             />
         </div>
     {% endset %}
-    {% set maxSizeCode %}{% verbatim %}<twig:Ui:file-upload
+    {% set maxSizeCode %}{% verbatim %}<twig:ui:file-upload
     name="avatar"
     label="Upload avatar"
     accept="image/png,image/jpeg"
@@ -86,10 +86,10 @@
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-lg">
-            <twig:Ui:file-upload name="disabled" disabled />
+            <twig:ui:file-upload name="disabled" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:file-upload name="disabled" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:file-upload name="disabled" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 
     {# Size Variants #}
@@ -97,21 +97,21 @@
         <div class="max-w-lg space-y-6">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Small</p>
-                <twig:Ui:file-upload name="size-sm" size="sm" label="Upload file" />
+                <twig:ui:file-upload name="size-sm" size="sm" label="Upload file" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
-                <twig:Ui:file-upload name="size-md" size="md" label="Upload file" />
+                <twig:ui:file-upload name="size-md" size="md" label="Upload file" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Large</p>
-                <twig:Ui:file-upload name="size-lg" size="lg" label="Upload file" />
+                <twig:ui:file-upload name="size-lg" size="lg" label="Upload file" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:file-upload size="sm" label="Upload file" />
-<twig:Ui:file-upload size="md" label="Upload file" />
-<twig:Ui:file-upload size="lg" label="Upload file" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:file-upload size="sm" label="Upload file" />
+<twig:ui:file-upload size="md" label="Upload file" />
+<twig:ui:file-upload size="lg" label="Upload file" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 
     {# Style Variants #}
@@ -119,29 +119,29 @@
         <div class="max-w-lg space-y-6">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Default (dashed border)</p>
-                <twig:Ui:file-upload name="var-default" variant="default" label="Drop files here" />
+                <twig:ui:file-upload name="var-default" variant="default" label="Drop files here" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Solid (filled background)</p>
-                <twig:Ui:file-upload name="var-solid" variant="solid" label="Drop files here" />
+                <twig:ui:file-upload name="var-solid" variant="solid" label="Drop files here" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Minimal</p>
-                <twig:Ui:file-upload name="var-minimal" variant="minimal" label="Drop files here" />
+                <twig:ui:file-upload name="var-minimal" variant="minimal" label="Drop files here" />
             </div>
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:Ui:file-upload variant="default" label="Drop files here" />
-<twig:Ui:file-upload variant="solid" label="Drop files here" />
-<twig:Ui:file-upload variant="minimal" label="Drop files here" />{% endverbatim %}{% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:file-upload variant="default" label="Drop files here" />
+<twig:ui:file-upload variant="solid" label="Drop files here" />
+<twig:ui:file-upload variant="minimal" label="Drop files here" />{% endverbatim %}{% endset %}
     {{ ui.story('Style Variants', variantsPreview, variantsCode) }}
 
     {# Without Icon #}
     {% set noIconPreview %}
         <div class="max-w-lg">
-            <twig:Ui:file-upload name="no-icon" :showIcon="false" label="Click to upload" description="Or drag and drop files" />
+            <twig:ui:file-upload name="no-icon" :showIcon="false" label="Click to upload" description="Or drag and drop files" />
         </div>
     {% endset %}
-    {% set noIconCode %}{% verbatim %}<twig:Ui:file-upload :showIcon="false" label="Click to upload" description="Or drag and drop" />{% endverbatim %}{% endset %}
+    {% set noIconCode %}{% verbatim %}<twig:ui:file-upload :showIcon="false" label="Click to upload" description="Or drag and drop" />{% endverbatim %}{% endset %}
     {{ ui.story('Without Icon', noIconPreview, noIconCode) }}
 </div>

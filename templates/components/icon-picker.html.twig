@@ -46,10 +46,10 @@
 
     {# Label #}
     {% if label %}
-        <twig:Ui:label for="{{ _id }}" :error="error">
+        <twig:ui:label for="{{ _id }}" :error="error">
             {{ label }}
             {% if required %}<span class="text-red-500 ml-0.5">*</span>{% endif %}
-        </twig:Ui:label>
+        </twig:ui:label>
     {% endif %}
 
     {# Trigger button #}

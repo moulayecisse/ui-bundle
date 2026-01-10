@@ -21,7 +21,7 @@
 
     {# Underline Variant (default) #}
     {% set underlinePreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             variant="underline"
             current="dashboard"
             :tabs="[
@@ -31,7 +31,7 @@
             ]"
         />
     {% endset %}
-    {% set underlineCode %}{% verbatim %}<twig:Ui:tabs
+    {% set underlineCode %}{% verbatim %}<twig:ui:tabs
     variant="underline"
     current="dashboard"
     :tabs="[
@@ -44,7 +44,7 @@
 
     {# Pills Variant #}
     {% set pillsPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             variant="pills"
             current="overview"
             :tabs="[
@@ -54,7 +54,7 @@
             ]"
         />
     {% endset %}
-    {% set pillsCode %}{% verbatim %}<twig:Ui:tabs
+    {% set pillsCode %}{% verbatim %}<twig:ui:tabs
     variant="pills"
     current="overview"
     :tabs="[
@@ -67,7 +67,7 @@
 
     {# Boxed Variant #}
     {% set boxedPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             variant="boxed"
             current="monthly"
             :tabs="[
@@ -77,7 +77,7 @@
             ]"
         />
     {% endset %}
-    {% set boxedCode %}{% verbatim %}<twig:Ui:tabs
+    {% set boxedCode %}{% verbatim %}<twig:ui:tabs
     variant="boxed"
     current="monthly"
     :tabs="[
@@ -90,7 +90,7 @@
 
     {# With Icons #}
     {% set iconsPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             variant="underline"
             current="home"
             :tabs="[
@@ -100,7 +100,7 @@
             ]"
         />
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:Ui:tabs
+    {% set iconsCode %}{% verbatim %}<twig:ui:tabs
     variant="underline"
     current="home"
     :tabs="[
@@ -113,7 +113,7 @@
 
     {# With Disabled Tab #}
     {% set disabledPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             variant="underline"
             current="active"
             :tabs="[
@@ -123,7 +123,7 @@
             ]"
         />
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:tabs
+    {% set disabledCode %}{% verbatim %}<twig:ui:tabs
     variant="underline"
     current="active"
     :tabs="[
@@ -139,21 +139,21 @@
         <div class="space-y-6">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Underline</p>
-                <twig:Ui:tabs variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+                <twig:ui:tabs variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Pills</p>
-                <twig:Ui:tabs variant="pills" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+                <twig:ui:tabs variant="pills" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Boxed</p>
-                <twig:Ui:tabs variant="boxed" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+                <twig:ui:tabs variant="boxed" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
             </div>
         </div>
     {% endset %}
-    {% set comparisonCode %}{% verbatim %}<twig:Ui:tabs variant="underline" ... />
-<twig:Ui:tabs variant="pills" ... />
-<twig:Ui:tabs variant="boxed" ... />{% endverbatim %}{% endset %}
+    {% set comparisonCode %}{% verbatim %}<twig:ui:tabs variant="underline" ... />
+<twig:ui:tabs variant="pills" ... />
+<twig:ui:tabs variant="boxed" ... />{% endverbatim %}{% endset %}
     {{ ui.story('All Variants Comparison', comparisonPreview, comparisonCode) }}
 
     {# Size Variants #}
@@ -161,26 +161,26 @@
         <div class="space-y-6">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Small</p>
-                <twig:Ui:tabs size="sm" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+                <twig:ui:tabs size="sm" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
-                <twig:Ui:tabs size="md" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+                <twig:ui:tabs size="md" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Large</p>
-                <twig:Ui:tabs size="lg" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
+                <twig:ui:tabs size="lg" variant="underline" current="tab1" :tabs="[{ key: 'tab1', label: 'Tab 1' }, { key: 'tab2', label: 'Tab 2' }, { key: 'tab3', label: 'Tab 3' }]" />
             </div>
         </div>
     {% endset %}
-    {% set sizeCode %}{% verbatim %}<twig:Ui:tabs size="sm" ... />
-<twig:Ui:tabs size="md" ... />
-<twig:Ui:tabs size="lg" ... />{% endverbatim %}{% endset %}
+    {% set sizeCode %}{% verbatim %}<twig:ui:tabs size="sm" ... />
+<twig:ui:tabs size="md" ... />
+<twig:ui:tabs size="lg" ... />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizePreview, sizeCode) }}
 
     {# Full Width #}
     {% set fullWidthPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             fullWidth
             variant="boxed"
             current="tab1"
@@ -191,7 +191,7 @@
             ]"
         />
     {% endset %}
-    {% set fullWidthCode %}{% verbatim %}<twig:Ui:tabs
+    {% set fullWidthCode %}{% verbatim %}<twig:ui:tabs
     fullWidth
     variant="boxed"
     current="tab1"
@@ -205,7 +205,7 @@
 
     {# With Badges #}
     {% set badgesPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             variant="underline"
             current="inbox"
             :tabs="[
@@ -215,7 +215,7 @@
             ]"
         />
     {% endset %}
-    {% set badgesCode %}{% verbatim %}<twig:Ui:tabs
+    {% set badgesCode %}{% verbatim %}<twig:ui:tabs
     variant="underline"
     current="inbox"
     :tabs="[
@@ -228,7 +228,7 @@
 
     {# Vertical Orientation #}
     {% set verticalPreview %}
-        <twig:Ui:tabs
+        <twig:ui:tabs
             orientation="vertical"
             variant="pills"
             current="general"
@@ -244,9 +244,9 @@
                     <p class="text-gray-600 dark:text-gray-400">Tab panel content goes here...</p>
                 </div>
             </twig:block>
-        </twig:Ui:tabs>
+        </twig:ui:tabs>
     {% endset %}
-    {% set verticalCode %}{% verbatim %}<twig:Ui:tabs
+    {% set verticalCode %}{% verbatim %}<twig:ui:tabs
     orientation="vertical"
     variant="pills"
     current="general"
@@ -259,6 +259,6 @@
     {% block panels %}
         <div>Tab content...</div>
     {% endblock %}
-</twig:Ui:tabs>{% endverbatim %}{% endset %}
+</twig:ui:tabs>{% endverbatim %}{% endset %}
     {{ ui.story('Vertical Orientation', verticalPreview, verticalCode) }}
 </div>

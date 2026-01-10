@@ -17,28 +17,28 @@
 
     {# Basic Color Picker #}
     {% set basicPreview %}
-        <twig:Ui:color-picker name="color" value="#3b82f6" />
+        <twig:ui:color-picker name="color" value="#3b82f6" />
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:color-picker name="color" value="#3b82f6" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:color-picker name="color" value="#3b82f6" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Color Picker', basicPreview, basicCode) }}
 
     {# With Label #}
     {% set labelPreview %}
-        <twig:Ui:color-picker name="theme-color" label="Theme Color" value="#8b5cf6" />
+        <twig:ui:color-picker name="theme-color" label="Theme Color" value="#8b5cf6" />
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:color-picker name="theme-color" label="Theme Color" value="#8b5cf6" />{% endverbatim %}{% endset %}
+    {% set labelCode %}{% verbatim %}<twig:ui:color-picker name="theme-color" label="Theme Color" value="#8b5cf6" />{% endverbatim %}{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Custom Swatches #}
     {% set swatchesPreview %}
-        <twig:Ui:color-picker
+        <twig:ui:color-picker
             name="brand"
             label="Brand Color"
             value="#ef4444"
             :swatches="['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6']"
         />
     {% endset %}
-    {% set swatchesCode %}{% verbatim %}<twig:Ui:color-picker
+    {% set swatchesCode %}{% verbatim %}<twig:ui:color-picker
     name="brand"
     label="Brand Color"
     value="#ef4444"
@@ -48,16 +48,16 @@
 
     {# Without Text Input #}
     {% set noInputPreview %}
-        <twig:Ui:color-picker name="simple" value="#22c55e" :showInput="false" />
+        <twig:ui:color-picker name="simple" value="#22c55e" :showInput="false" />
     {% endset %}
-    {% set noInputCode %}{% verbatim %}<twig:Ui:color-picker name="simple" value="#22c55e" :showInput="false" />{% endverbatim %}{% endset %}
+    {% set noInputCode %}{% verbatim %}<twig:ui:color-picker name="simple" value="#22c55e" :showInput="false" />{% endverbatim %}{% endset %}
     {{ ui.story('Without Text Input', noInputPreview, noInputCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
-        <twig:Ui:color-picker name="disabled" label="Disabled" value="#64748b" disabled />
+        <twig:ui:color-picker name="disabled" label="Disabled" value="#64748b" disabled />
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:color-picker name="disabled" label="Disabled" value="#64748b" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:color-picker name="disabled" label="Disabled" value="#64748b" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 
     {# Size Variants #}
@@ -65,27 +65,27 @@
         <div class="flex items-end gap-4">
             <div>
                 <p class="text-xs text-gray-500 mb-2">Small</p>
-                <twig:Ui:color-picker name="size-sm" size="sm" value="#ef4444" />
+                <twig:ui:color-picker name="size-sm" size="sm" value="#ef4444" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Medium</p>
-                <twig:Ui:color-picker name="size-md" size="md" value="#22c55e" />
+                <twig:ui:color-picker name="size-md" size="md" value="#22c55e" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Large</p>
-                <twig:Ui:color-picker name="size-lg" size="lg" value="#3b82f6" />
+                <twig:ui:color-picker name="size-lg" size="lg" value="#3b82f6" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:color-picker size="sm" value="#ef4444" />
-<twig:Ui:color-picker size="md" value="#22c55e" />
-<twig:Ui:color-picker size="lg" value="#3b82f6" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:color-picker size="sm" value="#ef4444" />
+<twig:ui:color-picker size="md" value="#22c55e" />
+<twig:ui:color-picker size="lg" value="#3b82f6" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 
     {# Without Value Display #}
     {% set noValuePreview %}
-        <twig:Ui:color-picker name="no-value" value="#8b5cf6" :showValue="false" />
+        <twig:ui:color-picker name="no-value" value="#8b5cf6" :showValue="false" />
     {% endset %}
-    {% set noValueCode %}{% verbatim %}<twig:Ui:color-picker value="#8b5cf6" :showValue="false" />{% endverbatim %}{% endset %}
+    {% set noValueCode %}{% verbatim %}<twig:ui:color-picker value="#8b5cf6" :showValue="false" />{% endverbatim %}{% endset %}
     {{ ui.story('Without Value Display', noValuePreview, noValueCode) }}
 </div>

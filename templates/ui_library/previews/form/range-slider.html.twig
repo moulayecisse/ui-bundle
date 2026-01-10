@@ -21,7 +21,7 @@
     {# Basic Range Slider #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:range-slider
+            <twig:ui:range-slider
                 minName="price_min"
                 maxName="price_max"
                 minValue="25"
@@ -29,7 +29,7 @@
             />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:range-slider
+    {% set basicCode %}{% verbatim %}<twig:ui:range-slider
     minName="price_min"
     maxName="price_max"
     minValue="25"
@@ -40,7 +40,7 @@
     {# Custom Range #}
     {% set customPreview %}
         <div class="max-w-md">
-            <twig:Ui:range-slider
+            <twig:ui:range-slider
                 minName="min_price"
                 maxName="max_price"
                 min="0"
@@ -50,7 +50,7 @@
             />
         </div>
     {% endset %}
-    {% set customCode %}{% verbatim %}<twig:Ui:range-slider
+    {% set customCode %}{% verbatim %}<twig:ui:range-slider
     minName="min_price"
     maxName="max_price"
     min="0"
@@ -63,7 +63,7 @@
     {# With Steps #}
     {% set stepsPreview %}
         <div class="max-w-md">
-            <twig:Ui:range-slider
+            <twig:ui:range-slider
                 minName="step_min"
                 maxName="step_max"
                 min="0"
@@ -74,7 +74,7 @@
             />
         </div>
     {% endset %}
-    {% set stepsCode %}{% verbatim %}<twig:Ui:range-slider
+    {% set stepsCode %}{% verbatim %}<twig:ui:range-slider
     min="0"
     max="100"
     step="10"
@@ -86,7 +86,7 @@
     {# Without Labels #}
     {% set noLabelsPreview %}
         <div class="max-w-md">
-            <twig:Ui:range-slider
+            <twig:ui:range-slider
                 minName="no_labels_min"
                 maxName="no_labels_max"
                 minValue="30"
@@ -95,7 +95,7 @@
             />
         </div>
     {% endset %}
-    {% set noLabelsCode %}{% verbatim %}<twig:Ui:range-slider
+    {% set noLabelsCode %}{% verbatim %}<twig:ui:range-slider
     minValue="30"
     maxValue="70"
     :showLabels="false"
@@ -105,7 +105,7 @@
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-md">
-            <twig:Ui:range-slider
+            <twig:ui:range-slider
                 minName="disabled_min"
                 maxName="disabled_max"
                 minValue="40"
@@ -114,7 +114,7 @@
             />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:range-slider
+    {% set disabledCode %}{% verbatim %}<twig:ui:range-slider
     minValue="40"
     maxValue="60"
     disabled
@@ -126,35 +126,35 @@
         <div class="max-w-md space-y-8">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Small</p>
-                <twig:Ui:range-slider minName="size_sm_min" maxName="size_sm_max" size="sm" minValue="20" maxValue="80" />
+                <twig:ui:range-slider minName="size_sm_min" maxName="size_sm_max" size="sm" minValue="20" maxValue="80" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
-                <twig:Ui:range-slider minName="size_md_min" maxName="size_md_max" size="md" minValue="25" maxValue="75" />
+                <twig:ui:range-slider minName="size_md_min" maxName="size_md_max" size="md" minValue="25" maxValue="75" />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Large</p>
-                <twig:Ui:range-slider minName="size_lg_min" maxName="size_lg_max" size="lg" minValue="30" maxValue="70" />
+                <twig:ui:range-slider minName="size_lg_min" maxName="size_lg_max" size="lg" minValue="30" maxValue="70" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:range-slider size="sm" minValue="20" maxValue="80" />
-<twig:Ui:range-slider size="md" minValue="25" maxValue="75" />
-<twig:Ui:range-slider size="lg" minValue="30" maxValue="70" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:range-slider size="sm" minValue="20" maxValue="80" />
+<twig:ui:range-slider size="md" minValue="25" maxValue="75" />
+<twig:ui:range-slider size="lg" minValue="30" maxValue="70" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 
     {# Color Variants #}
     {% set colorsPreview %}
         <div class="max-w-md space-y-6">
-            <twig:Ui:range-slider minName="color_primary_min" maxName="color_primary_max" color="primary" minValue="20" maxValue="80" :showMinMax="false" />
-            <twig:Ui:range-slider minName="color_success_min" maxName="color_success_max" color="success" minValue="25" maxValue="75" :showMinMax="false" />
-            <twig:Ui:range-slider minName="color_warning_min" maxName="color_warning_max" color="warning" minValue="30" maxValue="70" :showMinMax="false" />
-            <twig:Ui:range-slider minName="color_danger_min" maxName="color_danger_max" color="danger" minValue="35" maxValue="65" :showMinMax="false" />
+            <twig:ui:range-slider minName="color_primary_min" maxName="color_primary_max" color="primary" minValue="20" maxValue="80" :showMinMax="false" />
+            <twig:ui:range-slider minName="color_success_min" maxName="color_success_max" color="success" minValue="25" maxValue="75" :showMinMax="false" />
+            <twig:ui:range-slider minName="color_warning_min" maxName="color_warning_max" color="warning" minValue="30" maxValue="70" :showMinMax="false" />
+            <twig:ui:range-slider minName="color_danger_min" maxName="color_danger_max" color="danger" minValue="35" maxValue="65" :showMinMax="false" />
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:range-slider color="primary" minValue="20" maxValue="80" />
-<twig:Ui:range-slider color="success" minValue="25" maxValue="75" />
-<twig:Ui:range-slider color="warning" minValue="30" maxValue="70" />
-<twig:Ui:range-slider color="danger" minValue="35" maxValue="65" />{% endverbatim %}{% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:ui:range-slider color="primary" minValue="20" maxValue="80" />
+<twig:ui:range-slider color="success" minValue="25" maxValue="75" />
+<twig:ui:range-slider color="warning" minValue="30" maxValue="70" />
+<twig:ui:range-slider color="danger" minValue="35" maxValue="65" />{% endverbatim %}{% endset %}
     {{ ui.story('Color Variants', colorsPreview, colorsCode) }}
 </div>

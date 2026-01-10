@@ -22,14 +22,14 @@
 
     {# Vertical Timeline #}
     {% set verticalPreview %}
-        <twig:Ui:timeline :items="[
+        <twig:ui:timeline :items="[
             { title: 'Order Placed', description: 'Your order #12345 has been placed successfully.', date: 'Jan 1, 2024', status: 'completed' },
             { title: 'Processing', description: 'Your order is being processed.', date: 'Jan 2, 2024', status: 'completed' },
             { title: 'Shipped', description: 'Your order has been shipped via Express.', date: 'Jan 3, 2024', status: 'current' },
             { title: 'Delivered', description: 'Expected delivery.', date: 'Jan 5, 2024', status: 'upcoming' }
         ]" />
     {% endset %}
-    {% set verticalCode %}&lt;twig:Ui:timeline :items="[
+    {% set verticalCode %}&lt;twig:ui:timeline :items="[
     { title: 'Order Placed', date: 'Jan 1, 2024', status: 'completed' },
     { title: 'Processing', date: 'Jan 2, 2024', status: 'completed' },
     { title: 'Shipped', date: 'Jan 3, 2024', status: 'current' },
@@ -39,14 +39,14 @@
 
     {# Horizontal Timeline #}
     {% set horizontalPreview %}
-        <twig:Ui:timeline orientation="horizontal" :items="[
+        <twig:ui:timeline orientation="horizontal" :items="[
             { title: 'Step 1', status: 'completed' },
             { title: 'Step 2', status: 'completed' },
             { title: 'Step 3', status: 'current' },
             { title: 'Step 4', status: 'upcoming' }
         ]" />
     {% endset %}
-    {% set horizontalCode %}&lt;twig:Ui:timeline orientation="horizontal" :items="[
+    {% set horizontalCode %}&lt;twig:ui:timeline orientation="horizontal" :items="[
     { title: 'Step 1', status: 'completed' },
     { title: 'Step 2', status: 'completed' },
     { title: 'Step 3', status: 'current' },
@@ -56,13 +56,13 @@
 
     {# With Error State #}
     {% set errorPreview %}
-        <twig:Ui:timeline :items="[
+        <twig:ui:timeline :items="[
             { title: 'Payment Initiated', status: 'completed', date: 'Jan 1' },
             { title: 'Processing', status: 'completed', date: 'Jan 2' },
             { title: 'Payment Failed', status: 'error', description: 'Insufficient funds', date: 'Jan 3' }
         ]" />
     {% endset %}
-    {% set errorCode %}&lt;twig:Ui:timeline :items="[
+    {% set errorCode %}&lt;twig:ui:timeline :items="[
     { title: 'Payment Initiated', status: 'completed' },
     { title: 'Processing', status: 'completed' },
     { title: 'Payment Failed', status: 'error', description: 'Insufficient funds' }
@@ -71,14 +71,14 @@
 
     {# With Custom Icons #}
     {% set iconsPreview %}
-        <twig:Ui:timeline :items="[
+        <twig:ui:timeline :items="[
             { title: 'Account Created', icon: 'heroicons:user-plus', status: 'completed' },
             { title: 'Email Verified', icon: 'heroicons:envelope', status: 'completed' },
             { title: 'Profile Setup', icon: 'heroicons:cog-6-tooth', status: 'current' },
             { title: 'Complete', icon: 'heroicons:rocket-launch', status: 'upcoming' }
         ]" />
     {% endset %}
-    {% set iconsCode %}&lt;twig:Ui:timeline :items="[
+    {% set iconsCode %}&lt;twig:ui:timeline :items="[
     { title: 'Account Created', icon: 'heroicons:user-plus', status: 'completed' },
     { title: 'Email Verified', icon: 'heroicons:envelope', status: 'completed' },
     { title: 'Profile Setup', icon: 'heroicons:cog-6-tooth', status: 'current' }

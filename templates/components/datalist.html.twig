@@ -11,21 +11,21 @@
         {% if block(block_name) is defined %}
           {{ block(block_name) }}
         {% else %}
-          <twig:Ui:datalist:item>
+          <twig:ui:datalist:item>
             {% set label_block_name = 'label_' ~ loop.index %}
             {% if block(label_block_name) is defined %}
               {{ block(label_block_name) }}
             {% else %}
-              <twig:Ui:datalist:label>{{ (item.label ?? '')|raw }}</twig:Ui:datalist:label>
+              <twig:ui:datalist:label>{{ (item.label ?? '')|raw }}</twig:ui:datalist:label>
             {% endif %}
 
             {% set value_block_name = 'value_' ~ loop.index %}
             {% if block(value_block_name) is defined %}
               {{ block(value_block_name) }}
             {% else %}
-              <twig:Ui:datalist:value>{{ (item.value ?? '')|raw }}</twig:Ui:datalist:value>
+              <twig:ui:datalist:value>{{ (item.value ?? '')|raw }}</twig:ui:datalist:value>
             {% endif %}
-          </twig:Ui:datalist:item>
+          </twig:ui:datalist:item>
         {% endif %}
       {% endset %}
 

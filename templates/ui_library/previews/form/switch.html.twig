@@ -18,89 +18,89 @@
 
     {# Basic Switch #}
     {% set basicPreview %}
-        <twig:Ui:switch name="basic" label="Basic Switch" />
+        <twig:ui:switch name="basic" label="Basic Switch" />
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:switch name="basic" label="Basic Switch" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:switch name="basic" label="Basic Switch" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Switch', basicPreview, basicCode) }}
 
     {# Color Variants #}
     {% set colorPreview %}
         <div class="space-y-3">
-            <twig:Ui:switch name="primary" label="Primary" color="primary" checked />
-            <twig:Ui:switch name="success" label="Success" color="success" checked />
-            <twig:Ui:switch name="warning" label="Warning" color="warning" checked />
-            <twig:Ui:switch name="danger" label="Danger" color="danger" checked />
-            <twig:Ui:switch name="info" label="Info" color="info" checked />
+            <twig:ui:switch name="primary" label="Primary" color="primary" checked />
+            <twig:ui:switch name="success" label="Success" color="success" checked />
+            <twig:ui:switch name="warning" label="Warning" color="warning" checked />
+            <twig:ui:switch name="danger" label="Danger" color="danger" checked />
+            <twig:ui:switch name="info" label="Info" color="info" checked />
         </div>
     {% endset %}
-    {% set colorCode %}{% verbatim %}<twig:Ui:switch name="primary" label="Primary" color="primary" checked />
-<twig:Ui:switch name="success" label="Success" color="success" checked />
-<twig:Ui:switch name="warning" label="Warning" color="warning" checked />
-<twig:Ui:switch name="danger" label="Danger" color="danger" checked />
-<twig:Ui:switch name="info" label="Info" color="info" checked />{% endverbatim %}{% endset %}
+    {% set colorCode %}{% verbatim %}<twig:ui:switch name="primary" label="Primary" color="primary" checked />
+<twig:ui:switch name="success" label="Success" color="success" checked />
+<twig:ui:switch name="warning" label="Warning" color="warning" checked />
+<twig:ui:switch name="danger" label="Danger" color="danger" checked />
+<twig:ui:switch name="info" label="Info" color="info" checked />{% endverbatim %}{% endset %}
     {{ ui.story('Color Variants', colorPreview, colorCode) }}
 
     {# Size Variants #}
     {% set sizePreview %}
         <div class="space-y-3">
-            <twig:Ui:switch name="small" label="Small" size="sm" />
-            <twig:Ui:switch name="medium" label="Medium (default)" size="md" />
-            <twig:Ui:switch name="large" label="Large" size="lg" />
+            <twig:ui:switch name="small" label="Small" size="sm" />
+            <twig:ui:switch name="medium" label="Medium (default)" size="md" />
+            <twig:ui:switch name="large" label="Large" size="lg" />
         </div>
     {% endset %}
-    {% set sizeCode %}{% verbatim %}<twig:Ui:switch name="small" label="Small" size="sm" />
-<twig:Ui:switch name="medium" label="Medium" size="md" />
-<twig:Ui:switch name="large" label="Large" size="lg" />{% endverbatim %}{% endset %}
+    {% set sizeCode %}{% verbatim %}<twig:ui:switch name="small" label="Small" size="sm" />
+<twig:ui:switch name="medium" label="Medium" size="md" />
+<twig:ui:switch name="large" label="Large" size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizePreview, sizeCode) }}
 
     {# With Description #}
     {% set descriptionPreview %}
-        <twig:Ui:switch name="description" label="Email Notifications" description="Receive email updates about your account." />
+        <twig:ui:switch name="description" label="Email Notifications" description="Receive email updates about your account." />
     {% endset %}
-    {% set descriptionCode %}{% verbatim %}<twig:Ui:switch name="description" label="Email Notifications" description="Receive email updates about your account." />{% endverbatim %}{% endset %}
+    {% set descriptionCode %}{% verbatim %}<twig:ui:switch name="description" label="Email Notifications" description="Receive email updates about your account." />{% endverbatim %}{% endset %}
     {{ ui.story('With Description', descriptionPreview, descriptionCode) }}
 
     {# Label Position #}
     {% set positionPreview %}
         <div class="space-y-3">
-            <twig:Ui:switch name="right-label" label="Label on right" labelPosition="right" checked />
-            <twig:Ui:switch name="left-label" label="Label on left" labelPosition="left" checked />
+            <twig:ui:switch name="right-label" label="Label on right" labelPosition="right" checked />
+            <twig:ui:switch name="left-label" label="Label on left" labelPosition="left" checked />
         </div>
     {% endset %}
-    {% set positionCode %}{% verbatim %}<twig:Ui:switch name="right-label" label="Label on right" labelPosition="right" />
-<twig:Ui:switch name="left-label" label="Label on left" labelPosition="left" />{% endverbatim %}{% endset %}
+    {% set positionCode %}{% verbatim %}<twig:ui:switch name="right-label" label="Label on right" labelPosition="right" />
+<twig:ui:switch name="left-label" label="Label on left" labelPosition="left" />{% endverbatim %}{% endset %}
     {{ ui.story('Label Position', positionPreview, positionCode) }}
 
     {# Required Field #}
     {% set requiredPreview %}
-        <twig:Ui:switch name="required" label="Accept Terms" description="You must accept the terms to continue." required />
+        <twig:ui:switch name="required" label="Accept Terms" description="You must accept the terms to continue." required />
     {% endset %}
-    {% set requiredCode %}{% verbatim %}<twig:Ui:switch name="required" label="Accept Terms" description="You must accept the terms to continue." required />{% endverbatim %}{% endset %}
+    {% set requiredCode %}{% verbatim %}<twig:ui:switch name="required" label="Accept Terms" description="You must accept the terms to continue." required />{% endverbatim %}{% endset %}
     {{ ui.story('Required Field', requiredPreview, requiredCode) }}
 
     {# Disabled States #}
     {% set disabledPreview %}
         <div class="space-y-3">
-            <twig:Ui:switch name="disabled-off" label="Disabled (Off)" disabled />
-            <twig:Ui:switch name="disabled-on" label="Disabled (On)" disabled checked />
+            <twig:ui:switch name="disabled-off" label="Disabled (Off)" disabled />
+            <twig:ui:switch name="disabled-on" label="Disabled (On)" disabled checked />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:switch name="disabled-off" label="Disabled (Off)" disabled />
-<twig:Ui:switch name="disabled-on" label="Disabled (On)" disabled checked />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:switch name="disabled-off" label="Disabled (Off)" disabled />
+<twig:ui:switch name="disabled-on" label="Disabled (On)" disabled checked />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled States', disabledPreview, disabledCode) }}
 
     {# Settings Example #}
     {% set settingsPreview %}
         <div class="space-y-4 max-w-md">
-            <twig:Ui:switch name="dark-mode" label="Dark Mode" description="Switch to dark color scheme" checked color="primary" />
-            <twig:Ui:switch name="notifications" label="Push Notifications" description="Receive push notifications on your device" color="info" />
-            <twig:Ui:switch name="marketing" label="Marketing Emails" description="Receive promotional emails and offers" color="success" />
-            <twig:Ui:switch name="sounds" label="Sound Effects" description="Play sounds for interactions" checked color="primary" />
+            <twig:ui:switch name="dark-mode" label="Dark Mode" description="Switch to dark color scheme" checked color="primary" />
+            <twig:ui:switch name="notifications" label="Push Notifications" description="Receive push notifications on your device" color="info" />
+            <twig:ui:switch name="marketing" label="Marketing Emails" description="Receive promotional emails and offers" color="success" />
+            <twig:ui:switch name="sounds" label="Sound Effects" description="Play sounds for interactions" checked color="primary" />
         </div>
     {% endset %}
-    {% set settingsCode %}{% verbatim %}<twig:Ui:switch name="dark-mode" label="Dark Mode" description="..." checked color="primary" />
-<twig:Ui:switch name="notifications" label="Push Notifications" description="..." color="info" />
-<twig:Ui:switch name="marketing" label="Marketing Emails" description="..." color="success" />
-<twig:Ui:switch name="sounds" label="Sound Effects" description="..." checked color="primary" />{% endverbatim %}{% endset %}
+    {% set settingsCode %}{% verbatim %}<twig:ui:switch name="dark-mode" label="Dark Mode" description="..." checked color="primary" />
+<twig:ui:switch name="notifications" label="Push Notifications" description="..." color="info" />
+<twig:ui:switch name="marketing" label="Marketing Emails" description="..." color="success" />
+<twig:ui:switch name="sounds" label="Sound Effects" description="..." checked color="primary" />{% endverbatim %}{% endset %}
     {{ ui.story('Settings Example', settingsPreview, settingsCode) }}
 </div>

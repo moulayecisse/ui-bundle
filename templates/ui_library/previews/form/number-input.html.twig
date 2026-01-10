@@ -20,10 +20,10 @@
     {# Basic Number Input #}
     {% set basicPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:number name="number" placeholder="Enter a number..." />
+            <twig:ui:input:number name="number" placeholder="Enter a number..." />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:number name="number" placeholder="Enter a number..." />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:number name="number" placeholder="Enter a number..." />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Number Input', basicPreview, basicCode) }}
 
     {# With Stepper Buttons #}
@@ -32,19 +32,19 @@
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Click the + and - buttons to increment/decrement the value.
             </p>
-            <twig:Ui:input:number name="number-stepper" :value="5" :showStepper="true" />
+            <twig:ui:input:number name="number-stepper" :value="5" :showStepper="true" />
         </div>
     {% endset %}
-    {% set stepperCode %}{% verbatim %}<twig:Ui:input:number name="number" :value="5" :showStepper="true" />{% endverbatim %}{% endset %}
+    {% set stepperCode %}{% verbatim %}<twig:ui:input:number name="number" :value="5" :showStepper="true" />{% endverbatim %}{% endset %}
     {{ ui.story('With Stepper Buttons', stepperPreview, stepperCode) }}
 
     {# Without Stepper #}
     {% set noStepperPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:number name="number-no-stepper" :showStepper="false" placeholder="Type a number..." />
+            <twig:ui:input:number name="number-no-stepper" :showStepper="false" placeholder="Type a number..." />
         </div>
     {% endset %}
-    {% set noStepperCode %}{% verbatim %}<twig:Ui:input:number name="number" :showStepper="false" />{% endverbatim %}{% endset %}
+    {% set noStepperCode %}{% verbatim %}<twig:ui:input:number name="number" :showStepper="false" />{% endverbatim %}{% endset %}
     {{ ui.story('Without Stepper', noStepperPreview, noStepperCode) }}
 
     {# With Min/Max #}
@@ -53,10 +53,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400">
                 Value clamped between 0 and 10. Try to enter values outside this range.
             </p>
-            <twig:Ui:input:number name="number-minmax" :min="0" :max="10" :value="5" />
+            <twig:ui:input:number name="number-minmax" :min="0" :max="10" :value="5" />
         </div>
     {% endset %}
-    {% set minMaxCode %}{% verbatim %}<twig:Ui:input:number name="number" :min="0" :max="10" :value="5" />{% endverbatim %}{% endset %}
+    {% set minMaxCode %}{% verbatim %}<twig:ui:input:number name="number" :min="0" :max="10" :value="5" />{% endverbatim %}{% endset %}
     {{ ui.story('With Min/Max Constraints', minMaxPreview, minMaxCode) }}
 
     {# Custom Step #}
@@ -64,21 +64,21 @@
         <div class="max-w-xs space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Step: 1 (default)</span>
-                <twig:Ui:input:number name="number-step1" :step="1" :value="0" />
+                <twig:ui:input:number name="number-step1" :step="1" :value="0" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Step: 5</span>
-                <twig:Ui:input:number name="number-step5" :step="5" :value="0" />
+                <twig:ui:input:number name="number-step5" :step="5" :value="0" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Step: 0.1</span>
-                <twig:Ui:input:number name="number-step01" :step="0.1" :value="0" />
+                <twig:ui:input:number name="number-step01" :step="0.1" :value="0" />
             </div>
         </div>
     {% endset %}
-    {% set stepCode %}{% verbatim %}<twig:Ui:input:number :step="1" />
-<twig:Ui:input:number :step="5" />
-<twig:Ui:input:number :step="0.1" />{% endverbatim %}{% endset %}
+    {% set stepCode %}{% verbatim %}<twig:ui:input:number :step="1" />
+<twig:ui:input:number :step="5" />
+<twig:ui:input:number :step="0.1" />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Step', stepPreview, stepCode) }}
 
     {# Sizes #}
@@ -86,29 +86,29 @@
         <div class="max-w-xs space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Small</span>
-                <twig:Ui:input:number name="number-sm" size="sm" :value="10" />
+                <twig:ui:input:number name="number-sm" size="sm" :value="10" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Medium (default)</span>
-                <twig:Ui:input:number name="number-md" size="md" :value="10" />
+                <twig:ui:input:number name="number-md" size="md" :value="10" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Large</span>
-                <twig:Ui:input:number name="number-lg" size="lg" :value="10" />
+                <twig:ui:input:number name="number-lg" size="lg" :value="10" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:input:number size="sm" />
-<twig:Ui:input:number size="md" />
-<twig:Ui:input:number size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input:number size="sm" />
+<twig:ui:input:number size="md" />
+<twig:ui:input:number size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:number name="number-disabled" :value="42" disabled />
+            <twig:ui:input:number name="number-disabled" :value="42" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:number name="number" :value="42" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:number name="number" :value="42" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

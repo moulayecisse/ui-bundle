@@ -23,19 +23,19 @@
     {# Basic Slider #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="basic" value="50" />
+            <twig:ui:slider name="basic" value="50" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:slider name="basic" value="50" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:slider name="basic" value="50" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Slider', basicPreview, basicCode) }}
 
     {# With Value Display #}
     {% set valuePreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="display" value="75" showValue />
+            <twig:ui:slider name="display" value="75" showValue />
         </div>
     {% endset %}
-    {% set valueCode %}{% verbatim %}<twig:Ui:slider name="display" value="75" showValue />{% endverbatim %}{% endset %}
+    {% set valueCode %}{% verbatim %}<twig:ui:slider name="display" value="75" showValue />{% endverbatim %}{% endset %}
     {{ ui.story('With Value Display', valuePreview, valueCode) }}
 
     {# Size Variants #}
@@ -43,82 +43,82 @@
         <div class="max-w-md space-y-6">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Small</p>
-                <twig:Ui:slider name="size-sm" value="40" size="sm" showValue />
+                <twig:ui:slider name="size-sm" value="40" size="sm" showValue />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
-                <twig:Ui:slider name="size-md" value="50" size="md" showValue />
+                <twig:ui:slider name="size-md" value="50" size="md" showValue />
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Large</p>
-                <twig:Ui:slider name="size-lg" value="60" size="lg" showValue />
+                <twig:ui:slider name="size-lg" value="60" size="lg" showValue />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:slider size="sm" value="40" showValue />
-<twig:Ui:slider size="md" value="50" showValue />
-<twig:Ui:slider size="lg" value="60" showValue />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:slider size="sm" value="40" showValue />
+<twig:ui:slider size="md" value="50" showValue />
+<twig:ui:slider size="lg" value="60" showValue />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 
     {# Color Variants #}
     {% set colorsPreview %}
         <div class="max-w-md space-y-4">
-            <twig:Ui:slider name="color-primary" value="50" color="primary" :showMinMax="false" />
-            <twig:Ui:slider name="color-success" value="50" color="success" :showMinMax="false" />
-            <twig:Ui:slider name="color-warning" value="50" color="warning" :showMinMax="false" />
-            <twig:Ui:slider name="color-danger" value="50" color="danger" :showMinMax="false" />
-            <twig:Ui:slider name="color-info" value="50" color="info" :showMinMax="false" />
+            <twig:ui:slider name="color-primary" value="50" color="primary" :showMinMax="false" />
+            <twig:ui:slider name="color-success" value="50" color="success" :showMinMax="false" />
+            <twig:ui:slider name="color-warning" value="50" color="warning" :showMinMax="false" />
+            <twig:ui:slider name="color-danger" value="50" color="danger" :showMinMax="false" />
+            <twig:ui:slider name="color-info" value="50" color="info" :showMinMax="false" />
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:slider color="primary" value="50" />
-<twig:Ui:slider color="success" value="50" />
-<twig:Ui:slider color="warning" value="50" />
-<twig:Ui:slider color="danger" value="50" />
-<twig:Ui:slider color="info" value="50" />{% endverbatim %}{% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:ui:slider color="primary" value="50" />
+<twig:ui:slider color="success" value="50" />
+<twig:ui:slider color="warning" value="50" />
+<twig:ui:slider color="danger" value="50" />
+<twig:ui:slider color="info" value="50" />{% endverbatim %}{% endset %}
     {{ ui.story('Color Variants', colorsPreview, colorsCode) }}
 
     {# With Ticks #}
     {% set ticksPreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="ticks" value="40" showTicks :tickCount="5" :showMinMax="false" />
+            <twig:ui:slider name="ticks" value="40" showTicks :tickCount="5" :showMinMax="false" />
         </div>
     {% endset %}
-    {% set ticksCode %}{% verbatim %}<twig:Ui:slider value="40" showTicks :tickCount="5" />{% endverbatim %}{% endset %}
+    {% set ticksCode %}{% verbatim %}<twig:ui:slider value="40" showTicks :tickCount="5" />{% endverbatim %}{% endset %}
     {{ ui.story('With Tick Marks', ticksPreview, ticksCode) }}
 
     {# Value Format #}
     {% set formatPreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="format" value="75" showValue valueFormat="%value%%" />
+            <twig:ui:slider name="format" value="75" showValue valueFormat="%value%%" />
         </div>
     {% endset %}
-    {% set formatCode %}{% verbatim %}<twig:Ui:slider value="75" showValue valueFormat="%value%%" />{% endverbatim %}{% endset %}
+    {% set formatCode %}{% verbatim %}<twig:ui:slider value="75" showValue valueFormat="%value%%" />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Value Format', formatPreview, formatCode) }}
 
     {# Custom Range #}
     {% set rangePreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="range" value="25" min="0" max="50" showValue />
+            <twig:ui:slider name="range" value="25" min="0" max="50" showValue />
         </div>
     {% endset %}
-    {% set rangeCode %}{% verbatim %}<twig:Ui:slider value="25" min="0" max="50" showValue />{% endverbatim %}{% endset %}
+    {% set rangeCode %}{% verbatim %}<twig:ui:slider value="25" min="0" max="50" showValue />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Range (0-50)', rangePreview, rangeCode) }}
 
     {# With Steps #}
     {% set stepsPreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="steps" value="50" step="10" showValue />
+            <twig:ui:slider name="steps" value="50" step="10" showValue />
         </div>
     {% endset %}
-    {% set stepsCode %}{% verbatim %}<twig:Ui:slider value="50" step="10" showValue />{% endverbatim %}{% endset %}
+    {% set stepsCode %}{% verbatim %}<twig:ui:slider value="50" step="10" showValue />{% endverbatim %}{% endset %}
     {{ ui.story('With Steps (10)', stepsPreview, stepsCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-md">
-            <twig:Ui:slider name="disabled" value="30" disabled showValue />
+            <twig:ui:slider name="disabled" value="30" disabled showValue />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:slider value="30" disabled showValue />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:slider value="30" disabled showValue />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

@@ -24,106 +24,106 @@
     {# Basic Tooltip #}
     {% set basicPreview %}
         <div class="flex gap-4">
-            <twig:Ui:tooltip tooltip="This is a tooltip" unstyled>
-                <twig:Ui:button variant="outline">Hover me</twig:Ui:button>
-            </twig:Ui:tooltip>
+            <twig:ui:tooltip tooltip="This is a tooltip" unstyled>
+                <twig:ui:button variant="outline">Hover me</twig:ui:button>
+            </twig:ui:tooltip>
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:tooltip tooltip="This is a tooltip" unstyled>
-    <twig:Ui:button variant="outline">Hover me</twig:Ui:button>
-</twig:Ui:tooltip>{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:tooltip tooltip="This is a tooltip" unstyled>
+    <twig:ui:button variant="outline">Hover me</twig:ui:button>
+</twig:ui:tooltip>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Tooltip', basicPreview, basicCode) }}
 
     {# Positions #}
     {% set positionsPreview %}
         <div class="flex flex-wrap gap-4 justify-center py-8">
-            <twig:Ui:tooltip tooltip="Top tooltip" position="top" unstyled>
-                <twig:Ui:button variant="outline">Top</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Bottom tooltip" position="bottom" unstyled>
-                <twig:Ui:button variant="outline">Bottom</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Left tooltip" position="left" unstyled>
-                <twig:Ui:button variant="outline">Left</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Right tooltip" position="right" unstyled>
-                <twig:Ui:button variant="outline">Right</twig:Ui:button>
-            </twig:Ui:tooltip>
+            <twig:ui:tooltip tooltip="Top tooltip" position="top" unstyled>
+                <twig:ui:button variant="outline">Top</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Bottom tooltip" position="bottom" unstyled>
+                <twig:ui:button variant="outline">Bottom</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Left tooltip" position="left" unstyled>
+                <twig:ui:button variant="outline">Left</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Right tooltip" position="right" unstyled>
+                <twig:ui:button variant="outline">Right</twig:ui:button>
+            </twig:ui:tooltip>
         </div>
     {% endset %}
-    {% set positionsCode %}{% verbatim %}<twig:Ui:tooltip tooltip="Top" position="top">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Bottom" position="bottom">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Left" position="left">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Right" position="right">...</twig:Ui:tooltip>{% endverbatim %}{% endset %}
+    {% set positionsCode %}{% verbatim %}<twig:ui:tooltip tooltip="Top" position="top">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Bottom" position="bottom">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Left" position="left">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Right" position="right">...</twig:ui:tooltip>{% endverbatim %}{% endset %}
     {{ ui.story('Positions', positionsPreview, positionsCode) }}
 
     {# Variants #}
     {% set variantsPreview %}
         <div class="flex flex-wrap gap-4 py-4">
-            <twig:Ui:tooltip tooltip="Dark variant (default)" variant="dark" unstyled>
-                <twig:Ui:button variant="outline">Dark</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Light variant" variant="light" unstyled>
-                <twig:Ui:button variant="outline">Light</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Primary variant" variant="primary" unstyled>
-                <twig:Ui:button variant="outline">Primary</twig:Ui:button>
-            </twig:Ui:tooltip>
+            <twig:ui:tooltip tooltip="Dark variant (default)" variant="dark" unstyled>
+                <twig:ui:button variant="outline">Dark</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Light variant" variant="light" unstyled>
+                <twig:ui:button variant="outline">Light</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Primary variant" variant="primary" unstyled>
+                <twig:ui:button variant="outline">Primary</twig:ui:button>
+            </twig:ui:tooltip>
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:Ui:tooltip tooltip="Dark" variant="dark">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Light" variant="light">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Primary" variant="primary">...</twig:Ui:tooltip>{% endverbatim %}{% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:tooltip tooltip="Dark" variant="dark">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Light" variant="light">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Primary" variant="primary">...</twig:ui:tooltip>{% endverbatim %}{% endset %}
     {{ ui.story('Variants', variantsPreview, variantsCode) }}
 
     {# Sizes #}
     {% set sizesPreview %}
         <div class="flex flex-wrap gap-4 py-4">
-            <twig:Ui:tooltip tooltip="Small tooltip" size="sm" unstyled>
-                <twig:Ui:button variant="outline" size="sm">Small</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Medium tooltip (default)" size="md" unstyled>
-                <twig:Ui:button variant="outline">Medium</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Large tooltip" size="lg" unstyled>
-                <twig:Ui:button variant="outline" size="lg">Large</twig:Ui:button>
-            </twig:Ui:tooltip>
+            <twig:ui:tooltip tooltip="Small tooltip" size="sm" unstyled>
+                <twig:ui:button variant="outline" size="sm">Small</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Medium tooltip (default)" size="md" unstyled>
+                <twig:ui:button variant="outline">Medium</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Large tooltip" size="lg" unstyled>
+                <twig:ui:button variant="outline" size="lg">Large</twig:ui:button>
+            </twig:ui:tooltip>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:tooltip tooltip="Small" size="sm">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Medium" size="md">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Large" size="lg">...</twig:Ui:tooltip>{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:tooltip tooltip="Small" size="sm">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Medium" size="md">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Large" size="lg">...</twig:ui:tooltip>{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Without Arrow #}
     {% set noArrowPreview %}
         <div class="flex gap-4 py-4">
-            <twig:Ui:tooltip tooltip="Tooltip without arrow" :showArrow="false" unstyled>
-                <twig:Ui:button variant="outline">No Arrow</twig:Ui:button>
-            </twig:Ui:tooltip>
+            <twig:ui:tooltip tooltip="Tooltip without arrow" :showArrow="false" unstyled>
+                <twig:ui:button variant="outline">No Arrow</twig:ui:button>
+            </twig:ui:tooltip>
         </div>
     {% endset %}
-    {% set noArrowCode %}{% verbatim %}<twig:Ui:tooltip tooltip="No arrow" :showArrow="false">
+    {% set noArrowCode %}{% verbatim %}<twig:ui:tooltip tooltip="No arrow" :showArrow="false">
     ...
-</twig:Ui:tooltip>{% endverbatim %}{% endset %}
+</twig:ui:tooltip>{% endverbatim %}{% endset %}
     {{ ui.story('Without Arrow', noArrowPreview, noArrowCode) }}
 
     {# Trigger Types #}
     {% set triggersPreview %}
         <div class="flex flex-wrap gap-4 py-4">
-            <twig:Ui:tooltip tooltip="Hover trigger (default)" trigger="hover" unstyled>
-                <twig:Ui:button variant="outline">Hover</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Click trigger" trigger="click" unstyled>
-                <twig:Ui:button variant="outline">Click</twig:Ui:button>
-            </twig:Ui:tooltip>
-            <twig:Ui:tooltip tooltip="Focus trigger" trigger="focus" unstyled>
-                <twig:Ui:button variant="outline">Focus</twig:Ui:button>
-            </twig:Ui:tooltip>
+            <twig:ui:tooltip tooltip="Hover trigger (default)" trigger="hover" unstyled>
+                <twig:ui:button variant="outline">Hover</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Click trigger" trigger="click" unstyled>
+                <twig:ui:button variant="outline">Click</twig:ui:button>
+            </twig:ui:tooltip>
+            <twig:ui:tooltip tooltip="Focus trigger" trigger="focus" unstyled>
+                <twig:ui:button variant="outline">Focus</twig:ui:button>
+            </twig:ui:tooltip>
         </div>
     {% endset %}
-    {% set triggersCode %}{% verbatim %}<twig:Ui:tooltip tooltip="Hover" trigger="hover">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Click" trigger="click">...</twig:Ui:tooltip>
-<twig:Ui:tooltip tooltip="Focus" trigger="focus">...</twig:Ui:tooltip>{% endverbatim %}{% endset %}
+    {% set triggersCode %}{% verbatim %}<twig:ui:tooltip tooltip="Hover" trigger="hover">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Click" trigger="click">...</twig:ui:tooltip>
+<twig:ui:tooltip tooltip="Focus" trigger="focus">...</twig:ui:tooltip>{% endverbatim %}{% endset %}
     {{ ui.story('Trigger Types', triggersPreview, triggersCode) }}
 </div>

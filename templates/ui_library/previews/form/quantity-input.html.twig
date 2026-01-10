@@ -18,10 +18,10 @@
     {# Basic Quantity Input #}
     {% set basicPreview %}
         <div>
-            <twig:Ui:input:quantity name="quantity" />
+            <twig:ui:input:quantity name="quantity" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:quantity name="quantity" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:quantity name="quantity" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Quantity Input', basicPreview, basicCode) }}
 
     {# With Initial Value #}
@@ -30,10 +30,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Click the + and - buttons to change the value, or type directly in the input.
             </p>
-            <twig:Ui:input:quantity name="quantity-value" :value="5" />
+            <twig:ui:input:quantity name="quantity-value" :value="5" />
         </div>
     {% endset %}
-    {% set valueCode %}{% verbatim %}<twig:Ui:input:quantity name="quantity" :value="5" />{% endverbatim %}{% endset %}
+    {% set valueCode %}{% verbatim %}<twig:ui:input:quantity name="quantity" :value="5" />{% endverbatim %}{% endset %}
     {{ ui.story('With Initial Value', valuePreview, valueCode) }}
 
     {# With Min/Max #}
@@ -42,10 +42,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400">
                 Value clamped between 1 and 10. The buttons will disable when limits are reached.
             </p>
-            <twig:Ui:input:quantity name="quantity-minmax" :min="1" :max="10" :value="5" />
+            <twig:ui:input:quantity name="quantity-minmax" :min="1" :max="10" :value="5" />
         </div>
     {% endset %}
-    {% set minMaxCode %}{% verbatim %}<twig:Ui:input:quantity name="quantity" :min="1" :max="10" :value="5" />{% endverbatim %}{% endset %}
+    {% set minMaxCode %}{% verbatim %}<twig:ui:input:quantity name="quantity" :min="1" :max="10" :value="5" />{% endverbatim %}{% endset %}
     {{ ui.story('With Min/Max Constraints', minMaxPreview, minMaxCode) }}
 
     {# Custom Step #}
@@ -53,21 +53,21 @@
         <div class="space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Step: 1 (default)</span>
-                <twig:Ui:input:quantity name="quantity-step1" :step="1" :value="5" />
+                <twig:ui:input:quantity name="quantity-step1" :step="1" :value="5" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Step: 5</span>
-                <twig:Ui:input:quantity name="quantity-step5" :step="5" :value="10" :min="0" />
+                <twig:ui:input:quantity name="quantity-step5" :step="5" :value="10" :min="0" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Step: 10</span>
-                <twig:Ui:input:quantity name="quantity-step10" :step="10" :value="50" :min="0" />
+                <twig:ui:input:quantity name="quantity-step10" :step="10" :value="50" :min="0" />
             </div>
         </div>
     {% endset %}
-    {% set stepCode %}{% verbatim %}<twig:Ui:input:quantity :step="1" />
-<twig:Ui:input:quantity :step="5" />
-<twig:Ui:input:quantity :step="10" />{% endverbatim %}{% endset %}
+    {% set stepCode %}{% verbatim %}<twig:ui:input:quantity :step="1" />
+<twig:ui:input:quantity :step="5" />
+<twig:ui:input:quantity :step="10" />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Step', stepPreview, stepCode) }}
 
     {# Sizes #}
@@ -75,21 +75,21 @@
         <div class="space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Small</span>
-                <twig:Ui:input:quantity name="quantity-sm" size="sm" :value="3" />
+                <twig:ui:input:quantity name="quantity-sm" size="sm" :value="3" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Medium (default)</span>
-                <twig:Ui:input:quantity name="quantity-md" size="md" :value="3" />
+                <twig:ui:input:quantity name="quantity-md" size="md" :value="3" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Large</span>
-                <twig:Ui:input:quantity name="quantity-lg" size="lg" :value="3" />
+                <twig:ui:input:quantity name="quantity-lg" size="lg" :value="3" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:input:quantity size="sm" />
-<twig:Ui:input:quantity size="md" />
-<twig:Ui:input:quantity size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input:quantity size="sm" />
+<twig:ui:input:quantity size="md" />
+<twig:ui:input:quantity size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# E-commerce Example #}
@@ -105,20 +105,20 @@
                     <h4 class="font-medium text-gray-900 dark:text-white">Product Name</h4>
                     <p class="text-sm text-gray-500 dark:text-gray-400">$29.99</p>
                 </div>
-                <twig:Ui:input:quantity name="cart-qty" size="sm" :min="1" :max="99" :value="1" />
+                <twig:ui:input:quantity name="cart-qty" size="sm" :min="1" :max="99" :value="1" />
             </div>
         </div>
     {% endset %}
     {% set ecommerceCode %}{% verbatim %}{# E-commerce cart quantity #}
-<twig:Ui:input:quantity name="quantity" size="sm" :min="1" :max="99" :value="1" />{% endverbatim %}{% endset %}
+<twig:ui:input:quantity name="quantity" size="sm" :min="1" :max="99" :value="1" />{% endverbatim %}{% endset %}
     {{ ui.story('E-commerce Example', ecommercePreview, ecommerceCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div>
-            <twig:Ui:input:quantity name="quantity-disabled" :value="3" disabled />
+            <twig:ui:input:quantity name="quantity-disabled" :value="3" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:quantity name="quantity" :value="3" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:quantity name="quantity" :value="3" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

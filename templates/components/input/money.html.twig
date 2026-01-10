@@ -36,7 +36,7 @@
 
 {% set config = currencies[currency] ?? currencies['EUR'] %}
 
-<twig:Ui:input-wrapper
+<twig:ui:input-wrapper
   :disabled="disabled"
   :class="class"
 >
@@ -68,4 +68,4 @@
       {{ config.symbol }}
     </span>
   {% endif %}
-</twig:Ui:input-wrapper>
+</twig:ui:input-wrapper>

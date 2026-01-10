@@ -15,13 +15,13 @@
 
     {# Basic Breadcrumb #}
     {% set basicPreview %}
-        <twig:Ui:breadcrumb :items="[
+        <twig:ui:breadcrumb :items="[
             { label: 'Home', href: '#' },
             { label: 'Products', href: '#' },
             { label: 'Current Page' }
         ]" />
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:breadcrumb :items="[
+    {% set basicCode %}{% verbatim %}<twig:ui:breadcrumb :items="[
     { label: 'Home', href: '#' },
     { label: 'Products', href: '#' },
     { label: 'Current Page' }
@@ -30,13 +30,13 @@
 
     {# With Icons #}
     {% set iconsPreview %}
-        <twig:Ui:breadcrumb :items="[
+        <twig:ui:breadcrumb :items="[
             { label: 'Home', href: '#', icon: 'lucide:home' },
             { label: 'Category', href: '#', icon: 'lucide:folder' },
             { label: 'Document', icon: 'lucide:file' }
         ]" />
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:Ui:breadcrumb :items="[
+    {% set iconsCode %}{% verbatim %}<twig:ui:breadcrumb :items="[
     { label: 'Home', href: '#', icon: 'lucide:home' },
     { label: 'Category', href: '#', icon: 'lucide:folder' },
     { label: 'Document', icon: 'lucide:file' }
@@ -48,7 +48,7 @@
         <div class="space-y-4">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Small</p>
-                <twig:Ui:breadcrumb size="sm" :items="[
+                <twig:ui:breadcrumb size="sm" :items="[
                     { label: 'Home', href: '#' },
                     { label: 'Products', href: '#' },
                     { label: 'Details' }
@@ -56,7 +56,7 @@
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Medium (default)</p>
-                <twig:Ui:breadcrumb size="md" :items="[
+                <twig:ui:breadcrumb size="md" :items="[
                     { label: 'Home', href: '#' },
                     { label: 'Products', href: '#' },
                     { label: 'Details' }
@@ -64,7 +64,7 @@
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Large</p>
-                <twig:Ui:breadcrumb size="lg" :items="[
+                <twig:ui:breadcrumb size="lg" :items="[
                     { label: 'Home', href: '#' },
                     { label: 'Products', href: '#' },
                     { label: 'Details' }
@@ -72,9 +72,9 @@
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:breadcrumb size="sm" :items="[...]" />
-<twig:Ui:breadcrumb size="md" :items="[...]" />
-<twig:Ui:breadcrumb size="lg" :items="[...]" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:breadcrumb size="sm" :items="[...]" />
+<twig:ui:breadcrumb size="md" :items="[...]" />
+<twig:ui:breadcrumb size="lg" :items="[...]" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 
     {# Variant Styles #}
@@ -82,7 +82,7 @@
         <div class="space-y-4">
             <div>
                 <p class="text-sm text-gray-500 mb-2">Default</p>
-                <twig:Ui:breadcrumb variant="default" :items="[
+                <twig:ui:breadcrumb variant="default" :items="[
                     { label: 'Home', href: '#' },
                     { label: 'Products', href: '#' },
                     { label: 'Details' }
@@ -90,7 +90,7 @@
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Pills</p>
-                <twig:Ui:breadcrumb variant="pills" :items="[
+                <twig:ui:breadcrumb variant="pills" :items="[
                     { label: 'Home', href: '#' },
                     { label: 'Products', href: '#' },
                     { label: 'Details' }
@@ -98,7 +98,7 @@
             </div>
             <div>
                 <p class="text-sm text-gray-500 mb-2">Bordered</p>
-                <twig:Ui:breadcrumb variant="bordered" :items="[
+                <twig:ui:breadcrumb variant="bordered" :items="[
                     { label: 'Home', href: '#' },
                     { label: 'Products', href: '#' },
                     { label: 'Details' }
@@ -106,20 +106,20 @@
             </div>
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:Ui:breadcrumb variant="default" :items="[...]" />
-<twig:Ui:breadcrumb variant="pills" :items="[...]" />
-<twig:Ui:breadcrumb variant="bordered" :items="[...]" />{% endverbatim %}{% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:breadcrumb variant="default" :items="[...]" />
+<twig:ui:breadcrumb variant="pills" :items="[...]" />
+<twig:ui:breadcrumb variant="bordered" :items="[...]" />{% endverbatim %}{% endset %}
     {{ ui.story('Variant Styles', variantsPreview, variantsCode) }}
 
     {# Without Home Icon #}
     {% set noIconPreview %}
-        <twig:Ui:breadcrumb :showHomeIcon="false" :items="[
+        <twig:ui:breadcrumb :showHomeIcon="false" :items="[
             { label: 'Home', href: '#' },
             { label: 'Products', href: '#' },
             { label: 'Details' }
         ]" />
     {% endset %}
-    {% set noIconCode %}{% verbatim %}<twig:Ui:breadcrumb :showHomeIcon="false" :items="[
+    {% set noIconCode %}{% verbatim %}<twig:ui:breadcrumb :showHomeIcon="false" :items="[
     { label: 'Home', href: '#' },
     { label: 'Products', href: '#' },
     { label: 'Details' }
@@ -128,13 +128,13 @@
 
     {# Custom Separator #}
     {% set separatorPreview %}
-        <twig:Ui:breadcrumb separator="lucide:slash" :items="[
+        <twig:ui:breadcrumb separator="lucide:slash" :items="[
             { label: 'Home', href: '#' },
             { label: 'Products', href: '#' },
             { label: 'Details' }
         ]" />
     {% endset %}
-    {% set separatorCode %}{% verbatim %}<twig:Ui:breadcrumb separator="lucide:slash" :items="[
+    {% set separatorCode %}{% verbatim %}<twig:ui:breadcrumb separator="lucide:slash" :items="[
     { label: 'Home', href: '#' },
     { label: 'Products', href: '#' },
     { label: 'Details' }
@@ -143,7 +143,7 @@
 
     {# Longer Path #}
     {% set longPreview %}
-        <twig:Ui:breadcrumb :items="[
+        <twig:ui:breadcrumb :items="[
             { label: 'Dashboard', href: '#' },
             { label: 'Settings', href: '#' },
             { label: 'Account', href: '#' },
@@ -151,7 +151,7 @@
             { label: 'Two-Factor Auth' }
         ]" />
     {% endset %}
-    {% set longCode %}{% verbatim %}<twig:Ui:breadcrumb :items="[
+    {% set longCode %}{% verbatim %}<twig:ui:breadcrumb :items="[
     { label: 'Dashboard', href: '#' },
     { label: 'Settings', href: '#' },
     { label: 'Account', href: '#' },

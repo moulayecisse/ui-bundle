@@ -22,7 +22,7 @@
 >
     {# Desktop: Table view #}
     <div class="hidden {{ breakpoint }}:block">
-        <twig:Ui:table:selectable
+        <twig:ui:table:selectable
             :fields="fields"
             :items="items"
             :selectable="selectable"
@@ -35,33 +35,33 @@
             {% block batch_actions '' %}
             {% block tbody_actions '' %}
             {% block empty '' %}
-        </twig:Ui:table:selectable>
+        </twig:ui:table:selectable>
     </div>
 
     {# Mobile: Card view #}
     <div class="{{ breakpoint }}:hidden">
         {% if loading %}
-            <twig:Ui:card>
-                <twig:Ui:skeleton:list :items="loadingRows" showAvatar showSecondary showAction />
-            </twig:Ui:card>
+            <twig:ui:card>
+                <twig:ui:skeleton:list :items="loadingRows" showAvatar showSecondary showAction />
+            </twig:ui:card>
         {% elseif items|length == 0 %}
             {% set emptyBlock %}{% block mobile_empty '' %}{% endset %}
             {% if emptyBlock is not empty %}
                 {{ emptyBlock|raw }}
             {% else %}
-                <twig:Ui:card>
+                <twig:ui:card>
                     <div class="p-8 text-center">
                         <twig:ux:icon name="heroicons:inbox-20-solid" class="size-12 mx-auto text-gray-300 dark:text-gray-600" />
                         <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ emptyLabel }}</p>
                     </div>
-                </twig:Ui:card>
+                </twig:ui:card>
             {% endif %}
         {% else %}
             <div class="space-y-3">
                 {% for item in items %}
                     {% set itemId = attribute(item, keyField) ?? loop.index0 %}
 
-                    <twig:Ui:card class="hover:shadow-lg transition-all duration-200">
+                    <twig:ui:card class="hover:shadow-lg transition-all duration-200">
                         <div class="p-4">
                             {# Mobile card content slot #}
                             {% set mobileContentBlock %}{% block mobile_content '' %}{% endset %}
@@ -90,7 +90,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                    </twig:Ui:card>
+                    </twig:ui:card>
                 {% endfor %}
             </div>
         {% endif %}

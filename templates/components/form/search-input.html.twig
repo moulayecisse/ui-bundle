@@ -19,7 +19,7 @@
 
 {% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
 
-<twig:Ui:input-wrapper
+<twig:ui:input-wrapper
   :disabled="disabled"
   :size="size"
   :variant="variant"
@@ -40,4 +40,4 @@
     {{ disabled ? 'disabled' }}
     {{ autofocus ? 'autofocus' }}
   >
-</twig:Ui:input-wrapper>
+</twig:ui:input-wrapper>

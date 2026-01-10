@@ -3,62 +3,62 @@
 <div class="space-y-6">
     {# Default #}
     {% set defaultPreview %}
-        <twig:Ui:loading-spinner />
+        <twig:ui:loading-spinner />
     {% endset %}
-    {% set defaultCode %}{% verbatim %}<twig:Ui:loading-spinner />{% endverbatim %}{% endset %}
+    {% set defaultCode %}{% verbatim %}<twig:ui:loading-spinner />{% endverbatim %}{% endset %}
     {{ ui.story('Default', defaultPreview, defaultCode) }}
 
     {# Sizes #}
     {% set sizesPreview %}
         <div class="flex items-center gap-6">
             <div class="text-center">
-                <twig:Ui:loading-spinner size="sm" />
+                <twig:ui:loading-spinner size="sm" />
                 <p class="text-xs text-gray-500 mt-2">Small</p>
             </div>
             <div class="text-center">
-                <twig:Ui:loading-spinner size="md" />
+                <twig:ui:loading-spinner size="md" />
                 <p class="text-xs text-gray-500 mt-2">Medium</p>
             </div>
             <div class="text-center">
-                <twig:Ui:loading-spinner size="lg" />
+                <twig:ui:loading-spinner size="lg" />
                 <p class="text-xs text-gray-500 mt-2">Large</p>
             </div>
             <div class="text-center">
-                <twig:Ui:loading-spinner size="xl" />
+                <twig:ui:loading-spinner size="xl" />
                 <p class="text-xs text-gray-500 mt-2">Extra Large</p>
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:loading-spinner size="sm" />
-<twig:Ui:loading-spinner size="md" />
-<twig:Ui:loading-spinner size="lg" />
-<twig:Ui:loading-spinner size="xl" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:loading-spinner size="sm" />
+<twig:ui:loading-spinner size="md" />
+<twig:ui:loading-spinner size="lg" />
+<twig:ui:loading-spinner size="xl" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Colors #}
     {% set colorsPreview %}
         <div class="flex items-center gap-6">
-            <twig:Ui:loading-spinner color="primary" />
-            <twig:Ui:loading-spinner color="secondary" />
-            <twig:Ui:loading-spinner color="success" />
-            <twig:Ui:loading-spinner color="error" />
+            <twig:ui:loading-spinner color="primary" />
+            <twig:ui:loading-spinner color="secondary" />
+            <twig:ui:loading-spinner color="success" />
+            <twig:ui:loading-spinner color="error" />
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:loading-spinner color="primary" />
-<twig:Ui:loading-spinner color="secondary" />
-<twig:Ui:loading-spinner color="success" />
-<twig:Ui:loading-spinner color="error" />{% endverbatim %}{% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:ui:loading-spinner color="primary" />
+<twig:ui:loading-spinner color="secondary" />
+<twig:ui:loading-spinner color="success" />
+<twig:ui:loading-spinner color="error" />{% endverbatim %}{% endset %}
     {{ ui.story('Colors', colorsPreview, colorsCode) }}
 
     {# With Text #}
     {% set textPreview %}
         <div class="flex items-center gap-2">
-            <twig:Ui:loading-spinner size="sm" />
+            <twig:ui:loading-spinner size="sm" />
             <span class="text-gray-600 dark:text-gray-400">Loading...</span>
         </div>
     {% endset %}
     {% set textCode %}{% verbatim %}<div class="flex items-center gap-2">
-    <twig:Ui:loading-spinner size="sm" />
+    <twig:ui:loading-spinner size="sm" />
     <span>Loading...</span>
 </div>{% endverbatim %}{% endset %}
     {{ ui.story('With Text', textPreview, textCode) }}

@@ -16,7 +16,7 @@
 
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'content', description: 'Accordion items using &lt;twig:Ui:accordion:item&gt; components' },
+        { name: 'content', description: 'Accordion items using &lt;twig:ui:accordion:item&gt; components' },
     ]) }}
 
     {# Related Components #}
@@ -59,14 +59,14 @@
             </div>
         </div>
     {% endset %}
-    {% set basicCode %}&lt;twig:Ui:accordion&gt;
-    &lt;twig:Ui:accordion:item title="What is Vue.js?"&gt;
+    {% set basicCode %}&lt;twig:ui:accordion&gt;
+    &lt;twig:ui:accordion:item title="What is Vue.js?"&gt;
         Vue.js is a progressive JavaScript framework...
-    &lt;/twig:Ui:accordion:item&gt;
-    &lt;twig:Ui:accordion:item title="How do I get started?"&gt;
+    &lt;/twig:ui:accordion:item&gt;
+    &lt;twig:ui:accordion:item title="How do I get started?"&gt;
         You can start by reading the documentation...
-    &lt;/twig:Ui:accordion:item&gt;
-&lt;/twig:Ui:accordion&gt;{% endset %}
+    &lt;/twig:ui:accordion:item&gt;
+&lt;/twig:ui:accordion&gt;{% endset %}
     {{ ui.story('Basic Accordion', basicPreview, basicCode) }}
 
     {# With Icons - Static Preview #}
@@ -99,14 +99,14 @@
             </div>
         </div>
     {% endset %}
-    {% set iconsCode %}&lt;twig:Ui:accordion&gt;
-    &lt;twig:Ui:accordion:item title="Account Settings" icon="heroicons:user"&gt;
+    {% set iconsCode %}&lt;twig:ui:accordion&gt;
+    &lt;twig:ui:accordion:item title="Account Settings" icon="heroicons:user"&gt;
         Content...
-    &lt;/twig:Ui:accordion:item&gt;
-    &lt;twig:Ui:accordion:item title="Security" icon="heroicons:shield-check"&gt;
+    &lt;/twig:ui:accordion:item&gt;
+    &lt;twig:ui:accordion:item title="Security" icon="heroicons:shield-check"&gt;
         Content...
-    &lt;/twig:Ui:accordion:item&gt;
-&lt;/twig:Ui:accordion&gt;{% endset %}
+    &lt;/twig:ui:accordion:item&gt;
+&lt;/twig:ui:accordion&gt;{% endset %}
     {{ ui.story('With Icons', iconsPreview, iconsCode) }}
 
     {# With Badges - Static Preview #}
@@ -128,11 +128,11 @@
             </div>
         </div>
     {% endset %}
-    {% set badgesCode %}&lt;twig:Ui:accordion&gt;
-    &lt;twig:Ui:accordion:item title="New Features" badge="3 new"&gt;
+    {% set badgesCode %}&lt;twig:ui:accordion&gt;
+    &lt;twig:ui:accordion:item title="New Features" badge="3 new"&gt;
         Content...
-    &lt;/twig:Ui:accordion:item&gt;
-&lt;/twig:Ui:accordion&gt;{% endset %}
+    &lt;/twig:ui:accordion:item&gt;
+&lt;/twig:ui:accordion&gt;{% endset %}
     {{ ui.story('With Badges', badgesPreview, badgesCode) }}
 
     {# Multiple Open #}
@@ -143,10 +143,10 @@
             </p>
         </div>
     {% endset %}
-    {% set multipleCode %}&lt;twig:Ui:accordion :multiple="true"&gt;
-    &lt;twig:Ui:accordion:item title="Section One"&gt;...&lt;/twig:Ui:accordion:item&gt;
-    &lt;twig:Ui:accordion:item title="Section Two"&gt;...&lt;/twig:Ui:accordion:item&gt;
-&lt;/twig:Ui:accordion&gt;{% endset %}
+    {% set multipleCode %}&lt;twig:ui:accordion :multiple="true"&gt;
+    &lt;twig:ui:accordion:item title="Section One"&gt;...&lt;/twig:ui:accordion:item&gt;
+    &lt;twig:ui:accordion:item title="Section Two"&gt;...&lt;/twig:ui:accordion:item&gt;
+&lt;/twig:ui:accordion&gt;{% endset %}
     {{ ui.story('Multiple Open', multiplePreview, multipleCode) }}
 
     {# Variant Examples #}
@@ -208,9 +208,9 @@
             </div>
         </div>
     {% endset %}
-    {% set variantsCode %}&lt;twig:Ui:accordion variant="bordered"&gt;...&lt;/twig:Ui:accordion&gt;
-&lt;twig:Ui:accordion variant="card"&gt;...&lt;/twig:Ui:accordion&gt;
-&lt;twig:Ui:accordion variant="separated"&gt;...&lt;/twig:Ui:accordion&gt;{% endset %}
+    {% set variantsCode %}&lt;twig:ui:accordion variant="bordered"&gt;...&lt;/twig:ui:accordion&gt;
+&lt;twig:ui:accordion variant="card"&gt;...&lt;/twig:ui:accordion&gt;
+&lt;twig:ui:accordion variant="separated"&gt;...&lt;/twig:ui:accordion&gt;{% endset %}
     {{ ui.story('Variant Examples', variantsPreview, variantsCode) }}
 
     {# Size Examples #}
@@ -221,8 +221,8 @@
             </p>
         </div>
     {% endset %}
-    {% set sizesCode %}&lt;twig:Ui:accordion size="sm"&gt;...&lt;/twig:Ui:accordion&gt;
-&lt;twig:Ui:accordion size="md"&gt;...&lt;/twig:Ui:accordion&gt;
-&lt;twig:Ui:accordion size="lg"&gt;...&lt;/twig:Ui:accordion&gt;{% endset %}
+    {% set sizesCode %}&lt;twig:ui:accordion size="sm"&gt;...&lt;/twig:ui:accordion&gt;
+&lt;twig:ui:accordion size="md"&gt;...&lt;/twig:ui:accordion&gt;
+&lt;twig:ui:accordion size="lg"&gt;...&lt;/twig:ui:accordion&gt;{% endset %}
     {{ ui.story('Size Options', sizesPreview, sizesCode) }}
 </div>

@@ -3,67 +3,67 @@
 <div class="space-y-6">
     {# Info Alert #}
     {% set infoPreview %}
-        <twig:Ui:alert variant="info" title="Information">
+        <twig:ui:alert variant="info" title="Information">
             This is an informational alert message.
-        </twig:Ui:alert>
+        </twig:ui:alert>
     {% endset %}
-    {% set infoCode %}{% verbatim %}<twig:Ui:alert variant="info" title="Information">
+    {% set infoCode %}{% verbatim %}<twig:ui:alert variant="info" title="Information">
     This is an informational alert message.
-</twig:Ui:alert>{% endverbatim %}{% endset %}
+</twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('Info', infoPreview, infoCode) }}
 
     {# Success Alert #}
     {% set successPreview %}
-        <twig:Ui:alert variant="success" title="Success">
+        <twig:ui:alert variant="success" title="Success">
             Your changes have been saved successfully.
-        </twig:Ui:alert>
+        </twig:ui:alert>
     {% endset %}
-    {% set successCode %}{% verbatim %}<twig:Ui:alert variant="success" title="Success">
+    {% set successCode %}{% verbatim %}<twig:ui:alert variant="success" title="Success">
     Your changes have been saved successfully.
-</twig:Ui:alert>{% endverbatim %}{% endset %}
+</twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('Success', successPreview, successCode) }}
 
     {# Warning Alert #}
     {% set warningPreview %}
-        <twig:Ui:alert variant="warning" title="Warning">
+        <twig:ui:alert variant="warning" title="Warning">
             Please review your input before submitting.
-        </twig:Ui:alert>
+        </twig:ui:alert>
     {% endset %}
-    {% set warningCode %}{% verbatim %}<twig:Ui:alert variant="warning" title="Warning">
+    {% set warningCode %}{% verbatim %}<twig:ui:alert variant="warning" title="Warning">
     Please review your input before submitting.
-</twig:Ui:alert>{% endverbatim %}{% endset %}
+</twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('Warning', warningPreview, warningCode) }}
 
     {# Error Alert #}
     {% set errorPreview %}
-        <twig:Ui:alert variant="error" title="Error">
+        <twig:ui:alert variant="error" title="Error">
             Something went wrong. Please try again.
-        </twig:Ui:alert>
+        </twig:ui:alert>
     {% endset %}
-    {% set errorCode %}{% verbatim %}<twig:Ui:alert variant="error" title="Error">
+    {% set errorCode %}{% verbatim %}<twig:ui:alert variant="error" title="Error">
     Something went wrong. Please try again.
-</twig:Ui:alert>{% endverbatim %}{% endset %}
+</twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('Error', errorPreview, errorCode) }}
 
     {# Dismissible Alert #}
     {% set dismissiblePreview %}
-        <twig:Ui:alert variant="info" title="Dismissible Alert" dismissible>
+        <twig:ui:alert variant="info" title="Dismissible Alert" dismissible>
             Click the X button to dismiss this alert.
-        </twig:Ui:alert>
+        </twig:ui:alert>
     {% endset %}
-    {% set dismissibleCode %}{% verbatim %}<twig:Ui:alert variant="info" title="Dismissible Alert" dismissible>
+    {% set dismissibleCode %}{% verbatim %}<twig:ui:alert variant="info" title="Dismissible Alert" dismissible>
     Click the X button to dismiss this alert.
-</twig:Ui:alert>{% endverbatim %}{% endset %}
+</twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('Dismissible', dismissiblePreview, dismissibleCode) }}
 
     {# With Custom Icon #}
     {% set iconPreview %}
-        <twig:Ui:alert variant="info" icon="lucide:bell" title="Notification">
+        <twig:ui:alert variant="info" icon="lucide:bell" title="Notification">
             You have new notifications.
-        </twig:Ui:alert>
+        </twig:ui:alert>
     {% endset %}
-    {% set iconCode %}{% verbatim %}<twig:Ui:alert variant="info" icon="lucide:bell" title="Notification">
+    {% set iconCode %}{% verbatim %}<twig:ui:alert variant="info" icon="lucide:bell" title="Notification">
     You have new notifications.
-</twig:Ui:alert>{% endverbatim %}{% endset %}
+</twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('With Custom Icon', iconPreview, iconCode) }}
 </div>

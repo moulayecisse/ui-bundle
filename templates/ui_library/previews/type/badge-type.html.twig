@@ -4,52 +4,52 @@
     {# Status Badges #}
     {% set statusPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:Ui:type:badge value="active" />
-            <twig:Ui:type:badge value="pending" />
-            <twig:Ui:type:badge value="inactive" />
-            <twig:Ui:type:badge value="error" />
+            <twig:ui:type:badge value="active" />
+            <twig:ui:type:badge value="pending" />
+            <twig:ui:type:badge value="inactive" />
+            <twig:ui:type:badge value="error" />
         </div>
     {% endset %}
-    {% set statusCode %}{% verbatim %}<twig:Ui:type:badge value="active" />
-<twig:Ui:type:badge value="pending" />
-<twig:Ui:type:badge value="inactive" />
-<twig:Ui:type:badge value="error" />{% endverbatim %}{% endset %}
+    {% set statusCode %}{% verbatim %}<twig:ui:type:badge value="active" />
+<twig:ui:type:badge value="pending" />
+<twig:ui:type:badge value="inactive" />
+<twig:ui:type:badge value="error" />{% endverbatim %}{% endset %}
     {{ ui.story('Status Badges', statusPreview, statusCode) }}
 
     {# Custom Status Mapping #}
     {% set mappingPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:Ui:type:badge value="published" variant="success" />
-            <twig:Ui:type:badge value="draft" variant="warning" />
-            <twig:Ui:type:badge value="archived" variant="secondary" />
+            <twig:ui:type:badge value="published" variant="success" />
+            <twig:ui:type:badge value="draft" variant="warning" />
+            <twig:ui:type:badge value="archived" variant="secondary" />
         </div>
     {% endset %}
-    {% set mappingCode %}{% verbatim %}<twig:Ui:type:badge value="published" variant="success" />
-<twig:Ui:type:badge value="draft" variant="warning" />
-<twig:Ui:type:badge value="archived" variant="secondary" />{% endverbatim %}{% endset %}
+    {% set mappingCode %}{% verbatim %}<twig:ui:type:badge value="published" variant="success" />
+<twig:ui:type:badge value="draft" variant="warning" />
+<twig:ui:type:badge value="archived" variant="secondary" />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Status Mapping', mappingPreview, mappingCode) }}
 
     {# With Icons #}
     {% set iconsPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:Ui:type:badge value="Verified" icon="lucide:check" variant="success" />
-            <twig:Ui:type:badge value="Unverified" icon="lucide:x" variant="error" />
-            <twig:Ui:type:badge value="Pending" icon="lucide:clock" variant="warning" />
+            <twig:ui:type:badge value="Verified" icon="lucide:check" variant="success" />
+            <twig:ui:type:badge value="Unverified" icon="lucide:x" variant="error" />
+            <twig:ui:type:badge value="Pending" icon="lucide:clock" variant="warning" />
         </div>
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:Ui:type:badge value="Verified" icon="lucide:check" variant="success" />
-<twig:Ui:type:badge value="Unverified" icon="lucide:x" variant="error" />
-<twig:Ui:type:badge value="Pending" icon="lucide:clock" variant="warning" />{% endverbatim %}{% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:ui:type:badge value="Verified" icon="lucide:check" variant="success" />
+<twig:ui:type:badge value="Unverified" icon="lucide:x" variant="error" />
+<twig:ui:type:badge value="Pending" icon="lucide:clock" variant="warning" />{% endverbatim %}{% endset %}
     {{ ui.story('With Icons', iconsPreview, iconsCode) }}
 
     {# Boolean Values #}
     {% set booleanPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:Ui:type:badge value="true" boolean />
-            <twig:Ui:type:badge value="false" boolean />
+            <twig:ui:type:badge value="true" boolean />
+            <twig:ui:type:badge value="false" boolean />
         </div>
     {% endset %}
-    {% set booleanCode %}{% verbatim %}<twig:Ui:type:badge value="true" boolean />
-<twig:Ui:type:badge value="false" boolean />{% endverbatim %}{% endset %}
+    {% set booleanCode %}{% verbatim %}<twig:ui:type:badge value="true" boolean />
+<twig:ui:type:badge value="false" boolean />{% endverbatim %}{% endset %}
     {{ ui.story('Boolean Values', booleanPreview, booleanCode) }}
 </div>

@@ -3,7 +3,7 @@
 <div class="space-y-6">
     {# Pills Variant (Default) #}
     {% set pillsPreview %}
-        <twig:Ui:filter-tabs
+        <twig:ui:filter-tabs
             name="status"
             value="all"
             :options="[
@@ -14,7 +14,7 @@
             ]"
         />
     {% endset %}
-    {% set pillsCode %}{% verbatim %}<twig:Ui:filter-tabs
+    {% set pillsCode %}{% verbatim %}<twig:ui:filter-tabs
     name="status"
     value="all"
     :options="[
@@ -28,7 +28,7 @@
 
     {# With Counts #}
     {% set countsPreview %}
-        <twig:Ui:filter-tabs
+        <twig:ui:filter-tabs
             name="orders"
             value="all"
             :options="[
@@ -39,7 +39,7 @@
             ]"
         />
     {% endset %}
-    {% set countsCode %}{% verbatim %}<twig:Ui:filter-tabs
+    {% set countsCode %}{% verbatim %}<twig:ui:filter-tabs
     name="orders"
     value="all"
     :options="[
@@ -53,7 +53,7 @@
 
     {# With Icons #}
     {% set iconsPreview %}
-        <twig:Ui:filter-tabs
+        <twig:ui:filter-tabs
             name="view"
             value="list"
             :options="[
@@ -63,7 +63,7 @@
             ]"
         />
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:Ui:filter-tabs
+    {% set iconsCode %}{% verbatim %}<twig:ui:filter-tabs
     name="view"
     value="list"
     :options="[
@@ -76,7 +76,7 @@
 
     {# Underline Variant #}
     {% set underlinePreview %}
-        <twig:Ui:filter-tabs
+        <twig:ui:filter-tabs
             name="tab"
             value="overview"
             variant="underline"
@@ -88,7 +88,7 @@
             ]"
         />
     {% endset %}
-    {% set underlineCode %}{% verbatim %}<twig:Ui:filter-tabs
+    {% set underlineCode %}{% verbatim %}<twig:ui:filter-tabs
     name="tab"
     value="overview"
     variant="underline"
@@ -102,7 +102,7 @@
 
     {# Boxed Variant #}
     {% set boxedPreview %}
-        <twig:Ui:filter-tabs
+        <twig:ui:filter-tabs
             name="period"
             value="month"
             variant="boxed"
@@ -114,7 +114,7 @@
             ]"
         />
     {% endset %}
-    {% set boxedCode %}{% verbatim %}<twig:Ui:filter-tabs
+    {% set boxedCode %}{% verbatim %}<twig:ui:filter-tabs
     name="period"
     value="month"
     variant="boxed"
@@ -130,7 +130,7 @@
     {# Full Width #}
     {% set fullWidthPreview %}
         <div class="max-w-md">
-            <twig:Ui:filter-tabs
+            <twig:ui:filter-tabs
                 name="type"
                 value="all"
                 fullWidth
@@ -142,7 +142,7 @@
             />
         </div>
     {% endset %}
-    {% set fullWidthCode %}{% verbatim %}<twig:Ui:filter-tabs
+    {% set fullWidthCode %}{% verbatim %}<twig:ui:filter-tabs
     name="type"
     value="all"
     fullWidth
@@ -157,19 +157,19 @@
     {# Sizes #}
     {% set sizesPreview %}
         <div class="space-y-4">
-            <twig:Ui:filter-tabs
+            <twig:ui:filter-tabs
                 name="size-sm"
                 value="a"
                 size="sm"
                 :options="[{ key: 'a', label: 'Option A' }, { key: 'b', label: 'Option B' }]"
             />
-            <twig:Ui:filter-tabs
+            <twig:ui:filter-tabs
                 name="size-md"
                 value="a"
                 size="md"
                 :options="[{ key: 'a', label: 'Option A' }, { key: 'b', label: 'Option B' }]"
             />
-            <twig:Ui:filter-tabs
+            <twig:ui:filter-tabs
                 name="size-lg"
                 value="a"
                 size="lg"
@@ -177,8 +177,8 @@
             />
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:filter-tabs size="sm" ... />
-<twig:Ui:filter-tabs size="md" ... />
-<twig:Ui:filter-tabs size="lg" ... />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:filter-tabs size="sm" ... />
+<twig:ui:filter-tabs size="md" ... />
+<twig:ui:filter-tabs size="lg" ... />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 </div>

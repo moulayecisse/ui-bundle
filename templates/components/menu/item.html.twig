@@ -56,7 +56,7 @@
                     {% endif %}
 
                     {% if badge %}
-                        <twig:Ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:Ui:badge>
+                        <twig:ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:ui:badge>
                     {% endif %}
 
                     {% if count is not null %}
@@ -71,7 +71,7 @@
             {% if haveChildren %}
                 <span class="flex items-center gap-2 group-data-[collapsed=true]/sidebar:hidden">
                     {% if badge %}
-                        <twig:Ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:Ui:badge>
+                        <twig:ui:badge variant="{{ badgeVariant }}" size="sm">{{ badge }}</twig:ui:badge>
                     {% endif %}
 
                     {% if count is not null %}
@@ -93,9 +93,9 @@
 
     {# Inline submenu (expanded sidebar) #}
     {% if haveChildren %}
-        <twig:Ui:menu:sub :expanded="expanded">
+        <twig:ui:menu:sub :expanded="expanded">
             {{ childrenBlock|raw }}
-        </twig:Ui:menu:sub>
+        </twig:ui:menu:sub>
     {% endif %}
 
     {# Flyout template for collapsed state - will be cloned to body by JS #}

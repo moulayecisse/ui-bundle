@@ -78,7 +78,7 @@
 $pagination = Pagination::create($queryBuilder, $page, $limit);
 
 {# In your template #}
-<twig:Ui:pagination :pagination="pagination" />{% endverbatim %}{% endset %}
+<twig:ui:pagination :pagination="pagination" />{% endverbatim %}{% endset %}
     {{ ui.story('Pagination Preview', visualPreview, visualCode) }}
 
     {# Features #}
@@ -128,7 +128,7 @@ public function index(Request $request): Response
         </div>
     {% endset %}
     {% set usageCode %}{% verbatim %}{# In your template #}
-<twig:Ui:data-table :fields="fields" :items="users" />
-<twig:Ui:pagination :pagination="pagination" />{% endverbatim %}{% endset %}
+<twig:ui:data-table :fields="fields" :items="users" />
+<twig:ui:pagination :pagination="pagination" />{% endverbatim %}{% endset %}
     {{ ui.story('Controller Usage Example', usagePreview, usageCode) }}
 </div>

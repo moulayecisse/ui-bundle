@@ -19,23 +19,23 @@
 
     {# Basic Rating #}
     {% set basicPreview %}
-        <twig:Ui:rating name="basic" value="3" />
+        <twig:ui:rating name="basic" value="3" />
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:rating name="basic" value="3" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:rating name="basic" value="3" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Rating', basicPreview, basicCode) }}
 
     {# With Value Display #}
     {% set valuePreview %}
-        <twig:Ui:rating name="display" value="4" showValue />
+        <twig:ui:rating name="display" value="4" showValue />
     {% endset %}
-    {% set valueCode %}{% verbatim %}<twig:Ui:rating name="display" value="4" showValue />{% endverbatim %}{% endset %}
+    {% set valueCode %}{% verbatim %}<twig:ui:rating name="display" value="4" showValue />{% endverbatim %}{% endset %}
     {{ ui.story('With Value Display', valuePreview, valueCode) }}
 
     {# Half Stars #}
     {% set halfPreview %}
-        <twig:Ui:rating name="half" value="3.5" allowHalf showValue />
+        <twig:ui:rating name="half" value="3.5" allowHalf showValue />
     {% endset %}
-    {% set halfCode %}{% verbatim %}<twig:Ui:rating name="half" value="3.5" allowHalf showValue />{% endverbatim %}{% endset %}
+    {% set halfCode %}{% verbatim %}<twig:ui:rating name="half" value="3.5" allowHalf showValue />{% endverbatim %}{% endset %}
     {{ ui.story('Half Stars', halfPreview, halfCode) }}
 
     {# Sizes #}
@@ -43,41 +43,41 @@
         <div class="space-y-4">
             <div class="flex items-center gap-4">
                 <span class="text-sm text-gray-500 w-16">Small</span>
-                <twig:Ui:rating name="sm" value="4" size="sm" />
+                <twig:ui:rating name="sm" value="4" size="sm" />
             </div>
             <div class="flex items-center gap-4">
                 <span class="text-sm text-gray-500 w-16">Medium</span>
-                <twig:Ui:rating name="md" value="4" size="md" />
+                <twig:ui:rating name="md" value="4" size="md" />
             </div>
             <div class="flex items-center gap-4">
                 <span class="text-sm text-gray-500 w-16">Large</span>
-                <twig:Ui:rating name="lg" value="4" size="lg" />
+                <twig:ui:rating name="lg" value="4" size="lg" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:rating name="sm" value="4" size="sm" />
-<twig:Ui:rating name="md" value="4" size="md" />
-<twig:Ui:rating name="lg" value="4" size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:rating name="sm" value="4" size="sm" />
+<twig:ui:rating name="md" value="4" size="md" />
+<twig:ui:rating name="lg" value="4" size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Custom Max #}
     {% set maxPreview %}
-        <twig:Ui:rating name="max10" value="7" max="10" showValue />
+        <twig:ui:rating name="max10" value="7" max="10" showValue />
     {% endset %}
-    {% set maxCode %}{% verbatim %}<twig:Ui:rating name="max10" value="7" max="10" showValue />{% endverbatim %}{% endset %}
+    {% set maxCode %}{% verbatim %}<twig:ui:rating name="max10" value="7" max="10" showValue />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Max (10)', maxPreview, maxCode) }}
 
     {# Readonly #}
     {% set readonlyPreview %}
-        <twig:Ui:rating value="4.5" allowHalf readonly showValue />
+        <twig:ui:rating value="4.5" allowHalf readonly showValue />
     {% endset %}
-    {% set readonlyCode %}{% verbatim %}<twig:Ui:rating value="4.5" allowHalf readonly showValue />{% endverbatim %}{% endset %}
+    {% set readonlyCode %}{% verbatim %}<twig:ui:rating value="4.5" allowHalf readonly showValue />{% endverbatim %}{% endset %}
     {{ ui.story('Readonly', readonlyPreview, readonlyCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
-        <twig:Ui:rating name="disabled" value="2" disabled />
+        <twig:ui:rating name="disabled" value="2" disabled />
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:rating name="disabled" value="2" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:rating name="disabled" value="2" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

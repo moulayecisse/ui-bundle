@@ -37,9 +37,9 @@
             </div>
         </div>
     {% endset %}
-    {% set basicCode %}&lt;twig:Ui:progress value="25" /&gt;
-&lt;twig:Ui:progress value="50" /&gt;
-&lt;twig:Ui:progress value="75" /&gt;{% endset %}
+    {% set basicCode %}&lt;twig:ui:progress value="25" /&gt;
+&lt;twig:ui:progress value="50" /&gt;
+&lt;twig:ui:progress value="75" /&gt;{% endset %}
     {{ ui.story('Basic Progress', basicPreview, basicCode) }}
 
     {# With Label #}
@@ -54,7 +54,7 @@
             </div>
         </div>
     {% endset %}
-    {% set labelCode %}&lt;twig:Ui:progress value="60" showLabel /&gt;{% endset %}
+    {% set labelCode %}&lt;twig:ui:progress value="60" showLabel /&gt;{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Color Variants #}
@@ -86,10 +86,10 @@
             </div>
         </div>
     {% endset %}
-    {% set variantsCode %}&lt;twig:Ui:progress value="60" variant="default" /&gt;
-&lt;twig:Ui:progress value="60" variant="success" /&gt;
-&lt;twig:Ui:progress value="60" variant="warning" /&gt;
-&lt;twig:Ui:progress value="60" variant="error" /&gt;{% endset %}
+    {% set variantsCode %}&lt;twig:ui:progress value="60" variant="default" /&gt;
+&lt;twig:ui:progress value="60" variant="success" /&gt;
+&lt;twig:ui:progress value="60" variant="warning" /&gt;
+&lt;twig:ui:progress value="60" variant="error" /&gt;{% endset %}
     {{ ui.story('Color Variants', variantsPreview, variantsCode) }}
 
     {# Sizes #}
@@ -115,9 +115,9 @@
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}&lt;twig:Ui:progress value="60" size="sm" /&gt;
-&lt;twig:Ui:progress value="60" size="md" /&gt;
-&lt;twig:Ui:progress value="60" size="lg" /&gt;{% endset %}
+    {% set sizesCode %}&lt;twig:ui:progress value="60" size="sm" /&gt;
+&lt;twig:ui:progress value="60" size="md" /&gt;
+&lt;twig:ui:progress value="60" size="lg" /&gt;{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Striped & Animated #}
@@ -132,8 +132,8 @@
             </div>
         </div>
     {% endset %}
-    {% set stripedCode %}&lt;twig:Ui:progress value="60" striped /&gt;
-&lt;twig:Ui:progress value="60" striped animated /&gt;{% endset %}
+    {% set stripedCode %}&lt;twig:ui:progress value="60" striped /&gt;
+&lt;twig:ui:progress value="60" striped animated /&gt;{% endset %}
     {{ ui.story('Striped & Animated', stripedPreview, stripedCode) }}
 
     {# Indeterminate #}
@@ -144,6 +144,6 @@
             </p>
         </div>
     {% endset %}
-    {% set indeterminateCode %}&lt;twig:Ui:progress indeterminate /&gt;{% endset %}
+    {% set indeterminateCode %}&lt;twig:ui:progress indeterminate /&gt;{% endset %}
     {{ ui.story('Indeterminate', indeterminatePreview, indeterminateCode) }}
 </div>

@@ -45,7 +45,7 @@
             </ul>
         </div>
     {% endset %}
-    {% set aboutCode %}{% verbatim %}<twig:Ui:layout:auth
+    {% set aboutCode %}{% verbatim %}<twig:ui:layout:auth
     appName="MyApp"
     headline="Welcome to"
     subHeadline="MyApp Platform"
@@ -59,13 +59,13 @@
     ]"
 >
     {% block content %}
-        <twig:Ui:form action="/login" method="POST">
-            <twig:Ui:input name="email" type="email" label="Email" />
-            <twig:Ui:input name="password" type="password" label="Password" />
-            <twig:Ui:button type="submit" class="w-full">Sign In</twig:Ui:button>
-        </twig:Ui:form>
+        <twig:ui:form action="/login" method="POST">
+            <twig:ui:input name="email" type="email" label="Email" />
+            <twig:ui:input name="password" type="password" label="Password" />
+            <twig:ui:button type="submit" class="w-full">Sign In</twig:ui:button>
+        </twig:ui:form>
     {% endblock %}
-</twig:Ui:layout:auth>{% endverbatim %}{% endset %}
+</twig:ui:layout:auth>{% endverbatim %}{% endset %}
     {{ ui.story('Overview', aboutPreview, aboutCode) }}
 
     {# Layout Structure #}
@@ -145,12 +145,12 @@
             </div>
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:layout:auth
+    {% set colorsCode %}{% verbatim %}<twig:ui:layout:auth
     gradientFrom="from-violet-700"
     gradientTo="to-purple-800"
     ...
 >
     {% block content %}...{% endblock %}
-</twig:Ui:layout:auth>{% endverbatim %}{% endset %}
+</twig:ui:layout:auth>{% endverbatim %}{% endset %}
     {{ ui.story('Color Themes', colorsPreview, colorsCode) }}
 </div>

@@ -4,22 +4,22 @@
     {# Basic Tags Input #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:tags-input name="tags" placeholder="Add tag..." />
+            <twig:ui:tags-input name="tags" placeholder="Add tag..." />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:tags-input name="tags" placeholder="Add tag..." />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:tags-input name="tags" placeholder="Add tag..." />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Tags Input', basicPreview, basicCode) }}
 
     {# With Initial Values #}
     {% set valuesPreview %}
         <div class="max-w-md">
-            <twig:Ui:tags-input
+            <twig:ui:tags-input
                 name="skills"
                 :value="['JavaScript', 'TypeScript', 'Vue.js']"
             />
         </div>
     {% endset %}
-    {% set valuesCode %}{% verbatim %}<twig:Ui:tags-input
+    {% set valuesCode %}{% verbatim %}<twig:ui:tags-input
     name="skills"
     :value="['JavaScript', 'TypeScript', 'Vue.js']"
 />{% endverbatim %}{% endset %}
@@ -28,7 +28,7 @@
     {# With Max Tags #}
     {% set maxPreview %}
         <div class="max-w-md">
-            <twig:Ui:tags-input
+            <twig:ui:tags-input
                 name="limited"
                 :value="['Tag 1', 'Tag 2']"
                 :max="5"
@@ -36,7 +36,7 @@
             />
         </div>
     {% endset %}
-    {% set maxCode %}{% verbatim %}<twig:Ui:tags-input
+    {% set maxCode %}{% verbatim %}<twig:ui:tags-input
     name="limited"
     :value="['Tag 1', 'Tag 2']"
     :max="5"
@@ -47,27 +47,27 @@
     {# Sizes #}
     {% set sizesPreview %}
         <div class="max-w-md space-y-4">
-            <twig:Ui:tags-input name="sm" size="sm" :value="['Small']" placeholder="Small..." />
-            <twig:Ui:tags-input name="md" size="md" :value="['Medium']" placeholder="Medium..." />
-            <twig:Ui:tags-input name="lg" size="lg" :value="['Large']" placeholder="Large..." />
+            <twig:ui:tags-input name="sm" size="sm" :value="['Small']" placeholder="Small..." />
+            <twig:ui:tags-input name="md" size="md" :value="['Medium']" placeholder="Medium..." />
+            <twig:ui:tags-input name="lg" size="lg" :value="['Large']" placeholder="Large..." />
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:tags-input size="sm" ... />
-<twig:Ui:tags-input size="md" ... />
-<twig:Ui:tags-input size="lg" ... />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:tags-input size="sm" ... />
+<twig:ui:tags-input size="md" ... />
+<twig:ui:tags-input size="lg" ... />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-md">
-            <twig:Ui:tags-input
+            <twig:ui:tags-input
                 name="disabled"
                 :value="['Readonly', 'Tags']"
                 disabled
             />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:tags-input
+    {% set disabledCode %}{% verbatim %}<twig:ui:tags-input
     name="disabled"
     :value="['Readonly', 'Tags']"
     disabled

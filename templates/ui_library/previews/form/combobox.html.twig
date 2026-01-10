@@ -4,7 +4,7 @@
     {# Basic Combobox #}
     {% set basicPreview %}
         <div class="max-w-xs">
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="country"
                 placeholder="Select a country"
                 :options="[
@@ -18,7 +18,7 @@
             />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:combobox
+    {% set basicCode %}{% verbatim %}<twig:ui:combobox
     name="country"
     placeholder="Select a country"
     :options="[
@@ -33,7 +33,7 @@
     {# With Selected Value #}
     {% set selectedPreview %}
         <div class="max-w-xs">
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="language"
                 value="en"
                 :options="[
@@ -45,7 +45,7 @@
             />
         </div>
     {% endset %}
-    {% set selectedCode %}{% verbatim %}<twig:Ui:combobox
+    {% set selectedCode %}{% verbatim %}<twig:ui:combobox
     name="language"
     value="en"
     :options="[
@@ -59,7 +59,7 @@
     {# Multiple Selection #}
     {% set multiplePreview %}
         <div class="max-w-xs">
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="skills"
                 placeholder="Select skills"
                 multiple
@@ -73,7 +73,7 @@
             />
         </div>
     {% endset %}
-    {% set multipleCode %}{% verbatim %}<twig:Ui:combobox
+    {% set multipleCode %}{% verbatim %}<twig:ui:combobox
     name="skills"
     placeholder="Select skills"
     multiple
@@ -88,7 +88,7 @@
     {# Clearable #}
     {% set clearablePreview %}
         <div class="max-w-xs">
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="status"
                 value="active"
                 clearable
@@ -100,7 +100,7 @@
             />
         </div>
     {% endset %}
-    {% set clearableCode %}{% verbatim %}<twig:Ui:combobox
+    {% set clearableCode %}{% verbatim %}<twig:ui:combobox
     name="status"
     value="active"
     clearable
@@ -111,7 +111,7 @@
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-xs">
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="disabled"
                 value="option1"
                 disabled
@@ -122,7 +122,7 @@
             />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:combobox
+    {% set disabledCode %}{% verbatim %}<twig:ui:combobox
     name="disabled"
     value="option1"
     disabled
@@ -133,19 +133,19 @@
     {# Sizes #}
     {% set sizesPreview %}
         <div class="max-w-xs space-y-4">
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="size-sm"
                 size="sm"
                 value="small"
                 :options="[{ value: 'small', label: 'Small Size' }]"
             />
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="size-md"
                 size="md"
                 value="medium"
                 :options="[{ value: 'medium', label: 'Medium Size' }]"
             />
-            <twig:Ui:combobox
+            <twig:ui:combobox
                 name="size-lg"
                 size="lg"
                 value="large"
@@ -153,8 +153,8 @@
             />
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:combobox size="sm" ... />
-<twig:Ui:combobox size="md" ... />
-<twig:Ui:combobox size="lg" ... />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:combobox size="sm" ... />
+<twig:ui:combobox size="md" ... />
+<twig:ui:combobox size="lg" ... />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 </div>
