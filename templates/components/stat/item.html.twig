@@ -5,6 +5,10 @@
   prefix = '',
   suffix = '',
   icon = null,
+  iconPosition = 'top',
+  iconColor = 'primary',
+  iconRounded = 'xl',
+  hideIconBg = false,
   change = null,
   changeLabel = null,
   trend = null,
@@ -26,12 +30,6 @@
 {% set labelAttrs = attributes.nested('label') %}
 {% set contentAttrs = attributes.nested('content') %}
 {% set trendAttrs = attributes.nested('trend') %}
-
-{# Icon nested attributes: icon:position, icon:color, icon:rounded, icon:hideBg, icon:class #}
-{% set iconPosition = iconAttrs['position']|default('top') %}
-{% set iconColor = iconAttrs['color']|default('primary') %}
-{% set iconRounded = iconAttrs['rounded']|default('xl') %}
-{% set hideIconBg = iconAttrs['hideBg']|default(false) %}
 
 {# Determine centering #}
 {% set isCentered = centered ?? (iconPosition in ['top', 'bottom']) %}
@@ -140,7 +138,7 @@
   <div class="{{ layoutClass }} {{ centerClass }}">
     {# Icon #}
     {% if icon %}
-      <div class="{{ (sizeConfig.icon ~ ' ' ~ iconRoundedClass ~ ' ' ~ iconBgClass ~ ' ' ~ iconMarginClass ~ ' flex items-center justify-center shrink-0 ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class', 'position', 'color', 'rounded', 'hideBg') }}>
+      <div class="{{ (sizeConfig.icon ~ ' ' ~ iconRoundedClass ~ ' ' ~ iconBgClass ~ ' ' ~ iconMarginClass ~ ' flex items-center justify-center shrink-0 ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }}>
         {% block icon %}
           <twig:ux:icon :name="icon" class="{{ sizeConfig.iconInner }} {{ iconColorClass }}" />
         {% endblock %}
