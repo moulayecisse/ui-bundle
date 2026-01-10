@@ -5,8 +5,6 @@
     title = null,
     description = null,
     defaultExpanded = true,
-    headerClass = 'w-full text-left',
-    contentClass = ''
 %}
 
 {% set headerBlock %}{% block header '' %}{% endset %}
@@ -16,20 +14,21 @@
 {% set class = (class)|tailwind_merge %}
 
 <div
-    {{ attributes }}
+    {{ attributes.without('header', 'content', 'card') }}
     data-controller="cisse--ui-bundle--collapsible-card"
     data-cisse--ui-bundle--collapsible-card-expanded-value="{{ defaultExpanded ? 'true' : 'false' }}"
     class="{{ class }}"
 >
     {# Card container matching Vue CardComponent structure #}
-    <div class="flex flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-slate-950">
+    <div class="{{ ('flex flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-slate-950 ' ~ attributes.nested('card').render('class'))|tailwind_merge }}" {{ attributes.nested('card').without('class') }}>
         {% if hasCustomHeader %}
             {# Custom header mode - button wraps the header content #}
             <div class="border-b border-gray-200 dark:border-gray-700">
                 <button
                     type="button"
                     data-action="click->cisse--ui-bundle--collapsible-card#toggle"
-                    class="{{ headerClass }}"
+                    class="{{ ('w-full text-left ' ~ attributes.nested('header').render('class'))|tailwind_merge }}"
+                    {{ attributes.nested('header').without('class') }}
                 >
                     {{ headerBlock|raw }}
                 </button>
@@ -65,8 +64,9 @@
         {# Collapsible content #}
         <div
             data-cisse--ui-bundle--collapsible-card-target="content"
-            class="overflow-hidden transition-all duration-200 ease-out {{ contentClass }}"
+            class="{{ ('overflow-hidden transition-all duration-200 ease-out ' ~ attributes.nested('content').render('class'))|tailwind_merge }}"
             style="{{ defaultExpanded ? '' : 'max-height: 0; opacity: 0;' }}"
+            {{ attributes.nested('content').without('class') }}
         >
             <div class="{{ hasCustomHeader ? '' : 'space-y-4 p-6' }}">
                 {% block content '' %}

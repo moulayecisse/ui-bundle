@@ -3,9 +3,6 @@
   appIcon = null,
   appIconClass = 'size-5 text-white',
   homeLink = null,
-  sidebarClass = 'bg-slate-800 dark:bg-slate-950',
-  headerClass = '',
-  contentClass = '',
   showDarkToggle = true,
   userName = null,
   userAvatar = null,
@@ -20,7 +17,7 @@
 {% set user_menu_block %}{% block user_menu '' %}{% endset %}
 
 <div
-  {{ attributes }}
+  {{ attributes.without('sidebar', 'header', 'content', 'menu', 'sidebarHeader', 'sidebarFooter', 'userMenu') }}
   data-controller="cisse--ui-bundle--base-layout"
   class="{{ ('font-sans relative flex h-screen overflow-hidden bg-gray-100 dark:bg-slate-900 ' ~ class)|tailwind_merge }}"
 >
@@ -34,7 +31,8 @@
   {# Sidebar - collapses to w-16 on desktop, slides out on mobile #}
   <aside
     data-cisse--ui-bundle--base-layout-target="sidebar"
-    class="group/sidebar max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 data-[collapsed=true]:lg:w-16 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full {{ sidebarClass }}"
+    class="{{ ('group/sidebar max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 data-[collapsed=true]:lg:w-16 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full bg-slate-800 dark:bg-slate-950 ' ~ attributes.nested('sidebar').render('class'))|tailwind_merge }}"
+    {{ attributes.nested('sidebar').without('class') }}
   >
     {# Sidebar Header #}
     <div class="flex h-16 items-center px-3">
@@ -63,7 +61,8 @@
 
     {# Menu Items #}
     <div
-      class="ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start group-data-[collapsed=true]/sidebar:items-center group-data-[collapsed=true]/sidebar:gap-4 transition-all duration-300"
+      class="{{ ('ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start group-data-[collapsed=true]/sidebar:items-center group-data-[collapsed=true]/sidebar:gap-4 transition-all duration-300 ' ~ attributes.nested('menu').render('class'))|tailwind_merge }}"
+      {{ attributes.nested('menu').without('class') }}
     >
       {{ menu_block|raw }}
     </div>
@@ -79,7 +78,7 @@
   {# Main Content Area #}
   <div class="flex flex-1 flex-col min-w-0">
     {# Header #}
-    <header class="{{ ('flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 dark:border-slate-800 dark:bg-slate-950 ' ~ headerClass)|tailwind_merge }}">
+    <header class="{{ ('flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 dark:border-slate-800 dark:bg-slate-950 ' ~ attributes.nested('header').render('class'))|tailwind_merge }}" {{ attributes.nested('header').without('class') }}>
       <div>
         <button
           data-action="click->cisse--ui-bundle--base-layout#toggleSidebar"
@@ -134,7 +133,7 @@
 
     {# Page Content #}
     <div class="ui-scrollbar flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-      <main class="{{ ('container mx-auto flex flex-1 flex-col gap-5 p-5 max-w-full ' ~ contentClass)|tailwind_merge }}">
+      <main class="{{ ('container mx-auto flex flex-1 flex-col gap-5 p-5 max-w-full ' ~ attributes.nested('content').render('class'))|tailwind_merge }}" {{ attributes.nested('content').without('class') }}>
         {% block content '' %}
       </main>
     </div>
