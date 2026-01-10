@@ -36,6 +36,13 @@
 {% set actionBlock %}{% block action '' %}{% endset %}
 {% set hasAction = actionBlock|trim or actionLabel %}
 
+{# Nested attributes for fine-grained customization #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set messageAttrs = attributes.nested('message') %}
+{% set contentAttrs = attributes.nested('content') %}
+{% set closeAttrs = attributes.nested('close') %}
+
 <div
     {{ attributes }}
     data-controller="cisse--ui-bundle--toast"
@@ -50,19 +57,20 @@
     {% if showIcon %}
         <twig:ux:icon
             :name="iconName"
-            class="size-5 shrink-0 {{ variant == 'solid' ? 'text-white' : config.iconColor }}"
+            class="{{ ('size-5 shrink-0 ' ~ (variant == 'solid' ? 'text-white' : config.iconColor) ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}"
             aria-hidden="true"
+            {{ iconAttrs.without('class') }}
         />
     {% endif %}
 
     {# Content #}
-    <div class="flex-1 min-w-0">
+    <div class="{{ ('flex-1 min-w-0 ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
         {% if title %}
-            <p class="font-medium {{ variant == 'solid' ? 'text-white' : 'text-gray-900 dark:text-white' }}">
+            <p class="{{ ('font-medium ' ~ (variant == 'solid' ? 'text-white' : 'text-gray-900 dark:text-white') ~ ' ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                 {% block title %}{{ title }}{% endblock %}
             </p>
         {% endif %}
-        <p class="text-sm {{ variant == 'solid' ? 'text-white/90' : 'text-gray-700 dark:text-gray-300' }}">
+        <p class="{{ ('text-sm ' ~ (variant == 'solid' ? 'text-white/90' : 'text-gray-700 dark:text-gray-300') ~ ' ' ~ messageAttrs.render('class'))|tailwind_merge }}" {{ messageAttrs.without('class') }}>
             {% block message %}{{ message }}{% endblock %}
         </p>
 
@@ -89,7 +97,8 @@
     {% if closable %}
         <button
             type="button"
-            class="shrink-0 rounded p-1 {{ variant == 'solid' ? 'text-white/70 hover:text-white hover:bg-white/10' : 'text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300' }}"
+            class="{{ ('shrink-0 rounded p-1 ' ~ (variant == 'solid' ? 'text-white/70 hover:text-white hover:bg-white/10' : 'text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300') ~ ' ' ~ closeAttrs.render('class'))|tailwind_merge }}"
+            {{ closeAttrs.without('class') }}
             aria-label="Dismiss notification"
             data-action="click->cisse--ui-bundle--toast#close"
         >
