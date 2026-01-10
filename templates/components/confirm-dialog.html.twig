@@ -4,7 +4,7 @@
   message = 'Are you sure you want to proceed?',
   confirmText = 'Confirm',
   cancelText = 'Cancel',
-  variant = 'info',
+  color = 'info',
   size = 'sm',
   loading = false,
   icon = null,
@@ -22,14 +22,15 @@
 {% set cancelAttrs = attributes.nested('cancel') %}
 {% set confirmAttrs = attributes.nested('confirm') %}
 
-{% set variantConfig = {
-  'info': { icon: 'lucide:info', iconClass: 'text-blue-500', buttonClass: 'bg-primary-500 hover:bg-primary-600 text-white' },
-  'warning': { icon: 'lucide:alert-triangle', iconClass: 'text-yellow-500', buttonClass: 'bg-primary-500 hover:bg-primary-600 text-white' },
+{% set colorConfig = {
+  'primary': { icon: 'lucide:info', iconClass: 'text-primary', buttonClass: 'bg-primary hover:bg-primary/90 text-primary-foreground' },
+  'info': { icon: 'lucide:info', iconClass: 'text-blue-500', buttonClass: 'bg-blue-500 hover:bg-blue-600 text-white' },
+  'warning': { icon: 'lucide:alert-triangle', iconClass: 'text-amber-500', buttonClass: 'bg-amber-500 hover:bg-amber-600 text-white' },
   'danger': { icon: 'lucide:alert-circle', iconClass: 'text-red-500', buttonClass: 'bg-red-500 hover:bg-red-600 text-white' },
-  'success': { icon: 'lucide:check-circle', iconClass: 'text-green-500', buttonClass: 'bg-green-500 hover:bg-green-600 text-white' },
+  'success': { icon: 'lucide:check-circle', iconClass: 'text-emerald-500', buttonClass: 'bg-emerald-500 hover:bg-emerald-600 text-white' },
 } %}
 
-{% set config = variantConfig[variant] ?? variantConfig['info'] %}
+{% set config = colorConfig[color] ?? colorConfig['info'] %}
 {% set iconName = icon ?? config.icon %}
 
 {% set iconSizeConfig = {

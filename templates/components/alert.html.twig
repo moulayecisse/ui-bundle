@@ -10,7 +10,7 @@
     size = 'md',
     primary = false,
     secondary = false,
-    error = false,
+    danger = false,
     success = false,
     warning = false,
     info = false,
@@ -22,8 +22,8 @@
     {% set color = 'primary' %}
 {% elseif secondary %}
     {% set color = 'secondary' %}
-{% elseif error %}
-    {% set color = 'error' %}
+{% elseif danger %}
+    {% set color = 'danger' %}
 {% elseif success %}
     {% set color = 'success' %}
 {% elseif warning %}
@@ -45,7 +45,7 @@
 
 {% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
 
-{% set baseClass = ('rounded-lg ' ~ sizes.padding ~ ' bg-blue-50 border border-blue-200 data-[color=primary]:bg-primary/10 data-[color=primary]:border-primary/20 data-[color=secondary]:bg-gray-50 data-[color=secondary]:border-gray-200 data-[color=success]:bg-green-50 data-[color=success]:border-green-200 data-[color=error]:bg-red-50 data-[color=error]:border-red-200 data-[color=warning]:bg-yellow-50 data-[color=warning]:border-yellow-200 data-[color=info]:bg-blue-50 data-[color=info]:border-blue-200 data-[variant=outline]:bg-transparent data-[variant=outline]:border-2 dark:data-[color=primary]:bg-primary/5 dark:data-[color=primary]:border-primary/30 dark:data-[color=secondary]:bg-gray-800 dark:data-[color=secondary]:border-gray-700 dark:data-[color=success]:bg-green-900/10 dark:data-[color=success]:border-green-800/30 dark:data-[color=error]:bg-red-900/10 dark:data-[color=error]:border-red-800/30 dark:data-[color=warning]:bg-yellow-900/10 dark:data-[color=warning]:border-yellow-800/30 dark:data-[color=info]:bg-blue-900/10 dark:data-[color=info]:border-blue-800/30 ' ~ (bordered ? 'border-l-4 ' : '') ~ class)|tailwind_merge %}
+{% set baseClass = ('rounded-lg ' ~ sizes.padding ~ ' bg-blue-50 border border-blue-200 data-[color=primary]:bg-primary/10 data-[color=primary]:border-primary/20 data-[color=secondary]:bg-gray-50 data-[color=secondary]:border-gray-200 data-[color=success]:bg-emerald-50 data-[color=success]:border-emerald-200 data-[color=danger]:bg-red-50 data-[color=danger]:border-red-200 data-[color=warning]:bg-amber-50 data-[color=warning]:border-amber-200 data-[color=info]:bg-blue-50 data-[color=info]:border-blue-200 data-[variant=outline]:bg-transparent data-[variant=outline]:border-2 dark:data-[color=primary]:bg-primary/5 dark:data-[color=primary]:border-primary/30 dark:data-[color=secondary]:bg-gray-800 dark:data-[color=secondary]:border-gray-700 dark:data-[color=success]:bg-emerald-900/10 dark:data-[color=success]:border-emerald-800/30 dark:data-[color=danger]:bg-red-900/10 dark:data-[color=danger]:border-red-800/30 dark:data-[color=warning]:bg-amber-900/10 dark:data-[color=warning]:border-amber-800/30 dark:data-[color=info]:bg-blue-900/10 dark:data-[color=info]:border-blue-800/30 ' ~ (bordered ? 'border-l-4 ' : '') ~ class)|tailwind_merge %}
 
 {% set titleBlock %}{% block title title %}{% endset %}
 {% set contentBlock %}{% block content '' %}{% endset %}
@@ -65,13 +65,13 @@
 {% if not customIcon %}
     {% if color == 'success' %}
         {% set icon_name = 'heroicons:check-circle' %}
-        {% set icon_class = 'text-green-400 dark:text-green-300' %}
-    {% elseif color == 'error' %}
+        {% set icon_class = 'text-emerald-400 dark:text-emerald-300' %}
+    {% elseif color == 'danger' %}
         {% set icon_name = 'heroicons:x-circle' %}
         {% set icon_class = 'text-red-400 dark:text-red-300' %}
     {% elseif color == 'warning' %}
         {% set icon_name = 'heroicons:exclamation-triangle' %}
-        {% set icon_class = 'text-yellow-400 dark:text-yellow-300' %}
+        {% set icon_class = 'text-amber-400 dark:text-amber-300' %}
     {% elseif color == 'info' %}
         {% set icon_name = 'heroicons:information-circle' %}
         {% set icon_class = 'text-blue-400 dark:text-blue-300' %}
@@ -99,13 +99,13 @@
 
         <div class="{% if icon %}{{ sizes.gap }}{% endif %} flex-1">
             {% if titleBlock|trim %}
-                <h3 class="{{ (sizes.title ~ ' font-medium text-blue-800 group-data-[color=primary]:text-primary group-data-[color=secondary]:text-gray-800 group-data-[color=success]:text-green-800 group-data-[color=error]:text-red-800 group-data-[color=warning]:text-yellow-800 group-data-[color=info]:text-blue-800 dark:group-data-[color=primary]:text-primary dark:group-data-[color=secondary]:text-gray-200 dark:group-data-[color=success]:text-green-300 dark:group-data-[color=error]:text-red-300 dark:group-data-[color=warning]:text-yellow-300 dark:group-data-[color=info]:text-blue-300 ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
+                <h3 class="{{ (sizes.title ~ ' font-medium text-blue-800 group-data-[color=primary]:text-primary group-data-[color=secondary]:text-gray-800 group-data-[color=success]:text-emerald-800 group-data-[color=danger]:text-red-800 group-data-[color=warning]:text-amber-800 group-data-[color=info]:text-blue-800 dark:group-data-[color=primary]:text-primary dark:group-data-[color=secondary]:text-gray-200 dark:group-data-[color=success]:text-emerald-300 dark:group-data-[color=danger]:text-red-300 dark:group-data-[color=warning]:text-amber-300 dark:group-data-[color=info]:text-blue-300 ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                     {{ titleBlock|raw }}
                 </h3>
             {% endif %}
 
             {% if contentBlock|trim %}
-                <div class="{{ ((titleBlock|trim ? 'mt-2 ' : '') ~ sizes.content ~ ' text-blue-700 group-data-[color=primary]:text-primary/80 group-data-[color=secondary]:text-gray-700 group-data-[color=success]:text-green-700 group-data-[color=error]:text-red-700 group-data-[color=warning]:text-yellow-700 group-data-[color=info]:text-blue-700 dark:group-data-[color=primary]:text-primary/90 dark:group-data-[color=secondary]:text-gray-300 dark:group-data-[color=success]:text-green-400 dark:group-data-[color=error]:text-red-400 dark:group-data-[color=warning]:text-yellow-400 dark:group-data-[color=info]:text-blue-400 ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
+                <div class="{{ ((titleBlock|trim ? 'mt-2 ' : '') ~ sizes.content ~ ' text-blue-700 group-data-[color=primary]:text-primary/80 group-data-[color=secondary]:text-gray-700 group-data-[color=success]:text-emerald-700 group-data-[color=danger]:text-red-700 group-data-[color=warning]:text-amber-700 group-data-[color=info]:text-blue-700 dark:group-data-[color=primary]:text-primary/90 dark:group-data-[color=secondary]:text-gray-300 dark:group-data-[color=success]:text-emerald-400 dark:group-data-[color=danger]:text-red-400 dark:group-data-[color=warning]:text-amber-400 dark:group-data-[color=info]:text-blue-400 ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
                     {{ contentBlock|raw }}
                 </div>
             {% endif %}
@@ -124,7 +124,7 @@
                     <button
                         data-action="click->cisse--ui-bundle--alert#dismiss"
                         type="button"
-                        class="inline-flex rounded p-1 text-blue-500 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-blue-50 group-data-[color=primary]:text-primary group-data-[color=primary]:hover:bg-primary/10 group-data-[color=primary]:focus:ring-primary group-data-[color=secondary]:text-gray-400 group-data-[color=secondary]:hover:bg-gray-100 group-data-[color=secondary]:focus:ring-gray-600 group-data-[color=success]:text-green-500 group-data-[color=success]:hover:bg-green-100 group-data-[color=success]:focus:ring-green-600 group-data-[color=success]:focus:ring-offset-green-50 group-data-[color=error]:text-red-500 group-data-[color=error]:hover:bg-red-100 group-data-[color=error]:focus:ring-red-600 group-data-[color=error]:focus:ring-offset-red-50 group-data-[color=warning]:text-yellow-500 group-data-[color=warning]:hover:bg-yellow-100 group-data-[color=warning]:focus:ring-yellow-600 group-data-[color=warning]:focus:ring-offset-yellow-50 group-data-[color=info]:text-blue-500 group-data-[color=info]:hover:bg-blue-100 group-data-[color=info]:focus:ring-blue-600 group-data-[color=info]:focus:ring-offset-blue-50 dark:group-data-[color=primary]:hover:bg-primary/5 dark:group-data-[color=secondary]:text-gray-500 dark:group-data-[color=secondary]:hover:bg-gray-800 dark:group-data-[color=success]:hover:bg-green-900/20 dark:group-data-[color=error]:hover:bg-red-900/20 dark:group-data-[color=warning]:hover:bg-yellow-900/20 dark:group-data-[color=info]:hover:bg-blue-900/20"
+                        class="inline-flex rounded p-1 text-blue-500 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-blue-50 group-data-[color=primary]:text-primary group-data-[color=primary]:hover:bg-primary/10 group-data-[color=primary]:focus:ring-primary group-data-[color=secondary]:text-gray-400 group-data-[color=secondary]:hover:bg-gray-100 group-data-[color=secondary]:focus:ring-gray-600 group-data-[color=success]:text-emerald-500 group-data-[color=success]:hover:bg-emerald-100 group-data-[color=success]:focus:ring-emerald-600 group-data-[color=success]:focus:ring-offset-emerald-50 group-data-[color=danger]:text-red-500 group-data-[color=danger]:hover:bg-red-100 group-data-[color=danger]:focus:ring-red-600 group-data-[color=danger]:focus:ring-offset-red-50 group-data-[color=warning]:text-amber-500 group-data-[color=warning]:hover:bg-amber-100 group-data-[color=warning]:focus:ring-amber-600 group-data-[color=warning]:focus:ring-offset-amber-50 group-data-[color=info]:text-blue-500 group-data-[color=info]:hover:bg-blue-100 group-data-[color=info]:focus:ring-blue-600 group-data-[color=info]:focus:ring-offset-blue-50 dark:group-data-[color=primary]:hover:bg-primary/5 dark:group-data-[color=secondary]:text-gray-500 dark:group-data-[color=secondary]:hover:bg-gray-800 dark:group-data-[color=success]:hover:bg-emerald-900/20 dark:group-data-[color=danger]:hover:bg-red-900/20 dark:group-data-[color=warning]:hover:bg-amber-900/20 dark:group-data-[color=info]:hover:bg-blue-900/20"
                     >
                         <span class="sr-only">Dismiss</span>
                         <twig:ux:icon name="heroicons:x-mark" class="{{ sizes.icon }}"/>
