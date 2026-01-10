@@ -59,7 +59,7 @@
             :name="iconName"
             class="{{ ('size-5 shrink-0 ' ~ (variant == 'solid' ? 'text-white' : config.iconColor) ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}"
             aria-hidden="true"
-            {{ iconAttrs.without('class') }}
+            {{ ...iconAttrs.without('class') }}
         />
     {% endif %}
 
