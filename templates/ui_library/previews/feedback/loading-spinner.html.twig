@@ -1,6 +1,13 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Default #}
+    {% set defaultPreview %}
+        <twig:ui:loading-spinner />
+    {% endset %}
+    {% set defaultCode %}{% verbatim %}<twig:ui:loading-spinner />{% endverbatim %}{% endset %}
+    {{ ui.story('Default', defaultPreview, defaultCode) }}
+
     {# Props Documentation #}
     {{ ui.props([
         { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Spinner size' },
@@ -8,13 +15,6 @@
         { name: 'label', type: 'string | null', default: 'null', description: 'Loading text displayed below spinner' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
-
-    {# Default #}
-    {% set defaultPreview %}
-        <twig:ui:loading-spinner />
-    {% endset %}
-    {% set defaultCode %}{% verbatim %}<twig:ui:loading-spinner />{% endverbatim %}{% endset %}
-    {{ ui.story('Default', defaultPreview, defaultCode) }}
 
     {# Sizes #}
     {% set sizesPreview %}

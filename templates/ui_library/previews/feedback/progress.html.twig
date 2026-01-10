@@ -1,6 +1,19 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Basic Progress #}
+    {% set basicPreview %}
+        <div class="max-w-lg space-y-4">
+            <twig:ui:progress :value="25" />
+            <twig:ui:progress :value="50" />
+            <twig:ui:progress :value="75" />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:progress :value="25" />
+<twig:ui:progress :value="50" />
+<twig:ui:progress :value="75" />{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Progress', basicPreview, basicCode) }}
+
     {# Props Documentation #}
     {{ ui.props([
         { name: 'value', type: 'number', default: '0', description: 'Current progress value' },
@@ -19,19 +32,6 @@
         { name: 'rounded', type: 'boolean', default: 'true', description: 'Rounded corners' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
-
-    {# Basic Progress #}
-    {% set basicPreview %}
-        <div class="max-w-lg space-y-4">
-            <twig:ui:progress :value="25" />
-            <twig:ui:progress :value="50" />
-            <twig:ui:progress :value="75" />
-        </div>
-    {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:ui:progress :value="25" />
-<twig:ui:progress :value="50" />
-<twig:ui:progress :value="75" />{% endverbatim %}{% endset %}
-    {{ ui.story('Basic Progress', basicPreview, basicCode) }}
 
     {# With Label #}
     {% set labelPreview %}

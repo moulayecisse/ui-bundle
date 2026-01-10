@@ -1,6 +1,27 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Default Preview - Solid Variant with Colors #}
+    {% set solidPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:button color="primary">Primary</twig:ui:button>
+            <twig:ui:button color="secondary">Secondary</twig:ui:button>
+            <twig:ui:button color="success">Success</twig:ui:button>
+            <twig:ui:button color="warning">Warning</twig:ui:button>
+            <twig:ui:button color="danger">Danger</twig:ui:button>
+            <twig:ui:button color="info">Info</twig:ui:button>
+            <twig:ui:button color="neutral">Neutral</twig:ui:button>
+        </div>
+    {% endset %}
+    {% set solidCode %}{% verbatim %}<twig:ui:button color="primary">Primary</twig:ui:button>
+<twig:ui:button color="secondary">Secondary</twig:ui:button>
+<twig:ui:button color="success">Success</twig:ui:button>
+<twig:ui:button color="warning">Warning</twig:ui:button>
+<twig:ui:button color="danger">Danger</twig:ui:button>
+<twig:ui:button color="info">Info</twig:ui:button>
+<twig:ui:button color="neutral">Neutral</twig:ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('Solid Variant (default)', solidPreview, solidCode) }}
+
     {# Props Documentation #}
     {{ ui.props([
         { name: 'variant', type: "'solid' | 'outline' | 'ghost' | 'soft'", default: "'solid'", description: 'Button style variant' },
@@ -21,27 +42,6 @@
     {{ ui.slots([
         { name: 'content', description: 'Button content (default slot)' },
     ]) }}
-
-    {# Solid Variant (default) with Colors #}
-    {% set solidPreview %}
-        <div class="flex flex-wrap gap-3">
-            <twig:ui:button color="primary">Primary</twig:ui:button>
-            <twig:ui:button color="secondary">Secondary</twig:ui:button>
-            <twig:ui:button color="success">Success</twig:ui:button>
-            <twig:ui:button color="warning">Warning</twig:ui:button>
-            <twig:ui:button color="danger">Danger</twig:ui:button>
-            <twig:ui:button color="info">Info</twig:ui:button>
-            <twig:ui:button color="neutral">Neutral</twig:ui:button>
-        </div>
-    {% endset %}
-    {% set solidCode %}{% verbatim %}<twig:ui:button color="primary">Primary</twig:ui:button>
-<twig:ui:button color="secondary">Secondary</twig:ui:button>
-<twig:ui:button color="success">Success</twig:ui:button>
-<twig:ui:button color="warning">Warning</twig:ui:button>
-<twig:ui:button color="danger">Danger</twig:ui:button>
-<twig:ui:button color="info">Info</twig:ui:button>
-<twig:ui:button color="neutral">Neutral</twig:ui:button>{% endverbatim %}{% endset %}
-    {{ ui.story('Solid Variant (default)', solidPreview, solidCode) }}
 
     {# Outline Variant #}
     {% set outlinePreview %}

@@ -1,25 +1,6 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
-    {# Props Documentation #}
-    {{ ui.props([
-        { name: 'icon', type: 'string', default: "'lucide:inbox'", description: 'Icon name (Iconify)' },
-        { name: 'title', type: 'string | null', default: 'null', description: 'Title text' },
-        { name: 'message', type: 'string', default: "'No results found'", description: 'Description message' },
-        { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Empty state size' },
-        { name: 'variant', type: "'default' | 'card' | 'dashed'", default: "'default'", description: 'Visual style variant' },
-        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-    ]) }}
-
-    {# Slots Documentation #}
-    {{ ui.slots([
-        { name: 'icon', description: 'Custom icon content' },
-        { name: 'title', description: 'Title content (alternative to title prop)' },
-        { name: 'message', description: 'Message content (alternative to message prop)' },
-        { name: 'action', description: 'Primary action button' },
-        { name: 'secondaryAction', description: 'Secondary action button' },
-    ]) }}
-
     {# Basic Empty State #}
     {% set basicPreview %}
         <twig:ui:empty-state
@@ -38,6 +19,25 @@
     <twig:ui:button color="primary" icon="lucide:plus">New Message</twig:ui:button>
 </twig:ui:empty-state>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Empty State', basicPreview, basicCode) }}
+
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'icon', type: 'string', default: "'lucide:inbox'", description: 'Icon name (Iconify)' },
+        { name: 'title', type: 'string | null', default: 'null', description: 'Title text' },
+        { name: 'message', type: 'string', default: "'No results found'", description: 'Description message' },
+        { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Empty state size' },
+        { name: 'variant', type: "'default' | 'card' | 'dashed'", default: "'default'", description: 'Visual style variant' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'icon', description: 'Custom icon content' },
+        { name: 'title', description: 'Title content (alternative to title prop)' },
+        { name: 'message', description: 'Message content (alternative to message prop)' },
+        { name: 'action', description: 'Primary action button' },
+        { name: 'secondaryAction', description: 'Secondary action button' },
+    ]) }}
 
     {# Search Empty State #}
     {% set searchPreview %}

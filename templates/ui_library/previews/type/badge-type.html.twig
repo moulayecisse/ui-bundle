@@ -1,6 +1,25 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Auto-Mapped Status Badges #}
+    {% set statusPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:type:badge value="active" />
+            <twig:ui:type:badge value="pending" />
+            <twig:ui:type:badge value="inactive" />
+            <twig:ui:type:badge value="error" />
+            <twig:ui:type:badge value="info" />
+            <twig:ui:type:badge value="new" />
+        </div>
+    {% endset %}
+    {% set statusCode %}{% verbatim %}<twig:ui:type:badge value="active" />
+<twig:ui:type:badge value="pending" />
+<twig:ui:type:badge value="inactive" />
+<twig:ui:type:badge value="error" />
+<twig:ui:type:badge value="info" />
+<twig:ui:type:badge value="new" />{% endverbatim %}{% endset %}
+    {{ ui.story('Auto-Mapped Status Badges', statusPreview, statusCode) }}
+
     {# Props Documentation #}
     {{ ui.props([
         { name: 'value', type: 'string | null', default: 'null', description: 'Value to display (also used for auto color mapping)' },
@@ -21,25 +40,6 @@
             <p><strong class="text-gray-600 dark:text-gray-400">Gray:</strong> inactive, disabled, or any unmapped value</p>
         </div>
     </div>
-
-    {# Auto-Mapped Status Badges #}
-    {% set statusPreview %}
-        <div class="flex flex-wrap gap-3">
-            <twig:ui:type:badge value="active" />
-            <twig:ui:type:badge value="pending" />
-            <twig:ui:type:badge value="inactive" />
-            <twig:ui:type:badge value="error" />
-            <twig:ui:type:badge value="info" />
-            <twig:ui:type:badge value="new" />
-        </div>
-    {% endset %}
-    {% set statusCode %}{% verbatim %}<twig:ui:type:badge value="active" />
-<twig:ui:type:badge value="pending" />
-<twig:ui:type:badge value="inactive" />
-<twig:ui:type:badge value="error" />
-<twig:ui:type:badge value="info" />
-<twig:ui:type:badge value="new" />{% endverbatim %}{% endset %}
-    {{ ui.story('Auto-Mapped Status Badges', statusPreview, statusCode) }}
 
     {# Boolean-like Values #}
     {% set boolPreview %}
