@@ -11,6 +11,7 @@
   hideIcon = false,
   centered = true,
   class = '',
+  formId = null,
 %}
 
 {% set variantConfig = {
@@ -30,7 +31,10 @@
 } %}
 {% set currentIconSize = iconSizeConfig[size] ?? iconSizeConfig['default'] %}
 
-<twig:Ui:modal :open="open" :size="size" :centered="centered" {{ attributes }}>
+{% set triggerContent %}{% block content '' %}{% endset %}
+
+<twig:Ui:modal :open="open" :size="size" :centered="centered" hideCloseButton>
+  <twig:block name="trigger">{{ triggerContent|raw }}</twig:block>
   <div class="{{ centered ? 'text-center' : '' }} {{ class }}">
     {# Icon #}
     {% if not hideIcon %}
@@ -41,36 +45,35 @@
 
     {# Title #}
     <h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
-      {% block title %}{{ title }}{% endblock %}
+      {{ title }}
     </h3>
 
     {# Message #}
     <p class="mb-6 text-gray-600 dark:text-gray-400">
-      {% block message %}{{ message }}{% endblock %}
+      {{ message }}
     </p>
 
     {# Actions #}
     <div class="flex {{ centered ? 'justify-center' : 'justify-end' }} gap-3">
-      {% block actions %}
-        <twig:Ui:button
-          type="button"
-          class="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
-          :disabled="loading"
-          data-action="click->cisse--ui-bundle--modal#close"
-        >
-          {{ cancelText }}
-        </twig:Ui:button>
-        <twig:Ui:button
-          type="submit"
-          class="{{ config.buttonClass }}"
-          :disabled="loading"
-        >
-          {% if loading %}
-            <twig:ux:icon name="lucide:loader-2" class="size-4 animate-spin mr-2" />
-          {% endif %}
-          {{ confirmText }}
-        </twig:Ui:button>
-      {% endblock %}
+      <twig:Ui:button
+        type="button"
+        class="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+        :disabled="loading"
+        data-action="click->cisse--ui-bundle--modal#close"
+      >
+        {{ cancelText }}
+      </twig:Ui:button>
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-4 py-2 {{ config.buttonClass }}"
+        {{ loading ? 'disabled' }}
+        {% if formId %}form="{{ formId }}"{% endif %}
+      >
+        {% if loading %}
+          <twig:ux:icon name="lucide:loader-2" class="size-4 animate-spin mr-2" />
+        {% endif %}
+        {{ confirmText }}
+      </button>
     </div>
   </div>
 </twig:Ui:modal>
