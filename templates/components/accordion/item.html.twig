@@ -18,6 +18,11 @@
 
 {% set sizes = sizeConfig[size] ?? sizeConfig['md'] %}
 
+{# Nested attributes for fine-grained customization #}
+{% set headerAttrs = attributes.nested('header') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set contentAttrs = attributes.nested('content') %}
+
 {% set class = ('block border-b border-gray-800/10 dark:border-gray-200/10 ' ~ sizes.padding ~ ' first:pt-0 last:border-b-0 last:pb-0 group-data-[variant=bordered]:border-0 group-data-[variant=card]:border-0 group-data-[variant=bordered]:px-4 group-data-[variant=card]:px-4 group-data-[variant=separated]:bg-gray-50 group-data-[variant=separated]:dark:bg-gray-800 group-data-[variant=separated]:rounded-lg group-data-[variant=separated]:border-0 group-data-[variant=separated]:px-4 group-data-[flush=true]:border-0 ' ~ class)|tailwind_merge %}
 
 <div
@@ -31,7 +36,8 @@
                 data-action="click->cisse--ui-bundle--accordion#toggle keydown->cisse--ui-bundle--accordion#keydown"
                 data-icon-position="{{ iconPosition ?? 'right' }}"
                 {% if disabled %}disabled{% endif %}
-                class="flex w-full items-center justify-between text-left font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded {{ sizes.text }} text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400 dark:disabled:text-gray-600 disabled:hover:text-gray-400 dark:disabled:hover:text-gray-600 data-[icon-position=left]:flex-row-reverse"
+                class="{{ ('flex w-full items-center justify-between text-left font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 rounded ' ~ sizes.text ~ ' text-gray-800 dark:text-gray-200 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400 dark:disabled:text-gray-600 disabled:hover:text-gray-400 dark:disabled:hover:text-gray-600 data-[icon-position=left]:flex-row-reverse ' ~ headerAttrs.render('class'))|tailwind_merge }}"
+                {{ headerAttrs.without('class') }}
         >
             <div class="flex items-center gap-3 flex-1">
                 {% if icon %}
@@ -41,7 +47,7 @@
                     />
                 {% endif %}
 
-                <span class="flex-1">{% block title title|raw %}</span>
+                <span class="{{ ('flex-1 ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>{% block title title|raw %}</span>
 
                 {% if badge %}
                     <twig:ui:badge size="sm" color="info">{{ badge }}</twig:ui:badge>
@@ -59,7 +65,7 @@
 
     <div data-cisse--ui-bundle--accordion-target="content">
         {% block content_wrapper %}
-            <div class="pt-2 {{ sizes.content }} text-gray-600 dark:text-gray-400 {{ icon ? 'pl-8' : '' }}">
+            <div class="{{ ('pt-2 ' ~ sizes.content ~ ' text-gray-600 dark:text-gray-400 ' ~ (icon ? 'pl-8' : '') ~ ' ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
                 {% block content '' %}
             </div>
         {% endblock %}
