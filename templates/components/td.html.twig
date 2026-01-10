@@ -5,6 +5,7 @@
     nowrap = false,
     truncate = false,
     muted = false,
+    text = null,
 %}
 
 {% set alignClasses = {
@@ -18,5 +19,5 @@
 {% set class = (baseClass ~ ' ' ~ colorClass ~ ' ' ~ (alignClasses[align] ?? alignClasses['left']) ~ ' ' ~ (first ? 'pl-4 sm:pl-0 ' : '') ~ (nowrap ? 'whitespace-nowrap ' : '') ~ (truncate ? 'max-w-xs truncate ' : '') ~ class)|tailwind_merge %}
 
 <td {{ attributes }} class="{{ class }}">
-    {% block content '' %}
+    {% block content text %}
 </td>

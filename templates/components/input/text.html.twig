@@ -14,6 +14,10 @@
   rounded = 'lg',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set inputAttrs = attributes.nested('input') %}
+
 {% set id = id ?? name %}
 {% set for = for ?? id %}
 
@@ -38,12 +42,14 @@
   :size="size"
   :variant="variant"
   :rounded="rounded"
-  :class="class"
+  class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+  {{ ...wrapperAttrs.without('class') }}
 >
   <!--suppress HtmlFormInputWithoutLabel -->
   <input
     {{ attributes }}
-    class="{{ 'block w-full bg-transparent focus:outline-none ' ~ currentPadding }}"
+    class="{{ ('block w-full bg-transparent focus:outline-none ' ~ currentPadding ~ ' ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+    {{ inputAttrs.without('class') }}
     {{ outerScope.attributes }}
     {% if value is not null %}value="{{ value }}"{% endif %}
     {% if name %}name="{{ name }}"{% endif %}

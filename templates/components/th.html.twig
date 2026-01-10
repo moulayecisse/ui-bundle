@@ -6,6 +6,7 @@
     align = 'left',
     width = null,
     nowrap = false,
+    text = null,
 %}
 
 {% set alignClasses = {
@@ -17,7 +18,7 @@
 {% set baseClass = 'px-3 py-3.5 text-slate-900 text-sm font-semibold dark:text-slate-100 in-data-[compact=true]:py-2 in-data-[size=sm]:text-xs in-data-[size=lg]:text-base' %}
 {% set class = (baseClass ~ ' ' ~ (alignClasses[align] ?? alignClasses['left']) ~ ' ' ~ (first ? 'pl-4 sm:pl-0 ' : '') ~ (nowrap ? 'whitespace-nowrap ' : '') ~ (sortable ? 'cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800 ' : '') ~ class)|tailwind_merge %}
 
-{% set contentBlock %}{% block content '' %}{% endset %}
+{% set contentBlock %}{% block content text %}{% endset %}
 
 <th
     {{ attributes }}
