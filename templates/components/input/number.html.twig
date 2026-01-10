@@ -13,6 +13,11 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set buttonAttrs = attributes.nested('button') %}
+{% set inputAttrs = attributes.nested('input') %}
+
 {% set sizeClasses = {
   'sm': { 'wrapper': 'h-8 px-2 gap-2', 'icon': 'size-4', 'input': 'text-sm' },
   'md': { 'wrapper': 'h-10 px-3 gap-2', 'icon': 'size-5', 'input': 'text-base' },
@@ -27,7 +32,7 @@
   data-cisse--ui-bundle--number-input-min-value="{{ min ?? '' }}"
   data-cisse--ui-bundle--number-input-max-value="{{ max ?? '' }}"
   data-cisse--ui-bundle--number-input-step-value="{{ step }}"
-  class="{{ ('flex items-center rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent dark:border-gray-600 dark:bg-gray-800 ' ~ currentSize.wrapper ~ ' ' ~ (disabled ? 'bg-gray-100 dark:bg-gray-900 cursor-not-allowed opacity-60' : '') ~ ' ' ~ class)|tailwind_merge }}"
+  class="{{ ('flex items-center rounded-lg border border-gray-300 bg-white focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent dark:border-gray-600 dark:bg-gray-800 ' ~ currentSize.wrapper ~ ' ' ~ (disabled ? 'bg-gray-100 dark:bg-gray-900 cursor-not-allowed opacity-60' : '') ~ ' ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
 >
   {# Decrement button #}
   {% if showStepper %}
@@ -35,7 +40,8 @@
       type="button"
       data-cisse--ui-bundle--number-input-target="decrement"
       data-action="click->cisse--ui-bundle--number-input#decrement"
-      class="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
+      class="{{ ('p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shrink-0 ' ~ buttonAttrs.render('class'))|tailwind_merge }}"
+      {{ buttonAttrs.without('class') }}
       {{ disabled ? 'disabled' }}
     >
       <twig:ux:icon name="heroicons:minus" class="{{ currentSize.icon }} text-gray-500" />
@@ -55,7 +61,8 @@
     {% if min is not null %}min="{{ min }}"{% endif %}
     {% if max is not null %}max="{{ max }}"{% endif %}
     step="{{ step }}"
-    class="flex-1 bg-transparent border-none focus:outline-none text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 text-center {{ currentSize.input }} {{ showStepper ? 'px-2' : '' }}"
+    class="{{ ('flex-1 bg-transparent border-none focus:outline-none text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 text-center ' ~ currentSize.input ~ ' ' ~ (showStepper ? 'px-2' : '') ~ ' ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+    {{ inputAttrs.without('class') }}
     data-action="input->cisse--ui-bundle--number-input#handleInput"
   >
 
@@ -65,7 +72,8 @@
       type="button"
       data-cisse--ui-bundle--number-input-target="increment"
       data-action="click->cisse--ui-bundle--number-input#increment"
-      class="p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
+      class="{{ ('p-1 rounded hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shrink-0 ' ~ buttonAttrs.render('class'))|tailwind_merge }}"
+      {{ buttonAttrs.without('class') }}
       {{ disabled ? 'disabled' }}
     >
       <twig:ux:icon name="heroicons:plus" class="{{ currentSize.icon }} text-gray-500" />
