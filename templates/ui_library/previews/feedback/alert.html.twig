@@ -1,26 +1,6 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
-    {# Props Documentation #}
-    {{ ui.props([
-        { name: 'variant', type: "'filled' | 'outline'", default: "'filled'", description: 'Alert style variant' },
-        { name: 'color', type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'", default: "'primary'", description: 'Alert color theme' },
-        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Alert size' },
-        { name: 'title', type: 'string', default: "''", description: 'Alert title' },
-        { name: 'icon', type: 'boolean', default: 'true', description: 'Show default icon based on color' },
-        { name: 'customIcon', type: 'string | null', default: 'null', description: 'Custom icon name (overrides default)' },
-        { name: 'dismissible', type: 'boolean', default: 'false', description: 'Allow dismissing the alert' },
-        { name: 'bordered', type: 'boolean', default: 'false', description: 'Add left border accent' },
-        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-    ]) }}
-
-    {# Slots Documentation #}
-    {{ ui.slots([
-        { name: 'content', description: 'Alert content (default slot)' },
-        { name: 'title', description: 'Alert title (alternative to title prop)' },
-        { name: 'actions', description: 'Action buttons slot' },
-    ]) }}
-
     {# All Colors - Filled Variant #}
     {% set filledPreview %}
         <div class="space-y-3">
@@ -63,6 +43,26 @@
     This is an informational alert message.
 </twig:ui:alert>{% endverbatim %}{% endset %}
     {{ ui.story('Filled Variant (default)', filledPreview, filledCode) }}
+
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'variant', type: "'filled' | 'outline'", default: "'filled'", description: 'Alert style variant' },
+        { name: 'color', type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'", default: "'primary'", description: 'Alert color theme' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Alert size' },
+        { name: 'title', type: 'string', default: "''", description: 'Alert title' },
+        { name: 'icon', type: 'boolean', default: 'true', description: 'Show default icon based on color' },
+        { name: 'customIcon', type: 'string | null', default: 'null', description: 'Custom icon name (overrides default)' },
+        { name: 'dismissible', type: 'boolean', default: 'false', description: 'Allow dismissing the alert' },
+        { name: 'bordered', type: 'boolean', default: 'false', description: 'Add left border accent' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Alert content (default slot)' },
+        { name: 'title', description: 'Alert title (alternative to title prop)' },
+        { name: 'actions', description: 'Action buttons slot' },
+    ]) }}
 
     {# Outline Variant #}
     {% set outlinePreview %}

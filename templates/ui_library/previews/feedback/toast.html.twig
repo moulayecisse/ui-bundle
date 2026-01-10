@@ -1,6 +1,23 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Toast Types #}
+    {% set typesPreview %}
+        <div class="space-y-3 max-w-sm">
+            <twig:ui:toast type="info" message="This is an informational message." />
+            <twig:ui:toast type="success" message="Operation completed successfully!" />
+            <twig:ui:toast type="warning" message="Please review your changes before proceeding." />
+            <twig:ui:toast type="error" message="An error occurred. Please try again." />
+            <twig:ui:toast type="default" message="This is a default notification." />
+        </div>
+    {% endset %}
+    {% set typesCode %}{% verbatim %}<twig:ui:toast type="info" message="This is an informational message." />
+<twig:ui:toast type="success" message="Operation completed successfully!" />
+<twig:ui:toast type="warning" message="Please review your changes before proceeding." />
+<twig:ui:toast type="error" message="An error occurred. Please try again." />
+<twig:ui:toast type="default" message="This is a default notification." />{% endverbatim %}{% endset %}
+    {{ ui.story('Toast Types', typesPreview, typesCode) }}
+
     {# Props Documentation #}
     {{ ui.props([
         { name: 'type', type: "'info' | 'success' | 'warning' | 'error' | 'default'", default: "'info'", description: 'Toast type (determines color and icon)' },
@@ -22,23 +39,6 @@
         { name: 'title', description: 'Toast title (alternative to title prop)' },
         { name: 'action', description: 'Custom action content' },
     ]) }}
-
-    {# Toast Types #}
-    {% set typesPreview %}
-        <div class="space-y-3 max-w-sm">
-            <twig:ui:toast type="info" message="This is an informational message." />
-            <twig:ui:toast type="success" message="Operation completed successfully!" />
-            <twig:ui:toast type="warning" message="Please review your changes before proceeding." />
-            <twig:ui:toast type="error" message="An error occurred. Please try again." />
-            <twig:ui:toast type="default" message="This is a default notification." />
-        </div>
-    {% endset %}
-    {% set typesCode %}{% verbatim %}<twig:ui:toast type="info" message="This is an informational message." />
-<twig:ui:toast type="success" message="Operation completed successfully!" />
-<twig:ui:toast type="warning" message="Please review your changes before proceeding." />
-<twig:ui:toast type="error" message="An error occurred. Please try again." />
-<twig:ui:toast type="default" message="This is a default notification." />{% endverbatim %}{% endset %}
-    {{ ui.story('Toast Types', typesPreview, typesCode) }}
 
     {# With Title #}
     {% set titlePreview %}

@@ -1,22 +1,7 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
-    {# Props Documentation #}
-    {{ ui.props([
-        { name: 'variant', type: "'solid' | 'outline' | 'soft'", default: "'solid'", description: 'Badge style variant' },
-        { name: 'color', type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'white' | 'light'", default: "'primary'", description: 'Badge color theme' },
-        { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Badge size' },
-        { name: 'href', type: 'string', default: "''", description: 'If provided, renders as <a> link instead of <span>' },
-        { name: 'dot', type: 'boolean', default: 'false', description: 'Show a colored dot indicator' },
-        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
-    ]) }}
-
-    {# Slots Documentation #}
-    {{ ui.slots([
-        { name: 'content', description: 'Badge content (default slot)' },
-    ]) }}
-
-    {# Solid Variant (default) with Colors #}
+    {# Default Preview - Solid Variant with Colors #}
     {% set solidPreview %}
         <div class="flex flex-wrap gap-3">
             <twig:ui:badge color="primary">Primary</twig:ui:badge>
@@ -34,6 +19,21 @@
 <twig:ui:badge color="danger">Danger</twig:ui:badge>
 <twig:ui:badge color="info">Info</twig:ui:badge>{% endverbatim %}{% endset %}
     {{ ui.story('Solid Variant (default)', solidPreview, solidCode) }}
+
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'variant', type: "'solid' | 'outline' | 'soft'", default: "'solid'", description: 'Badge style variant' },
+        { name: 'color', type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'white' | 'light'", default: "'primary'", description: 'Badge color theme' },
+        { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Badge size' },
+        { name: 'href', type: 'string', default: "''", description: 'If provided, renders as <a> link instead of <span>' },
+        { name: 'dot', type: 'boolean', default: 'false', description: 'Show a colored dot indicator' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Badge content (default slot)' },
+    ]) }}
 
     {# Outline Variant #}
     {% set outlinePreview %}
