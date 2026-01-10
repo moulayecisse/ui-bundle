@@ -1,83 +1,142 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
-    {# Default Badge #}
-    {% set defaultPreview %}
-        <twig:ui:badge>Default Badge</twig:ui:badge>
-    {% endset %}
-    {% set defaultCode %}{% verbatim %}<twig:ui:badge>Default Badge</twig:ui:badge>{% endverbatim %}{% endset %}
-    {{ ui.story('Default', defaultPreview, defaultCode) }}
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'variant', type: "'solid' | 'outline' | 'soft'", default: "'solid'", description: 'Badge style variant' },
+        { name: 'color', type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'white' | 'light'", default: "'primary'", description: 'Badge color theme' },
+        { name: 'size', type: "'sm' | 'default' | 'lg'", default: "'default'", description: 'Badge size' },
+        { name: 'href', type: 'string', default: "''", description: 'If provided, renders as <a> link instead of <span>' },
+        { name: 'dot', type: 'boolean', default: 'false', description: 'Show a colored dot indicator' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
 
-    {# All Variants #}
-    {% set variantsPreview %}
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Badge content (default slot)' },
+    ]) }}
+
+    {# Solid Variant (default) with Colors #}
+    {% set solidPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:ui:badge>Default</twig:ui:badge>
-            <twig:ui:badge variant="primary">Primary</twig:ui:badge>
-            <twig:ui:badge variant="success">Success</twig:ui:badge>
-            <twig:ui:badge variant="error">Error</twig:ui:badge>
-            <twig:ui:badge variant="warning">Warning</twig:ui:badge>
-            <twig:ui:badge variant="info">Info</twig:ui:badge>
+            <twig:ui:badge color="primary">Primary</twig:ui:badge>
+            <twig:ui:badge color="secondary">Secondary</twig:ui:badge>
+            <twig:ui:badge color="success">Success</twig:ui:badge>
+            <twig:ui:badge color="warning">Warning</twig:ui:badge>
+            <twig:ui:badge color="danger">Danger</twig:ui:badge>
+            <twig:ui:badge color="info">Info</twig:ui:badge>
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:ui:badge>Default</twig:ui:badge>
-<twig:ui:badge variant="primary">Primary</twig:ui:badge>
-<twig:ui:badge variant="success">Success</twig:ui:badge>
-<twig:ui:badge variant="error">Error</twig:ui:badge>
-<twig:ui:badge variant="warning">Warning</twig:ui:badge>
-<twig:ui:badge variant="info">Info</twig:ui:badge>{% endverbatim %}{% endset %}
-    {{ ui.story('All Variants', variantsPreview, variantsCode) }}
+    {% set solidCode %}{% verbatim %}<twig:ui:badge color="primary">Primary</twig:ui:badge>
+<twig:ui:badge color="secondary">Secondary</twig:ui:badge>
+<twig:ui:badge color="success">Success</twig:ui:badge>
+<twig:ui:badge color="warning">Warning</twig:ui:badge>
+<twig:ui:badge color="danger">Danger</twig:ui:badge>
+<twig:ui:badge color="info">Info</twig:ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Solid Variant (default)', solidPreview, solidCode) }}
 
-    {# Outline Style #}
+    {# Outline Variant #}
     {% set outlinePreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:ui:badge outline>Default</twig:ui:badge>
-            <twig:ui:badge variant="primary" outline>Primary</twig:ui:badge>
-            <twig:ui:badge variant="success" outline>Success</twig:ui:badge>
-            <twig:ui:badge variant="error" outline>Error</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="primary">Primary</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="secondary">Secondary</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="success">Success</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="warning">Warning</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="danger">Danger</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="info">Info</twig:ui:badge>
         </div>
     {% endset %}
-    {% set outlineCode %}{% verbatim %}<twig:ui:badge outline>Default</twig:ui:badge>
-<twig:ui:badge variant="primary" outline>Primary</twig:ui:badge>
-<twig:ui:badge variant="success" outline>Success</twig:ui:badge>
-<twig:ui:badge variant="error" outline>Error</twig:ui:badge>{% endverbatim %}{% endset %}
-    {{ ui.story('Outline Style', outlinePreview, outlineCode) }}
+    {% set outlineCode %}{% verbatim %}<twig:ui:badge variant="outline" color="primary">Primary</twig:ui:badge>
+<twig:ui:badge variant="outline" color="secondary">Secondary</twig:ui:badge>
+<twig:ui:badge variant="outline" color="success">Success</twig:ui:badge>
+<twig:ui:badge variant="outline" color="warning">Warning</twig:ui:badge>
+<twig:ui:badge variant="outline" color="danger">Danger</twig:ui:badge>
+<twig:ui:badge variant="outline" color="info">Info</twig:ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Outline Variant', outlinePreview, outlineCode) }}
+
+    {# Soft Variant #}
+    {% set softPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:badge variant="soft" color="primary">Primary</twig:ui:badge>
+            <twig:ui:badge variant="soft" color="secondary">Secondary</twig:ui:badge>
+            <twig:ui:badge variant="soft" color="success">Success</twig:ui:badge>
+            <twig:ui:badge variant="soft" color="warning">Warning</twig:ui:badge>
+            <twig:ui:badge variant="soft" color="danger">Danger</twig:ui:badge>
+            <twig:ui:badge variant="soft" color="info">Info</twig:ui:badge>
+        </div>
+    {% endset %}
+    {% set softCode %}{% verbatim %}<twig:ui:badge variant="soft" color="primary">Primary</twig:ui:badge>
+<twig:ui:badge variant="soft" color="secondary">Secondary</twig:ui:badge>
+<twig:ui:badge variant="soft" color="success">Success</twig:ui:badge>
+<twig:ui:badge variant="soft" color="warning">Warning</twig:ui:badge>
+<twig:ui:badge variant="soft" color="danger">Danger</twig:ui:badge>
+<twig:ui:badge variant="soft" color="info">Info</twig:ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Soft Variant', softPreview, softCode) }}
+
+    {# Special Colors #}
+    {% set specialPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:badge color="white">White</twig:ui:badge>
+            <twig:ui:badge color="light">Light</twig:ui:badge>
+        </div>
+    {% endset %}
+    {% set specialCode %}{% verbatim %}<twig:ui:badge color="white">White</twig:ui:badge>
+<twig:ui:badge color="light">Light</twig:ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Special Colors', specialPreview, specialCode) }}
 
     {# Sizes #}
     {% set sizesPreview %}
         <div class="flex flex-wrap items-center gap-3">
-            <twig:ui:badge size="sm" variant="primary">Small</twig:ui:badge>
-            <twig:ui:badge size="md" variant="primary">Medium</twig:ui:badge>
-            <twig:ui:badge size="lg" variant="primary">Large</twig:ui:badge>
+            <twig:ui:badge size="sm" color="primary">Small</twig:ui:badge>
+            <twig:ui:badge size="default" color="primary">Default</twig:ui:badge>
+            <twig:ui:badge size="lg" color="primary">Large</twig:ui:badge>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:ui:badge size="sm" variant="primary">Small</twig:ui:badge>
-<twig:ui:badge size="md" variant="primary">Medium</twig:ui:badge>
-<twig:ui:badge size="lg" variant="primary">Large</twig:ui:badge>{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:badge size="sm" color="primary">Small</twig:ui:badge>
+<twig:ui:badge size="default" color="primary">Default</twig:ui:badge>
+<twig:ui:badge size="lg" color="primary">Large</twig:ui:badge>{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# With Dot Indicator #}
     {% set dotPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:ui:badge variant="success" dot>Online</twig:ui:badge>
-            <twig:ui:badge variant="error" dot>Offline</twig:ui:badge>
-            <twig:ui:badge variant="warning" dot>Away</twig:ui:badge>
+            <twig:ui:badge color="success" dot>Online</twig:ui:badge>
+            <twig:ui:badge color="danger" dot>Offline</twig:ui:badge>
+            <twig:ui:badge color="warning" dot>Away</twig:ui:badge>
+            <twig:ui:badge color="info" dot>Busy</twig:ui:badge>
         </div>
     {% endset %}
-    {% set dotCode %}{% verbatim %}<twig:ui:badge variant="success" dot>Online</twig:ui:badge>
-<twig:ui:badge variant="error" dot>Offline</twig:ui:badge>
-<twig:ui:badge variant="warning" dot>Away</twig:ui:badge>{% endverbatim %}{% endset %}
+    {% set dotCode %}{% verbatim %}<twig:ui:badge color="success" dot>Online</twig:ui:badge>
+<twig:ui:badge color="danger" dot>Offline</twig:ui:badge>
+<twig:ui:badge color="warning" dot>Away</twig:ui:badge>
+<twig:ui:badge color="info" dot>Busy</twig:ui:badge>{% endverbatim %}{% endset %}
     {{ ui.story('With Dot Indicator', dotPreview, dotCode) }}
 
-    {# With Icons #}
-    {% set iconsPreview %}
+    {# As Link #}
+    {% set linkPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:ui:badge variant="success" icon="lucide:check">Completed</twig:ui:badge>
-            <twig:ui:badge variant="warning" icon="lucide:clock">Pending</twig:ui:badge>
-            <twig:ui:badge variant="error" icon="lucide:x">Failed</twig:ui:badge>
+            <twig:ui:badge color="primary" href="#">Clickable Badge</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="info" href="#">Link Badge</twig:ui:badge>
         </div>
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:ui:badge variant="success" icon="lucide:check">Completed</twig:ui:badge>
-<twig:ui:badge variant="warning" icon="lucide:clock">Pending</twig:ui:badge>
-<twig:ui:badge variant="error" icon="lucide:x">Failed</twig:ui:badge>{% endverbatim %}{% endset %}
-    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+    {% set linkCode %}{% verbatim %}<twig:ui:badge color="primary" href="#">Clickable Badge</twig:ui:badge>
+<twig:ui:badge variant="outline" color="info" href="#">Link Badge</twig:ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('As Link', linkPreview, linkCode) }}
+
+    {# Practical Examples #}
+    {% set examplesPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:badge color="success" dot>Active</twig:ui:badge>
+            <twig:ui:badge color="warning">Pending</twig:ui:badge>
+            <twig:ui:badge variant="outline" color="info">v1.2.3</twig:ui:badge>
+            <twig:ui:badge variant="soft" color="primary">New</twig:ui:badge>
+            <twig:ui:badge color="danger">5</twig:ui:badge>
+        </div>
+    {% endset %}
+    {% set examplesCode %}{% verbatim %}<twig:ui:badge color="success" dot>Active</twig:ui:badge>
+<twig:ui:badge color="warning">Pending</twig:ui:badge>
+<twig:ui:badge variant="outline" color="info">v1.2.3</twig:ui:badge>
+<twig:ui:badge variant="soft" color="primary">New</twig:ui:badge>
+<twig:ui:badge color="danger">5</twig:ui:badge>{% endverbatim %}{% endset %}
+    {{ ui.story('Practical Examples', examplesPreview, examplesCode) }}
 </div>

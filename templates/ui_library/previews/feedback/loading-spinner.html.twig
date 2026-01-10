@@ -1,6 +1,14 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Spinner size' },
+        { name: 'color', type: "'primary' | 'white' | 'gray' | 'current'", default: "'primary'", description: 'Spinner color' },
+        { name: 'label', type: 'string | null', default: 'null', description: 'Loading text displayed below spinner' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
     {# Default #}
     {% set defaultPreview %}
         <twig:ui:loading-spinner />
@@ -11,6 +19,10 @@
     {# Sizes #}
     {% set sizesPreview %}
         <div class="flex items-center gap-6">
+            <div class="text-center">
+                <twig:ui:loading-spinner size="xs" />
+                <p class="text-xs text-gray-500 mt-2">Extra Small</p>
+            </div>
             <div class="text-center">
                 <twig:ui:loading-spinner size="sm" />
                 <p class="text-xs text-gray-500 mt-2">Small</p>
@@ -29,7 +41,8 @@
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:ui:loading-spinner size="sm" />
+    {% set sizesCode %}{% verbatim %}<twig:ui:loading-spinner size="xs" />
+<twig:ui:loading-spinner size="sm" />
 <twig:ui:loading-spinner size="md" />
 <twig:ui:loading-spinner size="lg" />
 <twig:ui:loading-spinner size="xl" />{% endverbatim %}{% endset %}
@@ -38,28 +51,81 @@
     {# Colors #}
     {% set colorsPreview %}
         <div class="flex items-center gap-6">
-            <twig:ui:loading-spinner color="primary" />
-            <twig:ui:loading-spinner color="secondary" />
-            <twig:ui:loading-spinner color="success" />
-            <twig:ui:loading-spinner color="error" />
+            <div class="text-center">
+                <twig:ui:loading-spinner color="primary" />
+                <p class="text-xs text-gray-500 mt-2">Primary</p>
+            </div>
+            <div class="text-center">
+                <twig:ui:loading-spinner color="gray" />
+                <p class="text-xs text-gray-500 mt-2">Gray</p>
+            </div>
+            <div class="text-center bg-gray-800 p-4 rounded">
+                <twig:ui:loading-spinner color="white" />
+                <p class="text-xs text-gray-400 mt-2">White</p>
+            </div>
+            <div class="text-center text-blue-500">
+                <twig:ui:loading-spinner color="current" />
+                <p class="text-xs text-gray-500 mt-2">Current</p>
+            </div>
         </div>
     {% endset %}
     {% set colorsCode %}{% verbatim %}<twig:ui:loading-spinner color="primary" />
-<twig:ui:loading-spinner color="secondary" />
-<twig:ui:loading-spinner color="success" />
-<twig:ui:loading-spinner color="error" />{% endverbatim %}{% endset %}
+<twig:ui:loading-spinner color="gray" />
+<twig:ui:loading-spinner color="white" />
+<twig:ui:loading-spinner color="current" />{% endverbatim %}{% endset %}
     {{ ui.story('Colors', colorsPreview, colorsCode) }}
 
-    {# With Text #}
-    {% set textPreview %}
-        <div class="flex items-center gap-2">
-            <twig:ui:loading-spinner size="sm" />
-            <span class="text-gray-600 dark:text-gray-400">Loading...</span>
+    {# With Label #}
+    {% set labelPreview %}
+        <div class="flex items-center gap-8">
+            <twig:ui:loading-spinner label="Loading..." />
+            <twig:ui:loading-spinner size="lg" label="Please wait..." />
         </div>
     {% endset %}
-    {% set textCode %}{% verbatim %}<div class="flex items-center gap-2">
+    {% set labelCode %}{% verbatim %}<twig:ui:loading-spinner label="Loading..." />
+<twig:ui:loading-spinner size="lg" label="Please wait..." />{% endverbatim %}{% endset %}
+    {{ ui.story('With Label', labelPreview, labelCode) }}
+
+    {# Inline with Text #}
+    {% set inlinePreview %}
+        <div class="flex items-center gap-2">
+            <twig:ui:loading-spinner size="sm" />
+            <span class="text-gray-600 dark:text-gray-400">Processing your request...</span>
+        </div>
+    {% endset %}
+    {% set inlineCode %}{% verbatim %}<div class="flex items-center gap-2">
     <twig:ui:loading-spinner size="sm" />
-    <span>Loading...</span>
+    <span>Processing your request...</span>
 </div>{% endverbatim %}{% endset %}
-    {{ ui.story('With Text', textPreview, textCode) }}
+    {{ ui.story('Inline with Text', inlinePreview, inlineCode) }}
+
+    {# In Button #}
+    {% set buttonPreview %}
+        <div class="flex gap-4">
+            <twig:ui:button color="primary" disabled>
+                <twig:ui:loading-spinner size="xs" color="current" class="mr-2" />
+                Saving...
+            </twig:ui:button>
+            <twig:ui:button variant="outline" color="neutral" disabled>
+                <twig:ui:loading-spinner size="xs" color="current" class="mr-2" />
+                Loading...
+            </twig:ui:button>
+        </div>
+    {% endset %}
+    {% set buttonCode %}{% verbatim %}<twig:ui:button color="primary" disabled>
+    <twig:ui:loading-spinner size="xs" color="current" class="mr-2" />
+    Saving...
+</twig:ui:button>{% endverbatim %}{% endset %}
+    {{ ui.story('In Button', buttonPreview, buttonCode) }}
+
+    {# Full Page Loading #}
+    {% set fullPagePreview %}
+        <div class="relative h-48 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
+            <twig:ui:loading-spinner size="xl" label="Loading content..." />
+        </div>
+    {% endset %}
+    {% set fullPageCode %}{% verbatim %}<div class="flex items-center justify-center h-screen">
+    <twig:ui:loading-spinner size="xl" label="Loading content..." />
+</div>{% endverbatim %}{% endset %}
+    {{ ui.story('Full Page Loading', fullPagePreview, fullPageCode) }}
 </div>
