@@ -109,7 +109,7 @@ class UiBundleController extends AbstractController
         ]);
     }
 
-    #[Route('/component/{category}/{component}', name: 'component')]
+    #[Route('/component/{category}/{component}', name: 'component', requirements: ['component' => '.+'])]
     public function component(string $category, string $component): Response
     {
         if (!isset($this->components[$category][$component])) {
