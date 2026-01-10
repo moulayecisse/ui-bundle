@@ -1,55 +1,170 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
-    {# Status Badges #}
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'value', type: 'string | null', default: 'null', description: 'Value to display (also used for auto color mapping)' },
+        { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'sm'", description: 'Badge size' },
+        { name: 'mapping', type: 'object | null', default: 'null', description: 'Custom value-to-color mapping (overrides defaults)' },
+        { name: 'fallback', type: 'string', default: "'-'", description: 'Fallback text when value is null' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Default Mapping Info #}
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+        <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Default Color Mapping</h4>
+        <div class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+            <p><strong class="text-green-600 dark:text-green-400">Success (green):</strong> active, enabled, completed, success, yes, true</p>
+            <p><strong class="text-yellow-600 dark:text-yellow-400">Warning (yellow):</strong> pending, warning</p>
+            <p><strong class="text-red-600 dark:text-red-400">Error (red):</strong> error, failed, no, false</p>
+            <p><strong class="text-blue-600 dark:text-blue-400">Info (blue):</strong> info, new</p>
+            <p><strong class="text-gray-600 dark:text-gray-400">Gray:</strong> inactive, disabled, or any unmapped value</p>
+        </div>
+    </div>
+
+    {# Auto-Mapped Status Badges #}
     {% set statusPreview %}
         <div class="flex flex-wrap gap-3">
             <twig:ui:type:badge value="active" />
             <twig:ui:type:badge value="pending" />
             <twig:ui:type:badge value="inactive" />
             <twig:ui:type:badge value="error" />
+            <twig:ui:type:badge value="info" />
+            <twig:ui:type:badge value="new" />
         </div>
     {% endset %}
     {% set statusCode %}{% verbatim %}<twig:ui:type:badge value="active" />
 <twig:ui:type:badge value="pending" />
 <twig:ui:type:badge value="inactive" />
-<twig:ui:type:badge value="error" />{% endverbatim %}{% endset %}
-    {{ ui.story('Status Badges', statusPreview, statusCode) }}
+<twig:ui:type:badge value="error" />
+<twig:ui:type:badge value="info" />
+<twig:ui:type:badge value="new" />{% endverbatim %}{% endset %}
+    {{ ui.story('Auto-Mapped Status Badges', statusPreview, statusCode) }}
 
-    {# Custom Status Mapping #}
+    {# Boolean-like Values #}
+    {% set boolPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:type:badge value="yes" />
+            <twig:ui:type:badge value="no" />
+            <twig:ui:type:badge value="true" />
+            <twig:ui:type:badge value="false" />
+            <twig:ui:type:badge value="enabled" />
+            <twig:ui:type:badge value="disabled" />
+        </div>
+    {% endset %}
+    {% set boolCode %}{% verbatim %}<twig:ui:type:badge value="yes" />
+<twig:ui:type:badge value="no" />
+<twig:ui:type:badge value="true" />
+<twig:ui:type:badge value="false" />
+<twig:ui:type:badge value="enabled" />
+<twig:ui:type:badge value="disabled" />{% endverbatim %}{% endset %}
+    {{ ui.story('Boolean-like Values', boolPreview, boolCode) }}
+
+    {# Process Status #}
+    {% set processPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:type:badge value="completed" />
+            <twig:ui:type:badge value="success" />
+            <twig:ui:type:badge value="failed" />
+            <twig:ui:type:badge value="warning" />
+        </div>
+    {% endset %}
+    {% set processCode %}{% verbatim %}<twig:ui:type:badge value="completed" />
+<twig:ui:type:badge value="success" />
+<twig:ui:type:badge value="failed" />
+<twig:ui:type:badge value="warning" />{% endverbatim %}{% endset %}
+    {{ ui.story('Process Status', processPreview, processCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="flex flex-wrap items-center gap-3">
+            <twig:ui:type:badge value="active" size="xs" />
+            <twig:ui:type:badge value="active" size="sm" />
+            <twig:ui:type:badge value="active" size="md" />
+            <twig:ui:type:badge value="active" size="lg" />
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:type:badge value="active" size="xs" />
+<twig:ui:type:badge value="active" size="sm" />
+<twig:ui:type:badge value="active" size="md" />
+<twig:ui:type:badge value="active" size="lg" />{% endverbatim %}{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# Custom Values (Unmapped) #}
+    {% set customPreview %}
+        <div class="flex flex-wrap gap-3">
+            <twig:ui:type:badge value="draft" />
+            <twig:ui:type:badge value="published" />
+            <twig:ui:type:badge value="archived" />
+        </div>
+    {% endset %}
+    {% set customCode %}{% verbatim %}{# Custom values default to gray when not in mapping #}
+<twig:ui:type:badge value="draft" />
+<twig:ui:type:badge value="published" />
+<twig:ui:type:badge value="archived" />{% endverbatim %}{% endset %}
+    {{ ui.story('Custom Values (Unmapped)', customPreview, customCode) }}
+
+    {# With Custom Mapping #}
     {% set mappingPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:ui:type:badge value="published" variant="success" />
-            <twig:ui:type:badge value="draft" variant="warning" />
-            <twig:ui:type:badge value="archived" variant="secondary" />
+            {% set customMapping = {
+                'draft': 'warning',
+                'published': 'success',
+                'archived': 'gray'
+            } %}
+            <twig:ui:type:badge value="draft" :mapping="customMapping" />
+            <twig:ui:type:badge value="published" :mapping="customMapping" />
+            <twig:ui:type:badge value="archived" :mapping="customMapping" />
         </div>
     {% endset %}
-    {% set mappingCode %}{% verbatim %}<twig:ui:type:badge value="published" variant="success" />
-<twig:ui:type:badge value="draft" variant="warning" />
-<twig:ui:type:badge value="archived" variant="secondary" />{% endverbatim %}{% endset %}
-    {{ ui.story('Custom Status Mapping', mappingPreview, mappingCode) }}
+    {% set mappingCode %}{% verbatim %}{% set customMapping = {
+    'draft': 'warning',
+    'published': 'success',
+    'archived': 'gray'
+} %}
+<twig:ui:type:badge value="draft" :mapping="customMapping" />
+<twig:ui:type:badge value="published" :mapping="customMapping" />
+<twig:ui:type:badge value="archived" :mapping="customMapping" />{% endverbatim %}{% endset %}
+    {{ ui.story('With Custom Mapping', mappingPreview, mappingCode) }}
 
-    {# With Icons #}
-    {% set iconsPreview %}
+    {# Null Value with Fallback #}
+    {% set fallbackPreview %}
         <div class="flex flex-wrap gap-3">
-            <twig:ui:type:badge value="Verified" icon="lucide:check" variant="success" />
-            <twig:ui:type:badge value="Unverified" icon="lucide:x" variant="error" />
-            <twig:ui:type:badge value="Pending" icon="lucide:clock" variant="warning" />
+            <twig:ui:type:badge :value="null" />
+            <twig:ui:type:badge :value="null" fallback="N/A" />
+            <twig:ui:type:badge :value="null" fallback="Unknown" />
         </div>
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:ui:type:badge value="Verified" icon="lucide:check" variant="success" />
-<twig:ui:type:badge value="Unverified" icon="lucide:x" variant="error" />
-<twig:ui:type:badge value="Pending" icon="lucide:clock" variant="warning" />{% endverbatim %}{% endset %}
-    {{ ui.story('With Icons', iconsPreview, iconsCode) }}
+    {% set fallbackCode %}{% verbatim %}<twig:ui:type:badge :value="null" />
+<twig:ui:type:badge :value="null" fallback="N/A" />
+<twig:ui:type:badge :value="null" fallback="Unknown" />{% endverbatim %}{% endset %}
+    {{ ui.story('Null Value with Fallback', fallbackPreview, fallbackCode) }}
 
-    {# Boolean Values #}
-    {% set booleanPreview %}
-        <div class="flex flex-wrap gap-3">
-            <twig:ui:type:badge value="true" boolean />
-            <twig:ui:type:badge value="false" boolean />
-        </div>
+    {# In Table Context #}
+    {% set tablePreview %}
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-gray-800">
+                <tr>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Name</th>
+                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Status</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
+                <tr>
+                    <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">John Doe</td>
+                    <td class="px-4 py-2"><twig:ui:type:badge value="active" /></td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">Jane Smith</td>
+                    <td class="px-4 py-2"><twig:ui:type:badge value="pending" /></td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">Bob Wilson</td>
+                    <td class="px-4 py-2"><twig:ui:type:badge value="inactive" /></td>
+                </tr>
+            </tbody>
+        </table>
     {% endset %}
-    {% set booleanCode %}{% verbatim %}<twig:ui:type:badge value="true" boolean />
-<twig:ui:type:badge value="false" boolean />{% endverbatim %}{% endset %}
-    {{ ui.story('Boolean Values', booleanPreview, booleanCode) }}
+    {% set tableCode %}{% verbatim %}<twig:ui:type:badge value="{{ user.status }}" />{% endverbatim %}{% endset %}
+    {{ ui.story('In Table Context', tablePreview, tableCode) }}
 </div>
