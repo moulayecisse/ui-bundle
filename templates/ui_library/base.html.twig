@@ -4,73 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}UI Bundle{% endblock %}</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
-    <style type="text/tailwindcss">
-        @theme {
-            --font-*: initial;
-            --font-outfit: Outfit, sans-serif;
-            --font-nunito: "Nunito", "sans-serif";
-            --font-inter: "Inter", "sans-serif";
-            --font-roboto: "Roboto", "sans-serif";
 
-            /* Primary - Golden/Amber */
-            --color-primary: oklch(79.573% 0.09923 81.176);
-            --color-primary-50: oklch(95.981% 0.02 84.59);
-            --color-primary-100: oklch(93.576% 0.03121 79.928);
-            --color-primary-200: oklch(88.992% 0.05515 82.351);
-            --color-primary-300: oklch(84.252% 0.07788 81.909);
-            --color-primary-400: oklch(79.573% 0.09923 81.176);
-            --color-primary-500: oklch(73.359% 0.12348 79.305);
-            --color-primary-600: oklch(63.872% 0.11684 78.415);
-            --color-primary-700: oklch(51.771% 0.09256 78.457);
-            --color-primary-800: oklch(38.903% 0.06708 78.823);
-            --color-primary-900: oklch(24.714% 0.03772 81.618);
-            --color-primary-950: oklch(16.847% 0.02127 79.385);
+    {% if ui_bundle.preview.use_importmap %}
+        {# Use the application's importmap for accurate theming #}
+        {{ importmap('app') }}
+    {% else %}
+        {# Fallback to CDN with default theme #}
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+        <style type="text/tailwindcss">
+            @theme {
+                --font-*: initial;
+                --font-outfit: Outfit, sans-serif;
+                --font-nunito: "Nunito", "sans-serif";
+                --font-inter: "Inter", "sans-serif";
+                --font-roboto: "Roboto", "sans-serif";
 
-            --color-primary-foreground: oklch(0% 0 none);
-            --color-primary-foreground-50: oklch(0% 0 none);
-            --color-primary-foreground-100: oklch(0% 0 none);
-            --color-primary-foreground-200: oklch(0% 0 none);
-            --color-primary-foreground-300: oklch(0% 0 none);
-            --color-primary-foreground-400: oklch(0% 0 none);
-            --color-primary-foreground-500: oklch(0% 0 none);
-            --color-primary-foreground-600: oklch(0% 0 none);
-            --color-primary-foreground-700: oklch(0% 0 none);
-            --color-primary-foreground-800: oklch(100% 0 none);
-            --color-primary-foreground-900: oklch(100% 0 none);
-            --color-primary-foreground-950: oklch(100% 0 none);
+                /* Primary - Golden/Amber */
+                --color-primary: oklch(79.573% 0.09923 81.176);
+                --color-primary-50: oklch(95.981% 0.02 84.59);
+                --color-primary-100: oklch(93.576% 0.03121 79.928);
+                --color-primary-200: oklch(88.992% 0.05515 82.351);
+                --color-primary-300: oklch(84.252% 0.07788 81.909);
+                --color-primary-400: oklch(79.573% 0.09923 81.176);
+                --color-primary-500: oklch(73.359% 0.12348 79.305);
+                --color-primary-600: oklch(63.872% 0.11684 78.415);
+                --color-primary-700: oklch(51.771% 0.09256 78.457);
+                --color-primary-800: oklch(38.903% 0.06708 78.823);
+                --color-primary-900: oklch(24.714% 0.03772 81.618);
+                --color-primary-950: oklch(16.847% 0.02127 79.385);
 
-            /* Secondary - Deep Blue/Purple */
-            --color-secondary: oklch(21.905% 0.09441 271.56);
-            --color-secondary-50: oklch(82.09% 0.07042 280.26);
-            --color-secondary-100: oklch(77.533% 0.09008 279.86);
-            --color-secondary-200: oklch(68.323% 0.12953 277.95);
-            --color-secondary-300: oklch(59.421% 0.17102 275.75);
-            --color-secondary-400: oklch(50.995% 0.20956 272.34);
-            --color-secondary-500: oklch(44.234% 0.22821 268.84);
-            --color-secondary-600: oklch(38.956% 0.19772 269);
-            --color-secondary-700: oklch(33.549% 0.16569 269.57);
-            --color-secondary-800: oklch(27.772% 0.13082 270.07);
-            --color-secondary-900: oklch(21.905% 0.09441 271.56);
-            --color-secondary-950: oklch(17.695% 0.06561 273.61);
+                --color-primary-foreground: oklch(0% 0 none);
+                --color-primary-foreground-50: oklch(0% 0 none);
+                --color-primary-foreground-100: oklch(0% 0 none);
+                --color-primary-foreground-200: oklch(0% 0 none);
+                --color-primary-foreground-300: oklch(0% 0 none);
+                --color-primary-foreground-400: oklch(0% 0 none);
+                --color-primary-foreground-500: oklch(0% 0 none);
+                --color-primary-foreground-600: oklch(0% 0 none);
+                --color-primary-foreground-700: oklch(0% 0 none);
+                --color-primary-foreground-800: oklch(100% 0 none);
+                --color-primary-foreground-900: oklch(100% 0 none);
+                --color-primary-foreground-950: oklch(100% 0 none);
 
-            --color-secondary-foreground: oklch(100% 0 none);
-            --color-secondary-foreground-50: oklch(0% 0 none);
-            --color-secondary-foreground-100: oklch(0% 0 none);
-            --color-secondary-foreground-200: oklch(0% 0 none);
-            --color-secondary-foreground-300: oklch(0% 0 none);
-            --color-secondary-foreground-400: oklch(0% 0 none);
-            --color-secondary-foreground-500: oklch(100% 0 none);
-            --color-secondary-foreground-600: oklch(100% 0 none);
-            --color-secondary-foreground-700: oklch(100% 0 none);
-            --color-secondary-foreground-800: oklch(100% 0 none);
-            --color-secondary-foreground-900: oklch(100% 0 none);
-            --color-secondary-foreground-950: oklch(100% 0 none);
-        }
+                /* Secondary - Deep Blue/Purple */
+                --color-secondary: oklch(21.905% 0.09441 271.56);
+                --color-secondary-50: oklch(82.09% 0.07042 280.26);
+                --color-secondary-100: oklch(77.533% 0.09008 279.86);
+                --color-secondary-200: oklch(68.323% 0.12953 277.95);
+                --color-secondary-300: oklch(59.421% 0.17102 275.75);
+                --color-secondary-400: oklch(50.995% 0.20956 272.34);
+                --color-secondary-500: oklch(44.234% 0.22821 268.84);
+                --color-secondary-600: oklch(38.956% 0.19772 269);
+                --color-secondary-700: oklch(33.549% 0.16569 269.57);
+                --color-secondary-800: oklch(27.772% 0.13082 270.07);
+                --color-secondary-900: oklch(21.905% 0.09441 271.56);
+                --color-secondary-950: oklch(17.695% 0.06561 273.61);
 
-        @custom-variant dark (&:is(.dark *));
-    </style>
+                --color-secondary-foreground: oklch(100% 0 none);
+                --color-secondary-foreground-50: oklch(0% 0 none);
+                --color-secondary-foreground-100: oklch(0% 0 none);
+                --color-secondary-foreground-200: oklch(0% 0 none);
+                --color-secondary-foreground-300: oklch(0% 0 none);
+                --color-secondary-foreground-400: oklch(0% 0 none);
+                --color-secondary-foreground-500: oklch(100% 0 none);
+                --color-secondary-foreground-600: oklch(100% 0 none);
+                --color-secondary-foreground-700: oklch(100% 0 none);
+                --color-secondary-foreground-800: oklch(100% 0 none);
+                --color-secondary-foreground-900: oklch(100% 0 none);
+                --color-secondary-foreground-950: oklch(100% 0 none);
+            }
+
+            @custom-variant dark (&:is(.dark *));
+        </style>
+    {% endif %}
     {% block styles %}{% endblock %}
 </head>
 <body class="h-full bg-gray-50 dark:bg-gray-900 font-inter">

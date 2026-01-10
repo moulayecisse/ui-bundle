@@ -3,3 +3,8 @@ services:
         autowire: true
         autoconfigure: true
         tags: ['controller.service_arguments']
+
+    Cisse\Bundle\Ui\Twig\UiConfigExtension:
+        arguments:
+            $useImportmap: '%ui_bundle.preview.use_importmap%'
+        tags: ['twig.extension']
