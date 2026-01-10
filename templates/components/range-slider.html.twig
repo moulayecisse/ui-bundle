@@ -17,6 +17,13 @@
     color = 'primary',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set labelsAttrs = attributes.nested('labels') %}
+{% set trackAttrs = attributes.nested('track') %}
+{% set rangeAttrs = attributes.nested('range') %}
+{% set handleAttrs = attributes.nested('handle') %}
+{% set minMaxAttrs = attributes.nested('minMax') %}
+
 {% set sizeConfig = {
     'sm': { track: 'h-1', handle: 'size-4', label: 'text-xs', minMax: 'text-xs' },
     'md': { track: 'h-2', handle: 'size-5', label: 'text-sm', minMax: 'text-xs' },
@@ -51,7 +58,7 @@
 
     {# Labels row #}
     {% if showLabels %}
-        <div class="flex justify-between {{ currentSize.label }} font-medium text-gray-700 dark:text-gray-300">
+        <div class="{{ ('flex justify-between font-medium text-gray-700 dark:text-gray-300 ' ~ currentSize.label ~ ' ' ~ labelsAttrs.render('class'))|tailwind_merge }}" {{ labelsAttrs.without('class') }}>
             <span data-cisse--ui-bundle--range-slider-target="minLabel">{{ minValue }}</span>
             <span data-cisse--ui-bundle--range-slider-target="maxLabel">{{ maxValue }}</span>
         </div>
@@ -61,32 +68,36 @@
     <div
         data-cisse--ui-bundle--range-slider-target="track"
         data-action="click->cisse--ui-bundle--range-slider#handleTrackClick"
-        class="relative {{ currentSize.track }} rounded-full cursor-pointer {{ disabled ? 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-200 dark:bg-gray-700' }}"
+        class="{{ ('relative rounded-full cursor-pointer ' ~ currentSize.track ~ ' ' ~ (disabled ? 'bg-gray-200 dark:bg-gray-700 cursor-not-allowed' : 'bg-gray-200 dark:bg-gray-700') ~ ' ' ~ trackAttrs.render('class'))|tailwind_merge }}"
+        {{ trackAttrs.without('class') }}
     >
         {# Active range #}
         <div
             data-cisse--ui-bundle--range-slider-target="range"
-            class="absolute h-full rounded-full {{ disabled ? 'bg-gray-400' : currentColor.range }}"
+            class="{{ ('absolute h-full rounded-full ' ~ (disabled ? 'bg-gray-400' : currentColor.range) ~ ' ' ~ rangeAttrs.render('class'))|tailwind_merge }}"
+            {{ rangeAttrs.without('class') }}
         ></div>
 
         {# Min handle #}
         <div
             data-cisse--ui-bundle--range-slider-target="minHandle"
             data-action="mousedown->cisse--ui-bundle--range-slider#handleMinMouseDown touchstart->cisse--ui-bundle--range-slider#handleMinTouchStart"
-            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 {{ currentSize.handle }} rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white ' ~ currentColor.handle ~ ' cursor-grab hover:shadow-md active:cursor-grabbing' }}"
+            class="{{ ('absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full border-2 shadow transition-shadow ' ~ currentSize.handle ~ ' ' ~ (disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white ' ~ currentColor.handle ~ ' cursor-grab hover:shadow-md active:cursor-grabbing') ~ ' ' ~ handleAttrs.render('class'))|tailwind_merge }}"
+            {{ handleAttrs.without('class') }}
         ></div>
 
         {# Max handle #}
         <div
             data-cisse--ui-bundle--range-slider-target="maxHandle"
             data-action="mousedown->cisse--ui-bundle--range-slider#handleMaxMouseDown touchstart->cisse--ui-bundle--range-slider#handleMaxTouchStart"
-            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 {{ currentSize.handle }} rounded-full border-2 shadow transition-shadow {{ disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white ' ~ currentColor.handle ~ ' cursor-grab hover:shadow-md active:cursor-grabbing' }}"
+            class="{{ ('absolute top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full border-2 shadow transition-shadow ' ~ currentSize.handle ~ ' ' ~ (disabled ? 'bg-gray-300 border-gray-400 cursor-not-allowed' : 'bg-white ' ~ currentColor.handle ~ ' cursor-grab hover:shadow-md active:cursor-grabbing') ~ ' ' ~ handleAttrs.render('class'))|tailwind_merge }}"
+            {{ handleAttrs.without('class') }}
         ></div>
     </div>
 
     {# Min/Max labels #}
     {% if showMinMax %}
-        <div class="flex justify-between {{ currentSize.minMax }} text-gray-500 dark:text-gray-400">
+        <div class="{{ ('flex justify-between text-gray-500 dark:text-gray-400 ' ~ currentSize.minMax ~ ' ' ~ minMaxAttrs.render('class'))|tailwind_merge }}" {{ minMaxAttrs.without('class') }}>
             <span>{{ min }}</span>
             <span>{{ max }}</span>
         </div>

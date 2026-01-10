@@ -12,6 +12,14 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set labelAttrs = attributes.nested('label') %}
+{% set triggerAttrs = attributes.nested('trigger') %}
+{% set previewAttrs = attributes.nested('preview') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set dropdownAttrs = attributes.nested('dropdown') %}
+{% set swatchAttrs = attributes.nested('swatch') %}
+
 {% set sizeConfig = {
   'sm': { trigger: 'px-2 py-1.5', preview: 'size-5', text: 'text-xs', swatch: 'size-6', gap: 'gap-1.5' },
   'md': { trigger: 'px-3 py-2', preview: 'size-6', text: 'text-sm', swatch: 'size-8', gap: 'gap-2' },
@@ -27,7 +35,7 @@
   class="{{ ('relative inline-block ' ~ class)|tailwind_merge }}"
 >
   {% if label %}
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+    <label class="{{ ('block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>
       {{ label }}
     </label>
   {% endif %}
@@ -37,12 +45,14 @@
     type="button"
     data-cisse--ui-bundle--color-picker-target="trigger"
     data-action="click->cisse--ui-bundle--color-picker#toggle"
-    class="flex items-center {{ currentSize.gap }} {{ currentSize.trigger }} border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors {{ disabled ? 'opacity-50 cursor-not-allowed' : '' }}"
+    class="{{ ('flex items-center border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ' ~ currentSize.gap ~ ' ' ~ currentSize.trigger ~ ' ' ~ (disabled ? 'opacity-50 cursor-not-allowed' : '') ~ ' ' ~ triggerAttrs.render('class'))|tailwind_merge }}"
+    {{ triggerAttrs.without('class') }}
     {{ disabled ? 'disabled' }}
   >
     <span
       data-cisse--ui-bundle--color-picker-target="preview"
-      class="{{ currentSize.preview }} rounded border border-gray-200 dark:border-gray-600"
+      class="{{ (currentSize.preview ~ ' rounded border border-gray-200 dark:border-gray-600 ' ~ previewAttrs.render('class'))|tailwind_merge }}"
+      {{ previewAttrs.without('class') }}
       style="background-color: {{ value }};"
     ></span>
     {% if showValue %}
@@ -57,6 +67,8 @@
   <input
     type="hidden"
     data-cisse--ui-bundle--color-picker-target="input"
+    class="{{ inputAttrs.render('class')|tailwind_merge }}"
+    {{ inputAttrs.without('class') }}
     {% if name %}name="{{ name }}"{% endif %}
     {% if id %}id="{{ id }}"{% endif %}
     value="{{ value }}"
@@ -65,7 +77,8 @@
   {# Dropdown #}
   <div
     data-cisse--ui-bundle--color-picker-target="dropdown"
-    class="absolute z-50 mt-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden"
+    class="{{ ('absolute z-50 mt-2 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden ' ~ dropdownAttrs.render('class'))|tailwind_merge }}"
+    {{ dropdownAttrs.without('class') }}
   >
     {# Swatches #}
     <div class="grid grid-cols-5 {{ currentSize.gap }} mb-3">
@@ -74,7 +87,8 @@
           type="button"
           data-color="{{ color }}"
           data-action="click->cisse--ui-bundle--color-picker#selectColor"
-          class="{{ currentSize.swatch }} rounded-lg border-2 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 {{ value == color ? 'border-primary-500 ring-2 ring-primary-500 ring-offset-1' : 'border-transparent' }}"
+          class="{{ (currentSize.swatch ~ ' rounded-lg border-2 transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 ' ~ (value == color ? 'border-primary-500 ring-2 ring-primary-500 ring-offset-1' : 'border-transparent') ~ ' ' ~ swatchAttrs.render('class'))|tailwind_merge }}"
+          {{ swatchAttrs.without('class') }}
           style="background-color: {{ color }};"
           title="{{ color }}"
         >
