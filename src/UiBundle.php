@@ -24,6 +24,15 @@ class UiBundle extends AbstractBundle
                     ->defaultFalse()
                     ->info('Enable the pattern library routes (recommended only in dev)')
                 ->end()
+                ->arrayNode('preview')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('use_importmap')
+                            ->defaultTrue()
+                            ->info('Use importmap("app") instead of CDN for preview pages')
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
     }
 
@@ -34,6 +43,9 @@ class UiBundle extends AbstractBundle
 
         // Store config for routing
         $builder->setParameter('ui_bundle.pattern_library_enabled', $config['pattern_library']);
+
+        // Store preview config
+        $builder->setParameter('ui_bundle.preview.use_importmap', $config['preview']['use_importmap']);
 
         // Load profiler services only when WebProfilerBundle is enabled (dev mode)
         $bundles = $builder->getParameter('kernel.bundles');
