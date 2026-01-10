@@ -12,6 +12,11 @@
   disabled = null,
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set iconAttrs = attributes.nested('icon') %}
+
 {% set id = id ?? name %}
 {% set for = for ?? id %}
 
@@ -31,7 +36,8 @@
 >
   <twig:ui:input-wrapper
     :disabled="disabled"
-    :class="class">
+    class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {{ ...wrapperAttrs.without('class') }}>
     <input
       {{ outerScope.attributes }}
       {% if value is not null %}value="{{ value }}"{% endif %}
@@ -42,12 +48,14 @@
       {{ required ? 'required' }}
       {{ autofocus ? 'autofocus' }}
       {{ disabled ? 'disabled' }}
-      class="block w-full bg-transparent px-3 py-1.5 focus:outline-none"
+      class="{{ ('block w-full bg-transparent px-3 py-1.5 focus:outline-none ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+      {{ inputAttrs.without('class') }}
       onclick="this.showPicker()"
     />
   </twig:ui:input-wrapper>
   <span
-    class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+    class="{{ ('pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 dark:text-gray-400 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+    {{ iconAttrs.without('class') }}
   >
                           <svg
                             class="fill-current"

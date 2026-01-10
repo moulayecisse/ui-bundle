@@ -14,6 +14,11 @@
   decimals = 2,
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set symbolAttrs = attributes.nested('symbol') %}
+
 {% set id = id ?? name %}
 
 {% if form %}
@@ -38,17 +43,19 @@
 
 <twig:ui:input-wrapper
   :disabled="disabled"
-  :class="class"
+  class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+  {{ ...wrapperAttrs.without('class') }}
 >
   {% if config.position == 'prefix' %}
-    <span class="pl-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
+    <span class="{{ ('pl-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center ' ~ symbolAttrs.render('class'))|tailwind_merge }}" {{ symbolAttrs.without('class') }}>
       {{ config.symbol }}
     </span>
   {% endif %}
 
   <input
     {{ attributes }}
-    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right"
+    class="{{ ('block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+    {{ inputAttrs.without('class') }}
     {% if value is not null %}value="{{ value }}"{% endif %}
     {% if name %}name="{{ name }}"{% endif %}
     {% if id %}id="{{ id }}"{% endif %}
@@ -64,7 +71,7 @@
   >
 
   {% if config.position == 'suffix' %}
-    <span class="pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
+    <span class="{{ ('pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center ' ~ symbolAttrs.render('class'))|tailwind_merge }}" {{ symbolAttrs.without('class') }}>
       {{ config.symbol }}
     </span>
   {% endif %}
