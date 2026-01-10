@@ -6,8 +6,6 @@
         { name: 'title', type: 'string | null', default: 'null', description: 'Card title displayed in header' },
         { name: 'description', type: 'string | null', default: 'null', description: 'Card description below title' },
         { name: 'defaultExpanded', type: 'boolean', default: 'true', description: 'Initial expanded/collapsed state' },
-        { name: 'headerClass', type: 'string', default: "'w-full text-left'", description: 'CSS classes for header button' },
-        { name: 'contentClass', type: 'string', default: "''", description: 'CSS classes for content wrapper' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes for container' },
     ]) }}
 
@@ -16,6 +14,13 @@
         { name: 'header', description: 'Custom header content (replaces title/description mode)' },
         { name: 'actions', description: 'Action buttons next to the collapse toggle' },
         { name: 'content', description: 'Main card content (default slot)' },
+    ]) }}
+
+    {# Nested Attributes Documentation #}
+    {{ ui.nested([
+        { name: 'card', description: 'Customize the card container' },
+        { name: 'header', description: 'Customize the header button' },
+        { name: 'content', description: 'Customize the content wrapper' },
     ]) }}
 
     {# Basic Collapsible Card - Static Preview #}

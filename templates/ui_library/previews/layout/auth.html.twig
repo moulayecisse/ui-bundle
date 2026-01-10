@@ -19,8 +19,6 @@
         { name: 'formTitle', type: 'string | null', default: 'null', description: 'Title above the form' },
         { name: 'formSubtitle', type: 'string | null', default: 'null', description: 'Subtitle above the form' },
         { name: 'homeLink', type: 'string', default: "'/'", description: 'URL for logo link' },
-        { name: 'brandingClass', type: 'string', default: "''", description: 'Additional CSS classes for branding panel' },
-        { name: 'formPanelClass', type: 'string', default: "''", description: 'Additional CSS classes for form panel' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -29,6 +27,16 @@
         { name: 'content', description: 'The login/register form content' },
         { name: 'branding_logo', description: 'Custom logo for the branding panel (desktop)' },
         { name: 'mobile_logo', description: 'Custom logo for mobile view' },
+    ]) }}
+
+    {# Nested Attributes Documentation #}
+    {{ ui.nested([
+        { name: 'branding', description: 'Customize the branding panel (left side)' },
+        { name: 'formPanel', description: 'Customize the form panel (right side)' },
+        { name: 'form', description: 'Customize the form container' },
+        { name: 'formHeader', description: 'Customize the form header section' },
+        { name: 'features', description: 'Customize the features list container' },
+        { name: 'mobileLogo', description: 'Customize the mobile logo container' },
     ]) }}
 
     {# About Auth Layout #}

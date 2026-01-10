@@ -4,8 +4,9 @@
     {# Props Documentation #}
     {{ ui.props([
         { name: 'appName', type: 'string', default: "'App'", description: 'Application name shown in sidebar header' },
-        { name: 'appIcon', type: 'string | null', default: 'null', description: 'SVG path for app icon in sidebar' },
-        { name: 'sidebarClass', type: 'string', default: "'bg-slate-800...'", description: 'CSS classes for sidebar background' },
+        { name: 'appIcon', type: 'string | null', default: 'null', description: 'Icon name for app icon in sidebar' },
+        { name: 'appIconClass', type: 'string', default: "'size-5 text-white'", description: 'CSS classes for app icon' },
+        { name: 'homeLink', type: 'string | null', default: 'null', description: 'URL for logo link' },
         { name: 'showDarkToggle', type: 'boolean', default: 'true', description: 'Show dark mode toggle in header' },
         { name: 'userName', type: 'string | null', default: 'null', description: 'User name for header user menu' },
         { name: 'userAvatar', type: 'string | null', default: 'null', description: 'User avatar initials (e.g., "JD")' },
@@ -20,6 +21,14 @@
         { name: 'sidebar_footer', description: 'Content at the bottom of the sidebar' },
         { name: 'user_menu', description: 'Dropdown items for user menu' },
         { name: 'content', description: 'Main page content area' },
+    ]) }}
+
+    {# Nested Attributes Documentation #}
+    {{ ui.nested([
+        { name: 'sidebar', description: 'Customize the sidebar element' },
+        { name: 'header', description: 'Customize the header element' },
+        { name: 'content', description: 'Customize the main content area' },
+        { name: 'menu', description: 'Customize the menu container' },
     ]) }}
 
     {# About Base Layout #}

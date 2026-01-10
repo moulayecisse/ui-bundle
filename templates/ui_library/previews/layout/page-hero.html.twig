@@ -19,6 +19,14 @@
         { name: 'content', description: 'Additional content below stats' },
     ]) }}
 
+    {# Nested Attributes Documentation #}
+    {{ ui.nested([
+        { name: 'header', description: 'Customize the header section (title/subtitle area)' },
+        { name: 'badge', description: 'Customize the badge container' },
+        { name: 'stats', description: 'Customize the stats grid' },
+        { name: 'content', description: 'Customize the content wrapper' },
+    ]) }}
+
     {# Basic Hero #}
     {% set basicPreview %}
         <div class="rounded-lg overflow-hidden">
