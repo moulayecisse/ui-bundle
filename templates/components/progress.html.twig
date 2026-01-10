@@ -16,7 +16,7 @@
     class = '',
 %}
 
-{% set percentage = indeterminate ? 100 : ((value / max) * 100)|clamp(0, 100) %}
+{% set percentage = indeterminate ? 100 : max(0, min(100, (value / max) * 100)) %}
 
 {% set sizeClasses = {
     'xs': 'h-0.5',
