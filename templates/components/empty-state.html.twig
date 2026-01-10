@@ -32,6 +32,12 @@
 {% set actionBlock %}{% block action '' %}{% endset %}
 {% set secondaryActionBlock %}{% block secondaryAction '' %}{% endset %}
 
+{# Nested attributes for fine-grained customization #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set messageAttrs = attributes.nested('message') %}
+{% set actionAttrs = attributes.nested('action') %}
+
 <div
     {{ attributes }}
     class="{{ baseClass }}"
@@ -40,7 +46,7 @@
 >
     {# Icon #}
     {% if icon %}
-        <div class="{{ sizes.gap }}">
+        <div class="{{ (sizes.gap ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }}>
             {% block icon %}
                 <twig:ux:icon :name="icon" class="mx-auto {{ sizes.icon }} text-gray-400 dark:text-gray-500" />
             {% endblock %}
@@ -49,21 +55,21 @@
 
     {# Title #}
     {% if titleBlock|trim %}
-        <h3 class="mb-2 {{ sizes.title }} font-medium text-gray-900 dark:text-white">
+        <h3 class="{{ ('mb-2 ' ~ sizes.title ~ ' font-medium text-gray-900 dark:text-white ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
             {{ titleBlock|raw }}
         </h3>
     {% endif %}
 
     {# Message #}
     {% if messageBlock|trim %}
-        <p class="{{ sizes.message }} text-gray-500 dark:text-gray-400 max-w-md mx-auto">
+        <p class="{{ (sizes.message ~ ' text-gray-500 dark:text-gray-400 max-w-md mx-auto ' ~ messageAttrs.render('class'))|tailwind_merge }}" {{ messageAttrs.without('class') }}>
             {{ messageBlock|raw }}
         </p>
     {% endif %}
 
     {# Primary action #}
     {% if actionBlock|trim %}
-        <div class="{{ sizes.actionGap }}">
+        <div class="{{ (sizes.actionGap ~ ' ' ~ actionAttrs.render('class'))|tailwind_merge }}" {{ actionAttrs.without('class') }}>
             {{ actionBlock|raw }}
         </div>
     {% endif %}

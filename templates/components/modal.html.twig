@@ -27,6 +27,16 @@
 {% set showHeader = title or headerBlock|trim %}
 {% set showFooter = footerBlock|trim %}
 
+{# Nested attributes for fine-grained customization #}
+{% set headerAttrs = attributes.nested('header') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+{% set contentAttrs = attributes.nested('content') %}
+{% set footerAttrs = attributes.nested('footer') %}
+{% set backdropAttrs = attributes.nested('backdrop') %}
+{% set closeAttrs = attributes.nested('close') %}
+{% set panelAttrs = attributes.nested('panel') %}
+
 <div
     {{ attributes }}
     data-controller="cisse--ui-bundle--modal"
@@ -58,7 +68,8 @@
         <!-- Backdrop -->
         <div
             data-cisse--ui-bundle--modal-target="backdrop"
-            class="fixed inset-0 h-full w-full bg-black/50"
+            class="{{ ('fixed inset-0 h-full w-full bg-black/50 ' ~ backdropAttrs.render('class'))|tailwind_merge }}"
+            {{ backdropAttrs.without('class') }}
         ></div>
 
         <!-- Content -->
@@ -66,13 +77,14 @@
             data-cisse--ui-bundle--modal-target="content"
             data-size="{{ fullScreen ? 'full' : size }}"
             data-full-screen="{{ fullScreen ? 'true' : 'false' }}"
-            class="relative flex {{ scrollBehavior == 'inside' ? 'max-h-[90vh]' : '' }} w-full flex-col max-w-3xl data-[size=sm]:max-w-md data-[size=lg]:max-w-5xl data-[size=xl]:max-w-7xl data-[size=full]:max-w-full data-[size=full]:mx-0 data-[size=full]:h-full data-[full-screen=true]:!rounded-none data-[full-screen=true]:!h-screen data-[full-screen=true]:!max-h-screen rounded-lg bg-white dark:bg-gray-900 shadow-xl"
+            class="{{ ('relative flex ' ~ (scrollBehavior == 'inside' ? 'max-h-[90vh]' : '') ~ ' w-full flex-col max-w-3xl data-[size=sm]:max-w-md data-[size=lg]:max-w-5xl data-[size=xl]:max-w-7xl data-[size=full]:max-w-full data-[size=full]:mx-0 data-[size=full]:h-full data-[full-screen=true]:!rounded-none data-[full-screen=true]:!h-screen data-[full-screen=true]:!max-h-screen rounded-lg bg-white dark:bg-gray-900 shadow-xl ' ~ panelAttrs.render('class'))|tailwind_merge }}"
+            {{ panelAttrs.without('class') }}
         >
             <!-- Header -->
             {% if showHeader %}
-                <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+                <div class="{{ ('flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4 ' ~ headerAttrs.render('class'))|tailwind_merge }}" {{ headerAttrs.without('class') }}>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                        <h3 class="{{ ('text-xl font-semibold text-gray-900 dark:text-gray-100 ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                             {% if headerBlock|trim %}
                                 {{ headerBlock|raw }}
                             {% else %}
@@ -80,14 +92,15 @@
                             {% endif %}
                         </h3>
                         {% if description %}
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ description }}</p>
+                            <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ descriptionAttrs.render('class'))|tailwind_merge }}" {{ descriptionAttrs.without('class') }}>{{ description }}</p>
                         {% endif %}
                     </div>
                     {% if not hideCloseButton %}
                         <button
                             data-cisse--ui-bundle--modal-target="closeButton"
                             data-action="click->cisse--ui-bundle--modal#close"
-                            class="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100"
+                            class="{{ ('rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100 ' ~ closeAttrs.render('class'))|tailwind_merge }}"
+                            {{ closeAttrs.without('class') }}
                             type="button"
                             aria-label="Close dialog"
                         >
@@ -112,13 +125,13 @@
             {% endif %}
 
             <!-- Body -->
-            <div class="flex-1 {{ scrollBehavior == 'inside' ? 'ui-scrollbar overflow-y-auto' : 'overflow-visible' }} px-6 py-4">
+            <div class="{{ ('flex-1 ' ~ (scrollBehavior == 'inside' ? 'ui-scrollbar overflow-y-auto' : 'overflow-visible') ~ ' px-6 py-4 ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
                 {% block content '' %}
             </div>
 
             <!-- Footer -->
             {% if showFooter %}
-                <div class="flex items-center justify-end gap-3 border-t border-gray-200 dark:border-gray-700 px-6 py-4">
+                <div class="{{ ('flex items-center justify-end gap-3 border-t border-gray-200 dark:border-gray-700 px-6 py-4 ' ~ footerAttrs.render('class'))|tailwind_merge }}" {{ footerAttrs.without('class') }}>
                     {{ footerBlock|raw }}
                 </div>
             {% endif %}

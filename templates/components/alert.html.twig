@@ -51,6 +51,13 @@
 {% set contentBlock %}{% block content '' %}{% endset %}
 {% set actionsBlock %}{% block actions '' %}{% endset %}
 
+{# Nested attributes for fine-grained customization #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set contentAttrs = attributes.nested('content') %}
+{% set actionsAttrs = attributes.nested('actions') %}
+{% set dismissAttrs = attributes.nested('dismiss') %}
+
 {# Icon configuration #}
 {% set icon_name = customIcon %}
 {% set icon_class = 'text-primary dark:text-primary' %}
@@ -85,27 +92,27 @@
 >
     <div class="flex">
         {% if icon %}
-            <div class="shrink-0">
+            <div class="{{ ('shrink-0 ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }}>
                 <twig:ux:icon name="{{ icon_name }}" class="{{ icon_class }} {{ sizes.icon }}"/>
             </div>
         {% endif %}
 
         <div class="{% if icon %}{{ sizes.gap }}{% endif %} flex-1">
             {% if titleBlock|trim %}
-                <h3 class="{{ sizes.title }} font-medium text-blue-800 group-data-[color=primary]:text-primary group-data-[color=secondary]:text-gray-800 group-data-[color=success]:text-green-800 group-data-[color=error]:text-red-800 group-data-[color=warning]:text-yellow-800 group-data-[color=info]:text-blue-800 dark:group-data-[color=primary]:text-primary dark:group-data-[color=secondary]:text-gray-200 dark:group-data-[color=success]:text-green-300 dark:group-data-[color=error]:text-red-300 dark:group-data-[color=warning]:text-yellow-300 dark:group-data-[color=info]:text-blue-300">
+                <h3 class="{{ (sizes.title ~ ' font-medium text-blue-800 group-data-[color=primary]:text-primary group-data-[color=secondary]:text-gray-800 group-data-[color=success]:text-green-800 group-data-[color=error]:text-red-800 group-data-[color=warning]:text-yellow-800 group-data-[color=info]:text-blue-800 dark:group-data-[color=primary]:text-primary dark:group-data-[color=secondary]:text-gray-200 dark:group-data-[color=success]:text-green-300 dark:group-data-[color=error]:text-red-300 dark:group-data-[color=warning]:text-yellow-300 dark:group-data-[color=info]:text-blue-300 ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                     {{ titleBlock|raw }}
                 </h3>
             {% endif %}
 
             {% if contentBlock|trim %}
-                <div class="{% if titleBlock|trim %}mt-2{% endif %} {{ sizes.content }} text-blue-700 group-data-[color=primary]:text-primary/80 group-data-[color=secondary]:text-gray-700 group-data-[color=success]:text-green-700 group-data-[color=error]:text-red-700 group-data-[color=warning]:text-yellow-700 group-data-[color=info]:text-blue-700 dark:group-data-[color=primary]:text-primary/90 dark:group-data-[color=secondary]:text-gray-300 dark:group-data-[color=success]:text-green-400 dark:group-data-[color=error]:text-red-400 dark:group-data-[color=warning]:text-yellow-400 dark:group-data-[color=info]:text-blue-400">
+                <div class="{{ ((titleBlock|trim ? 'mt-2 ' : '') ~ sizes.content ~ ' text-blue-700 group-data-[color=primary]:text-primary/80 group-data-[color=secondary]:text-gray-700 group-data-[color=success]:text-green-700 group-data-[color=error]:text-red-700 group-data-[color=warning]:text-yellow-700 group-data-[color=info]:text-blue-700 dark:group-data-[color=primary]:text-primary/90 dark:group-data-[color=secondary]:text-gray-300 dark:group-data-[color=success]:text-green-400 dark:group-data-[color=error]:text-red-400 dark:group-data-[color=warning]:text-yellow-400 dark:group-data-[color=info]:text-blue-400 ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
                     {{ contentBlock|raw }}
                 </div>
             {% endif %}
 
             {# Actions slot #}
             {% if actionsBlock|trim %}
-                <div class="mt-4 flex items-center gap-3">
+                <div class="{{ ('mt-4 flex items-center gap-3 ' ~ actionsAttrs.render('class'))|tailwind_merge }}" {{ actionsAttrs.without('class') }}>
                     {{ actionsBlock|raw }}
                 </div>
             {% endif %}

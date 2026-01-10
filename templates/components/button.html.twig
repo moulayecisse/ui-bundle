@@ -47,22 +47,27 @@
 
 {% set iconSize = iconSizeClasses[size] ?? iconSizeClasses['md'] %}
 
+{# Nested attributes for fine-grained customization #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set iconRightAttrs = attributes.nested('iconRight') %}
+{% set labelAttrs = attributes.nested('label') %}
+
 {% set contentBlock %}{% block content %}
     {# Loading spinner #}
     {% if loading %}
         <twig:ux:icon name="lucide:loader-2" class="{{ iconSize }} animate-spin" />
     {% elseif icon %}
-        <twig:ux:icon name="{{ icon }}" class="{{ iconSize }}" />
+        <twig:ux:icon name="{{ icon }}" class="{{ (iconSize ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }} />
     {% endif %}
 
     {# Label/slot content #}
     {% if label %}
-        <span>{{ label }}</span>
+        <span class="{{ labelAttrs.render('class')|tailwind_merge }}" {{ labelAttrs.without('class') }}>{{ label }}</span>
     {% endif %}
 
     {# Right icon (hidden when loading) #}
     {% if iconRight and not loading %}
-        <twig:ux:icon name="{{ iconRight }}" class="{{ iconSize }}" />
+        <twig:ux:icon name="{{ iconRight }}" class="{{ (iconSize ~ ' ' ~ iconRightAttrs.render('class'))|tailwind_merge }}" {{ iconRightAttrs.without('class') }} />
     {% endif %}
 {% endblock %}{% endset %}
 
