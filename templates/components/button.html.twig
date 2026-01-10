@@ -1,7 +1,8 @@
 {% props
     type = 'button',
     class = '',
-    variant = 'primary',
+    variant = 'solid',
+    color = 'primary',
     size = 'md',
     href = null,
     icon = null,
@@ -12,17 +13,75 @@
     block = false,
 %}
 
-{# Variant classes matching Vue Button #}
-{% set variantClasses = {
+{# Nested attributes for fine-grained customization #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set iconRightAttrs = attributes.nested('iconRight') %}
+{% set labelAttrs = attributes.nested('label') %}
+
+{# Color definitions for solid variant #}
+{% set solidColors = {
     'primary': 'bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary',
     'secondary': 'bg-secondary text-secondary-foreground hover:bg-secondary/90 focus:ring-secondary',
-    'outline': 'border border-gray-300 bg-transparent text-gray-700 hover:bg-gray-50 focus:ring-primary dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800',
-    'ghost': 'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-primary dark:text-gray-300 dark:hover:bg-gray-800',
+    'success': 'bg-emerald-500 text-white hover:bg-emerald-600 focus:ring-emerald-500',
+    'warning': 'bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500',
     'danger': 'bg-red-500 text-white hover:bg-red-600 focus:ring-red-500',
-    'success': 'bg-green-500 text-white hover:bg-green-600 focus:ring-green-500',
+    'info': 'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500',
+    'neutral': 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500 dark:bg-gray-500 dark:hover:bg-gray-600',
 } %}
 
-{# Size classes matching Vue Button #}
+{# Color definitions for outline variant #}
+{% set outlineColors = {
+    'primary': 'border-primary text-primary hover:bg-primary/10 focus:ring-primary',
+    'secondary': 'border-secondary text-secondary hover:bg-secondary/10 focus:ring-secondary',
+    'success': 'border-emerald-500 text-emerald-600 hover:bg-emerald-50 focus:ring-emerald-500 dark:text-emerald-400 dark:hover:bg-emerald-950',
+    'warning': 'border-amber-500 text-amber-600 hover:bg-amber-50 focus:ring-amber-500 dark:text-amber-400 dark:hover:bg-amber-950',
+    'danger': 'border-red-500 text-red-600 hover:bg-red-50 focus:ring-red-500 dark:text-red-400 dark:hover:bg-red-950',
+    'info': 'border-blue-500 text-blue-600 hover:bg-blue-50 focus:ring-blue-500 dark:text-blue-400 dark:hover:bg-blue-950',
+    'neutral': 'border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800',
+} %}
+
+{# Color definitions for ghost variant #}
+{% set ghostColors = {
+    'primary': 'text-primary hover:bg-primary/10 focus:ring-primary',
+    'secondary': 'text-secondary hover:bg-secondary/10 focus:ring-secondary',
+    'success': 'text-emerald-600 hover:bg-emerald-50 focus:ring-emerald-500 dark:text-emerald-400 dark:hover:bg-emerald-950',
+    'warning': 'text-amber-600 hover:bg-amber-50 focus:ring-amber-500 dark:text-amber-400 dark:hover:bg-amber-950',
+    'danger': 'text-red-600 hover:bg-red-50 focus:ring-red-500 dark:text-red-400 dark:hover:bg-red-950',
+    'info': 'text-blue-600 hover:bg-blue-50 focus:ring-blue-500 dark:text-blue-400 dark:hover:bg-blue-950',
+    'neutral': 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500 dark:text-gray-300 dark:hover:bg-gray-800',
+} %}
+
+{# Color definitions for soft variant #}
+{% set softColors = {
+    'primary': 'bg-primary/10 text-primary hover:bg-primary/20 focus:ring-primary dark:bg-primary/20 dark:hover:bg-primary/30',
+    'secondary': 'bg-secondary/10 text-secondary hover:bg-secondary/20 focus:ring-secondary dark:bg-secondary/20 dark:hover:bg-secondary/30',
+    'success': 'bg-emerald-100 text-emerald-700 hover:bg-emerald-200 focus:ring-emerald-500 dark:bg-emerald-900/30 dark:text-emerald-400 dark:hover:bg-emerald-900/50',
+    'warning': 'bg-amber-100 text-amber-700 hover:bg-amber-200 focus:ring-amber-500 dark:bg-amber-900/30 dark:text-amber-400 dark:hover:bg-amber-900/50',
+    'danger': 'bg-red-100 text-red-700 hover:bg-red-200 focus:ring-red-500 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50',
+    'info': 'bg-blue-100 text-blue-700 hover:bg-blue-200 focus:ring-blue-500 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50',
+    'neutral': 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700',
+} %}
+
+{# Get variant-specific color classes #}
+{% set variantColorMap = {
+    'solid': solidColors,
+    'outline': outlineColors,
+    'ghost': ghostColors,
+    'soft': softColors,
+} %}
+
+{% set currentVariantColors = variantColorMap[variant] ?? solidColors %}
+{% set colorClass = currentVariantColors[color] ?? currentVariantColors['primary'] %}
+
+{# Variant base classes #}
+{% set variantBaseClass = {
+    'solid': '',
+    'outline': 'border bg-transparent',
+    'ghost': 'bg-transparent',
+    'soft': '',
+}[variant] ?? '' %}
+
+{# Size classes #}
 {% set sizeClasses = {
     'xs': 'px-2 py-1 text-xs gap-1',
     'sm': 'px-3 py-1.5 text-sm gap-1.5',
@@ -43,14 +102,9 @@
 {% set baseClass = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed' %}
 {% set blockClass = block ? 'w-full' : '' %}
 
-{% set class = (baseClass ~ ' ' ~ (variantClasses[variant] ?? variantClasses['primary']) ~ ' ' ~ (sizeClasses[size] ?? sizeClasses['md']) ~ ' ' ~ blockClass ~ ' ' ~ class)|tailwind_merge %}
+{% set class = (baseClass ~ ' ' ~ variantBaseClass ~ ' ' ~ colorClass ~ ' ' ~ (sizeClasses[size] ?? sizeClasses['md']) ~ ' ' ~ blockClass ~ ' ' ~ class)|tailwind_merge %}
 
 {% set iconSize = iconSizeClasses[size] ?? iconSizeClasses['md'] %}
-
-{# Nested attributes for fine-grained customization #}
-{% set iconAttrs = attributes.nested('icon') %}
-{% set iconRightAttrs = attributes.nested('iconRight') %}
-{% set labelAttrs = attributes.nested('label') %}
 
 {% set contentBlock %}{% block content %}
     {# Loading spinner #}

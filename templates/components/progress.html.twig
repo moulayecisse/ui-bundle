@@ -2,8 +2,8 @@
     value = 0,
     max = 100,
     size = 'md',
-    variant = 'default',
-    color = null,
+    variant = 'solid',
+    color = 'primary',
     showLabel = false,
     label = null,
     labelPosition = 'top',
@@ -26,17 +26,25 @@
     'xl': 'h-6',
 } %}
 
-{% set variantClasses = {
-    'default': 'bg-primary',
-    'success': 'bg-green-500',
-    'warning': 'bg-yellow-500',
-    'error': 'bg-red-500',
+{# Color classes for solid variant #}
+{% set colorClasses = {
+    'primary': 'bg-primary',
+    'secondary': 'bg-secondary',
+    'success': 'bg-emerald-500',
+    'warning': 'bg-amber-500',
+    'danger': 'bg-red-500',
     'info': 'bg-blue-500',
-    'gradient': 'bg-gradient-to-r from-primary to-purple-500',
+    'neutral': 'bg-gray-500',
 } %}
 
-{# Custom color support #}
-{% set barColorClass = color ? 'bg-' ~ color : (variantClasses[variant] ?? variantClasses['default']) %}
+{# Variant modifiers #}
+{% set variantClasses = {
+    'solid': colorClasses[color] ?? colorClasses['primary'],
+    'gradient': 'bg-gradient-to-r from-' ~ color ~ ' to-purple-500',
+} %}
+
+{# Get final bar color class #}
+{% set barColorClass = variantClasses[variant] ?? variantClasses['solid'] %}
 
 {# Label size classes #}
 {% set labelSizeClasses = {
