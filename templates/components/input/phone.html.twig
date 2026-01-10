@@ -14,6 +14,14 @@
     countries = null
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set countryButtonAttrs = attributes.nested('countryButton') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set dropdownAttrs = attributes.nested('dropdown') %}
+{% set searchAttrs = attributes.nested('search') %}
+{% set countryAttrs = attributes.nested('country') %}
+
 {% set defaultCountries = [
     { code: 'FR', name: 'France', dialCode: '+33', flag: '🇫🇷', format: '## ## ## ## ##' },
     { code: 'US', name: 'United States', dialCode: '+1', flag: '🇺🇸', format: '(###) ###-####' },
@@ -66,7 +74,7 @@
     <input type="hidden" name="{{ name }}" data-cisse--ui-bundle--phone-input-target="fullInput" value="{{ value }}" />
     <input type="hidden" name="{{ name }}_country" data-cisse--ui-bundle--phone-input-target="countryInput" value="{{ selectedCountry.code }}" />
 
-    <twig:ui:input-wrapper :size="size" :disabled="disabled">
+    <twig:ui:input-wrapper :size="size" :disabled="disabled" class="{{ wrapperAttrs.render('class') }}" {{ ...wrapperAttrs.without('class') }}>
         {% block icon %}
             {# Country selector button #}
             <button
@@ -74,7 +82,8 @@
                 data-action="click->cisse--ui-bundle--phone-input#toggleDropdown"
                 data-cisse--ui-bundle--phone-input-target="countryButton"
                 {% if disabled %}disabled{% endif %}
-                class="flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600 -ml-1 pl-1 py-1 rounded-l transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                class="{{ ('flex items-center gap-1 pr-2 border-r border-gray-200 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600 -ml-1 pl-1 py-1 rounded-l transition-colors disabled:opacity-50 disabled:cursor-not-allowed ' ~ countryButtonAttrs.render('class'))|tailwind_merge }}"
+                {{ countryButtonAttrs.without('class') }}
             >
                 <span data-cisse--ui-bundle--phone-input-target="flag" class="text-lg leading-none">{{ selectedCountry.flag }}</span>
                 <twig:ux:icon
@@ -94,7 +103,8 @@
                 placeholder="{{ placeholder }}"
                 {% if disabled %}disabled{% endif %}
                 {% if required %}required aria-required="true"{% endif %}
-                class="flex-1 border-none bg-transparent text-gray-900 outline-none placeholder:text-gray-400 dark:text-gray-100 dark:placeholder:text-gray-500 {{ sizeClasses[size] }} pl-20"
+                class="{{ ('flex-1 border-none bg-transparent text-gray-900 outline-none placeholder:text-gray-400 dark:text-gray-100 dark:placeholder:text-gray-500 ' ~ sizeClasses[size] ~ ' pl-20 ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+                {{ inputAttrs.without('class') }}
             />
         {% endblock %}
 
@@ -108,7 +118,8 @@
     {# Country dropdown #}
     <div
         data-cisse--ui-bundle--phone-input-target="dropdown"
-        class="absolute z-50 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden hidden"
+        class="{{ ('absolute z-50 mt-1 w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden hidden ' ~ dropdownAttrs.render('class'))|tailwind_merge }}"
+        {{ dropdownAttrs.without('class') }}
     >
         {# Search #}
         <div class="p-2 border-b border-gray-100 dark:border-slate-700">
@@ -117,7 +128,8 @@
                 data-cisse--ui-bundle--phone-input-target="search"
                 data-action="input->cisse--ui-bundle--phone-input#filterCountries"
                 placeholder="Search countries..."
-                class="w-full px-3 py-2 text-sm border border-gray-200 dark:border-slate-600 rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                class="{{ ('w-full px-3 py-2 text-sm border border-gray-200 dark:border-slate-600 rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ' ~ searchAttrs.render('class'))|tailwind_merge }}"
+                {{ searchAttrs.without('class') }}
             />
         </div>
 
@@ -131,7 +143,8 @@
                     data-dial-code="{{ country.dialCode }}"
                     data-flag="{{ country.flag }}"
                     data-format="{{ country.format }}"
-                    class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors {{ selectedCountry.code == country.code ? 'bg-primary-50 dark:bg-primary-900/20' : '' }}"
+                    class="{{ ('flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ' ~ (selectedCountry.code == country.code ? 'bg-primary-50 dark:bg-primary-900/20' : '') ~ ' ' ~ countryAttrs.render('class'))|tailwind_merge }}"
+                    {{ countryAttrs.without('class') }}
                 >
                     <span class="text-lg">{{ country.flag }}</span>
                     <span class="flex-1 text-sm text-gray-700 dark:text-gray-300">{{ country.name }}</span>
