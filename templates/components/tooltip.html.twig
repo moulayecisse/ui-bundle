@@ -11,6 +11,11 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set triggerAttrs = attributes.nested('trigger') %}
+{% set tooltipAttrs = attributes.nested('tooltip') %}
+{% set arrowAttrs = attributes.nested('arrow') %}
+
 {# Variant configurations #}
 {% set variantConfig = {
     'dark': { bg: 'bg-black/90', text: 'text-white', arrow: 'bg-black/90' },
@@ -43,7 +48,8 @@
   <div
     data-action="{{ triggerActions[trigger] ?? triggerActions['hover'] }}"
     data-unstyled="{{ unstyled ? 'true' : 'false' }}"
-    class="px-3 py-1 text-xs rounded-full cursor-pointer text-neutral-500 bg-slate-100 dark:bg-slate-900 data-[unstyled=true]:px-0 data-[unstyled=true]:py-0 data-[unstyled=true]:bg-transparent data-[unstyled=true]:text-inherit"
+    class="{{ ('px-3 py-1 text-xs rounded-full cursor-pointer text-neutral-500 bg-slate-100 dark:bg-slate-900 data-[unstyled=true]:px-0 data-[unstyled=true]:py-0 data-[unstyled=true]:bg-transparent data-[unstyled=true]:text-inherit ' ~ triggerAttrs.render('class'))|tailwind_merge }}"
+    {{ triggerAttrs.without('class') }}
   >
     {{ contentBlock|raw }}
   </div>
@@ -52,7 +58,8 @@
     <div
       data-popover-target="card"
       data-position="{{ position }}"
-      class="absolute w-auto text-sm top-0 left-1/2 -translate-x-1/2 -mt-0.5 -translate-y-full data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:-ml-0.5 data-[position=left]:left-0 data-[position=left]:-translate-x-full data-[position=bottom]:bottom-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-mb-0.5 data-[position=bottom]:translate-y-full data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-mr-0.5 data-[position=right]:right-0 data-[position=right]:translate-x-full"
+      class="{{ ('absolute w-auto text-sm top-0 left-1/2 -translate-x-1/2 -mt-0.5 -translate-y-full data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:-ml-0.5 data-[position=left]:left-0 data-[position=left]:-translate-x-full data-[position=bottom]:bottom-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-mb-0.5 data-[position=bottom]:translate-y-full data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-mr-0.5 data-[position=right]:right-0 data-[position=right]:translate-x-full ' ~ tooltipAttrs.render('class'))|tailwind_merge }}"
+      {{ tooltipAttrs.without('class') }}
     >
       <div class="relative {{ sizeStyles }} {{ variantStyles.text }} {{ variantStyles.bg }} rounded">
         <div class="shrink-0 block whitespace-nowrap">
@@ -62,7 +69,8 @@
         <div
           data-show-arrow="{{ showArrow ? 'true' : 'false' }}"
           data-position="{{ position }}"
-          class="hidden data-[show-arrow=true]:block absolute inline-flex items-center justify-center overflow-hidden bottom-0 -translate-x-1/2 left-1/2 w-2.5 translate-y-full data-[position=left]:right-0 data-[position=left]:-translate-y-1/2 data-[position=left]:top-1/2 data-[position=left]:h-2.5 data-[position=left]:-mt-px data-[position=left]:translate-x-full data-[position=left]:w-auto data-[position=bottom]:top-0 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:left-1/2 data-[position=bottom]:w-2.5 data-[position=bottom]:-translate-y-full data-[position=right]:left-0 data-[position=right]:-translate-y-1/2 data-[position=right]:top-1/2 data-[position=right]:h-2.5 data-[position=right]:-mt-px data-[position=right]:-translate-x-full data-[position=right]:w-auto"
+          class="{{ ('hidden data-[show-arrow=true]:block absolute inline-flex items-center justify-center overflow-hidden bottom-0 -translate-x-1/2 left-1/2 w-2.5 translate-y-full data-[position=left]:right-0 data-[position=left]:-translate-y-1/2 data-[position=left]:top-1/2 data-[position=left]:h-2.5 data-[position=left]:-mt-px data-[position=left]:translate-x-full data-[position=left]:w-auto data-[position=bottom]:top-0 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:left-1/2 data-[position=bottom]:w-2.5 data-[position=bottom]:-translate-y-full data-[position=right]:left-0 data-[position=right]:-translate-y-1/2 data-[position=right]:top-1/2 data-[position=right]:h-2.5 data-[position=right]:-mt-px data-[position=right]:-translate-x-full data-[position=right]:w-auto ' ~ arrowAttrs.render('class'))|tailwind_merge }}"
+          {{ arrowAttrs.without('class') }}
         >
           <div
             data-position="{{ position }}"

@@ -10,6 +10,11 @@
     animated = true,
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set listAttrs = attributes.nested('list') %}
+{% set tabAttrs = attributes.nested('tab') %}
+{% set panelsAttrs = attributes.nested('panels') %}
+
 {# Size configurations #}
 {% set sizeClasses = {
     'sm': 'text-xs px-3 py-1.5',
@@ -62,7 +67,7 @@
     data-animated="{{ animated ? 'true' : 'false' }}"
     class="{{ orientation == 'vertical' ? 'flex gap-4' : '' }}"
 >
-    <div class="{{ containerClass }}" role="tablist">
+    <div class="{{ (containerClass ~ ' ' ~ listAttrs.render('class'))|tailwind_merge }}" {{ listAttrs.without('class') }} role="tablist">
         {# If tabs array is provided, render tabs from it #}
         {% if tabs|length > 0 %}
             {% for tab in tabs %}
@@ -74,7 +79,8 @@
                     data-key="{{ tab.key }}"
                     aria-selected="{{ current == tab.key ? 'true' : 'false' }}"
                     {% if tab.disabled is defined and tab.disabled %}disabled{% endif %}
-                    class="font-medium {{ animated ? 'transition-colors' : '' }} focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 {{ tabSizeClass }} {{ currentVariant.tab }} {{ current == tab.key ? currentVariant.active : currentVariant.inactive }} {{ fullWidth ? 'flex-1 justify-center' : '' }} inline-flex items-center"
+                    class="{{ ('font-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 inline-flex items-center ' ~ (animated ? 'transition-colors' : '') ~ ' ' ~ tabSizeClass ~ ' ' ~ currentVariant.tab ~ ' ' ~ (current == tab.key ? currentVariant.active : currentVariant.inactive) ~ ' ' ~ (fullWidth ? 'flex-1 justify-center' : '') ~ ' ' ~ tabAttrs.render('class'))|tailwind_merge }}"
+                    {{ tabAttrs.without('class') }}
                 >
                     {% if tab.icon is defined and tab.icon %}
                         <twig:ux:icon name="{{ tab.icon }}" class="{{ iconSize }} mr-1.5" />
@@ -90,7 +96,7 @@
             {% block content '' %}
         {% endif %}
     </div>
-    <div class="{{ orientation == 'vertical' ? 'flex-1' : 'mt-4' }}" data-cisse--ui-bundle--tabs-target="panels">
+    <div class="{{ ((orientation == 'vertical' ? 'flex-1' : 'mt-4') ~ ' ' ~ panelsAttrs.render('class'))|tailwind_merge }}" {{ panelsAttrs.without('class') }} data-cisse--ui-bundle--tabs-target="panels">
         {% block panels '' %}
     </div>
 </div>

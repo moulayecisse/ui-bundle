@@ -9,6 +9,12 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set listAttrs = attributes.nested('list') %}
+{% set itemAttrs = attributes.nested('item') %}
+{% set separatorAttrs = attributes.nested('separator') %}
+{% set linkAttrs = attributes.nested('link') %}
+
 {# Size configurations #}
 {% set sizeConfig = {
     'sm': { text: 'text-xs', icon: 'size-3', gap: 'gap-0.5 mx-1' },
@@ -37,18 +43,18 @@
 {% endif %}
 
 <nav {{ attributes }} aria-label="Breadcrumb" class="{{ class }}" data-size="{{ size }}" data-variant="{{ variant }}">
-  <ol class="flex items-center flex-wrap gap-1 {{ sizes.text }}">
+  <ol class="{{ ('flex items-center flex-wrap gap-1 ' ~ sizes.text ~ ' ' ~ listAttrs.render('class'))|tailwind_merge }}" {{ listAttrs.without('class') }}>
     {% for item in items %}
-      <li class="flex items-center">
+      <li class="{{ ('flex items-center ' ~ itemAttrs.render('class'))|tailwind_merge }}" {{ itemAttrs.without('class') }}>
         {# Separator #}
         {% if not loop.first %}
-          <twig:ux:icon :name="separator" class="{{ sizes.icon }} {{ sizes.gap }} {{ variants.separator }} shrink-0" />
+          <twig:ux:icon :name="separator" class="{{ (sizes.icon ~ ' ' ~ sizes.gap ~ ' ' ~ variants.separator ~ ' shrink-0 ' ~ separatorAttrs.render('class'))|tailwind_merge }}" {{ ...separatorAttrs.without('class') }} />
         {% endif %}
 
         {# Truncation ellipsis #}
         {% if truncated and loop.index == 2 %}
           <span class="flex items-center {{ sizes.gap }} text-gray-400 dark:text-gray-500">...</span>
-          <twig:ux:icon :name="separator" class="{{ sizes.icon }} {{ sizes.gap }} {{ variants.separator }} shrink-0" />
+          <twig:ux:icon :name="separator" class="{{ (sizes.icon ~ ' ' ~ sizes.gap ~ ' ' ~ variants.separator ~ ' shrink-0 ' ~ separatorAttrs.render('class'))|tailwind_merge }}" {{ ...separatorAttrs.without('class') }} />
         {% endif %}
 
         {# Skip middle items when truncated #}
@@ -62,7 +68,7 @@
             : ('text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary ' ~ variants.item) %}
 
           {% if item.href is defined and item.href and not isLast %}
-            <a href="{{ item.href }}" class="flex items-center gap-1.5 transition-colors {{ itemClass }}">
+            <a href="{{ item.href }}" class="{{ ('flex items-center gap-1.5 transition-colors ' ~ itemClass ~ ' ' ~ linkAttrs.render('class'))|tailwind_merge }}" {{ linkAttrs.without('class') }}>
               {% if loop.first and showHomeIcon %}
                 <twig:ux:icon :name="item.icon ?? homeIcon" class="{{ sizes.icon }}" />
               {% elseif item.icon is defined and item.icon %}
@@ -71,7 +77,7 @@
               <span>{{ item.label }}</span>
             </a>
           {% else %}
-            <span class="flex items-center gap-1.5 transition-colors {{ itemClass }}" {% if isLast %}aria-current="page"{% endif %}>
+            <span class="{{ ('flex items-center gap-1.5 transition-colors ' ~ itemClass ~ ' ' ~ linkAttrs.render('class'))|tailwind_merge }}" {{ linkAttrs.without('class') }} {% if isLast %}aria-current="page"{% endif %}>
               {% if loop.first and showHomeIcon %}
                 <twig:ux:icon :name="item.icon ?? homeIcon" class="{{ sizes.icon }}" />
               {% elseif item.icon is defined and item.icon %}

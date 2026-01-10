@@ -8,6 +8,15 @@
     class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set itemAttrs = attributes.nested('item') %}
+{% set dotAttrs = attributes.nested('dot') %}
+{% set lineAttrs = attributes.nested('line') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+{% set dateAttrs = attributes.nested('date') %}
+{% set tagsAttrs = attributes.nested('tags') %}
+
 {# Size configurations #}
 {% set sizeConfig = {
     'sm': { dot: 'size-6', icon: 'size-3', title: 'text-xs', desc: 'text-xs', date: 'text-xs', gap: 'gap-3', pb: 'pb-6', lineLeft: 'left-3', lineTop: 'top-6' },
@@ -50,15 +59,15 @@
             {% set icon = item.icon ?? defaultIcons[status] ?? null %}
             {% set isAlternate = alternating and loop.index is even %}
 
-            <div class="relative {{ sizes.pb }} last:pb-0 {{ animated ? 'animate-fade-in' : '' }}" style="{{ animated ? 'animation-delay: ' ~ (loop.index0 * 100) ~ 'ms' : '' }}">
+            <div class="{{ ('relative last:pb-0 ' ~ sizes.pb ~ ' ' ~ (animated ? 'animate-fade-in' : '') ~ ' ' ~ itemAttrs.render('class'))|tailwind_merge }}" {{ itemAttrs.without('class') }} style="{{ animated ? 'animation-delay: ' ~ (loop.index0 * 100) ~ 'ms' : '' }}">
                 {# Connecting line #}
                 {% if not loop.last %}
-                    <div class="absolute {{ sizes.lineLeft }} {{ sizes.lineTop }} w-0.5 h-full -ml-px transition-colors {{ classes.line }}"></div>
+                    <div class="{{ ('absolute w-0.5 h-full -ml-px transition-colors ' ~ sizes.lineLeft ~ ' ' ~ sizes.lineTop ~ ' ' ~ classes.line ~ ' ' ~ lineAttrs.render('class'))|tailwind_merge }}" {{ lineAttrs.without('class') }}></div>
                 {% endif %}
 
                 <div class="flex items-start {{ sizes.gap }} {{ isAlternate ? 'flex-row-reverse text-right' : '' }}">
                     {# Dot/Icon #}
-                    <div class="relative z-10 flex items-center justify-center {{ sizes.dot }} rounded-full shrink-0 transition-all {{ classes.dot }} {{ animated ? 'hover:scale-110' : '' }}">
+                    <div class="{{ ('relative z-10 flex items-center justify-center rounded-full shrink-0 transition-all ' ~ sizes.dot ~ ' ' ~ classes.dot ~ ' ' ~ (animated ? 'hover:scale-110' : '') ~ ' ' ~ dotAttrs.render('class'))|tailwind_merge }}" {{ dotAttrs.without('class') }}>
                         {% if icon %}
                             <twig:ux:icon :name="icon" class="{{ sizes.icon }} {{ classes.icon }}" />
                         {% endif %}
@@ -67,24 +76,24 @@
                     {# Content #}
                     <div class="flex-1 min-w-0 pt-0.5">
                         <div class="flex items-center justify-between gap-2 {{ isAlternate ? 'flex-row-reverse' : '' }}">
-                            <h3 class="{{ sizes.title }} font-medium text-gray-900 dark:text-white">
+                            <h3 class="{{ (sizes.title ~ ' font-medium text-gray-900 dark:text-white ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                                 {{ item.title ?? '' }}
                             </h3>
                             {% if item.date is defined and item.date %}
-                                <time class="{{ sizes.date }} text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                                <time class="{{ (sizes.date ~ ' text-gray-500 dark:text-gray-400 whitespace-nowrap ' ~ dateAttrs.render('class'))|tailwind_merge }}" {{ dateAttrs.without('class') }}>
                                     {{ item.date }}
                                 </time>
                             {% endif %}
                         </div>
                         {% if item.description is defined and item.description %}
-                            <p class="mt-1 {{ sizes.desc }} text-gray-600 dark:text-gray-400">
+                            <p class="{{ ('mt-1 text-gray-600 dark:text-gray-400 ' ~ sizes.desc ~ ' ' ~ descriptionAttrs.render('class'))|tailwind_merge }}" {{ descriptionAttrs.without('class') }}>
                                 {{ item.description }}
                             </p>
                         {% endif %}
 
                         {# Tags/badges #}
                         {% if item.tags is defined and item.tags %}
-                            <div class="mt-2 flex flex-wrap gap-1 {{ isAlternate ? 'justify-end' : '' }}">
+                            <div class="{{ ('mt-2 flex flex-wrap gap-1 ' ~ (isAlternate ? 'justify-end' : '') ~ ' ' ~ tagsAttrs.render('class'))|tailwind_merge }}" {{ tagsAttrs.without('class') }}>
                                 {% for tag in item.tags %}
                                     <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                                         {{ tag }}
@@ -119,10 +128,10 @@
             {% set classes = statusClasses[status] ?? statusClasses['upcoming'] %}
             {% set icon = item.icon ?? defaultIcons[status] ?? null %}
 
-            <div class="flex flex-col items-center shrink-0 {{ not loop.last ? 'flex-1' : '' }} {{ animated ? 'animate-fade-in' : '' }}" style="{{ animated ? 'animation-delay: ' ~ (loop.index0 * 100) ~ 'ms' : '' }}">
+            <div class="{{ ('flex flex-col items-center shrink-0 ' ~ (not loop.last ? 'flex-1' : '') ~ ' ' ~ (animated ? 'animate-fade-in' : '') ~ ' ' ~ itemAttrs.render('class'))|tailwind_merge }}" {{ itemAttrs.without('class') }} style="{{ animated ? 'animation-delay: ' ~ (loop.index0 * 100) ~ 'ms' : '' }}">
                 <div class="flex items-center w-full">
                     {# Dot/Icon #}
-                    <div class="relative z-10 flex items-center justify-center {{ sizes.dot }} rounded-full shrink-0 transition-all {{ classes.dot }} {{ animated ? 'hover:scale-110' : '' }}">
+                    <div class="{{ ('relative z-10 flex items-center justify-center rounded-full shrink-0 transition-all ' ~ sizes.dot ~ ' ' ~ classes.dot ~ ' ' ~ (animated ? 'hover:scale-110' : '') ~ ' ' ~ dotAttrs.render('class'))|tailwind_merge }}" {{ dotAttrs.without('class') }}>
                         {% if icon %}
                             <twig:ux:icon :name="icon" class="{{ sizes.icon }} {{ classes.icon }}" />
                         {% endif %}
@@ -130,17 +139,17 @@
 
                     {# Connecting line #}
                     {% if not loop.last %}
-                        <div class="flex-1 h-0.5 mx-2 transition-colors {{ classes.line }}"></div>
+                        <div class="{{ ('flex-1 h-0.5 mx-2 transition-colors ' ~ classes.line ~ ' ' ~ lineAttrs.render('class'))|tailwind_merge }}" {{ lineAttrs.without('class') }}></div>
                     {% endif %}
                 </div>
 
                 {# Content #}
                 <div class="mt-2 text-center max-w-[120px]">
-                    <h3 class="{{ sizes.title }} font-medium text-gray-900 dark:text-white">
+                    <h3 class="{{ (sizes.title ~ ' font-medium text-gray-900 dark:text-white ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                         {{ item.title ?? '' }}
                     </h3>
                     {% if item.date is defined and item.date %}
-                        <time class="{{ sizes.date }} text-gray-500 dark:text-gray-400">
+                        <time class="{{ (sizes.date ~ ' text-gray-500 dark:text-gray-400 ' ~ dateAttrs.render('class'))|tailwind_merge }}" {{ dateAttrs.without('class') }}>
                             {{ item.date }}
                         </time>
                     {% endif %}

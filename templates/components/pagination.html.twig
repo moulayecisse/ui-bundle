@@ -16,6 +16,13 @@
     resultsLabel = 'results',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set infoAttrs = attributes.nested('info') %}
+{% set navAttrs = attributes.nested('nav') %}
+{% set prevAttrs = attributes.nested('prev') %}
+{% set nextAttrs = attributes.nested('next') %}
+{% set pageAttrs = attributes.nested('page') %}
+
 {# Size classes #}
 {% set sizeClasses = {
     'sm': { button: 'px-2 py-1 text-xs', icon: 'size-4', page: 'px-3 py-1' },
@@ -57,7 +64,7 @@
     <div class="{{ showMobile ? 'hidden sm:flex' : 'flex' }} sm:flex-1 sm:items-center sm:justify-between">
         {# Info section #}
         {% if showInfo %}
-            <div>
+            <div class="{{ infoAttrs.render('class')|tailwind_merge }}" {{ infoAttrs.without('class') }}>
                 <p class="{{ sizes.button }} text-gray-700 dark:text-gray-300">
                     {{ showingLabel }}
                     <span class="font-medium">{{ pagination.firstElement }}</span>
@@ -72,11 +79,12 @@
 
         {# Pagination nav #}
         <div>
-            <nav class="isolate inline-flex -space-x-px rounded-lg shadow-xs" aria-label="Pagination">
+            <nav class="{{ ('isolate inline-flex -space-x-px rounded-lg shadow-xs ' ~ navAttrs.render('class'))|tailwind_merge }}" {{ navAttrs.without('class') }} aria-label="Pagination">
                 {# Previous button #}
                 <a
                     href="{{ pagination.previousPage ?? pagination.firstPage }}"
-                    class="relative inline-flex items-center rounded-l-md {{ sizes.button }} text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 {{ pagination.previousPage is null ? 'opacity-50 pointer-events-none' : '' }}"
+                    class="{{ ('relative inline-flex items-center rounded-l-md text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 ' ~ sizes.button ~ ' ' ~ (pagination.previousPage is null ? 'opacity-50 pointer-events-none' : '') ~ ' ' ~ prevAttrs.render('class'))|tailwind_merge }}"
+                    {{ prevAttrs.without('class') }}
                     {% if pagination.previousPage is null %}aria-disabled="true"{% endif %}
                 >
                     <span class="sr-only">{{ previousLabel }}</span>
@@ -114,7 +122,8 @@
                         <a
                             href="{{ page }}"
                             data-current="{{ page.page == pagination.page ? 'true' : 'false' }}"
-                            class="relative inline-flex items-center {{ sizes.page }} font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 data-[current=true]:z-10 data-[current=true]:bg-primary data-[current=true]:text-primary-foreground dark:data-[current=true]:text-primary-foreground data-[current=true]:focus-visible:outline-2 data-[current=true]:focus-visible:outline-offset-2 data-[current=true]:focus-visible:outline-primary data-[current=true]:ring-primary"
+                            class="{{ ('relative inline-flex items-center font-semibold text-gray-900 dark:text-gray-100 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 data-[current=true]:z-10 data-[current=true]:bg-primary data-[current=true]:text-primary-foreground dark:data-[current=true]:text-primary-foreground data-[current=true]:focus-visible:outline-2 data-[current=true]:focus-visible:outline-offset-2 data-[current=true]:focus-visible:outline-primary data-[current=true]:ring-primary ' ~ sizes.page ~ ' ' ~ pageAttrs.render('class'))|tailwind_merge }}"
+                            {{ pageAttrs.without('class') }}
                             {% if page.page == pagination.page %}aria-current="page"{% endif %}
                         >
                             {{ page.page }}
@@ -125,7 +134,8 @@
                 {# Next button #}
                 <a
                     href="{{ pagination.nextPage ?? pagination.lastPage }}"
-                    class="relative inline-flex items-center rounded-r-md {{ sizes.button }} text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 {{ pagination.nextPage is null ? 'opacity-50 pointer-events-none' : '' }}"
+                    class="{{ ('relative inline-flex items-center rounded-r-md text-gray-400 dark:text-gray-600 ring-1 ring-gray-300 dark:ring-gray-700 ring-inset hover:bg-gray-50 dark:hover:bg-gray-800 focus:z-20 focus:outline-offset-0 ' ~ sizes.button ~ ' ' ~ (pagination.nextPage is null ? 'opacity-50 pointer-events-none' : '') ~ ' ' ~ nextAttrs.render('class'))|tailwind_merge }}"
+                    {{ nextAttrs.without('class') }}
                     {% if pagination.nextPage is null %}aria-disabled="true"{% endif %}
                 >
                     <span class="sr-only">{{ nextLabel }}</span>

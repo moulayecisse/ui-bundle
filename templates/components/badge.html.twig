@@ -53,6 +53,9 @@
 
 {% set contentBlock %}{% block content '' %}{% endset %}
 
+{# Nested attributes for fine-grained customization #}
+{% set dotAttrs = attributes.nested('dot') %}
+
 {% set element = href ? 'a' : 'span' %}
 
 <{{ element }}
@@ -65,7 +68,7 @@
   class="{{ class }}"
 >
   {% if dot %}
-    <span class="inline-block size-1.5 rounded-full mr-1.5 bg-current"></span>
+    <span class="{{ ('inline-block size-1.5 rounded-full mr-1.5 bg-current ' ~ dotAttrs.render('class'))|tailwind_merge }}" {{ dotAttrs.without('class') }}></span>
   {% endif %}
   {{ contentBlock|raw }}
 </{{ element }}>

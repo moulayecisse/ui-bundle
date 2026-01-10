@@ -13,6 +13,13 @@
     class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set inputAttrs = attributes.nested('input') %}
+{% set trackAttrs = attributes.nested('track') %}
+{% set thumbAttrs = attributes.nested('thumb') %}
+{% set labelAttrs = attributes.nested('label') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+
 {% set switchSizes = {
     'sm': 'h-5 w-9',
     'md': 'h-6 w-11',
@@ -49,7 +56,7 @@
     {% if labelBlock|trim or descriptionBlock|trim %}
         <div class="flex flex-col">
             {% if labelBlock|trim %}
-                <span class="text-sm font-medium text-gray-900 dark:text-white">
+                <span class="{{ ('text-sm font-medium text-gray-900 dark:text-white ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>
                     {{ labelBlock|raw }}
                     {% if required %}
                         <span class="text-red-500 ml-0.5">*</span>
@@ -57,7 +64,7 @@
                 </span>
             {% endif %}
             {% if descriptionBlock|trim %}
-                <span class="text-sm text-gray-500 dark:text-gray-400">
+                <span class="{{ ('text-sm text-gray-500 dark:text-gray-400 ' ~ descriptionAttrs.render('class'))|tailwind_merge }}" {{ descriptionAttrs.without('class') }}>
                     {{ descriptionBlock|raw }}
                 </span>
             {% endif %}
@@ -80,17 +87,20 @@
         {% if disabled %}disabled{% endif %}
         {% if required %}required{% endif %}
         value="{{ value }}"
-        class="sr-only peer"
+        class="{{ ('sr-only peer ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+        {{ inputAttrs.without('class') }}
         role="switch"
         aria-checked="{{ checked ? 'true' : 'false' }}"
     >
 
     {# Visual switch #}
     <span
-        class="{{ switchSizes[size] ?? switchSizes['md'] }} relative inline-flex shrink-0 items-center rounded-full transition-colors focus:outline-hidden peer-focus:ring-2 {{ colorConfig.ring }} peer-focus:ring-offset-2 dark:peer-focus:ring-offset-gray-900 peer-checked:{{ colorConfig.active }} bg-gray-300 dark:bg-gray-600"
+        class="{{ ((switchSizes[size] ?? switchSizes['md']) ~ ' relative inline-flex shrink-0 items-center rounded-full transition-colors focus:outline-hidden peer-focus:ring-2 ' ~ colorConfig.ring ~ ' peer-focus:ring-offset-2 dark:peer-focus:ring-offset-gray-900 peer-checked:' ~ colorConfig.active ~ ' bg-gray-300 dark:bg-gray-600 ' ~ trackAttrs.render('class'))|tailwind_merge }}"
+        {{ trackAttrs.without('class') }}
     >
         <span
-            class="{{ dotSizes[size] ?? dotSizes['md'] }} inline-block transform rounded-full bg-white shadow-sm transition-transform peer-checked:{{ translateSizes[size] ?? translateSizes['md'] }} translate-x-1"
+            class="{{ ((dotSizes[size] ?? dotSizes['md']) ~ ' inline-block transform rounded-full bg-white shadow-sm transition-transform peer-checked:' ~ (translateSizes[size] ?? translateSizes['md']) ~ ' translate-x-1 ' ~ thumbAttrs.render('class'))|tailwind_merge }}"
+            {{ thumbAttrs.without('class') }}
             aria-hidden="true"
         ></span>
     </span>
