@@ -3,13 +3,12 @@
 <div class="space-y-6">
     {# Props Documentation #}
     {{ ui.props([
-        { name: 'appName', type: 'string', default: "'App'", description: 'Application name shown in sidebar header' },
-        { name: 'appIcon', type: 'string | null', default: 'null', description: 'Icon name for app icon in sidebar' },
-        { name: 'appIconClass', type: 'string', default: "'size-5 text-white'", description: 'CSS classes for app icon' },
-        { name: 'homeLink', type: 'string | null', default: 'null', description: 'URL for logo link' },
-        { name: 'showDarkToggle', type: 'boolean', default: 'true', description: 'Show dark mode toggle in header' },
-        { name: 'userName', type: 'string | null', default: 'null', description: 'User name for header user menu' },
-        { name: 'userAvatar', type: 'string | null', default: 'null', description: 'User avatar initials (e.g., "JD")' },
+        { name: 'name', type: 'string', default: "'App'", description: 'Application name shown in sidebar header' },
+        { name: 'icon', type: 'string | null', default: 'null', description: 'Icon name for app icon in sidebar' },
+        { name: 'home', type: 'string | null', default: 'null', description: 'URL for logo link' },
+        { name: 'dark', type: 'boolean', default: 'true', description: 'Show dark mode toggle in header' },
+        { name: 'user', type: 'string | null', default: 'null', description: 'User name for header user menu' },
+        { name: 'avatar', type: 'string | null', default: 'null', description: 'User avatar initials (e.g., "JD")' },
         { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
     ]) }}
 
@@ -29,6 +28,15 @@
         { name: 'header', description: 'Customize the header element' },
         { name: 'content', description: 'Customize the main content area' },
         { name: 'menu', description: 'Customize the menu container' },
+        { name: 'icon', description: 'Customize the app icon (icon:class)' },
+        { name: 'dark', description: 'Customize the dark toggle button (dark:class)' },
+        { name: 'dark.sun', description: 'Customize the sun icon (dark:sun:icon, dark:sun:class)' },
+        { name: 'dark.moon', description: 'Customize the moon icon (dark:moon:icon, dark:moon:class)' },
+        { name: 'avatar', description: 'Customize the user avatar (avatar:class)' },
+        { name: 'user', description: 'Customize the user name (user:class)' },
+        { name: 'user.button', description: 'Customize the user menu button (user:button:class)' },
+        { name: 'user.chevron', description: 'Customize the chevron icon (user:chevron:icon, user:chevron:class)' },
+        { name: 'user.menu', description: 'Customize the user dropdown menu (user:menu:class)' },
     ]) }}
 
     {# About Base Layout #}
@@ -46,9 +54,9 @@
         </div>
     {% endset %}
     {% set aboutCode %}&lt;twig:ui:layout:base
-    appName="My Application"
-    userName="John Doe"
-    userAvatar="JD"
+    name="My Application"
+    user="John Doe"
+    avatar="JD"
 &gt;
     {% verbatim %}{% block menu %}{% endverbatim %}
         &lt;twig:ui:menu&gt;
@@ -118,7 +126,7 @@
     {% set userMenuPreview %}
         <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                The user menu appears in the header when userName or userAvatar is provided.
+                The user menu appears in the header when user or avatar is provided.
             </p>
             <div class="bg-white dark:bg-slate-950 rounded-lg p-3 inline-flex items-center gap-2 shadow">
                 <div class="size-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-sm font-medium">JD</div>
@@ -128,9 +136,9 @@
         </div>
     {% endset %}
     {% set userMenuCode %}&lt;twig:ui:layout:base
-    appName="My App"
-    userName="John Doe"
-    userAvatar="JD"
+    name="My App"
+    user="John Doe"
+    avatar="JD"
 &gt;
     {% verbatim %}{% block user_menu %}{% endverbatim %}
         &lt;a href="/profile" class="block px-4 py-2 hover:bg-gray-100"&gt;Profile&lt;/a&gt;
@@ -158,7 +166,7 @@
             </div>
         </div>
     {% endset %}
-    {% set headerActionsCode %}&lt;twig:ui:layout:base appName="My App"&gt;
+    {% set headerActionsCode %}&lt;twig:ui:layout:base name="My App"&gt;
     {% verbatim %}{% block header_actions %}{% endverbatim %}
         &lt;button class="p-2 rounded-lg hover:bg-gray-100"&gt;
             &lt;twig:ux:icon name="heroicons:bell" class="size-5" /&gt;
