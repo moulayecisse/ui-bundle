@@ -1,11 +1,10 @@
 {% props
-  appName = 'App',
-  appIcon = null,
-  appIconClass = 'size-5 text-white',
-  homeLink = null,
-  showDarkToggle = true,
-  userName = null,
-  userAvatar = null,
+  name = 'App',
+  icon = null,
+  home = null,
+  dark = true,
+  user = null,
+  avatar = null,
   class = '',
 %}
 
@@ -17,7 +16,7 @@
 {% set user_menu_block %}{% block user_menu '' %}{% endset %}
 
 <div
-  {{ attributes.without('sidebar', 'header', 'content', 'menu', 'sidebarHeader', 'sidebarFooter', 'userMenu') }}
+  {{ attributes }}
   data-controller="cisse--ui-bundle--base-layout"
   class="{{ ('font-sans relative flex h-screen overflow-hidden bg-gray-100 dark:bg-slate-900 ' ~ class)|tailwind_merge }}"
 >
@@ -39,16 +38,21 @@
       {% if sidebar_header_block|trim %}
         {{ sidebar_header_block|raw }}
       {% else %}
-        <{{ homeLink ? 'a' : 'div' }}{% if homeLink %} href="{{ homeLink }}"{% endif %} class="flex flex-1 items-center gap-3 justify-center">
-          {% if appIcon %}
+        <{{ home ? 'a' : 'div' }}{% if home %} href="{{ home }}"{% endif %} class="flex flex-1 items-center gap-3 justify-center">
+          {% if icon %}
             <div class="flex size-8 items-center justify-center rounded-lg bg-white/20 shrink-0">
-              <twig:ux:icon name="{{ appIcon }}" class="{{ appIconClass }}" />
+              <twig:ux:icon
+                      name="{{ icon }}"
+                      class="{{ ('size-5 text-white ' ~ attributes.nested('icon').render('class'))|tailwind_merge }}"
+                      {{ ...attributes.nested('icon').without('class') }}
+              />
             </div>
           {% endif %}
+
           <span class="flex-1 text-lg font-semibold text-white transition-opacity duration-300 group-data-[collapsed=true]/sidebar:lg:hidden">
-            {{ appName }}
+            {{ name }}
           </span>
-        </{{ homeLink ? 'a' : 'div' }}>
+        </{{ home ? 'a' : 'div' }}>
       {% endif %}
 
       <button
@@ -95,35 +99,61 @@
       <div class="flex items-center gap-3">
         {{ header_actions_block|raw }}
 
-        {% if showDarkToggle %}
+        {% if dark %}
           <button
             data-action="click->cisse--ui-bundle--base-layout#toggleDark"
-            class="flex items-center justify-center rounded-lg bg-gray-100 p-2 transition hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800"
+            class="{{ ('flex items-center justify-center rounded-lg bg-gray-100 p-2 transition hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800 ' ~ attributes.nested('dark').render('class'))|tailwind_merge }}"
+            {{ attributes.nested('dark').without('class') }}
           >
-            <twig:ux:icon name="heroicons:sun" data-cisse--ui-bundle--base-layout-target="sunIcon" class="size-5 text-gray-900 dark:text-gray-100 hidden dark:block" />
-            <twig:ux:icon name="heroicons:moon" data-cisse--ui-bundle--base-layout-target="moonIcon" class="size-5 text-gray-900 dark:text-gray-100 block dark:hidden" />
+            <twig:ux:icon
+              name="{{ attributes.nested('dark.sun').render('icon')|default('heroicons:sun') }}"
+              data-cisse--ui-bundle--base-layout-target="sunIcon"
+              class="{{ ('size-5 text-gray-900 dark:text-gray-100 hidden dark:block ' ~ attributes.nested('dark.sun').render('class'))|tailwind_merge }}"
+              {{ ...attributes.nested('dark.sun').without('icon', 'class') }}
+            />
+            <twig:ux:icon
+              name="{{ attributes.nested('dark.moon').render('icon')|default('heroicons:moon') }}"
+              data-cisse--ui-bundle--base-layout-target="moonIcon"
+              class="{{ ('size-5 text-gray-900 dark:text-gray-100 block dark:hidden ' ~ attributes.nested('dark.moon').render('class'))|tailwind_merge }}"
+              {{ ...attributes.nested('dark.moon').without('icon', 'class') }}
+            />
           </button>
         {% endif %}
 
         {# User Menu #}
-        {% if userName or userAvatar %}
+        {% if user or avatar %}
           <div class="relative" data-controller="cisse--ui-bundle--dropdown">
             <button
               data-action="click->cisse--ui-bundle--dropdown#toggle"
-              class="flex items-center gap-2 rounded-lg p-1.5 transition hover:bg-gray-100 dark:hover:bg-gray-800"
+              class="{{ ('flex items-center gap-2 rounded-lg p-1.5 transition hover:bg-gray-100 dark:hover:bg-gray-800 ' ~ attributes.nested('user.button').render('class'))|tailwind_merge }}"
+              {{ attributes.nested('user.button').without('class') }}
             >
-              <div class="flex size-8 items-center justify-center rounded-full bg-primary-600 text-sm font-medium text-white">
-                {{ userAvatar ?? '?' }}
+              <div
+                class="{{ ('flex size-8 items-center justify-center rounded-full bg-primary-600 text-sm font-medium text-white ' ~ attributes.nested('avatar').render('class'))|tailwind_merge }}"
+                {{ attributes.nested('avatar').without('class') }}
+              >
+                {{ avatar ?? '?' }}
               </div>
-              {% if userName %}
-                <span class="hidden text-sm font-medium text-gray-700 dark:text-gray-300 md:block">
-                  {{ userName }}
+              {% if user %}
+                <span
+                  class="{{ ('hidden text-sm font-medium text-gray-700 dark:text-gray-300 md:block ' ~ attributes.nested('user').render('class'))|tailwind_merge }}"
+                  {{ attributes.nested('user').without('class') }}
+                >
+                  {{ user }}
                 </span>
               {% endif %}
-              <twig:ux:icon name="heroicons:chevron-down" class="size-4 text-gray-500" />
+              <twig:ux:icon
+                name="{{ attributes.nested('user.chevron').render('icon')|default('heroicons:chevron-down') }}"
+                class="{{ ('size-4 text-gray-500 ' ~ attributes.nested('user.chevron').render('class'))|tailwind_merge }}"
+                {{ ...attributes.nested('user.chevron').without('icon', 'class') }}
+              />
             </button>
 
-            <div data-cisse--ui-bundle--dropdown-target="menu" class="absolute right-0 mt-2 min-w-48 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden z-50">
+            <div
+              data-cisse--ui-bundle--dropdown-target="menu"
+              class="{{ ('absolute right-0 mt-2 min-w-48 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden z-50 ' ~ attributes.nested('user.menu').render('class'))|tailwind_merge }}"
+              {{ attributes.nested('user.menu').without('class') }}
+            >
               {{ user_menu_block|raw }}
             </div>
           </div>
