@@ -13,6 +13,11 @@
   decimals = 0,
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set symbolAttrs = attributes.nested('symbol') %}
+
 {% set id = id ?? name %}
 
 {% if form %}
@@ -27,11 +32,13 @@
 
 <twig:ui:input-wrapper
   :disabled="disabled"
-  :class="class"
+  class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+  {{ ...wrapperAttrs.without('class') }}
 >
   <input
     {{ attributes }}
-    class="block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right pr-10"
+    class="{{ ('block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right pr-10 ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+    {{ inputAttrs.without('class') }}
     {% if value is not null %}value="{{ value }}"{% endif %}
     {% if name %}name="{{ name }}"{% endif %}
     {% if id %}id="{{ id }}"{% endif %}
@@ -46,7 +53,7 @@
     {{ disabled ? 'disabled' }}
   >
 
-  <span class="pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center">
+  <span class="{{ ('pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center ' ~ symbolAttrs.render('class'))|tailwind_merge }}" {{ symbolAttrs.without('class') }}>
     %
   </span>
 </twig:ui:input-wrapper>
