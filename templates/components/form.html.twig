@@ -34,7 +34,7 @@
   class="{{ class }}"
 >
   {% if form._token is defined %}
-    <twig:Ui:input :form="form._token" />
+    <twig:ui:input :form="form._token" />
   {% endif %}
 
   {% if headerBlock or title or description %}
@@ -67,7 +67,7 @@
           {% if 'hidden' in child.vars.block_prefixes %}
             <input type="hidden" name="{{ field_name(child) }}" value="{{ field_value(child) }}">
           {% else %}
-            <twig:Ui:input-group :form="child" :horizontal="horizontal" {{ ...child.vars.row_attr }} />
+            <twig:ui:input-group :form="child" :horizontal="horizontal" {{ ...child.vars.row_attr }} />
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -79,8 +79,8 @@
       {% if footerBlock %}
         {{ footerBlock|raw }}
       {% else %}
-        <twig:Ui:button type="cancel">{{ cancelLabel }}</twig:Ui:button>
-        <twig:Ui:button success type="submit">{{ submitLabel }}</twig:Ui:button>
+        <twig:ui:button type="cancel">{{ cancelLabel }}</twig:ui:button>
+        <twig:ui:button success type="submit">{{ submitLabel }}</twig:ui:button>
       {% endif %}
     </div>
   {% endif %}

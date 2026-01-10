@@ -26,24 +26,24 @@
 
     {# Basic Card #}
     {% set basicPreview %}
-        <twig:Ui:card title="Basic Card" description="Using title and description props">
+        <twig:ui:card title="Basic Card" description="Using title and description props">
             <twig:block name="content">
                 <p class="text-gray-600 dark:text-gray-400">
                     This card uses the title and description props directly.
                 </p>
             </twig:block>
-        </twig:Ui:card>
+        </twig:ui:card>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:card title="Basic Card" description="Card description">
+    {% set basicCode %}{% verbatim %}<twig:ui:card title="Basic Card" description="Card description">
     <twig:block name="content">
         <p>Card content goes here.</p>
     </twig:block>
-</twig:Ui:card>{% endverbatim %}{% endset %}
+</twig:ui:card>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Card', basicPreview, basicCode) }}
 
     {# Card with Footer #}
     {% set footerPreview %}
-        <twig:Ui:card title="Card with Footer">
+        <twig:ui:card title="Card with Footer">
             <twig:block name="content">
                 <p class="text-gray-600 dark:text-gray-400">
                     This card includes a footer section using a block.
@@ -51,51 +51,51 @@
             </twig:block>
             <twig:block name="footer">
                 <div class="flex gap-2">
-                    <twig:Ui:button variant="primary">Save</twig:Ui:button>
-                    <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+                    <twig:ui:button variant="primary">Save</twig:ui:button>
+                    <twig:ui:button variant="outline">Cancel</twig:ui:button>
                 </div>
             </twig:block>
-        </twig:Ui:card>
+        </twig:ui:card>
     {% endset %}
-    {% set footerCode %}{% verbatim %}<twig:Ui:card title="Card with Footer">
+    {% set footerCode %}{% verbatim %}<twig:ui:card title="Card with Footer">
     <twig:block name="content">
         <p>Card content here.</p>
     </twig:block>
     <twig:block name="footer">
         <div class="flex gap-2">
-            <twig:Ui:button variant="primary">Save</twig:Ui:button>
-            <twig:Ui:button variant="outline">Cancel</twig:Ui:button>
+            <twig:ui:button variant="primary">Save</twig:ui:button>
+            <twig:ui:button variant="outline">Cancel</twig:ui:button>
         </div>
     </twig:block>
-</twig:Ui:card>{% endverbatim %}{% endset %}
+</twig:ui:card>{% endverbatim %}{% endset %}
     {{ ui.story('Card with Footer', footerPreview, footerCode) }}
 
     {# Card with Actions #}
     {% set actionsPreview %}
-        <twig:Ui:card title="Card with Actions" description="Has action buttons in header">
+        <twig:ui:card title="Card with Actions" description="Has action buttons in header">
             <twig:block name="actions">
-                <twig:Ui:button variant="ghost" icon="lucide:more-vertical" />
+                <twig:ui:button variant="ghost" icon="lucide:more-vertical" />
             </twig:block>
             <twig:block name="content">
                 <p class="text-gray-600 dark:text-gray-400">
                     The actions block appears in the header area.
                 </p>
             </twig:block>
-        </twig:Ui:card>
+        </twig:ui:card>
     {% endset %}
-    {% set actionsCode %}{% verbatim %}<twig:Ui:card title="Card with Actions" description="Has action buttons">
+    {% set actionsCode %}{% verbatim %}<twig:ui:card title="Card with Actions" description="Has action buttons">
     <twig:block name="actions">
-        <twig:Ui:button variant="ghost" icon="lucide:more-vertical" />
+        <twig:ui:button variant="ghost" icon="lucide:more-vertical" />
     </twig:block>
     <twig:block name="content">
         <p>Card content here.</p>
     </twig:block>
-</twig:Ui:card>{% endverbatim %}{% endset %}
+</twig:ui:card>{% endverbatim %}{% endset %}
     {{ ui.story('Card with Actions', actionsPreview, actionsCode) }}
 
     {# Card with Dividers #}
     {% set dividersPreview %}
-        <twig:Ui:card title="Card with Dividers" divide>
+        <twig:ui:card title="Card with Dividers" divide>
             <twig:block name="content">
                 <p class="text-gray-600 dark:text-gray-400">
                     Using divide prop adds separators between sections.
@@ -104,45 +104,45 @@
             <twig:block name="footer">
                 <span class="text-sm text-gray-500">Footer with divider above</span>
             </twig:block>
-        </twig:Ui:card>
+        </twig:ui:card>
     {% endset %}
-    {% set dividersCode %}{% verbatim %}<twig:Ui:card title="Card with Dividers" divide>
+    {% set dividersCode %}{% verbatim %}<twig:ui:card title="Card with Dividers" divide>
     <twig:block name="content">
         <p>Card content here.</p>
     </twig:block>
     <twig:block name="footer">
         <span>Footer with divider above</span>
     </twig:block>
-</twig:Ui:card>{% endverbatim %}{% endset %}
+</twig:ui:card>{% endverbatim %}{% endset %}
     {{ ui.story('Card with Dividers', dividersPreview, dividersCode) }}
 
     {# Loading State #}
     {% set loadingPreview %}
         <div class="grid grid-cols-2 gap-4">
-            <twig:Ui:card loading />
-            <twig:Ui:card loading :loadingAvatar="true" :loadingActions="true" />
+            <twig:ui:card loading />
+            <twig:ui:card loading :loadingAvatar="true" :loadingActions="true" />
         </div>
     {% endset %}
     {% set loadingCode %}{% verbatim %}{# Basic loading skeleton #}
-<twig:Ui:card loading />
+<twig:ui:card loading />
 
 {# Loading with avatar and actions #}
-<twig:Ui:card loading :loadingAvatar="true" :loadingActions="true" />
+<twig:ui:card loading :loadingAvatar="true" :loadingActions="true" />
 
 {# Custom number of lines #}
-<twig:Ui:card loading :loadingLines="5" />{% endverbatim %}{% endset %}
+<twig:ui:card loading :loadingLines="5" />{% endverbatim %}{% endset %}
     {{ ui.story('Loading State', loadingPreview, loadingCode) }}
 
     {# Loading with Custom Lines #}
     {% set loadingLinesPreview %}
         <div class="grid grid-cols-3 gap-4">
-            <twig:Ui:card loading :loadingLines="2" />
-            <twig:Ui:card loading :loadingLines="4" />
-            <twig:Ui:card loading :loadingLines="6" :loadingAvatar="true" />
+            <twig:ui:card loading :loadingLines="2" />
+            <twig:ui:card loading :loadingLines="4" />
+            <twig:ui:card loading :loadingLines="6" :loadingAvatar="true" />
         </div>
     {% endset %}
-    {% set loadingLinesCode %}{% verbatim %}<twig:Ui:card loading :loadingLines="2" />
-<twig:Ui:card loading :loadingLines="4" />
-<twig:Ui:card loading :loadingLines="6" :loadingAvatar="true" />{% endverbatim %}{% endset %}
+    {% set loadingLinesCode %}{% verbatim %}<twig:ui:card loading :loadingLines="2" />
+<twig:ui:card loading :loadingLines="4" />
+<twig:ui:card loading :loadingLines="6" :loadingAvatar="true" />{% endverbatim %}{% endset %}
     {{ ui.story('Loading with Custom Lines', loadingLinesPreview, loadingLinesCode) }}
 </div>

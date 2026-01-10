@@ -89,7 +89,7 @@
                 {% for name, count in collector.components %}
                     {% set libraryUrl = _self.get_library_url(name) %}
                     <tr>
-                        <td><code>&lt;twig:Ui:{{ name|replace({':': ':'}) }}&gt;</code></td>
+                        <td><code>&lt;twig:ui:{{ name|replace({':': ':'}) }}&gt;</code></td>
                         <td>
                             {% if libraryUrl %}
                                 <a href="{{ libraryUrl }}" target="_blank">{{ libraryUrl }}</a>
@@ -149,9 +149,9 @@
             <li>
                 <div class="sf-tree-item">
                     {% if libraryUrl %}
-                        <a href="{{ libraryUrl }}" target="_blank"><code>&lt;twig:Ui:{{ item.name }}&gt;</code></a>
+                        <a href="{{ libraryUrl }}" target="_blank"><code>&lt;twig:ui:{{ item.name }}&gt;</code></a>
                     {% else %}
-                        <code>&lt;twig:Ui:{{ item.name }}&gt;</code>
+                        <code>&lt;twig:ui:{{ item.name }}&gt;</code>
                     {% endif %}
                     <span class="text-muted">({{ '%0.3f'|format(item.duration * 1000) }} ms)</span>
                 </div>

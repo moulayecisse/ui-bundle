@@ -51,6 +51,14 @@ class UiBundle extends AbstractBundle
 
     public function prependExtension(ContainerConfigurator $configurator, ContainerBuilder $container): void
     {
+        // Add lowercase "ui" Twig namespace alias to allow <twig:ui:button>
+        // in addition to <twig:Ui:button>
+        $container->prependExtensionConfig('twig', [
+            'paths' => [
+                $this->getPath() . '/templates' => 'ui',
+            ],
+        ]);
+
         if (!$this->isAssetMapperAvailable($container)) {
             return;
         }

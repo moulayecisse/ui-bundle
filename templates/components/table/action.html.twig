@@ -4,7 +4,7 @@
 {%- set contentBlock -%}{% block content '' %}{%- endset -%}
 
 {% if contentBlock %}
-  <twig:Ui:button {{ attributes }} class="{{ ('p-1.5 ' ~ class)|tailwind_merge }}">{{ contentBlock|raw }}</twig:Ui:button>
+  <twig:ui:button {{ attributes }} class="{{ ('p-1.5 ' ~ class)|tailwind_merge }}">{{ contentBlock|raw }}</twig:ui:button>
 {% else %}
-  <twig:Ui:button {{ attributes }} class="{{ ('p-1.5 ' ~ class)|tailwind_merge }}" />
+  <twig:ui:button {{ attributes }} class="{{ ('p-1.5 ' ~ class)|tailwind_merge }}" />
 {% endif %}

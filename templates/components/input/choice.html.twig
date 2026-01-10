@@ -35,13 +35,13 @@
 {% set params = params|merge({ attributes }) %}
 {% set contentBlock %}{% block content %}{% for option in choices ?? [] %}
 {% set optionLabel = option.label ?? option.value  ??  option %}
-{% set optionValue = option.value ??  option %}<twig:Ui:option
+{% set optionValue = option.value ??  option %}<twig:ui:option
     value="{{ optionValue }}"
     :selected="value == optionValue"
 >
     {{ optionLabel }}
-</twig:Ui:option>{% endfor %}{% endblock %}{% endset %}
+</twig:ui:option>{% endfor %}{% endblock %}{% endset %}
 
-<twig:Ui:select {{ ...params }}>
+<twig:ui:select {{ ...params }}>
     {{ contentBlock|raw }}
-</twig:Ui:select>
+</twig:ui:select>

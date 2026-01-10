@@ -33,7 +33,7 @@
 
 {% set triggerContent %}{% block content '' %}{% endset %}
 
-<twig:Ui:modal :open="open" :size="size" :centered="centered" hideCloseButton>
+<twig:ui:modal :open="open" :size="size" :centered="centered" hideCloseButton>
   <twig:block name="trigger">{{ triggerContent|raw }}</twig:block>
   <div class="{{ centered ? 'text-center' : '' }} {{ class }}">
     {# Icon #}
@@ -55,14 +55,14 @@
 
     {# Actions #}
     <div class="flex {{ centered ? 'justify-center' : 'justify-end' }} gap-3">
-      <twig:Ui:button
+      <twig:ui:button
         type="button"
         class="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
         :disabled="loading"
         data-action="click->cisse--ui-bundle--modal#close"
       >
         {{ cancelText }}
-      </twig:Ui:button>
+      </twig:ui:button>
       <button
         type="submit"
         class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-4 py-2 {{ config.buttonClass }}"
@@ -76,4 +76,4 @@
       </button>
     </div>
   </div>
-</twig:Ui:modal>
+</twig:ui:modal>

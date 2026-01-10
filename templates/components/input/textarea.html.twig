@@ -51,14 +51,14 @@
 <div {{ attributes }}>
     {# Label #}
     {% if label %}
-        <twig:Ui:label for="{{ _id }}" :error="hasError">
+        <twig:ui:label for="{{ _id }}" :error="hasError">
             {{ label }}
             {% if required %}<span class="text-red-500 ml-0.5">*</span>{% endif %}
-        </twig:Ui:label>
+        </twig:ui:label>
     {% endif %}
 
     {# TextArea #}
-    <twig:Ui:input-wrapper
+    <twig:ui:input-wrapper
         :disabled="disabled"
         class="{{ label ? 'mt-2' : '' }} {{ class }}"
     >
@@ -74,7 +74,7 @@
             {{ disabled ? 'disabled' }}
             {{ readonly ? 'readonly' }}
         >{{ contentBlock|raw }}</textarea>
-    </twig:Ui:input-wrapper>
+    </twig:ui:input-wrapper>
 
     {# Character count #}
     {% if showCount or maxLength %}

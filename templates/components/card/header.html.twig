@@ -8,12 +8,12 @@
 <div {{ attributes}} class="{{ class }}">
     <div class="flex flex-col flex-1 gap-2">
         {% block content %}
-            <twig:Ui:card:title {{ ...attributes.nested('title') }}>{{ titleBlock|raw }}</twig:Ui:card:title>
-            <twig:Ui:card:description {{ ...attributes.nested('description') }}>{{ descriptionBlock|raw }}</twig:Ui:card:description>
+            <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ titleBlock|raw }}</twig:ui:card:title>
+            <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ descriptionBlock|raw }}</twig:ui:card:description>
         {% endblock %}
     </div>
 
     {% block actions_wrapper %}
-        <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ actionsBlock|raw }}</twig:Ui:card:actions>
+        <twig:ui:card:actions {{ ...attributes.nested('actions') }}>{{ actionsBlock|raw }}</twig:ui:card:actions>
     {% endblock %}
 </div>

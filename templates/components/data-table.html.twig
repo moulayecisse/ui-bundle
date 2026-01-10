@@ -12,10 +12,10 @@
   class = '',
 %}
 
-<twig:Ui:table :class="class" :size="size" :variant="variant" :striped="striped" :hover="hover" :responsive="responsive" :attributes="attributes">
+<twig:ui:table :class="class" :size="size" :variant="variant" :striped="striped" :hover="hover" :responsive="responsive" :attributes="attributes">
   {% if not hideHeader %}
-    <twig:Ui:thead {{ ...attributes.nested('thead') }}>
-      <twig:Ui:tr>
+    <twig:ui:thead {{ ...attributes.nested('thead') }}>
+      <twig:ui:tr>
         {% for field in fields %}
           {% set block_content %}
             {% set block_name = 'thead_' ~ (field.name ?? field) %}
@@ -26,17 +26,17 @@
             {% endif %}
           {% endset %}
 
-          <twig:Ui:th>
+          <twig:ui:th>
             {{ block_content|raw }}
-          </twig:Ui:th>
+          </twig:ui:th>
         {% endfor %}
-      </twig:Ui:tr>
-    </twig:Ui:thead>
+      </twig:ui:tr>
+    </twig:ui:thead>
   {% endif %}
 
-  <twig:Ui:tbody {{ ...attributes.nested('tbody') }}>
+  <twig:ui:tbody {{ ...attributes.nested('tbody') }}>
     {% for item in items %}
-      <twig:Ui:tr>
+      <twig:ui:tr>
         {% for field in fields %}
           {% set block_content %}
             {% set loop_block_name = 'tbody_' ~ (field.name ?? field) ~ '_' ~ loop.index0 %}
@@ -51,25 +51,25 @@
             {% endif %}
           {% endset %}
 
-          <twig:Ui:td>
+          <twig:ui:td>
             {{ block_content }}
-          </twig:Ui:td>
+          </twig:ui:td>
         {% endfor %}
-      </twig:Ui:tr>
+      </twig:ui:tr>
     {% else %}
-      <twig:Ui:tr>
-        <twig:Ui:td colspan="{{ fields|length }}" class="text-center text-gray-500 dark:text-gray-400 py-8">{{ emptyMessage }}</twig:Ui:td>
-      </twig:Ui:tr>
+      <twig:ui:tr>
+        <twig:ui:td colspan="{{ fields|length }}" class="text-center text-gray-500 dark:text-gray-400 py-8">{{ emptyMessage }}</twig:ui:td>
+      </twig:ui:tr>
     {% endfor %}
-  </twig:Ui:tbody>
+  </twig:ui:tbody>
 
   {% if hideFooter %}
-    <twig:Ui:tfoot {{ ...attributes.nested('tbody') }}>
-      <twig:Ui:tr>
+    <twig:ui:tfoot {{ ...attributes.nested('tbody') }}>
+      <twig:ui:tr>
         {% for field in fields %}
-          <twig:Ui:th>{{ field }}</twig:Ui:th>
+          <twig:ui:th>{{ field }}</twig:ui:th>
         {% endfor %}
-      </twig:Ui:tr>
-    </twig:Ui:tfoot>
+      </twig:ui:tr>
+    </twig:ui:tfoot>
   {% endif %}
-</twig:Ui:table>
+</twig:ui:table>

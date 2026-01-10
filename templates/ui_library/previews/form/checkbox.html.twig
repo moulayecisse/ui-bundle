@@ -17,12 +17,12 @@
     {# Basic Checkbox #}
     {% set basicPreview %}
         <div class="flex items-center gap-2">
-            <twig:Ui:input:checkbox name="basic" id="basic" />
+            <twig:ui:input:checkbox name="basic" id="basic" />
             <label for="basic" class="text-sm text-gray-700 dark:text-gray-300">Basic Checkbox</label>
         </div>
     {% endset %}
     {% set basicCode %}&lt;div class="flex items-center gap-2"&gt;
-    &lt;twig:Ui:input:checkbox name="basic" id="basic" /&gt;
+    &lt;twig:ui:input:checkbox name="basic" id="basic" /&gt;
     &lt;label for="basic"&gt;Basic Checkbox&lt;/label&gt;
 &lt;/div&gt;{% endset %}
     {{ ui.story('Basic Checkbox', basicPreview, basicCode) }}
@@ -30,49 +30,49 @@
     {# Checked by Default #}
     {% set checkedPreview %}
         <div class="flex items-center gap-2">
-            <twig:Ui:input:checkbox name="checked" id="checked" checked />
+            <twig:ui:input:checkbox name="checked" id="checked" checked />
             <label for="checked" class="text-sm text-gray-700 dark:text-gray-300">Checked by Default</label>
         </div>
     {% endset %}
-    {% set checkedCode %}&lt;twig:Ui:input:checkbox name="checked" id="checked" checked /&gt;{% endset %}
+    {% set checkedCode %}&lt;twig:ui:input:checkbox name="checked" id="checked" checked /&gt;{% endset %}
     {{ ui.story('Checked by Default', checkedPreview, checkedCode) }}
 
     {# Multiple Checkboxes #}
     {% set multiplePreview %}
         <div class="space-y-3">
             <div class="flex items-center gap-2">
-                <twig:Ui:input:checkbox name="features[]" id="feature1" value="notifications" checked />
+                <twig:ui:input:checkbox name="features[]" id="feature1" value="notifications" checked />
                 <label for="feature1" class="text-sm text-gray-700 dark:text-gray-300">Email notifications</label>
             </div>
             <div class="flex items-center gap-2">
-                <twig:Ui:input:checkbox name="features[]" id="feature2" value="newsletter" />
+                <twig:ui:input:checkbox name="features[]" id="feature2" value="newsletter" />
                 <label for="feature2" class="text-sm text-gray-700 dark:text-gray-300">Newsletter subscription</label>
             </div>
             <div class="flex items-center gap-2">
-                <twig:Ui:input:checkbox name="features[]" id="feature3" value="updates" checked />
+                <twig:ui:input:checkbox name="features[]" id="feature3" value="updates" checked />
                 <label for="feature3" class="text-sm text-gray-700 dark:text-gray-300">Product updates</label>
             </div>
         </div>
     {% endset %}
-    {% set multipleCode %}&lt;twig:Ui:input:checkbox name="features[]" value="notifications" checked /&gt;
-&lt;twig:Ui:input:checkbox name="features[]" value="newsletter" /&gt;
-&lt;twig:Ui:input:checkbox name="features[]" value="updates" checked /&gt;{% endset %}
+    {% set multipleCode %}&lt;twig:ui:input:checkbox name="features[]" value="notifications" checked /&gt;
+&lt;twig:ui:input:checkbox name="features[]" value="newsletter" /&gt;
+&lt;twig:ui:input:checkbox name="features[]" value="updates" checked /&gt;{% endset %}
     {{ ui.story('Multiple Checkboxes', multiplePreview, multipleCode) }}
 
     {# Disabled States #}
     {% set disabledPreview %}
         <div class="space-y-3">
             <div class="flex items-center gap-2">
-                <twig:Ui:input:checkbox name="disabled1" id="disabled1" disabled />
+                <twig:ui:input:checkbox name="disabled1" id="disabled1" disabled />
                 <label for="disabled1" class="text-sm text-gray-400">Disabled Unchecked</label>
             </div>
             <div class="flex items-center gap-2">
-                <twig:Ui:input:checkbox name="disabled2" id="disabled2" disabled checked />
+                <twig:ui:input:checkbox name="disabled2" id="disabled2" disabled checked />
                 <label for="disabled2" class="text-sm text-gray-400">Disabled Checked</label>
             </div>
         </div>
     {% endset %}
-    {% set disabledCode %}&lt;twig:Ui:input:checkbox name="disabled" disabled /&gt;
-&lt;twig:Ui:input:checkbox name="disabled-checked" disabled checked /&gt;{% endset %}
+    {% set disabledCode %}&lt;twig:ui:input:checkbox name="disabled" disabled /&gt;
+&lt;twig:ui:input:checkbox name="disabled-checked" disabled checked /&gt;{% endset %}
     {{ ui.story('Disabled States', disabledPreview, disabledCode) }}
 </div>

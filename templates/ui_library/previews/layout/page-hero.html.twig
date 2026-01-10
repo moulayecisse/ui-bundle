@@ -22,13 +22,13 @@
     {# Basic Hero #}
     {% set basicPreview %}
         <div class="rounded-lg overflow-hidden">
-            <twig:Ui:layout:page-hero
+            <twig:ui:layout:page-hero
                 title="Welcome Back!"
                 subtitle="Here's what's happening with your projects today"
             />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    {% set basicCode %}{% verbatim %}<twig:ui:layout:page-hero
     title="Welcome Back!"
     subtitle="Here's what's happening with your projects today"
 />{% endverbatim %}{% endset %}
@@ -37,14 +37,14 @@
     {# With Badge #}
     {% set badgePreview %}
         <div class="rounded-lg overflow-hidden">
-            <twig:Ui:layout:page-hero
+            <twig:ui:layout:page-hero
                 title="Dashboard Overview"
                 subtitle="Your analytics at a glance"
                 badge="Pro Plan"
             />
         </div>
     {% endset %}
-    {% set badgeCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    {% set badgeCode %}{% verbatim %}<twig:ui:layout:page-hero
     title="Dashboard Overview"
     subtitle="Your analytics at a glance"
     badge="Pro Plan"
@@ -54,7 +54,7 @@
     {# With Stats #}
     {% set statsPreview %}
         <div class="rounded-lg overflow-hidden">
-            <twig:Ui:layout:page-hero
+            <twig:ui:layout:page-hero
                 title="Monthly Report"
                 subtitle="Performance metrics for this month"
                 :stats="[
@@ -65,7 +65,7 @@
             />
         </div>
     {% endset %}
-    {% set statsCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    {% set statsCode %}{% verbatim %}<twig:ui:layout:page-hero
     title="Monthly Report"
     subtitle="Performance metrics for this month"
     :stats="[
@@ -80,29 +80,29 @@
     {% set colorsPreview %}
         <div class="space-y-4">
             <div class="rounded-lg overflow-hidden">
-                <twig:Ui:layout:page-hero title="Primary Theme" colorScheme="primary" :showWave="false" />
+                <twig:ui:layout:page-hero title="Primary Theme" colorScheme="primary" :showWave="false" />
             </div>
             <div class="rounded-lg overflow-hidden">
-                <twig:Ui:layout:page-hero title="Violet Theme" colorScheme="violet" :showWave="false" />
+                <twig:ui:layout:page-hero title="Violet Theme" colorScheme="violet" :showWave="false" />
             </div>
             <div class="rounded-lg overflow-hidden">
-                <twig:Ui:layout:page-hero title="Emerald Theme" colorScheme="emerald" :showWave="false" />
+                <twig:ui:layout:page-hero title="Emerald Theme" colorScheme="emerald" :showWave="false" />
             </div>
             <div class="rounded-lg overflow-hidden">
-                <twig:Ui:layout:page-hero title="Rose Theme" colorScheme="rose" :showWave="false" />
+                <twig:ui:layout:page-hero title="Rose Theme" colorScheme="rose" :showWave="false" />
             </div>
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:layout:page-hero title="Primary Theme" colorScheme="primary" />
-<twig:Ui:layout:page-hero title="Violet Theme" colorScheme="violet" />
-<twig:Ui:layout:page-hero title="Emerald Theme" colorScheme="emerald" />
-<twig:Ui:layout:page-hero title="Rose Theme" colorScheme="rose" />{% endverbatim %}{% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:ui:layout:page-hero title="Primary Theme" colorScheme="primary" />
+<twig:ui:layout:page-hero title="Violet Theme" colorScheme="violet" />
+<twig:ui:layout:page-hero title="Emerald Theme" colorScheme="emerald" />
+<twig:ui:layout:page-hero title="Rose Theme" colorScheme="rose" />{% endverbatim %}{% endset %}
     {{ ui.story('Color Schemes', colorsPreview, colorsCode) }}
 
     {# Without Decorations #}
     {% set simplePreview %}
         <div class="rounded-lg overflow-hidden">
-            <twig:Ui:layout:page-hero
+            <twig:ui:layout:page-hero
                 title="Simple Hero"
                 subtitle="Clean and minimal"
                 :showBlobs="false"
@@ -110,7 +110,7 @@
             />
         </div>
     {% endset %}
-    {% set simpleCode %}{% verbatim %}<twig:Ui:layout:page-hero
+    {% set simpleCode %}{% verbatim %}<twig:ui:layout:page-hero
     title="Simple Hero"
     subtitle="Clean and minimal"
     :showBlobs="false"

@@ -20,73 +20,73 @@
             <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                 <h3 class="font-semibold text-gray-900 dark:text-white">Notifications</h3>
             </div>
-            <twig:Ui:notification-list>
-                <twig:Ui:notification-item
+            <twig:ui:notification-list>
+                <twig:ui:notification-item
                     title="New message"
                     message="You have a new message from John Doe"
                     time="2 minutes ago"
                     unread
                 />
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     title="Order shipped"
                     message="Your order #12345 has been shipped"
                     time="1 hour ago"
                 />
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     title="Payment received"
                     message="We received your payment of $99.00"
                     time="Yesterday"
                 />
-            </twig:Ui:notification-list>
+            </twig:ui:notification-list>
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:notification-list>
-    <twig:Ui:notification-item
+    {% set basicCode %}{% verbatim %}<twig:ui:notification-list>
+    <twig:ui:notification-item
         title="New message"
         message="You have a new message from John Doe"
         time="2 minutes ago"
         unread
     />
-    <twig:Ui:notification-item
+    <twig:ui:notification-item
         title="Order shipped"
         message="Your order #12345 has been shipped"
         time="1 hour ago"
     />
-    <twig:Ui:notification-item
+    <twig:ui:notification-item
         title="Payment received"
         message="We received your payment of $99.00"
         time="Yesterday"
     />
-</twig:Ui:notification-list>{% endverbatim %}{% endset %}
+</twig:ui:notification-list>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Notification List', basicPreview, basicCode) }}
 
     {# With Icons #}
     {% set iconsPreview %}
         <div class="max-w-sm bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <twig:Ui:notification-list>
-                <twig:Ui:notification-item
+            <twig:ui:notification-list>
+                <twig:ui:notification-item
                     title="New comment"
                     message="Someone commented on your post"
                     time="Just now"
                     icon="heroicons:chat-bubble-left-ellipsis"
                     unread
                 />
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     title="New follower"
                     message="Jane started following you"
                     time="5 min ago"
                     icon="heroicons:user-plus"
                 />
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     title="Like"
                     message="Your photo was liked by 5 people"
                     time="1 hour ago"
                     icon="heroicons:heart"
                 />
-            </twig:Ui:notification-list>
+            </twig:ui:notification-list>
         </div>
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:Ui:notification-item
+    {% set iconsCode %}{% verbatim %}<twig:ui:notification-item
     title="New comment"
     message="Someone commented on your post"
     time="Just now"
@@ -98,32 +98,32 @@
     {# Type Variants #}
     {% set typesPreview %}
         <div class="max-w-sm space-y-3">
-            <twig:Ui:notification-item
+            <twig:ui:notification-item
                 type="info"
                 title="Information"
                 message="Here is some helpful information for you."
             />
-            <twig:Ui:notification-item
+            <twig:ui:notification-item
                 type="success"
                 title="Success"
                 message="Your changes have been saved successfully."
             />
-            <twig:Ui:notification-item
+            <twig:ui:notification-item
                 type="warning"
                 title="Warning"
                 message="Please review the changes before continuing."
             />
-            <twig:Ui:notification-item
+            <twig:ui:notification-item
                 type="error"
                 title="Error"
                 message="Something went wrong. Please try again."
             />
         </div>
     {% endset %}
-    {% set typesCode %}{% verbatim %}<twig:Ui:notification-item type="info" title="Information" message="..." />
-<twig:Ui:notification-item type="success" title="Success" message="..." />
-<twig:Ui:notification-item type="warning" title="Warning" message="..." />
-<twig:Ui:notification-item type="error" title="Error" message="..." />{% endverbatim %}{% endset %}
+    {% set typesCode %}{% verbatim %}<twig:ui:notification-item type="info" title="Information" message="..." />
+<twig:ui:notification-item type="success" title="Success" message="..." />
+<twig:ui:notification-item type="warning" title="Warning" message="..." />
+<twig:ui:notification-item type="error" title="Error" message="..." />{% endverbatim %}{% endset %}
     {{ ui.story('Type Variants', typesPreview, typesCode) }}
 
     {# Size Variants #}
@@ -131,7 +131,7 @@
         <div class="max-w-sm space-y-3">
             <div>
                 <p class="text-xs text-gray-500 mb-2">Small</p>
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     type="success"
                     size="sm"
                     title="Small notification"
@@ -140,7 +140,7 @@
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Medium (default)</p>
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     type="success"
                     size="md"
                     title="Medium notification"
@@ -149,7 +149,7 @@
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Large</p>
-                <twig:Ui:notification-item
+                <twig:ui:notification-item
                     type="success"
                     size="lg"
                     title="Large notification"
@@ -158,8 +158,8 @@
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:notification-item size="sm" title="Small" message="..." />
-<twig:Ui:notification-item size="md" title="Medium" message="..." />
-<twig:Ui:notification-item size="lg" title="Large" message="..." />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:notification-item size="sm" title="Small" message="..." />
+<twig:ui:notification-item size="md" title="Medium" message="..." />
+<twig:ui:notification-item size="lg" title="Large" message="..." />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 </div>

@@ -26,7 +26,7 @@
     {# Basic Select with Options Prop #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="country"
                 :options="[
                     { value: 'us', label: 'United States' },
@@ -37,7 +37,7 @@
             />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:select
+    {% set basicCode %}{% verbatim %}<twig:ui:select
     name="country"
     :options="[
         { value: 'us', label: 'United States' },
@@ -50,20 +50,20 @@
     {# With Block Content #}
     {% set blockPreview %}
         <div class="max-w-md">
-            <twig:Ui:select name="fruit">
+            <twig:ui:select name="fruit">
                 <option value="">Select a fruit</option>
                 <option value="apple">Apple</option>
                 <option value="banana">Banana</option>
                 <option value="cherry">Cherry</option>
-            </twig:Ui:select>
+            </twig:ui:select>
         </div>
     {% endset %}
-    {% set blockCode %}{% verbatim %}<twig:Ui:select name="fruit">
+    {% set blockCode %}{% verbatim %}<twig:ui:select name="fruit">
     <option value="">Select a fruit</option>
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>
     <option value="cherry">Cherry</option>
-</twig:Ui:select>{% endverbatim %}{% endset %}
+</twig:ui:select>{% endverbatim %}{% endset %}
     {{ ui.story('With Block Content', blockPreview, blockCode) }}
 
     {# Size Options #}
@@ -71,7 +71,7 @@
         <div class="max-w-md space-y-4">
             <div>
                 <p class="text-xs text-gray-500 mb-1">Small (sm)</p>
-                <twig:Ui:select
+                <twig:ui:select
                     name="size_sm"
                     size="sm"
                     :options="[
@@ -83,7 +83,7 @@
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-1">Medium (md) - default</p>
-                <twig:Ui:select
+                <twig:ui:select
                     name="size_md"
                     size="md"
                     :options="[
@@ -95,7 +95,7 @@
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-1">Large (lg)</p>
-                <twig:Ui:select
+                <twig:ui:select
                     name="size_lg"
                     size="lg"
                     :options="[
@@ -107,15 +107,15 @@
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:select name="small" size="sm" :options="[...]" />
-<twig:Ui:select name="medium" size="md" :options="[...]" />
-<twig:Ui:select name="large" size="lg" :options="[...]" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:select name="small" size="sm" :options="[...]" />
+<twig:ui:select name="medium" size="md" :options="[...]" />
+<twig:ui:select name="large" size="lg" :options="[...]" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Options', sizesPreview, sizesCode) }}
 
     {# Custom Placeholder #}
     {% set placeholderPreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="priority"
                 placeholder="Choose priority level..."
                 :options="[
@@ -126,7 +126,7 @@
             />
         </div>
     {% endset %}
-    {% set placeholderCode %}{% verbatim %}<twig:Ui:select
+    {% set placeholderCode %}{% verbatim %}<twig:ui:select
     name="priority"
     placeholder="Choose priority level..."
     :options="[
@@ -140,7 +140,7 @@
     {# With Pre-selected Value #}
     {% set valuePreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="status"
                 value="active"
                 :options="[
@@ -151,7 +151,7 @@
             />
         </div>
     {% endset %}
-    {% set valueCode %}{% verbatim %}<twig:Ui:select
+    {% set valueCode %}{% verbatim %}<twig:ui:select
     name="status"
     value="active"
     :options="[
@@ -165,7 +165,7 @@
     {# Required #}
     {% set requiredPreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="required"
                 required
                 :options="[
@@ -175,13 +175,13 @@
             />
         </div>
     {% endset %}
-    {% set requiredCode %}{% verbatim %}<twig:Ui:select name="required" required :options="[...]" />{% endverbatim %}{% endset %}
+    {% set requiredCode %}{% verbatim %}<twig:ui:select name="required" required :options="[...]" />{% endverbatim %}{% endset %}
     {{ ui.story('Required', requiredPreview, requiredCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="disabled"
                 disabled
                 value="locked"
@@ -191,13 +191,13 @@
             />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:select name="disabled" disabled value="locked" :options="[...]" />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:select name="disabled" disabled value="locked" :options="[...]" />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 
     {# With Disabled Options #}
     {% set disabledOptionsPreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="plan"
                 :options="[
                     { value: 'free', label: 'Free Plan' },
@@ -207,7 +207,7 @@
             />
         </div>
     {% endset %}
-    {% set disabledOptionsCode %}{% verbatim %}<twig:Ui:select
+    {% set disabledOptionsCode %}{% verbatim %}<twig:ui:select
     name="plan"
     :options="[
         { value: 'free', label: 'Free Plan' },
@@ -220,7 +220,7 @@
     {# With Option Groups #}
     {% set groupsPreview %}
         <div class="max-w-md">
-            <twig:Ui:select name="groups">
+            <twig:ui:select name="groups">
                 <option value="">Select a fruit</option>
                 <optgroup label="Citrus">
                     <option value="orange">Orange</option>
@@ -236,10 +236,10 @@
                     <option value="mango">Mango</option>
                     <option value="pineapple">Pineapple</option>
                 </optgroup>
-            </twig:Ui:select>
+            </twig:ui:select>
         </div>
     {% endset %}
-    {% set groupsCode %}{% verbatim %}<twig:Ui:select name="groups">
+    {% set groupsCode %}{% verbatim %}<twig:ui:select name="groups">
     <option value="">Select a fruit</option>
     <optgroup label="Citrus">
         <option value="orange">Orange</option>
@@ -249,13 +249,13 @@
         <option value="strawberry">Strawberry</option>
         <option value="blueberry">Blueberry</option>
     </optgroup>
-</twig:Ui:select>{% endverbatim %}{% endset %}
+</twig:ui:select>{% endverbatim %}{% endset %}
     {{ ui.story('With Option Groups', groupsPreview, groupsCode) }}
 
     {# Simple Values #}
     {% set simplePreview %}
         <div class="max-w-md">
-            <twig:Ui:select
+            <twig:ui:select
                 name="simple"
                 placeholder="Select a color"
                 :options="['Red', 'Green', 'Blue', 'Yellow']"
@@ -263,7 +263,7 @@
         </div>
     {% endset %}
     {% set simpleCode %}{% verbatim %}{# Simple array of values (value and label are the same) #}
-<twig:Ui:select
+<twig:ui:select
     name="simple"
     placeholder="Select a color"
     :options="['Red', 'Green', 'Blue', 'Yellow']"

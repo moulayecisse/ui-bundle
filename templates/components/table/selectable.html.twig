@@ -47,7 +47,7 @@
 
                         {% if selectable %}
                             <th class="relative px-7 sm:w-12 sm:px-6">
-                                <twig:Ui:input:checkbox
+                                <twig:ui:input:checkbox
                                         type="checkbox"
                                         data-cisse--ui-bundle--selectable-target="selectAllCheckbox"
                                         data-action="change->cisse--ui-bundle--selectable#selectAll"
@@ -132,7 +132,7 @@
                                                 style="display: none;"
                                         ></div>
 
-                                        <twig:Ui:input:checkbox
+                                        <twig:ui:input:checkbox
                                                 data-cisse--ui-bundle--selectable-target="selectCheckbox"
                                                 data-action="change->cisse--ui-bundle--selectable#selectItem"
                                                 value="{{ itemId }}"

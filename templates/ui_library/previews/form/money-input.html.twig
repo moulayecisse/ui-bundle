@@ -34,10 +34,10 @@
     {# Basic Money Input #}
     {% set basicPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:money name="amount" placeholder="0.00" />
+            <twig:ui:input:money name="amount" placeholder="0.00" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:money name="amount" placeholder="0.00" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:money name="amount" placeholder="0.00" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Money Input', basicPreview, basicCode) }}
 
     {# Different Currencies #}
@@ -45,26 +45,26 @@
         <div class="max-w-xs space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">EUR (Euro) - suffix symbol</span>
-                <twig:Ui:input:money name="amount-eur" currency="EUR" :value="1234.56" />
+                <twig:ui:input:money name="amount-eur" currency="EUR" :value="1234.56" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">USD (US Dollar) - prefix symbol</span>
-                <twig:Ui:input:money name="amount-usd" currency="USD" :value="1234.56" />
+                <twig:ui:input:money name="amount-usd" currency="USD" :value="1234.56" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">GBP (British Pound) - prefix symbol</span>
-                <twig:Ui:input:money name="amount-gbp" currency="GBP" :value="1234.56" />
+                <twig:ui:input:money name="amount-gbp" currency="GBP" :value="1234.56" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">XOF (CFA Franc) - suffix symbol</span>
-                <twig:Ui:input:money name="amount-xof" currency="XOF" :value="5000" />
+                <twig:ui:input:money name="amount-xof" currency="XOF" :value="5000" />
             </div>
         </div>
     {% endset %}
-    {% set currenciesCode %}{% verbatim %}<twig:Ui:input:money currency="EUR" :value="1234.56" />
-<twig:Ui:input:money currency="USD" :value="1234.56" />
-<twig:Ui:input:money currency="GBP" :value="1234.56" />
-<twig:Ui:input:money currency="XOF" :value="5000" />{% endverbatim %}{% endset %}
+    {% set currenciesCode %}{% verbatim %}<twig:ui:input:money currency="EUR" :value="1234.56" />
+<twig:ui:input:money currency="USD" :value="1234.56" />
+<twig:ui:input:money currency="GBP" :value="1234.56" />
+<twig:ui:input:money currency="XOF" :value="5000" />{% endverbatim %}{% endset %}
     {{ ui.story('Different Currencies', currenciesPreview, currenciesCode) }}
 
     {# With Min/Max #}
@@ -73,10 +73,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400">
                 Value clamped between 0 and 1000. Values are formatted on blur.
             </p>
-            <twig:Ui:input:money name="amount-minmax" :min="0" :max="1000" :value="500" />
+            <twig:ui:input:money name="amount-minmax" :min="0" :max="1000" :value="500" />
         </div>
     {% endset %}
-    {% set minMaxCode %}{% verbatim %}<twig:Ui:input:money name="amount" :min="0" :max="1000" :value="500" />{% endverbatim %}{% endset %}
+    {% set minMaxCode %}{% verbatim %}<twig:ui:input:money name="amount" :min="0" :max="1000" :value="500" />{% endverbatim %}{% endset %}
     {{ ui.story('With Min/Max Constraints', minMaxPreview, minMaxCode) }}
 
     {# Custom Decimals #}
@@ -84,40 +84,40 @@
         <div class="max-w-xs space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">0 decimals</span>
-                <twig:Ui:input:money name="amount-dec0" :decimals="0" :value="1234" />
+                <twig:ui:input:money name="amount-dec0" :decimals="0" :value="1234" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">2 decimals (default)</span>
-                <twig:Ui:input:money name="amount-dec2" :decimals="2" :value="1234.56" />
+                <twig:ui:input:money name="amount-dec2" :decimals="2" :value="1234.56" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">4 decimals</span>
-                <twig:Ui:input:money name="amount-dec4" :decimals="4" :value="1234.5678" />
+                <twig:ui:input:money name="amount-dec4" :decimals="4" :value="1234.5678" />
             </div>
         </div>
     {% endset %}
-    {% set decimalsCode %}{% verbatim %}<twig:Ui:input:money :decimals="0" />
-<twig:Ui:input:money :decimals="2" />
-<twig:Ui:input:money :decimals="4" />{% endverbatim %}{% endset %}
+    {% set decimalsCode %}{% verbatim %}<twig:ui:input:money :decimals="0" />
+<twig:ui:input:money :decimals="2" />
+<twig:ui:input:money :decimals="4" />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Decimals', decimalsPreview, decimalsCode) }}
 
     {# With Label #}
     {% set labelPreview %}
         <div class="max-w-xs">
-            <twig:Ui:label for="amount-label">Price</twig:Ui:label>
-            <twig:Ui:input:money name="amount-label" id="amount-label" currency="EUR" required />
+            <twig:ui:label for="amount-label">Price</twig:ui:label>
+            <twig:ui:input:money name="amount-label" id="amount-label" currency="EUR" required />
         </div>
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:label for="price">Price</twig:Ui:label>
-<twig:Ui:input:money name="price" id="price" currency="EUR" required />{% endverbatim %}{% endset %}
+    {% set labelCode %}{% verbatim %}<twig:ui:label for="price">Price</twig:ui:label>
+<twig:ui:input:money name="price" id="price" currency="EUR" required />{% endverbatim %}{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:money name="amount-disabled" :value="99.99" disabled />
+            <twig:ui:input:money name="amount-disabled" :value="99.99" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:money name="amount" :value="99.99" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:money name="amount" :value="99.99" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

@@ -22,110 +22,110 @@
     {# Basic Input #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:input name="basic" label="Basic Input" placeholder="Enter text..." />
+            <twig:ui:input name="basic" label="Basic Input" placeholder="Enter text..." />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input name="basic" label="Basic Input" placeholder="Enter text..." />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input name="basic" label="Basic Input" placeholder="Enter text..." />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Input', basicPreview, basicCode) }}
 
     {# With Helper Text #}
     {% set helperPreview %}
         <div class="max-w-md">
-            <twig:Ui:input name="helper" label="With Helper Text" helper="This is some helpful text." />
+            <twig:ui:input name="helper" label="With Helper Text" helper="This is some helpful text." />
         </div>
     {% endset %}
-    {% set helperCode %}{% verbatim %}<twig:Ui:input name="helper" label="With Helper Text" helper="This is some helpful text." />{% endverbatim %}{% endset %}
+    {% set helperCode %}{% verbatim %}<twig:ui:input name="helper" label="With Helper Text" helper="This is some helpful text." />{% endverbatim %}{% endset %}
     {{ ui.story('With Helper Text', helperPreview, helperCode) }}
 
     {# Required Field #}
     {% set requiredPreview %}
         <div class="max-w-md">
-            <twig:Ui:input name="required" label="Required Field" required />
+            <twig:ui:input name="required" label="Required Field" required />
         </div>
     {% endset %}
-    {% set requiredCode %}{% verbatim %}<twig:Ui:input name="required" label="Required Field" required />{% endverbatim %}{% endset %}
+    {% set requiredCode %}{% verbatim %}<twig:ui:input name="required" label="Required Field" required />{% endverbatim %}{% endset %}
     {{ ui.story('Required', requiredPreview, requiredCode) }}
 
     {# With Icon #}
     {% set iconPreview %}
         <div class="max-w-md">
-            <twig:Ui:input name="icon" label="With Icon" icon="lucide:search" placeholder="Search..." />
+            <twig:ui:input name="icon" label="With Icon" icon="lucide:search" placeholder="Search..." />
         </div>
     {% endset %}
-    {% set iconCode %}{% verbatim %}<twig:Ui:input name="icon" label="With Icon" icon="lucide:search" placeholder="Search..." />{% endverbatim %}{% endset %}
+    {% set iconCode %}{% verbatim %}<twig:ui:input name="icon" label="With Icon" icon="lucide:search" placeholder="Search..." />{% endverbatim %}{% endset %}
     {{ ui.story('With Icon', iconPreview, iconCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-md">
-            <twig:Ui:input name="disabled" label="Disabled" value="Cannot edit this" disabled />
+            <twig:ui:input name="disabled" label="Disabled" value="Cannot edit this" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input name="disabled" label="Disabled" value="Cannot edit this" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input name="disabled" label="Disabled" value="Cannot edit this" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 
     {# With Error #}
     {% set errorPreview %}
         <div class="max-w-md">
-            <twig:Ui:input name="error" label="With Error" error="This field has an error." value="Invalid value" />
+            <twig:ui:input name="error" label="With Error" error="This field has an error." value="Invalid value" />
         </div>
     {% endset %}
-    {% set errorCode %}{% verbatim %}<twig:Ui:input name="error" label="With Error" error="This field has an error." value="Invalid value" />{% endverbatim %}{% endset %}
+    {% set errorCode %}{% verbatim %}<twig:ui:input name="error" label="With Error" error="This field has an error." value="Invalid value" />{% endverbatim %}{% endset %}
     {{ ui.story('With Error', errorPreview, errorCode) }}
 
     {# Input Types #}
     {% set typesPreview %}
         <div class="max-w-md space-y-4">
-            <twig:Ui:input name="text" type="text" label="Text" placeholder="Text input" />
-            <twig:Ui:input name="number" type="number" label="Number" placeholder="0" />
-            <twig:Ui:input name="date" type="date" label="Date" />
+            <twig:ui:input name="text" type="text" label="Text" placeholder="Text input" />
+            <twig:ui:input name="number" type="number" label="Number" placeholder="0" />
+            <twig:ui:input name="date" type="date" label="Date" />
         </div>
     {% endset %}
-    {% set typesCode %}{% verbatim %}<twig:Ui:input name="text" type="text" label="Text" placeholder="Text input" />
-<twig:Ui:input name="number" type="number" label="Number" placeholder="0" />
-<twig:Ui:input name="date" type="date" label="Date" />{% endverbatim %}{% endset %}
+    {% set typesCode %}{% verbatim %}<twig:ui:input name="text" type="text" label="Text" placeholder="Text input" />
+<twig:ui:input name="number" type="number" label="Number" placeholder="0" />
+<twig:ui:input name="date" type="date" label="Date" />{% endverbatim %}{% endset %}
     {{ ui.story('Input Types', typesPreview, typesCode) }}
 
     {# Size Variants #}
     {% set sizesPreview %}
         <div class="max-w-md space-y-4">
-            <twig:Ui:input name="size-sm" size="sm" label="Small" placeholder="Small input" />
-            <twig:Ui:input name="size-md" size="md" label="Medium (default)" placeholder="Medium input" />
-            <twig:Ui:input name="size-lg" size="lg" label="Large" placeholder="Large input" />
+            <twig:ui:input name="size-sm" size="sm" label="Small" placeholder="Small input" />
+            <twig:ui:input name="size-md" size="md" label="Medium (default)" placeholder="Medium input" />
+            <twig:ui:input name="size-lg" size="lg" label="Large" placeholder="Large input" />
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:input size="sm" label="Small" placeholder="Small input" />
-<twig:Ui:input size="md" label="Medium" placeholder="Medium input" />
-<twig:Ui:input size="lg" label="Large" placeholder="Large input" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input size="sm" label="Small" placeholder="Small input" />
+<twig:ui:input size="md" label="Medium" placeholder="Medium input" />
+<twig:ui:input size="lg" label="Large" placeholder="Large input" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 
     {# Style Variants #}
     {% set variantsPreview %}
         <div class="max-w-md space-y-4">
-            <twig:Ui:input name="var-default" variant="default" label="Default" placeholder="Default variant" />
-            <twig:Ui:input name="var-filled" variant="filled" label="Filled" placeholder="Filled variant" />
-            <twig:Ui:input name="var-flushed" variant="flushed" label="Flushed" placeholder="Flushed variant" />
-            <twig:Ui:input name="var-unstyled" variant="unstyled" label="Unstyled" placeholder="Unstyled variant" />
+            <twig:ui:input name="var-default" variant="default" label="Default" placeholder="Default variant" />
+            <twig:ui:input name="var-filled" variant="filled" label="Filled" placeholder="Filled variant" />
+            <twig:ui:input name="var-flushed" variant="flushed" label="Flushed" placeholder="Flushed variant" />
+            <twig:ui:input name="var-unstyled" variant="unstyled" label="Unstyled" placeholder="Unstyled variant" />
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:Ui:input variant="default" label="Default" />
-<twig:Ui:input variant="filled" label="Filled" />
-<twig:Ui:input variant="flushed" label="Flushed" />
-<twig:Ui:input variant="unstyled" label="Unstyled" />{% endverbatim %}{% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:input variant="default" label="Default" />
+<twig:ui:input variant="filled" label="Filled" />
+<twig:ui:input variant="flushed" label="Flushed" />
+<twig:ui:input variant="unstyled" label="Unstyled" />{% endverbatim %}{% endset %}
     {{ ui.story('Style Variants', variantsPreview, variantsCode) }}
 
     {# Rounded Variants #}
     {% set roundedPreview %}
         <div class="max-w-md space-y-4">
-            <twig:Ui:input name="round-none" rounded="none" placeholder="No rounding" />
-            <twig:Ui:input name="round-sm" rounded="sm" placeholder="Small rounding" />
-            <twig:Ui:input name="round-lg" rounded="lg" placeholder="Large rounding (default)" />
-            <twig:Ui:input name="round-full" rounded="full" placeholder="Full rounding" />
+            <twig:ui:input name="round-none" rounded="none" placeholder="No rounding" />
+            <twig:ui:input name="round-sm" rounded="sm" placeholder="Small rounding" />
+            <twig:ui:input name="round-lg" rounded="lg" placeholder="Large rounding (default)" />
+            <twig:ui:input name="round-full" rounded="full" placeholder="Full rounding" />
         </div>
     {% endset %}
-    {% set roundedCode %}{% verbatim %}<twig:Ui:input rounded="none" placeholder="No rounding" />
-<twig:Ui:input rounded="sm" placeholder="Small rounding" />
-<twig:Ui:input rounded="lg" placeholder="Large rounding" />
-<twig:Ui:input rounded="full" placeholder="Full rounding" />{% endverbatim %}{% endset %}
+    {% set roundedCode %}{% verbatim %}<twig:ui:input rounded="none" placeholder="No rounding" />
+<twig:ui:input rounded="sm" placeholder="Small rounding" />
+<twig:ui:input rounded="lg" placeholder="Large rounding" />
+<twig:ui:input rounded="full" placeholder="Full rounding" />{% endverbatim %}{% endset %}
     {{ ui.story('Rounded Variants', roundedPreview, roundedCode) }}
 </div>

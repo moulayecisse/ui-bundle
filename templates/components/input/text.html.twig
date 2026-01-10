@@ -33,7 +33,7 @@
 
 {% set currentPadding = paddingConfig[size] ?? paddingConfig['md'] %}
 
-<twig:Ui:input-wrapper
+<twig:ui:input-wrapper
   :disabled="disabled"
   :size="size"
   :variant="variant"
@@ -54,4 +54,4 @@
     {{ autofocus ? 'autofocus' }}
     {{ disabled ? 'disabled' }}
   >
-</twig:Ui:input-wrapper>
+</twig:ui:input-wrapper>

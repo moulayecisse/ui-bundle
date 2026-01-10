@@ -17,10 +17,10 @@
     {# Basic URL Input #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:input:url name="website" placeholder="https://example.com" />
+            <twig:ui:input:url name="website" placeholder="https://example.com" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:url name="website" placeholder="https://example.com" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:url name="website" placeholder="https://example.com" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic URL Input', basicPreview, basicCode) }}
 
     {# With Validation #}
@@ -29,10 +29,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400">
                 Type a URL and blur (click outside) to see validation. Valid URLs show an external link button, invalid URLs show an error icon.
             </p>
-            <twig:Ui:input:url name="url-validate" :showValidation="true" placeholder="Enter a URL..." />
+            <twig:ui:input:url name="url-validate" :showValidation="true" placeholder="Enter a URL..." />
         </div>
     {% endset %}
-    {% set validationCode %}{% verbatim %}<twig:Ui:input:url name="url" :showValidation="true" />
+    {% set validationCode %}{% verbatim %}<twig:ui:input:url name="url" :showValidation="true" />
 
 {# Click the external link icon to open a valid URL #}{% endverbatim %}{% endset %}
     {{ ui.story('With Validation', validationPreview, validationCode) }}
@@ -42,15 +42,15 @@
         <div class="max-w-md space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Valid URL</span>
-                <twig:Ui:input:url name="url-valid" value="https://example.com" />
+                <twig:ui:input:url name="url-valid" value="https://example.com" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Another valid URL</span>
-                <twig:Ui:input:url name="url-valid2" value="https://github.com/username/repo" />
+                <twig:ui:input:url name="url-valid2" value="https://github.com/username/repo" />
             </div>
         </div>
     {% endset %}
-    {% set prefilledCode %}{% verbatim %}<twig:Ui:input:url name="url" value="https://example.com" />{% endverbatim %}{% endset %}
+    {% set prefilledCode %}{% verbatim %}<twig:ui:input:url name="url" value="https://example.com" />{% endverbatim %}{% endset %}
     {{ ui.story('Pre-filled Value', prefilledPreview, prefilledCode) }}
 
     {# Sizes #}
@@ -58,32 +58,32 @@
         <div class="max-w-md space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Small</span>
-                <twig:Ui:input:url name="url-sm" size="sm" placeholder="Small URL input" />
+                <twig:ui:input:url name="url-sm" size="sm" placeholder="Small URL input" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Medium (default)</span>
-                <twig:Ui:input:url name="url-md" size="md" placeholder="Medium URL input" />
+                <twig:ui:input:url name="url-md" size="md" placeholder="Medium URL input" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Large</span>
-                <twig:Ui:input:url name="url-lg" size="lg" placeholder="Large URL input" />
+                <twig:ui:input:url name="url-lg" size="lg" placeholder="Large URL input" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:input:url size="sm" />
-<twig:Ui:input:url size="md" />
-<twig:Ui:input:url size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input:url size="sm" />
+<twig:ui:input:url size="md" />
+<twig:ui:input:url size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# With Label #}
     {% set labelPreview %}
         <div class="max-w-md">
-            <twig:Ui:label for="url-label">Website URL</twig:Ui:label>
-            <twig:Ui:input:url name="url-label" id="url-label" required />
+            <twig:ui:label for="url-label">Website URL</twig:ui:label>
+            <twig:ui:input:url name="url-label" id="url-label" required />
         </div>
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:label for="website">Website URL</twig:Ui:label>
-<twig:Ui:input:url name="website" id="website" required />{% endverbatim %}{% endset %}
+    {% set labelCode %}{% verbatim %}<twig:ui:label for="website">Website URL</twig:ui:label>
+<twig:ui:input:url name="website" id="website" required />{% endverbatim %}{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Without Validation #}
@@ -92,18 +92,18 @@
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Validation icons are hidden when <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">showValidation="false"</code>.
             </p>
-            <twig:Ui:input:url name="url-no-validate" :showValidation="false" placeholder="No validation indicators..." />
+            <twig:ui:input:url name="url-no-validate" :showValidation="false" placeholder="No validation indicators..." />
         </div>
     {% endset %}
-    {% set noValidationCode %}{% verbatim %}<twig:Ui:input:url name="url" :showValidation="false" />{% endverbatim %}{% endset %}
+    {% set noValidationCode %}{% verbatim %}<twig:ui:input:url name="url" :showValidation="false" />{% endverbatim %}{% endset %}
     {{ ui.story('Without Validation', noValidationPreview, noValidationCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-md">
-            <twig:Ui:input:url name="url-disabled" value="https://disabled.example.com" disabled />
+            <twig:ui:input:url name="url-disabled" value="https://disabled.example.com" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:url name="url" value="https://disabled.example.com" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:url name="url" value="https://disabled.example.com" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

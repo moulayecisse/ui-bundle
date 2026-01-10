@@ -4,71 +4,71 @@
     {# Basic Input Group #}
     {% set basicPreview %}
         <div class="max-w-md">
-            <twig:Ui:input-group>
-                <twig:Ui:input name="search" placeholder="Search..." />
-                <twig:Ui:button>Search</twig:Ui:button>
-            </twig:Ui:input-group>
+            <twig:ui:input-group>
+                <twig:ui:input name="search" placeholder="Search..." />
+                <twig:ui:button>Search</twig:ui:button>
+            </twig:ui:input-group>
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input-group>
-    <twig:Ui:input name="search" placeholder="Search..." />
-    <twig:Ui:button>Search</twig:Ui:button>
-</twig:Ui:input-group>{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input-group>
+    <twig:ui:input name="search" placeholder="Search..." />
+    <twig:ui:button>Search</twig:ui:button>
+</twig:ui:input-group>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Input Group', basicPreview, basicCode) }}
 
     {# With Select #}
     {% set selectPreview %}
         <div class="max-w-md">
-            <twig:Ui:input-group>
-                <twig:Ui:select name="country" class="w-32">
+            <twig:ui:input-group>
+                <twig:ui:select name="country" class="w-32">
                     <option value="us">US</option>
                     <option value="uk">UK</option>
                     <option value="fr">FR</option>
-                </twig:Ui:select>
-                <twig:Ui:input name="phone" placeholder="Phone number" />
-            </twig:Ui:input-group>
+                </twig:ui:select>
+                <twig:ui:input name="phone" placeholder="Phone number" />
+            </twig:ui:input-group>
         </div>
     {% endset %}
-    {% set selectCode %}{% verbatim %}<twig:Ui:input-group>
-    <twig:Ui:select name="country" class="w-32">
+    {% set selectCode %}{% verbatim %}<twig:ui:input-group>
+    <twig:ui:select name="country" class="w-32">
         <option value="us">US</option>
         <option value="uk">UK</option>
-    </twig:Ui:select>
-    <twig:Ui:input name="phone" placeholder="Phone number" />
-</twig:Ui:input-group>{% endverbatim %}{% endset %}
+    </twig:ui:select>
+    <twig:ui:input name="phone" placeholder="Phone number" />
+</twig:ui:input-group>{% endverbatim %}{% endset %}
     {{ ui.story('With Select', selectPreview, selectCode) }}
 
     {# URL Input #}
     {% set urlPreview %}
         <div class="max-w-md">
-            <twig:Ui:input-group>
+            <twig:ui:input-group>
                 <span class="px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-r-0 border-gray-300 dark:border-gray-700 rounded-l-lg text-gray-500 text-sm">https://</span>
-                <twig:Ui:input name="domain" placeholder="example.com" class="rounded-l-none" />
-            </twig:Ui:input-group>
+                <twig:ui:input name="domain" placeholder="example.com" class="rounded-l-none" />
+            </twig:ui:input-group>
         </div>
     {% endset %}
-    {% set urlCode %}{% verbatim %}<twig:Ui:input-group>
+    {% set urlCode %}{% verbatim %}<twig:ui:input-group>
     <span class="px-3 py-2 bg-gray-100 border border-r-0 rounded-l-lg text-gray-500">https://</span>
-    <twig:Ui:input name="domain" placeholder="example.com" class="rounded-l-none" />
-</twig:Ui:input-group>{% endverbatim %}{% endset %}
+    <twig:ui:input name="domain" placeholder="example.com" class="rounded-l-none" />
+</twig:ui:input-group>{% endverbatim %}{% endset %}
     {{ ui.story('URL Input', urlPreview, urlCode) }}
 
     {# Copy to Clipboard #}
     {% set copyPreview %}
         <div class="max-w-md">
-            <twig:Ui:input-group>
-                <twig:Ui:input name="code" value="ABC-123-XYZ" readonly />
-                <twig:Ui:button variant="outline">
+            <twig:ui:input-group>
+                <twig:ui:input name="code" value="ABC-123-XYZ" readonly />
+                <twig:ui:button variant="outline">
                     <twig:ux:icon name="heroicons:clipboard" class="size-4" />
-                </twig:Ui:button>
-            </twig:Ui:input-group>
+                </twig:ui:button>
+            </twig:ui:input-group>
         </div>
     {% endset %}
-    {% set copyCode %}{% verbatim %}<twig:Ui:input-group>
-    <twig:Ui:input name="code" value="ABC-123-XYZ" readonly />
-    <twig:Ui:button variant="outline">
+    {% set copyCode %}{% verbatim %}<twig:ui:input-group>
+    <twig:ui:input name="code" value="ABC-123-XYZ" readonly />
+    <twig:ui:button variant="outline">
         <twig:ux:icon name="heroicons:clipboard" class="size-4" />
-    </twig:Ui:button>
-</twig:Ui:input-group>{% endverbatim %}{% endset %}
+    </twig:ui:button>
+</twig:ui:input-group>{% endverbatim %}{% endset %}
     {{ ui.story('Copy to Clipboard', copyPreview, copyCode) }}
 </div>

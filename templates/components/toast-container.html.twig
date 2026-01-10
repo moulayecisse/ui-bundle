@@ -24,7 +24,7 @@
   aria-atomic="false"
 >
   {% for toast in toasts %}
-    <twig:Ui:toast
+    <twig:ui:toast
       :message="toast.message ?? ''"
       :type="toast.type ?? 'info'"
       :title="toast.title ?? null"

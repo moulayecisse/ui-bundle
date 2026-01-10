@@ -4,49 +4,49 @@
     {# Basic Toggle #}
     {% set basicPreview %}
         <div class="flex justify-center">
-            <twig:Ui:dark-mode-toggle />
+            <twig:ui:dark-mode-toggle />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:dark-mode-toggle />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:dark-mode-toggle />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Toggle', basicPreview, basicCode) }}
 
     {# Sizes #}
     {% set sizesPreview %}
         <div class="flex items-center justify-center gap-6">
             <div class="text-center">
-                <twig:Ui:dark-mode-toggle size="sm" />
+                <twig:ui:dark-mode-toggle size="sm" />
                 <p class="mt-2 text-xs text-gray-500">Small</p>
             </div>
             <div class="text-center">
-                <twig:Ui:dark-mode-toggle size="md" />
+                <twig:ui:dark-mode-toggle size="md" />
                 <p class="mt-2 text-xs text-gray-500">Medium</p>
             </div>
             <div class="text-center">
-                <twig:Ui:dark-mode-toggle size="lg" />
+                <twig:ui:dark-mode-toggle size="lg" />
                 <p class="mt-2 text-xs text-gray-500">Large</p>
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:dark-mode-toggle size="sm" />
-<twig:Ui:dark-mode-toggle size="md" />
-<twig:Ui:dark-mode-toggle size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:dark-mode-toggle size="sm" />
+<twig:ui:dark-mode-toggle size="md" />
+<twig:ui:dark-mode-toggle size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# With Label #}
     {% set labelPreview %}
         <div class="flex justify-center">
-            <twig:Ui:dark-mode-toggle showLabel />
+            <twig:ui:dark-mode-toggle showLabel />
         </div>
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:dark-mode-toggle showLabel />{% endverbatim %}{% endset %}
+    {% set labelCode %}{% verbatim %}<twig:ui:dark-mode-toggle showLabel />{% endverbatim %}{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Custom Icons #}
     {% set iconsPreview %}
         <div class="flex justify-center">
-            <twig:Ui:dark-mode-toggle lightIcon="lucide:sun" darkIcon="lucide:moon" />
+            <twig:ui:dark-mode-toggle lightIcon="lucide:sun" darkIcon="lucide:moon" />
         </div>
     {% endset %}
-    {% set iconsCode %}{% verbatim %}<twig:Ui:dark-mode-toggle lightIcon="lucide:sun" darkIcon="lucide:moon" />{% endverbatim %}{% endset %}
+    {% set iconsCode %}{% verbatim %}<twig:ui:dark-mode-toggle lightIcon="lucide:sun" darkIcon="lucide:moon" />{% endverbatim %}{% endset %}
     {{ ui.story('Custom Icons', iconsPreview, iconsCode) }}
 </div>

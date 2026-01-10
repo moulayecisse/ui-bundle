@@ -38,9 +38,9 @@
             </div>
         </div>
     {% endset %}
-    {% set basicCode %}&lt;twig:Ui:collapsible-card title="Account Settings"&gt;
+    {% set basicCode %}&lt;twig:ui:collapsible-card title="Account Settings"&gt;
     &lt;p&gt;Manage your account settings and preferences here.&lt;/p&gt;
-&lt;/twig:Ui:collapsible-card&gt;{% endset %}
+&lt;/twig:ui:collapsible-card&gt;{% endset %}
     {{ ui.story('Basic Collapsible Card', basicPreview, basicCode) }}
 
     {# With Description - Static Preview #}
@@ -75,10 +75,10 @@
             </div>
         </div>
     {% endset %}
-    {% set descriptionCode %}&lt;twig:Ui:collapsible-card title="Notifications" description="Configure how you receive notifications"&gt;
-    &lt;twig:Ui:switch name="email" label="Email notifications" checked /&gt;
-    &lt;twig:Ui:switch name="push" label="Push notifications" /&gt;
-&lt;/twig:Ui:collapsible-card&gt;{% endset %}
+    {% set descriptionCode %}&lt;twig:ui:collapsible-card title="Notifications" description="Configure how you receive notifications"&gt;
+    &lt;twig:ui:switch name="email" label="Email notifications" checked /&gt;
+    &lt;twig:ui:switch name="push" label="Push notifications" /&gt;
+&lt;/twig:ui:collapsible-card&gt;{% endset %}
     {{ ui.story('With Description', descriptionPreview, descriptionCode) }}
 
     {# Collapsed by Default - Static Preview #}
@@ -97,9 +97,9 @@
             </div>
         </div>
     {% endset %}
-    {% set collapsedCode %}&lt;twig:Ui:collapsible-card title="Advanced Options" :defaultExpanded="false"&gt;
+    {% set collapsedCode %}&lt;twig:ui:collapsible-card title="Advanced Options" :defaultExpanded="false"&gt;
     &lt;p&gt;These are advanced options that are hidden by default.&lt;/p&gt;
-&lt;/twig:Ui:collapsible-card&gt;{% endset %}
+&lt;/twig:ui:collapsible-card&gt;{% endset %}
     {{ ui.story('Collapsed by Default', collapsedPreview, collapsedCode) }}
 
     {# Multiple Cards - Static Preview #}
@@ -135,15 +135,15 @@
         </div>
     {% endset %}
     {% set multipleCode %}&lt;div class="space-y-4"&gt;
-    &lt;twig:Ui:collapsible-card title="Personal Information"&gt;
+    &lt;twig:ui:collapsible-card title="Personal Information"&gt;
         &lt;p&gt;...&lt;/p&gt;
-    &lt;/twig:Ui:collapsible-card&gt;
-    &lt;twig:Ui:collapsible-card title="Security" :defaultExpanded="false"&gt;
+    &lt;/twig:ui:collapsible-card&gt;
+    &lt;twig:ui:collapsible-card title="Security" :defaultExpanded="false"&gt;
         &lt;p&gt;...&lt;/p&gt;
-    &lt;/twig:Ui:collapsible-card&gt;
-    &lt;twig:Ui:collapsible-card title="Billing" :defaultExpanded="false"&gt;
+    &lt;/twig:ui:collapsible-card&gt;
+    &lt;twig:ui:collapsible-card title="Billing" :defaultExpanded="false"&gt;
         &lt;p&gt;...&lt;/p&gt;
-    &lt;/twig:Ui:collapsible-card&gt;
+    &lt;/twig:ui:collapsible-card&gt;
 &lt;/div&gt;{% endset %}
     {{ ui.story('Multiple Cards', multiplePreview, multipleCode) }}
 </div>

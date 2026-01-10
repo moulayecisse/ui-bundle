@@ -22,18 +22,18 @@
 >
     {# Loading State #}
     {% if loading %}
-        <twig:Ui:card>
-            <twig:Ui:skeleton:list :items="loadingItems" showAvatar showSecondary showAction />
-        </twig:Ui:card>
+        <twig:ui:card>
+            <twig:ui:skeleton:list :items="loadingItems" showAvatar showSecondary showAction />
+        </twig:ui:card>
     {% else %}
         {# Select All Header (when selectable) #}
         {% if selectable and items|length > 0 %}
             {% if selectAllBlock|trim %}
                 {{ selectAllBlock|raw }}
             {% else %}
-                <twig:Ui:card>
+                <twig:ui:card>
                     <div class="flex items-center gap-3 p-3">
-                        <twig:Ui:input:checkbox
+                        <twig:ui:input:checkbox
                             data-cisse--ui-bundle--mobile-list-target="selectAllCheckbox"
                             data-action="change->cisse--ui-bundle--mobile-list#selectAll"
                         />
@@ -45,7 +45,7 @@
                             class="text-sm text-primary font-medium hidden"
                         ></span>
                     </div>
-                </twig:Ui:card>
+                </twig:ui:card>
             {% endif %}
         {% endif %}
 
@@ -53,7 +53,7 @@
         {% for item in items %}
             {% set itemId = attribute(item, keyField) ?? loop.index0 %}
 
-            <twig:Ui:card
+            <twig:ui:card
                 data-cisse--ui-bundle--mobile-list-target="item"
                 data-item-id="{{ itemId }}"
                 class="hover:shadow-lg transition-all duration-200"
@@ -62,7 +62,7 @@
                     {# Checkbox #}
                     {% if selectable %}
                         <div class="shrink-0">
-                            <twig:Ui:input:checkbox
+                            <twig:ui:input:checkbox
                                 data-cisse--ui-bundle--mobile-list-target="itemCheckbox"
                                 data-action="change->cisse--ui-bundle--mobile-list#selectItem"
                                 value="{{ itemId }}"
@@ -86,19 +86,19 @@
                         {% block actions '' %}
                     </div>
                 </div>
-            </twig:Ui:card>
+            </twig:ui:card>
         {% else %}
             {# Empty state #}
             {% set emptyBlock %}{% block empty '' %}{% endset %}
             {% if emptyBlock is not empty %}
                 {{ emptyBlock|raw }}
             {% else %}
-                <twig:Ui:card>
+                <twig:ui:card>
                     <div class="p-8 text-center">
                         <twig:ux:icon name="heroicons:inbox-20-solid" class="size-12 mx-auto text-gray-300 dark:text-gray-600" />
                         <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ emptyLabel }}</p>
                     </div>
-                </twig:Ui:card>
+                </twig:ui:card>
             {% endif %}
         {% endfor %}
     {% endif %}

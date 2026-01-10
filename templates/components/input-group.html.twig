@@ -84,7 +84,7 @@
 
 {% set inputContent %}
   {% block input %}
-    <twig:Ui:input
+    <twig:ui:input
       {{ ...attributes.nested('input') }}
       :form="form"
       :type="type"
@@ -108,14 +108,14 @@
     {% elseif type in ['checkbox'] %}
       {{ inputContent|raw }}
 
-      <twig:Ui:label
+      <twig:ui:label
         :form="form"
         :for="for"
         :label="label"
         {{ ...attributes.nested('label') }}
       />
     {% elseif horizontal %}
-      <twig:Ui:label
+      <twig:ui:label
         :form="form"
         :for="for"
         :label="label"
@@ -132,7 +132,7 @@
         {% endif %}
       </div>
     {% else %}
-      <twig:Ui:label
+      <twig:ui:label
         :form="form"
         :for="for"
         :label="label"

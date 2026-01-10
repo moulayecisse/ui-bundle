@@ -19,19 +19,19 @@
     {# Basic Date Picker #}
     {% set basicPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:date name="date" />
+            <twig:ui:input:date name="date" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:date name="date" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:date name="date" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Date Picker', basicPreview, basicCode) }}
 
     {# With Pre-filled Value #}
     {% set valuePreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:date name="date-value" value="2024-06-15" />
+            <twig:ui:input:date name="date-value" value="2024-06-15" />
         </div>
     {% endset %}
-    {% set valueCode %}{% verbatim %}<twig:Ui:input:date name="date" value="2024-06-15" />{% endverbatim %}{% endset %}
+    {% set valueCode %}{% verbatim %}<twig:ui:input:date name="date" value="2024-06-15" />{% endverbatim %}{% endset %}
     {{ ui.story('With Pre-filled Value', valuePreview, valueCode) }}
 
     {# Different Types #}
@@ -39,42 +39,42 @@
         <div class="max-w-xs space-y-4">
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Date</span>
-                <twig:Ui:input:date name="date-type" type="date" />
+                <twig:ui:input:date name="date-type" type="date" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Date & Time</span>
-                <twig:Ui:input:date name="datetime-type" type="datetime-local" />
+                <twig:ui:input:date name="datetime-type" type="datetime-local" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Time only</span>
-                <twig:Ui:input:date name="time-type" type="time" />
+                <twig:ui:input:date name="time-type" type="time" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Month</span>
-                <twig:Ui:input:date name="month-type" type="month" />
+                <twig:ui:input:date name="month-type" type="month" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-1 block">Week</span>
-                <twig:Ui:input:date name="week-type" type="week" />
+                <twig:ui:input:date name="week-type" type="week" />
             </div>
         </div>
     {% endset %}
-    {% set typesCode %}{% verbatim %}<twig:Ui:input:date type="date" />
-<twig:Ui:input:date type="datetime-local" />
-<twig:Ui:input:date type="time" />
-<twig:Ui:input:date type="month" />
-<twig:Ui:input:date type="week" />{% endverbatim %}{% endset %}
+    {% set typesCode %}{% verbatim %}<twig:ui:input:date type="date" />
+<twig:ui:input:date type="datetime-local" />
+<twig:ui:input:date type="time" />
+<twig:ui:input:date type="month" />
+<twig:ui:input:date type="week" />{% endverbatim %}{% endset %}
     {{ ui.story('Different Types', typesPreview, typesCode) }}
 
     {# With Label #}
     {% set labelPreview %}
         <div class="max-w-xs">
-            <twig:Ui:label for="birth-date">Birth Date</twig:Ui:label>
-            <twig:Ui:input:date name="birth-date" id="birth-date" required />
+            <twig:ui:label for="birth-date">Birth Date</twig:ui:label>
+            <twig:ui:input:date name="birth-date" id="birth-date" required />
         </div>
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:label for="birth-date">Birth Date</twig:Ui:label>
-<twig:Ui:input:date name="birth-date" id="birth-date" required />{% endverbatim %}{% endset %}
+    {% set labelCode %}{% verbatim %}<twig:ui:label for="birth-date">Birth Date</twig:ui:label>
+<twig:ui:input:date name="birth-date" id="birth-date" required />{% endverbatim %}{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Date Range Example #}
@@ -82,24 +82,24 @@
         <div class="max-w-md space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <twig:Ui:label for="start-date">Start Date</twig:Ui:label>
-                    <twig:Ui:input:date name="start-date" id="start-date" />
+                    <twig:ui:label for="start-date">Start Date</twig:ui:label>
+                    <twig:ui:input:date name="start-date" id="start-date" />
                 </div>
                 <div>
-                    <twig:Ui:label for="end-date">End Date</twig:Ui:label>
-                    <twig:Ui:input:date name="end-date" id="end-date" />
+                    <twig:ui:label for="end-date">End Date</twig:ui:label>
+                    <twig:ui:input:date name="end-date" id="end-date" />
                 </div>
             </div>
         </div>
     {% endset %}
     {% set rangeCode %}{% verbatim %}<div class="grid grid-cols-2 gap-4">
     <div>
-        <twig:Ui:label for="start-date">Start Date</twig:Ui:label>
-        <twig:Ui:input:date name="start-date" id="start-date" />
+        <twig:ui:label for="start-date">Start Date</twig:ui:label>
+        <twig:ui:input:date name="start-date" id="start-date" />
     </div>
     <div>
-        <twig:Ui:label for="end-date">End Date</twig:Ui:label>
-        <twig:Ui:input:date name="end-date" id="end-date" />
+        <twig:ui:label for="end-date">End Date</twig:ui:label>
+        <twig:ui:input:date name="end-date" id="end-date" />
     </div>
 </div>{% endverbatim %}{% endset %}
     {{ ui.story('Date Range Example', rangePreview, rangeCode) }}
@@ -107,9 +107,9 @@
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-xs">
-            <twig:Ui:input:date name="date-disabled" value="2024-01-01" disabled />
+            <twig:ui:input:date name="date-disabled" value="2024-01-01" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:date name="date" value="2024-01-01" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:date name="date" value="2024-01-01" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

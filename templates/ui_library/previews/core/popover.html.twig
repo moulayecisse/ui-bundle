@@ -22,43 +22,43 @@
     {# Basic Popover #}
     {% set basicPreview %}
         <div class="flex justify-center py-8">
-            <twig:Ui:popover>
+            <twig:ui:popover>
                 <twig:block name="trigger">
-                    <twig:Ui:button>Click me</twig:Ui:button>
+                    <twig:ui:button>Click me</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">This is a popover content.</p>
-            </twig:Ui:popover>
+            </twig:ui:popover>
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:popover>
+    {% set basicCode %}{% verbatim %}<twig:ui:popover>
     {% block trigger %}
-        <twig:Ui:button>Click me</twig:Ui:button>
+        <twig:ui:button>Click me</twig:ui:button>
     {% endblock %}
     {% block content %}
         <p class="text-sm text-gray-700 dark:text-gray-300">This is a popover content.</p>
     {% endblock %}
-</twig:Ui:popover>{% endverbatim %}{% endset %}
+</twig:ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('Basic Popover', basicPreview, basicCode) }}
 
     {# Hover Popover #}
     {% set hoverPreview %}
         <div class="flex justify-center py-8">
-            <twig:Ui:popover hover>
+            <twig:ui:popover hover>
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline">Hover me</twig:Ui:button>
+                    <twig:ui:button variant="outline">Hover me</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">This appears on hover.</p>
-            </twig:Ui:popover>
+            </twig:ui:popover>
         </div>
     {% endset %}
-    {% set hoverCode %}{% verbatim %}<twig:Ui:popover hover>
+    {% set hoverCode %}{% verbatim %}<twig:ui:popover hover>
     {% block trigger %}
-        <twig:Ui:button variant="outline">Hover me</twig:Ui:button>
+        <twig:ui:button variant="outline">Hover me</twig:ui:button>
     {% endblock %}
     {% block content %}
         <p class="text-sm text-gray-700 dark:text-gray-300">This appears on hover.</p>
     {% endblock %}
-</twig:Ui:popover>{% endverbatim %}{% endset %}
+</twig:ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('Hover Popover', hoverPreview, hoverCode) }}
 
     {# Width Options - Code Example #}
@@ -78,85 +78,85 @@
             </div>
         </div>
     {% endset %}
-    {% set widthsCode %}{% verbatim %}<twig:Ui:popover width="sm">...</twig:Ui:popover>
-<twig:Ui:popover width="md">...</twig:Ui:popover>
-<twig:Ui:popover width="lg">...</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {% set widthsCode %}{% verbatim %}<twig:ui:popover width="sm">...</twig:ui:popover>
+<twig:ui:popover width="md">...</twig:ui:popover>
+<twig:ui:popover width="lg">...</twig:ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('Width Options', widthsPreview, widthsCode) }}
 
     {# With Arrow #}
     {% set arrowPreview %}
         <div class="flex justify-center py-8">
-            <twig:Ui:popover arrow>
+            <twig:ui:popover arrow>
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline">With Arrow</twig:Ui:button>
+                    <twig:ui:button variant="outline">With Arrow</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">Notice the arrow pointing to the button.</p>
-            </twig:Ui:popover>
+            </twig:ui:popover>
         </div>
     {% endset %}
-    {% set arrowCode %}{% verbatim %}<twig:Ui:popover arrow>
+    {% set arrowCode %}{% verbatim %}<twig:ui:popover arrow>
     {% block trigger %}
-        <twig:Ui:button variant="outline">With Arrow</twig:Ui:button>
+        <twig:ui:button variant="outline">With Arrow</twig:ui:button>
     {% endblock %}
     {% block content %}
         <p>Notice the arrow pointing to the button.</p>
     {% endblock %}
-</twig:Ui:popover>{% endverbatim %}{% endset %}
+</twig:ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('With Arrow', arrowPreview, arrowCode) }}
 
     {# Variant Styles #}
     {% set variantsPreview %}
         <div class="flex justify-center gap-4 py-8">
-            <twig:Ui:popover variant="default">
+            <twig:ui:popover variant="default">
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline">Default</twig:Ui:button>
+                    <twig:ui:button variant="outline">Default</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">Default light variant.</p>
-            </twig:Ui:popover>
-            <twig:Ui:popover variant="dark">
+            </twig:ui:popover>
+            <twig:ui:popover variant="dark">
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline">Dark</twig:Ui:button>
+                    <twig:ui:button variant="outline">Dark</twig:ui:button>
                 </twig:block>
                 <p class="text-sm">Dark variant popover.</p>
-            </twig:Ui:popover>
+            </twig:ui:popover>
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:Ui:popover variant="default">...</twig:Ui:popover>
-<twig:Ui:popover variant="dark">...</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:popover variant="default">...</twig:ui:popover>
+<twig:ui:popover variant="dark">...</twig:ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('Variant Styles', variantsPreview, variantsCode) }}
 
     {# Position Examples #}
     {% set positionsPreview %}
         <div class="flex flex-wrap justify-center gap-4 py-12">
-            <twig:Ui:popover position="top">
+            <twig:ui:popover position="top">
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline" size="sm">Top</twig:Ui:button>
+                    <twig:ui:button variant="outline" size="sm">Top</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">Popover on top</p>
-            </twig:Ui:popover>
-            <twig:Ui:popover position="bottom">
+            </twig:ui:popover>
+            <twig:ui:popover position="bottom">
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline" size="sm">Bottom</twig:Ui:button>
+                    <twig:ui:button variant="outline" size="sm">Bottom</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">Popover on bottom</p>
-            </twig:Ui:popover>
-            <twig:Ui:popover position="left">
+            </twig:ui:popover>
+            <twig:ui:popover position="left">
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline" size="sm">Left</twig:Ui:button>
+                    <twig:ui:button variant="outline" size="sm">Left</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">Popover on left</p>
-            </twig:Ui:popover>
-            <twig:Ui:popover position="right">
+            </twig:ui:popover>
+            <twig:ui:popover position="right">
                 <twig:block name="trigger">
-                    <twig:Ui:button variant="outline" size="sm">Right</twig:Ui:button>
+                    <twig:ui:button variant="outline" size="sm">Right</twig:ui:button>
                 </twig:block>
                 <p class="text-sm text-gray-700 dark:text-gray-300">Popover on right</p>
-            </twig:Ui:popover>
+            </twig:ui:popover>
         </div>
     {% endset %}
-    {% set positionsCode %}{% verbatim %}<twig:Ui:popover position="top">...</twig:Ui:popover>
-<twig:Ui:popover position="bottom">...</twig:Ui:popover>
-<twig:Ui:popover position="left">...</twig:Ui:popover>
-<twig:Ui:popover position="right">...</twig:Ui:popover>{% endverbatim %}{% endset %}
+    {% set positionsCode %}{% verbatim %}<twig:ui:popover position="top">...</twig:ui:popover>
+<twig:ui:popover position="bottom">...</twig:ui:popover>
+<twig:ui:popover position="left">...</twig:ui:popover>
+<twig:ui:popover position="right">...</twig:ui:popover>{% endverbatim %}{% endset %}
     {{ ui.story('Positions', positionsPreview, positionsCode) }}
 </div>

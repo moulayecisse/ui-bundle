@@ -4,7 +4,7 @@
     {# Basic Datalist #}
     {% set basicPreview %}
         <div class="max-w-md bg-white dark:bg-gray-800 rounded-lg p-4">
-            <twig:Ui:datalist :items="[
+            <twig:ui:datalist :items="[
                 { label: 'Name', value: 'John Doe' },
                 { label: 'Email', value: 'john@example.com' },
                 { label: 'Phone', value: '+1 (555) 123-4567' },
@@ -12,7 +12,7 @@
             ]" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:datalist :items="[
+    {% set basicCode %}{% verbatim %}<twig:ui:datalist :items="[
     { label: 'Name', value: 'John Doe' },
     { label: 'Email', value: 'john@example.com' },
     { label: 'Phone', value: '+1 (555) 123-4567' },
@@ -23,36 +23,36 @@
     {# With Manual Items #}
     {% set manualPreview %}
         <div class="max-w-md bg-white dark:bg-gray-800 rounded-lg p-4">
-            <twig:Ui:datalist>
+            <twig:ui:datalist>
                 {% block content %}
-                    <twig:Ui:datalist:item>
-                        <twig:Ui:datalist:label>Status</twig:Ui:datalist:label>
-                        <twig:Ui:datalist:value>
-                            <twig:Ui:badge variant="success">Active</twig:Ui:badge>
-                        </twig:Ui:datalist:value>
-                    </twig:Ui:datalist:item>
-                    <twig:Ui:datalist:item>
-                        <twig:Ui:datalist:label>Role</twig:Ui:datalist:label>
-                        <twig:Ui:datalist:value>Administrator</twig:Ui:datalist:value>
-                    </twig:Ui:datalist:item>
-                    <twig:Ui:datalist:item>
-                        <twig:Ui:datalist:label>Created</twig:Ui:datalist:label>
-                        <twig:Ui:datalist:value>January 15, 2024</twig:Ui:datalist:value>
-                    </twig:Ui:datalist:item>
+                    <twig:ui:datalist:item>
+                        <twig:ui:datalist:label>Status</twig:ui:datalist:label>
+                        <twig:ui:datalist:value>
+                            <twig:ui:badge variant="success">Active</twig:ui:badge>
+                        </twig:ui:datalist:value>
+                    </twig:ui:datalist:item>
+                    <twig:ui:datalist:item>
+                        <twig:ui:datalist:label>Role</twig:ui:datalist:label>
+                        <twig:ui:datalist:value>Administrator</twig:ui:datalist:value>
+                    </twig:ui:datalist:item>
+                    <twig:ui:datalist:item>
+                        <twig:ui:datalist:label>Created</twig:ui:datalist:label>
+                        <twig:ui:datalist:value>January 15, 2024</twig:ui:datalist:value>
+                    </twig:ui:datalist:item>
                 {% endblock %}
-            </twig:Ui:datalist>
+            </twig:ui:datalist>
         </div>
     {% endset %}
-    {% set manualCode %}{% verbatim %}<twig:Ui:datalist>
+    {% set manualCode %}{% verbatim %}<twig:ui:datalist>
     {% block content %}
-        <twig:Ui:datalist:item>
-            <twig:Ui:datalist:label>Status</twig:Ui:datalist:label>
-            <twig:Ui:datalist:value>
-                <twig:Ui:badge variant="success">Active</twig:Ui:badge>
-            </twig:Ui:datalist:value>
-        </twig:Ui:datalist:item>
+        <twig:ui:datalist:item>
+            <twig:ui:datalist:label>Status</twig:ui:datalist:label>
+            <twig:ui:datalist:value>
+                <twig:ui:badge variant="success">Active</twig:ui:badge>
+            </twig:ui:datalist:value>
+        </twig:ui:datalist:item>
         ...
     {% endblock %}
-</twig:Ui:datalist>{% endverbatim %}{% endset %}
+</twig:ui:datalist>{% endverbatim %}{% endset %}
     {{ ui.story('With Custom Content', manualPreview, manualCode) }}
 </div>

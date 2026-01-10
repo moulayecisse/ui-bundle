@@ -24,7 +24,7 @@
             { name: 'Jane Smith', email: 'jane@example.com', role: 'Editor' },
             { name: 'Bob Wilson', email: 'bob@example.com', role: 'User' },
         ] %}
-        <twig:Ui:data-table
+        <twig:ui:data-table
             :fields="[
                 { name: 'name', label: 'Name' },
                 { name: 'email', label: 'Email' },
@@ -39,7 +39,7 @@
     { name: 'Bob Wilson', email: 'bob@example.com', role: 'User' },
 ] %}
 
-<twig:Ui:data-table
+<twig:ui:data-table
     :fields="[
         { name: 'name', label: 'Name' },
         { name: 'email', label: 'Email' },
@@ -56,13 +56,13 @@
             { product: 'Widget B', price: '$49.99', stock: '75' },
             { product: 'Widget C', price: '$19.99', stock: '200' },
         ] %}
-        <twig:Ui:data-table
+        <twig:ui:data-table
             :fields="['product', 'price', 'stock']"
             :items="products"
         />
     {% endset %}
     {% set simpleCode %}{% verbatim %}{# Simple field names (uses field name as label) #}
-<twig:Ui:data-table
+<twig:ui:data-table
     :fields="['product', 'price', 'stock']"
     :items="products"
 />{% endverbatim %}{% endset %}
@@ -75,7 +75,7 @@
             { name: 'Jane Smith', status: 'inactive', role: 'Editor' },
             { name: 'Bob Wilson', status: 'active', role: 'User' },
         ] %}
-        <twig:Ui:data-table
+        <twig:ui:data-table
             :fields="[
                 { name: 'name', label: 'Name' },
                 { name: 'status', label: 'Status' },
@@ -84,24 +84,24 @@
             :items="users"
         >
             {% block tbody_status %}
-                <twig:Ui:badge :variant="item.status == 'active' ? 'success' : 'secondary'">
+                <twig:ui:badge :variant="item.status == 'active' ? 'success' : 'secondary'">
                     {{ item.status }}
-                </twig:Ui:badge>
+                </twig:ui:badge>
             {% endblock %}
-        </twig:Ui:data-table>
+        </twig:ui:data-table>
     {% endset %}
-    {% set customCode %}{% verbatim %}<twig:Ui:data-table :fields="fields" :items="users">
+    {% set customCode %}{% verbatim %}<twig:ui:data-table :fields="fields" :items="users">
     {% block tbody_status %}
-        <twig:Ui:badge :variant="item.status == 'active' ? 'success' : 'secondary'">
+        <twig:ui:badge :variant="item.status == 'active' ? 'success' : 'secondary'">
             {{ item.status }}
-        </twig:Ui:badge>
+        </twig:ui:badge>
     {% endblock %}
-</twig:Ui:data-table>{% endverbatim %}{% endset %}
+</twig:ui:data-table>{% endverbatim %}{% endset %}
     {{ ui.story('With Custom Cell Content', customPreview, customCode) }}
 
     {# Empty State #}
     {% set emptyPreview %}
-        <twig:Ui:data-table
+        <twig:ui:data-table
             :fields="[
                 { name: 'name', label: 'Name' },
                 { name: 'email', label: 'Email' }
@@ -109,7 +109,7 @@
             :items="[]"
         />
     {% endset %}
-    {% set emptyCode %}{% verbatim %}<twig:Ui:data-table
+    {% set emptyCode %}{% verbatim %}<twig:ui:data-table
     :fields="fields"
     :items="[]"
 />

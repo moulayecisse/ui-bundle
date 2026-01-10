@@ -30,10 +30,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Enter a 6-digit code. Try typing or pasting a code like "123456".
             </p>
-            <twig:Ui:input:otp name="otp" :autoFocus="false" />
+            <twig:ui:input:otp name="otp" :autoFocus="false" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:otp name="otp" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:otp name="otp" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic OTP Input', basicPreview, basicCode) }}
 
     {# Different Lengths #}
@@ -41,21 +41,21 @@
         <div class="space-y-6">
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">4 digits</span>
-                <twig:Ui:input:otp name="otp-4" :length="4" :autoFocus="false" />
+                <twig:ui:input:otp name="otp-4" :length="4" :autoFocus="false" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">6 digits (default)</span>
-                <twig:Ui:input:otp name="otp-6" :length="6" :autoFocus="false" />
+                <twig:ui:input:otp name="otp-6" :length="6" :autoFocus="false" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">8 digits</span>
-                <twig:Ui:input:otp name="otp-8" :length="8" :autoFocus="false" />
+                <twig:ui:input:otp name="otp-8" :length="8" :autoFocus="false" />
             </div>
         </div>
     {% endset %}
-    {% set lengthsCode %}{% verbatim %}<twig:Ui:input:otp :length="4" />
-<twig:Ui:input:otp :length="6" />
-<twig:Ui:input:otp :length="8" />{% endverbatim %}{% endset %}
+    {% set lengthsCode %}{% verbatim %}<twig:ui:input:otp :length="4" />
+<twig:ui:input:otp :length="6" />
+<twig:ui:input:otp :length="8" />{% endverbatim %}{% endset %}
     {{ ui.story('Different Lengths', lengthsPreview, lengthsCode) }}
 
     {# Sizes #}
@@ -63,21 +63,21 @@
         <div class="space-y-6">
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Small</span>
-                <twig:Ui:input:otp name="otp-sm" size="sm" :length="4" :autoFocus="false" />
+                <twig:ui:input:otp name="otp-sm" size="sm" :length="4" :autoFocus="false" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Medium (default)</span>
-                <twig:Ui:input:otp name="otp-md" size="md" :length="4" :autoFocus="false" />
+                <twig:ui:input:otp name="otp-md" size="md" :length="4" :autoFocus="false" />
             </div>
             <div>
                 <span class="text-xs text-gray-500 mb-2 block">Large</span>
-                <twig:Ui:input:otp name="otp-lg" size="lg" :length="4" :autoFocus="false" />
+                <twig:ui:input:otp name="otp-lg" size="lg" :length="4" :autoFocus="false" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:input:otp size="sm" />
-<twig:Ui:input:otp size="md" />
-<twig:Ui:input:otp size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input:otp size="sm" />
+<twig:ui:input:otp size="md" />
+<twig:ui:input:otp size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
 
     {# Masked #}
@@ -86,10 +86,10 @@
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 Masked mode hides the digits for additional security (useful for PINs).
             </p>
-            <twig:Ui:input:otp name="otp-masked" :masked="true" :length="4" :autoFocus="false" />
+            <twig:ui:input:otp name="otp-masked" :masked="true" :length="4" :autoFocus="false" />
         </div>
     {% endset %}
-    {% set maskedCode %}{% verbatim %}<twig:Ui:input:otp name="pin" :masked="true" :length="4" />{% endverbatim %}{% endset %}
+    {% set maskedCode %}{% verbatim %}<twig:ui:input:otp name="pin" :masked="true" :length="4" />{% endverbatim %}{% endset %}
     {{ ui.story('Masked (PIN mode)', maskedPreview, maskedCode) }}
 
     {# Verification Example #}
@@ -106,9 +106,9 @@
                     We sent a code to your email. Enter it below to continue.
                 </p>
                 <div class="flex justify-center mb-6">
-                    <twig:Ui:input:otp name="verify-otp" :autoFocus="false" />
+                    <twig:ui:input:otp name="verify-otp" :autoFocus="false" />
                 </div>
-                <twig:Ui:button variant="primary" class="w-full">Verify</twig:Ui:button>
+                <twig:ui:button variant="primary" class="w-full">Verify</twig:ui:button>
                 <p class="text-sm text-gray-500 mt-4">
                     Didn't receive the code? <a href="#" class="text-primary-500 hover:underline">Resend</a>
                 </p>
@@ -116,16 +116,16 @@
         </div>
     {% endset %}
     {% set verificationCode %}{% verbatim %}{# Email verification example #}
-<twig:Ui:input:otp name="verification_code" />
-<twig:Ui:button variant="primary">Verify</twig:Ui:button>{% endverbatim %}{% endset %}
+<twig:ui:input:otp name="verification_code" />
+<twig:ui:button variant="primary">Verify</twig:ui:button>{% endverbatim %}{% endset %}
     {{ ui.story('Verification Example', verificationPreview, verificationCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div>
-            <twig:Ui:input:otp name="otp-disabled" :length="4" :autoFocus="false" disabled />
+            <twig:ui:input:otp name="otp-disabled" :length="4" :autoFocus="false" disabled />
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:otp name="otp" disabled />{% endverbatim %}{% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:otp name="otp" disabled />{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 </div>

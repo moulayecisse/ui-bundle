@@ -15,8 +15,8 @@
 
     {# Slots Documentation #}
     {{ ui.slots([
-        { name: 'thead', description: 'Table header rows (&lt;twig:Ui:tr&gt; with &lt;twig:Ui:th&gt; cells)' },
-        { name: 'tbody', description: 'Table body rows (&lt;twig:Ui:tr&gt; with &lt;twig:Ui:td&gt; cells)' },
+        { name: 'thead', description: 'Table header rows (&lt;twig:ui:tr&gt; with &lt;twig:ui:th&gt; cells)' },
+        { name: 'tbody', description: 'Table body rows (&lt;twig:ui:tr&gt; with &lt;twig:ui:td&gt; cells)' },
         { name: 'tfoot', description: 'Optional table footer rows' },
     ]) }}
 
@@ -32,166 +32,166 @@
 
     {# Basic Table #}
     {% set basicPreview %}
-        <twig:Ui:table>
+        <twig:ui:table>
             {% block thead %}
-                <twig:Ui:tr>
-                    <twig:Ui:th>Name</twig:Ui:th>
-                    <twig:Ui:th>Email</twig:Ui:th>
-                    <twig:Ui:th>Role</twig:Ui:th>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:th>Name</twig:ui:th>
+                    <twig:ui:th>Email</twig:ui:th>
+                    <twig:ui:th>Role</twig:ui:th>
+                </twig:ui:tr>
             {% endblock %}
             {% block tbody %}
-                <twig:Ui:tr>
-                    <twig:Ui:td>John Doe</twig:Ui:td>
-                    <twig:Ui:td>john@example.com</twig:Ui:td>
-                    <twig:Ui:td>Admin</twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr>
-                    <twig:Ui:td>Jane Smith</twig:Ui:td>
-                    <twig:Ui:td>jane@example.com</twig:Ui:td>
-                    <twig:Ui:td>Editor</twig:Ui:td>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>John Doe</twig:ui:td>
+                    <twig:ui:td>john@example.com</twig:ui:td>
+                    <twig:ui:td>Admin</twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Jane Smith</twig:ui:td>
+                    <twig:ui:td>jane@example.com</twig:ui:td>
+                    <twig:ui:td>Editor</twig:ui:td>
+                </twig:ui:tr>
             {% endblock %}
-        </twig:Ui:table>
+        </twig:ui:table>
     {% endset %}
-    {% set basicCode %}&lt;twig:Ui:table&gt;
+    {% set basicCode %}&lt;twig:ui:table&gt;
     {% verbatim %}{% block thead %}{% endverbatim %}
-        &lt;twig:Ui:tr&gt;
-            &lt;twig:Ui:th&gt;Name&lt;/twig:Ui:th&gt;
-            &lt;twig:Ui:th&gt;Email&lt;/twig:Ui:th&gt;
-            &lt;twig:Ui:th&gt;Role&lt;/twig:Ui:th&gt;
-        &lt;/twig:Ui:tr&gt;
+        &lt;twig:ui:tr&gt;
+            &lt;twig:ui:th&gt;Name&lt;/twig:ui:th&gt;
+            &lt;twig:ui:th&gt;Email&lt;/twig:ui:th&gt;
+            &lt;twig:ui:th&gt;Role&lt;/twig:ui:th&gt;
+        &lt;/twig:ui:tr&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
     {% verbatim %}{% block tbody %}{% endverbatim %}
-        &lt;twig:Ui:tr&gt;
-            &lt;twig:Ui:td&gt;John Doe&lt;/twig:Ui:td&gt;
-            &lt;twig:Ui:td&gt;john@example.com&lt;/twig:Ui:td&gt;
-            &lt;twig:Ui:td&gt;Admin&lt;/twig:Ui:td&gt;
-        &lt;/twig:Ui:tr&gt;
+        &lt;twig:ui:tr&gt;
+            &lt;twig:ui:td&gt;John Doe&lt;/twig:ui:td&gt;
+            &lt;twig:ui:td&gt;john@example.com&lt;/twig:ui:td&gt;
+            &lt;twig:ui:td&gt;Admin&lt;/twig:ui:td&gt;
+        &lt;/twig:ui:tr&gt;
     {% verbatim %}{% endblock %}{% endverbatim %}
-&lt;/twig:Ui:table&gt;{% endset %}
+&lt;/twig:ui:table&gt;{% endset %}
     {{ ui.story('Basic Table', basicPreview, basicCode) }}
 
     {# Striped and Hover #}
     {% set stripedPreview %}
-        <twig:Ui:table striped hover>
+        <twig:ui:table striped hover>
             {% block thead %}
-                <twig:Ui:tr>
-                    <twig:Ui:th>Name</twig:Ui:th>
-                    <twig:Ui:th>Email</twig:Ui:th>
-                    <twig:Ui:th>Role</twig:Ui:th>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:th>Name</twig:ui:th>
+                    <twig:ui:th>Email</twig:ui:th>
+                    <twig:ui:th>Role</twig:ui:th>
+                </twig:ui:tr>
             {% endblock %}
             {% block tbody %}
-                <twig:Ui:tr>
-                    <twig:Ui:td>John Doe</twig:Ui:td>
-                    <twig:Ui:td>john@example.com</twig:Ui:td>
-                    <twig:Ui:td>Admin</twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr>
-                    <twig:Ui:td>Jane Smith</twig:Ui:td>
-                    <twig:Ui:td>jane@example.com</twig:Ui:td>
-                    <twig:Ui:td>Editor</twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr>
-                    <twig:Ui:td>Bob Wilson</twig:Ui:td>
-                    <twig:Ui:td>bob@example.com</twig:Ui:td>
-                    <twig:Ui:td>User</twig:Ui:td>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>John Doe</twig:ui:td>
+                    <twig:ui:td>john@example.com</twig:ui:td>
+                    <twig:ui:td>Admin</twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Jane Smith</twig:ui:td>
+                    <twig:ui:td>jane@example.com</twig:ui:td>
+                    <twig:ui:td>Editor</twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Bob Wilson</twig:ui:td>
+                    <twig:ui:td>bob@example.com</twig:ui:td>
+                    <twig:ui:td>User</twig:ui:td>
+                </twig:ui:tr>
             {% endblock %}
-        </twig:Ui:table>
+        </twig:ui:table>
     {% endset %}
-    {% set stripedCode %}&lt;twig:Ui:table striped hover&gt;
+    {% set stripedCode %}&lt;twig:ui:table striped hover&gt;
     ...
-&lt;/twig:Ui:table&gt;{% endset %}
+&lt;/twig:ui:table&gt;{% endset %}
     {{ ui.story('Striped with Hover', stripedPreview, stripedCode) }}
 
     {# Sortable Headers #}
     {% set sortablePreview %}
-        <twig:Ui:table>
+        <twig:ui:table>
             {% block thead %}
-                <twig:Ui:tr>
-                    <twig:Ui:th sortable sorted="asc">Name</twig:Ui:th>
-                    <twig:Ui:th sortable>Email</twig:Ui:th>
-                    <twig:Ui:th sortable align="right">Amount</twig:Ui:th>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:th sortable sorted="asc">Name</twig:ui:th>
+                    <twig:ui:th sortable>Email</twig:ui:th>
+                    <twig:ui:th sortable align="right">Amount</twig:ui:th>
+                </twig:ui:tr>
             {% endblock %}
             {% block tbody %}
-                <twig:Ui:tr>
-                    <twig:Ui:td>Alice</twig:Ui:td>
-                    <twig:Ui:td>alice@example.com</twig:Ui:td>
-                    <twig:Ui:td align="right">$120.00</twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr>
-                    <twig:Ui:td>Bob</twig:Ui:td>
-                    <twig:Ui:td>bob@example.com</twig:Ui:td>
-                    <twig:Ui:td align="right">$85.50</twig:Ui:td>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Alice</twig:ui:td>
+                    <twig:ui:td>alice@example.com</twig:ui:td>
+                    <twig:ui:td align="right">$120.00</twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Bob</twig:ui:td>
+                    <twig:ui:td>bob@example.com</twig:ui:td>
+                    <twig:ui:td align="right">$85.50</twig:ui:td>
+                </twig:ui:tr>
             {% endblock %}
-        </twig:Ui:table>
+        </twig:ui:table>
     {% endset %}
-    {% set sortableCode %}&lt;twig:Ui:th sortable sorted="asc"&gt;Name&lt;/twig:Ui:th&gt;
-&lt;twig:Ui:th sortable&gt;Email&lt;/twig:Ui:th&gt;
-&lt;twig:Ui:th sortable align="right"&gt;Amount&lt;/twig:Ui:th&gt;{% endset %}
+    {% set sortableCode %}&lt;twig:ui:th sortable sorted="asc"&gt;Name&lt;/twig:ui:th&gt;
+&lt;twig:ui:th sortable&gt;Email&lt;/twig:ui:th&gt;
+&lt;twig:ui:th sortable align="right"&gt;Amount&lt;/twig:ui:th&gt;{% endset %}
     {{ ui.story('Sortable Headers', sortablePreview, sortableCode) }}
 
     {# Card Variant #}
     {% set cardPreview %}
-        <twig:Ui:table variant="card" striped>
+        <twig:ui:table variant="card" striped>
             {% block thead %}
-                <twig:Ui:tr>
-                    <twig:Ui:th>Product</twig:Ui:th>
-                    <twig:Ui:th align="right">Price</twig:Ui:th>
-                    <twig:Ui:th align="center">Stock</twig:Ui:th>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:th>Product</twig:ui:th>
+                    <twig:ui:th align="right">Price</twig:ui:th>
+                    <twig:ui:th align="center">Stock</twig:ui:th>
+                </twig:ui:tr>
             {% endblock %}
             {% block tbody %}
-                <twig:Ui:tr>
-                    <twig:Ui:td>Widget A</twig:Ui:td>
-                    <twig:Ui:td align="right">$29.99</twig:Ui:td>
-                    <twig:Ui:td align="center">150</twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr>
-                    <twig:Ui:td>Widget B</twig:Ui:td>
-                    <twig:Ui:td align="right">$49.99</twig:Ui:td>
-                    <twig:Ui:td align="center">75</twig:Ui:td>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Widget A</twig:ui:td>
+                    <twig:ui:td align="right">$29.99</twig:ui:td>
+                    <twig:ui:td align="center">150</twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Widget B</twig:ui:td>
+                    <twig:ui:td align="right">$49.99</twig:ui:td>
+                    <twig:ui:td align="center">75</twig:ui:td>
+                </twig:ui:tr>
             {% endblock %}
-        </twig:Ui:table>
+        </twig:ui:table>
     {% endset %}
-    {% set cardCode %}&lt;twig:Ui:table variant="card" striped&gt;
+    {% set cardCode %}&lt;twig:ui:table variant="card" striped&gt;
     ...
-&lt;/twig:Ui:table&gt;{% endset %}
+&lt;/twig:ui:table&gt;{% endset %}
     {{ ui.story('Card Variant', cardPreview, cardCode) }}
 
     {# Row States #}
     {% set statesPreview %}
-        <twig:Ui:table hover>
+        <twig:ui:table hover>
             {% block thead %}
-                <twig:Ui:tr>
-                    <twig:Ui:th>Item</twig:Ui:th>
-                    <twig:Ui:th>Status</twig:Ui:th>
-                </twig:Ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:th>Item</twig:ui:th>
+                    <twig:ui:th>Status</twig:ui:th>
+                </twig:ui:tr>
             {% endblock %}
             {% block tbody %}
-                <twig:Ui:tr selected>
-                    <twig:Ui:td>Selected Row</twig:Ui:td>
-                    <twig:Ui:td><twig:Ui:badge color="primary">Selected</twig:Ui:badge></twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr>
-                    <twig:Ui:td>Normal Row</twig:Ui:td>
-                    <twig:Ui:td><twig:Ui:badge color="gray">Normal</twig:Ui:badge></twig:Ui:td>
-                </twig:Ui:tr>
-                <twig:Ui:tr disabled>
-                    <twig:Ui:td>Disabled Row</twig:Ui:td>
-                    <twig:Ui:td><twig:Ui:badge color="gray">Disabled</twig:Ui:badge></twig:Ui:td>
-                </twig:Ui:tr>
+                <twig:ui:tr selected>
+                    <twig:ui:td>Selected Row</twig:ui:td>
+                    <twig:ui:td><twig:ui:badge color="primary">Selected</twig:ui:badge></twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr>
+                    <twig:ui:td>Normal Row</twig:ui:td>
+                    <twig:ui:td><twig:ui:badge color="gray">Normal</twig:ui:badge></twig:ui:td>
+                </twig:ui:tr>
+                <twig:ui:tr disabled>
+                    <twig:ui:td>Disabled Row</twig:ui:td>
+                    <twig:ui:td><twig:ui:badge color="gray">Disabled</twig:ui:badge></twig:ui:td>
+                </twig:ui:tr>
             {% endblock %}
-        </twig:Ui:table>
+        </twig:ui:table>
     {% endset %}
-    {% set statesCode %}&lt;twig:Ui:tr selected&gt;...&lt;/twig:Ui:tr&gt;
-&lt;twig:Ui:tr&gt;...&lt;/twig:Ui:tr&gt;
-&lt;twig:Ui:tr disabled&gt;...&lt;/twig:Ui:tr&gt;{% endset %}
+    {% set statesCode %}&lt;twig:ui:tr selected&gt;...&lt;/twig:ui:tr&gt;
+&lt;twig:ui:tr&gt;...&lt;/twig:ui:tr&gt;
+&lt;twig:ui:tr disabled&gt;...&lt;/twig:ui:tr&gt;{% endset %}
     {{ ui.story('Row States', statesPreview, statesCode) }}
 
     {# Size Variants #}
@@ -199,41 +199,41 @@
         <div class="space-y-8">
             <div>
                 <p class="text-sm font-medium text-gray-500 mb-2">Small</p>
-                <twig:Ui:table size="sm" compact>
+                <twig:ui:table size="sm" compact>
                     {% block thead %}
-                        <twig:Ui:tr>
-                            <twig:Ui:th>Name</twig:Ui:th>
-                            <twig:Ui:th>Value</twig:Ui:th>
-                        </twig:Ui:tr>
+                        <twig:ui:tr>
+                            <twig:ui:th>Name</twig:ui:th>
+                            <twig:ui:th>Value</twig:ui:th>
+                        </twig:ui:tr>
                     {% endblock %}
                     {% block tbody %}
-                        <twig:Ui:tr>
-                            <twig:Ui:td>Item 1</twig:Ui:td>
-                            <twig:Ui:td>100</twig:Ui:td>
-                        </twig:Ui:tr>
+                        <twig:ui:tr>
+                            <twig:ui:td>Item 1</twig:ui:td>
+                            <twig:ui:td>100</twig:ui:td>
+                        </twig:ui:tr>
                     {% endblock %}
-                </twig:Ui:table>
+                </twig:ui:table>
             </div>
             <div>
                 <p class="text-sm font-medium text-gray-500 mb-2">Large</p>
-                <twig:Ui:table size="lg">
+                <twig:ui:table size="lg">
                     {% block thead %}
-                        <twig:Ui:tr>
-                            <twig:Ui:th>Name</twig:Ui:th>
-                            <twig:Ui:th>Value</twig:Ui:th>
-                        </twig:Ui:tr>
+                        <twig:ui:tr>
+                            <twig:ui:th>Name</twig:ui:th>
+                            <twig:ui:th>Value</twig:ui:th>
+                        </twig:ui:tr>
                     {% endblock %}
                     {% block tbody %}
-                        <twig:Ui:tr>
-                            <twig:Ui:td>Item 1</twig:Ui:td>
-                            <twig:Ui:td>100</twig:Ui:td>
-                        </twig:Ui:tr>
+                        <twig:ui:tr>
+                            <twig:ui:td>Item 1</twig:ui:td>
+                            <twig:ui:td>100</twig:ui:td>
+                        </twig:ui:tr>
                     {% endblock %}
-                </twig:Ui:table>
+                </twig:ui:table>
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}&lt;twig:Ui:table size="sm" compact&gt;...&lt;/twig:Ui:table&gt;
-&lt;twig:Ui:table size="lg"&gt;...&lt;/twig:Ui:table&gt;{% endset %}
+    {% set sizesCode %}&lt;twig:ui:table size="sm" compact&gt;...&lt;/twig:ui:table&gt;
+&lt;twig:ui:table size="lg"&gt;...&lt;/twig:ui:table&gt;{% endset %}
     {{ ui.story('Size Variants', sizesPreview, sizesCode) }}
 </div>

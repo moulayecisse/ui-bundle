@@ -15,23 +15,23 @@
     {% set basicPreview %}
         <div class="space-y-4">
             <p class="text-gray-600 dark:text-gray-400">Content above the divider</p>
-            <twig:Ui:divider />
+            <twig:ui:divider />
             <p class="text-gray-600 dark:text-gray-400">Content below the divider</p>
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:divider />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:divider />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Divider', basicPreview, basicCode) }}
 
     {# With Label #}
     {% set labelPreview %}
         <div class="space-y-4">
-            <twig:Ui:divider label="OR" />
-            <twig:Ui:divider label="Section Break" />
-            <twig:Ui:divider label="Continue reading" />
+            <twig:ui:divider label="OR" />
+            <twig:ui:divider label="Section Break" />
+            <twig:ui:divider label="Continue reading" />
         </div>
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:divider label="OR" />
-<twig:Ui:divider label="Section Break" />{% endverbatim %}{% endset %}
+    {% set labelCode %}{% verbatim %}<twig:ui:divider label="OR" />
+<twig:ui:divider label="Section Break" />{% endverbatim %}{% endset %}
     {{ ui.story('With Label', labelPreview, labelCode) }}
 
     {# Size Options #}
@@ -39,21 +39,21 @@
         <div class="space-y-6">
             <div>
                 <p class="text-xs text-gray-500 mb-2">Small (sm)</p>
-                <twig:Ui:divider size="sm" />
+                <twig:ui:divider size="sm" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Medium (md) - default</p>
-                <twig:Ui:divider size="md" />
+                <twig:ui:divider size="md" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Large (lg)</p>
-                <twig:Ui:divider size="lg" />
+                <twig:ui:divider size="lg" />
             </div>
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:divider size="sm" />
-<twig:Ui:divider size="md" />
-<twig:Ui:divider size="lg" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:divider size="sm" />
+<twig:ui:divider size="md" />
+<twig:ui:divider size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Options', sizesPreview, sizesCode) }}
 
     {# Variant Styles #}
@@ -61,21 +61,21 @@
         <div class="space-y-6">
             <div>
                 <p class="text-xs text-gray-500 mb-2">Solid (default)</p>
-                <twig:Ui:divider variant="solid" />
+                <twig:ui:divider variant="solid" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Dashed</p>
-                <twig:Ui:divider variant="dashed" />
+                <twig:ui:divider variant="dashed" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Dotted</p>
-                <twig:Ui:divider variant="dotted" />
+                <twig:ui:divider variant="dotted" />
             </div>
         </div>
     {% endset %}
-    {% set variantsCode %}{% verbatim %}<twig:Ui:divider variant="solid" />
-<twig:Ui:divider variant="dashed" />
-<twig:Ui:divider variant="dotted" />{% endverbatim %}{% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:divider variant="solid" />
+<twig:ui:divider variant="dashed" />
+<twig:ui:divider variant="dotted" />{% endverbatim %}{% endset %}
     {{ ui.story('Variant Styles', variantsPreview, variantsCode) }}
 
     {# Color Options #}
@@ -83,38 +83,38 @@
         <div class="space-y-6">
             <div>
                 <p class="text-xs text-gray-500 mb-2">Default</p>
-                <twig:Ui:divider color="default" />
+                <twig:ui:divider color="default" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Primary</p>
-                <twig:Ui:divider color="primary" />
+                <twig:ui:divider color="primary" />
             </div>
             <div>
                 <p class="text-xs text-gray-500 mb-2">Muted</p>
-                <twig:Ui:divider color="muted" />
+                <twig:ui:divider color="muted" />
             </div>
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:Ui:divider color="default" />
-<twig:Ui:divider color="primary" />
-<twig:Ui:divider color="muted" />{% endverbatim %}{% endset %}
+    {% set colorsCode %}{% verbatim %}<twig:ui:divider color="default" />
+<twig:ui:divider color="primary" />
+<twig:ui:divider color="muted" />{% endverbatim %}{% endset %}
     {{ ui.story('Color Options', colorsPreview, colorsCode) }}
 
     {# Vertical Orientation #}
     {% set verticalPreview %}
         <div class="flex items-center gap-4 h-20">
             <span class="text-gray-600 dark:text-gray-400">Left content</span>
-            <twig:Ui:divider orientation="vertical" />
+            <twig:ui:divider orientation="vertical" />
             <span class="text-gray-600 dark:text-gray-400">Middle</span>
-            <twig:Ui:divider orientation="vertical" color="primary" />
+            <twig:ui:divider orientation="vertical" color="primary" />
             <span class="text-gray-600 dark:text-gray-400">Right content</span>
         </div>
     {% endset %}
     {% set verticalCode %}{% verbatim %}<div class="flex items-center gap-4 h-20">
     <span>Left content</span>
-    <twig:Ui:divider orientation="vertical" />
+    <twig:ui:divider orientation="vertical" />
     <span>Middle</span>
-    <twig:Ui:divider orientation="vertical" color="primary" />
+    <twig:ui:divider orientation="vertical" color="primary" />
     <span>Right content</span>
 </div>{% endverbatim %}{% endset %}
     {{ ui.story('Vertical Orientation', verticalPreview, verticalCode) }}
@@ -122,16 +122,16 @@
     {# Combined Options #}
     {% set combinedPreview %}
         <div class="space-y-6">
-            <twig:Ui:divider label="Primary Large" color="primary" size="lg" />
-            <twig:Ui:divider label="Dashed with Label" variant="dashed" />
+            <twig:ui:divider label="Primary Large" color="primary" size="lg" />
+            <twig:ui:divider label="Dashed with Label" variant="dashed" />
             <div class="flex items-center h-16">
                 <span class="text-gray-600 dark:text-gray-400">Item 1</span>
-                <twig:Ui:divider orientation="vertical" size="lg" color="primary" />
+                <twig:ui:divider orientation="vertical" size="lg" color="primary" />
                 <span class="text-gray-600 dark:text-gray-400">Item 2</span>
             </div>
         </div>
     {% endset %}
-    {% set combinedCode %}{% verbatim %}<twig:Ui:divider label="Primary Large" color="primary" size="lg" />
-<twig:Ui:divider label="Dashed with Label" variant="dashed" />{% endverbatim %}{% endset %}
+    {% set combinedCode %}{% verbatim %}<twig:ui:divider label="Primary Large" color="primary" size="lg" />
+<twig:ui:divider label="Dashed with Label" variant="dashed" />{% endverbatim %}{% endset %}
     {{ ui.story('Combined Options', combinedPreview, combinedCode) }}
 </div>

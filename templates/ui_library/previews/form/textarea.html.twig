@@ -31,19 +31,19 @@
     {# Basic Textarea #}
     {% set basicPreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea name="basic" placeholder="Enter your message..." rows="4" />
+            <twig:ui:input:textarea name="basic" placeholder="Enter your message..." rows="4" />
         </div>
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:Ui:input:textarea name="basic" placeholder="Enter your message..." rows="4" />{% endverbatim %}{% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:input:textarea name="basic" placeholder="Enter your message..." rows="4" />{% endverbatim %}{% endset %}
     {{ ui.story('Basic Textarea', basicPreview, basicCode) }}
 
     {# With Label #}
     {% set labelPreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea name="message" label="Your Message" placeholder="Type your message here..." rows="4" />
+            <twig:ui:input:textarea name="message" label="Your Message" placeholder="Type your message here..." rows="4" />
         </div>
     {% endset %}
-    {% set labelCode %}{% verbatim %}<twig:Ui:input:textarea
+    {% set labelCode %}{% verbatim %}<twig:ui:input:textarea
     name="message"
     label="Your Message"
     placeholder="Type your message here..."
@@ -54,7 +54,7 @@
     {# With Hint #}
     {% set hintPreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea
+            <twig:ui:input:textarea
                 name="bio"
                 label="Bio"
                 hint="Tell us about yourself in a few sentences."
@@ -63,7 +63,7 @@
             />
         </div>
     {% endset %}
-    {% set hintCode %}{% verbatim %}<twig:Ui:input:textarea
+    {% set hintCode %}{% verbatim %}<twig:ui:input:textarea
     name="bio"
     label="Bio"
     hint="Tell us about yourself in a few sentences."
@@ -75,7 +75,7 @@
     {# With Error #}
     {% set errorPreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea
+            <twig:ui:input:textarea
                 name="description"
                 label="Description"
                 error="Description is required and must be at least 10 characters."
@@ -83,7 +83,7 @@
             />
         </div>
     {% endset %}
-    {% set errorCode %}{% verbatim %}<twig:Ui:input:textarea
+    {% set errorCode %}{% verbatim %}<twig:ui:input:textarea
     name="description"
     label="Description"
     error="Description is required and must be at least 10 characters."
@@ -94,14 +94,14 @@
     {# Character Count #}
     {% set countPreview %}
         <div class="max-w-lg space-y-4">
-            <twig:Ui:input:textarea
+            <twig:ui:input:textarea
                 name="limited"
                 label="Limited Input"
                 :maxLength="150"
                 placeholder="Maximum 150 characters..."
                 rows="3"
             />
-            <twig:Ui:input:textarea
+            <twig:ui:input:textarea
                 name="counted"
                 label="With Count Only"
                 :showCount="true"
@@ -111,7 +111,7 @@
         </div>
     {% endset %}
     {% set countCode %}{% verbatim %}{# With max length (shows count automatically) #}
-<twig:Ui:input:textarea
+<twig:ui:input:textarea
     name="limited"
     label="Limited Input"
     :maxLength="150"
@@ -119,7 +119,7 @@
 />
 
 {# Show count without limit #}
-<twig:Ui:input:textarea
+<twig:ui:input:textarea
     name="counted"
     label="With Count Only"
     :showCount="true"
@@ -130,62 +130,62 @@
     {# Size Options #}
     {% set sizesPreview %}
         <div class="max-w-lg space-y-4">
-            <twig:Ui:input:textarea name="small" size="sm" label="Small" placeholder="Small textarea" rows="2" />
-            <twig:Ui:input:textarea name="medium" size="md" label="Medium (default)" placeholder="Medium textarea" rows="2" />
-            <twig:Ui:input:textarea name="large" size="lg" label="Large" placeholder="Large textarea" rows="2" />
+            <twig:ui:input:textarea name="small" size="sm" label="Small" placeholder="Small textarea" rows="2" />
+            <twig:ui:input:textarea name="medium" size="md" label="Medium (default)" placeholder="Medium textarea" rows="2" />
+            <twig:ui:input:textarea name="large" size="lg" label="Large" placeholder="Large textarea" rows="2" />
         </div>
     {% endset %}
-    {% set sizesCode %}{% verbatim %}<twig:Ui:input:textarea name="small" size="sm" label="Small" rows="2" />
-<twig:Ui:input:textarea name="medium" size="md" label="Medium" rows="2" />
-<twig:Ui:input:textarea name="large" size="lg" label="Large" rows="2" />{% endverbatim %}{% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input:textarea name="small" size="sm" label="Small" rows="2" />
+<twig:ui:input:textarea name="medium" size="md" label="Medium" rows="2" />
+<twig:ui:input:textarea name="large" size="lg" label="Large" rows="2" />{% endverbatim %}{% endset %}
     {{ ui.story('Size Options', sizesPreview, sizesCode) }}
 
     {# Resize Options #}
     {% set resizePreview %}
         <div class="max-w-lg space-y-4">
-            <twig:Ui:input:textarea name="resize_none" resize="none" label="No Resize" placeholder="Cannot be resized" rows="2" />
-            <twig:Ui:input:textarea name="resize_vertical" resize="vertical" label="Vertical (default)" placeholder="Resize vertically" rows="2" />
-            <twig:Ui:input:textarea name="resize_horizontal" resize="horizontal" label="Horizontal" placeholder="Resize horizontally" rows="2" />
-            <twig:Ui:input:textarea name="resize_both" resize="both" label="Both" placeholder="Resize in any direction" rows="2" />
+            <twig:ui:input:textarea name="resize_none" resize="none" label="No Resize" placeholder="Cannot be resized" rows="2" />
+            <twig:ui:input:textarea name="resize_vertical" resize="vertical" label="Vertical (default)" placeholder="Resize vertically" rows="2" />
+            <twig:ui:input:textarea name="resize_horizontal" resize="horizontal" label="Horizontal" placeholder="Resize horizontally" rows="2" />
+            <twig:ui:input:textarea name="resize_both" resize="both" label="Both" placeholder="Resize in any direction" rows="2" />
         </div>
     {% endset %}
-    {% set resizeCode %}{% verbatim %}<twig:Ui:input:textarea resize="none" label="No Resize" />
-<twig:Ui:input:textarea resize="vertical" label="Vertical" />
-<twig:Ui:input:textarea resize="horizontal" label="Horizontal" />
-<twig:Ui:input:textarea resize="both" label="Both" />{% endverbatim %}{% endset %}
+    {% set resizeCode %}{% verbatim %}<twig:ui:input:textarea resize="none" label="No Resize" />
+<twig:ui:input:textarea resize="vertical" label="Vertical" />
+<twig:ui:input:textarea resize="horizontal" label="Horizontal" />
+<twig:ui:input:textarea resize="both" label="Both" />{% endverbatim %}{% endset %}
     {{ ui.story('Resize Options', resizePreview, resizeCode) }}
 
     {# Different Rows #}
     {% set rowsPreview %}
         <div class="max-w-lg space-y-4">
-            <twig:Ui:input:textarea name="rows2" rows="2" label="2 Rows" placeholder="Two visible rows" />
-            <twig:Ui:input:textarea name="rows4" rows="4" label="4 Rows" placeholder="Four visible rows" />
-            <twig:Ui:input:textarea name="rows6" rows="6" label="6 Rows" placeholder="Six visible rows" />
+            <twig:ui:input:textarea name="rows2" rows="2" label="2 Rows" placeholder="Two visible rows" />
+            <twig:ui:input:textarea name="rows4" rows="4" label="4 Rows" placeholder="Four visible rows" />
+            <twig:ui:input:textarea name="rows6" rows="6" label="6 Rows" placeholder="Six visible rows" />
         </div>
     {% endset %}
-    {% set rowsCode %}{% verbatim %}<twig:Ui:input:textarea rows="2" label="2 Rows" />
-<twig:Ui:input:textarea rows="4" label="4 Rows" />
-<twig:Ui:input:textarea rows="6" label="6 Rows" />{% endverbatim %}{% endset %}
+    {% set rowsCode %}{% verbatim %}<twig:ui:input:textarea rows="2" label="2 Rows" />
+<twig:ui:input:textarea rows="4" label="4 Rows" />
+<twig:ui:input:textarea rows="6" label="6 Rows" />{% endverbatim %}{% endset %}
     {{ ui.story('Different Rows', rowsPreview, rowsCode) }}
 
     {# Disabled #}
     {% set disabledPreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea name="disabled" label="Disabled Textarea" disabled rows="3">This content cannot be edited.</twig:Ui:input:textarea>
+            <twig:ui:input:textarea name="disabled" label="Disabled Textarea" disabled rows="3">This content cannot be edited.</twig:ui:input:textarea>
         </div>
     {% endset %}
-    {% set disabledCode %}{% verbatim %}<twig:Ui:input:textarea name="disabled" label="Disabled" disabled>
+    {% set disabledCode %}{% verbatim %}<twig:ui:input:textarea name="disabled" label="Disabled" disabled>
     This content cannot be edited.
-</twig:Ui:input:textarea>{% endverbatim %}{% endset %}
+</twig:ui:input:textarea>{% endverbatim %}{% endset %}
     {{ ui.story('Disabled', disabledPreview, disabledCode) }}
 
     {# Required #}
     {% set requiredPreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea name="required" label="Required Field" required rows="3" placeholder="This field is required" />
+            <twig:ui:input:textarea name="required" label="Required Field" required rows="3" placeholder="This field is required" />
         </div>
     {% endset %}
-    {% set requiredCode %}{% verbatim %}<twig:Ui:input:textarea
+    {% set requiredCode %}{% verbatim %}<twig:ui:input:textarea
     name="required"
     label="Required Field"
     required
@@ -196,7 +196,7 @@
     {# Complete Example #}
     {% set completePreview %}
         <div class="max-w-lg">
-            <twig:Ui:input:textarea
+            <twig:ui:input:textarea
                 name="feedback"
                 label="Feedback"
                 placeholder="Share your thoughts..."
@@ -207,7 +207,7 @@
             />
         </div>
     {% endset %}
-    {% set completeCode %}{% verbatim %}<twig:Ui:input:textarea
+    {% set completeCode %}{% verbatim %}<twig:ui:input:textarea
     name="feedback"
     label="Feedback"
     placeholder="Share your thoughts..."

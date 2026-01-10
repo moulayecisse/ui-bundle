@@ -23,7 +23,7 @@
 
 {# Loading state - render skeleton #}
 {% if loading %}
-    <twig:Ui:card-skeleton
+    <twig:ui:card-skeleton
         :showAvatar="loadingAvatar"
         :lines="loadingLines"
         :showActions="loadingActions"
@@ -39,33 +39,33 @@
                 {% if cardHeaderBlock|trim %}
                     {{ cardHeaderBlock|raw }}
                 {% else %}
-                    <twig:Ui:card:header {{ ...attributes.nested('header') }}>
-                        <twig:Ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:Ui:card:title>
-                        <twig:Ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:Ui:card:description>
+                    <twig:ui:card:header {{ ...attributes.nested('header') }}>
+                        <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
+                        <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
 
                         <twig:block name="actions">
-                            <twig:Ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:Ui:card:actions>
+                            <twig:ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:ui:card:actions>
                         </twig:block>
-                    </twig:Ui:card:header>
+                    </twig:ui:card:header>
                 {% endif %}
             {% endif %}
 
             {% if divide and showHeader %}
-                <twig:Ui:divider />
+                <twig:ui:divider />
             {% endif %}
 
-            <twig:Ui:card:content {{ ...attributes.nested('content') }}>
+            <twig:ui:card:content {{ ...attributes.nested('content') }}>
                 {{ cardContentBlock|raw }}
-            </twig:Ui:card:content>
+            </twig:ui:card:content>
 
             {% if divide and showFooter %}
-                <twig:Ui:divider />
+                <twig:ui:divider />
             {% endif %}
 
             {% if showFooter %}
-                <twig:Ui:card:footer {{ ...attributes.nested('footer') }}>
+                <twig:ui:card:footer {{ ...attributes.nested('footer') }}>
                     {{ cardFooterBlock|raw }}
-                </twig:Ui:card:footer>
+                </twig:ui:card:footer>
             {% endif %}
         {% endblock %}
     </{{ tag }}>
