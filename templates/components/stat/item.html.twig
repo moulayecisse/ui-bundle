@@ -136,7 +136,7 @@
   {% set baseClass = baseClass ~ ' cursor-pointer hover:shadow-md transition-shadow' %}
 {% endif %}
 
-<div {{ attributes.without('icon', 'value', 'label', 'content', 'trend') }} class="{{ (baseClass ~ ' ' ~ class)|tailwind_merge }}">
+<div {{ attributes }} class="{{ (baseClass ~ ' ' ~ class)|tailwind_merge }}">
   <div class="{{ layoutClass }} {{ centerClass }}">
     {# Icon #}
     {% if icon %}
