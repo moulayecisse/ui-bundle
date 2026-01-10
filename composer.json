@@ -19,6 +19,9 @@
         "symfony/http-kernel": "^6.1|^7.0",
         "symfony/string": "^6.1|^7.0",
         "symfony/twig-bundle": "^6.1|^7.0",
+        "symfony/ux-icons": "^2.0",
+        "symfony/ux-twig-component": "^2.0",
+        "tales-from-a-dev/twig-tailwind-extra": "^0.4",
         "twig/twig": "^3.0",
         "symfony/uid": "^6.1|^7.0"
     },
@@ -27,7 +30,6 @@
         "symfony/var-dumper": "^6.1|^7.0"
     },
     "suggest": {
-        "gehrisandro/tailwind-merge-php": "For advanced TailwindCSS class merging functionality",
         "symfonycasts/tailwind-bundle": "For TailwindCSS integration in Symfony"
     },
     "autoload": {
