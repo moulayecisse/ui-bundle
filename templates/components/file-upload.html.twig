@@ -15,6 +15,14 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set dropzoneAttrs = attributes.nested('dropzone') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set labelAttrs = attributes.nested('label') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+{% set fileListAttrs = attributes.nested('fileList') %}
+
 {% set maxSizeFormatted = maxSize ? (maxSize >= 1048576 ? ((maxSize / 1048576)|number_format(1) ~ ' MB') : ((maxSize / 1024)|number_format(1) ~ ' KB')) : null %}
 
 {% set sizeConfig = {
@@ -51,12 +59,14 @@
       dragleave->cisse--ui-bundle--file-upload#dragleave
       click->cisse--ui-bundle--file-upload#click
     "
-    class="relative {{ currentVariant }} {{ currentSize.padding }} text-center transition-colors {{ disabled ? 'border-gray-200 bg-gray-50 cursor-not-allowed dark:border-gray-700 dark:bg-gray-800' : 'cursor-pointer border-gray-300 hover:border-primary-400 hover:bg-gray-50 dark:border-gray-600 dark:hover:border-primary-500 dark:hover:bg-gray-800' }}"
+    class="{{ ('relative text-center transition-colors ' ~ currentVariant ~ ' ' ~ currentSize.padding ~ ' ' ~ (disabled ? 'border-gray-200 bg-gray-50 cursor-not-allowed dark:border-gray-700 dark:bg-gray-800' : 'cursor-pointer border-gray-300 hover:border-primary-400 hover:bg-gray-50 dark:border-gray-600 dark:hover:border-primary-500 dark:hover:bg-gray-800') ~ ' ' ~ dropzoneAttrs.render('class'))|tailwind_merge }}"
+    {{ dropzoneAttrs.without('class') }}
   >
     <input
       data-cisse--ui-bundle--file-upload-target="input"
       type="file"
-      class="hidden"
+      class="{{ ('hidden ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+      {{ inputAttrs.without('class') }}
       {% if name %}name="{{ name }}{{ multiple ? '[]' : '' }}"{% endif %}
       {% if id %}id="{{ id }}"{% endif %}
       {% if accept %}accept="{{ accept }}"{% endif %}
@@ -67,13 +77,13 @@
 
     <div class="{{ currentSize.gap }}">
       {% if showIcon %}
-        <twig:ux:icon name="heroicons:cloud-arrow-up" class="{{ currentSize.icon }} mx-auto text-gray-400" data-cisse--ui-bundle--file-upload-target="icon" />
+        <twig:ux:icon name="heroicons:cloud-arrow-up" class="{{ (currentSize.icon ~ ' mx-auto text-gray-400 ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ ...iconAttrs.without('class') }} data-cisse--ui-bundle--file-upload-target="icon" />
       {% endif %}
-      <p class="{{ currentSize.labelText }} font-medium text-gray-700 dark:text-gray-300">
+      <p class="{{ (currentSize.labelText ~ ' font-medium text-gray-700 dark:text-gray-300 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>
         {{ label }}
       </p>
       {% if description %}
-        <p class="{{ currentSize.descText }} text-gray-500 dark:text-gray-400">
+        <p class="{{ (currentSize.descText ~ ' text-gray-500 dark:text-gray-400 ' ~ descriptionAttrs.render('class'))|tailwind_merge }}" {{ descriptionAttrs.without('class') }}>
           {{ description }}
         </p>
       {% endif %}
@@ -87,7 +97,7 @@
 
   {# File list #}
   {% if showFileList %}
-    <ul data-cisse--ui-bundle--file-upload-target="fileList" class="space-y-2 hidden"></ul>
+    <ul data-cisse--ui-bundle--file-upload-target="fileList" class="{{ ('space-y-2 hidden ' ~ fileListAttrs.render('class'))|tailwind_merge }}" {{ fileListAttrs.without('class') }}></ul>
   {% endif %}
 
   {# File item template #}

@@ -18,6 +18,12 @@
     variant = 'default',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set selectAttrs = attributes.nested('select') %}
+{% set chevronAttrs = attributes.nested('chevron') %}
+
 {% set _id = id ?? name %}
 
 {% if form %}
@@ -61,13 +67,14 @@
     {% endfor %}
 {% endblock %}{% endset %}
 
-<twig:ui:input-wrapper :class="class" :disabled="disabled" :invalid="invalid">
+<twig:ui:input-wrapper class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}" :disabled="disabled" :invalid="invalid" {{ ...wrapperAttrs.without('class') }}>
     <div class="w-full grid grid-cols-1">
         {# Leading icon #}
         {% if icon %}
             <twig:ux:icon
                 :name="icon"
-                class="pointer-events-none col-start-1 row-start-1 ml-3 {{ sizes.icon }} self-center justify-self-start text-gray-500 dark:text-gray-400 z-10"
+                class="{{ ('pointer-events-none col-start-1 row-start-1 ml-3 self-center justify-self-start text-gray-500 dark:text-gray-400 z-10 ' ~ sizes.icon ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+                {{ ...iconAttrs.without('class') }}
             />
         {% endif %}
 
@@ -82,7 +89,8 @@
             {{ multiple ? 'multiple' }}
             data-size="{{ size }}"
             data-variant="{{ variant }}"
-            class="col-start-1 row-start-1 w-full appearance-none pr-10 {{ icon ? sizes.iconPadding : 'pl-3' }} bg-transparent focus:outline-none cursor-pointer {{ sizes.padding }} {{ variantClasses[variant] ?? '' }} {{ invalid ? 'border-red-500 focus:ring-red-500' : '' }}"
+            class="{{ ('col-start-1 row-start-1 w-full appearance-none pr-10 bg-transparent focus:outline-none cursor-pointer ' ~ (icon ? sizes.iconPadding : 'pl-3') ~ ' ' ~ sizes.padding ~ ' ' ~ (variantClasses[variant] ?? '') ~ ' ' ~ (invalid ? 'border-red-500 focus:ring-red-500' : '') ~ ' ' ~ selectAttrs.render('class'))|tailwind_merge }}"
+            {{ selectAttrs.without('class') }}
         >
             {{ content_block|raw }}
         </select>
@@ -91,7 +99,8 @@
         {% if not multiple %}
             <twig:ux:icon
                 name="heroicons:chevron-down"
-                class="pointer-events-none col-start-1 row-start-1 mr-3 {{ sizes.icon }} self-center justify-self-end text-gray-500 dark:text-gray-400"
+                class="{{ ('pointer-events-none col-start-1 row-start-1 mr-3 self-center justify-self-end text-gray-500 dark:text-gray-400 ' ~ sizes.icon ~ ' ' ~ chevronAttrs.render('class'))|tailwind_merge }}"
+                {{ ...chevronAttrs.without('class') }}
             />
         {% endif %}
     </div>
