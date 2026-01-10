@@ -16,6 +16,12 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set inputAttrs = attributes.nested('input') %}
+{% set trackAttrs = attributes.nested('track') %}
+{% set valueAttrs = attributes.nested('value') %}
+{% set ticksAttrs = attributes.nested('ticks') %}
+
 {% set percentage = ((value - min) / (max - min)) * 100 %}
 
 {% set sizeConfig = {
@@ -40,7 +46,7 @@
 
 <div {{ attributes }} class="{{ ('w-full ' ~ class)|tailwind_merge }}" data-size="{{ size }}" data-color="{{ color }}">
   {% if showValue or showMinMax %}
-    <div class="mb-2 flex justify-between {{ currentSize.text }}">
+    <div class="{{ ('mb-2 flex justify-between ' ~ currentSize.text ~ ' ' ~ valueAttrs.render('class'))|tailwind_merge }}" {{ valueAttrs.without('class') }}>
       {% if showMinMax %}
         <span class="text-gray-600 dark:text-gray-400">{{ min }}</span>
       {% endif %}
@@ -63,18 +69,20 @@
       max="{{ max }}"
       step="{{ step }}"
       {{ disabled ? 'disabled' }}
-      class="slider-input slider-input-{{ size }} w-full cursor-pointer appearance-none bg-transparent disabled:cursor-not-allowed disabled:opacity-50"
+      class="{{ ('slider-input slider-input-' ~ size ~ ' w-full cursor-pointer appearance-none bg-transparent disabled:cursor-not-allowed disabled:opacity-50 ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+      {{ inputAttrs.without('class') }}
     >
     <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center" style="top: 50%; transform: translateY(-50%);">
       <div
-        class="{{ currentSize.track }} rounded-full {{ currentColor }}"
+        class="{{ (currentSize.track ~ ' rounded-full ' ~ currentColor ~ ' ' ~ trackAttrs.render('class'))|tailwind_merge }}"
+        {{ trackAttrs.without('class') }}
         style="width: {{ percentage }}%;"
       ></div>
     </div>
   </div>
 
   {% if showTicks %}
-    <div class="flex justify-between mt-1 px-1">
+    <div class="{{ ('flex justify-between mt-1 px-1 ' ~ ticksAttrs.render('class'))|tailwind_merge }}" {{ ticksAttrs.without('class') }}>
       {% for i in 0..tickCount - 1 %}
         {% set tickValue = min + ((max - min) / (tickCount - 1)) * i %}
         <span class="text-xs text-gray-400 dark:text-gray-500">{{ tickValue|round }}</span>

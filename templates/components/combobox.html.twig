@@ -14,6 +14,14 @@
     size = 'md'
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set inputAttrs = attributes.nested('input') %}
+{% set triggerAttrs = attributes.nested('trigger') %}
+{% set displayAttrs = attributes.nested('display') %}
+{% set dropdownAttrs = attributes.nested('dropdown') %}
+{% set searchAttrs = attributes.nested('search') %}
+{% set optionAttrs = attributes.nested('option') %}
+
 {% set sizeClasses = {
     'sm': 'py-1.5 text-xs',
     'md': 'py-2 text-sm',
@@ -31,21 +39,23 @@
 >
     {# Hidden input(s) for form submission #}
     {% if multiple %}
-        <input type="hidden" name="{{ name }}" data-cisse--ui-bundle--combobox-target="input" value="{{ value is iterable ? value|json_encode : '' }}" />
+        <input type="hidden" name="{{ name }}" class="{{ inputAttrs.render('class')|tailwind_merge }}" {{ inputAttrs.without('class') }} data-cisse--ui-bundle--combobox-target="input" value="{{ value is iterable ? value|json_encode : '' }}" />
     {% else %}
-        <input type="hidden" name="{{ name }}" data-cisse--ui-bundle--combobox-target="input" value="{{ value }}" />
+        <input type="hidden" name="{{ name }}" class="{{ inputAttrs.render('class')|tailwind_merge }}" {{ inputAttrs.without('class') }} data-cisse--ui-bundle--combobox-target="input" value="{{ value }}" />
     {% endif %}
 
     {# Trigger #}
     <div
         data-cisse--ui-bundle--combobox-target="trigger"
         data-action="click->cisse--ui-bundle--combobox#toggle"
-        class="flex items-center gap-2 px-3 {{ sizeClasses[size] }} rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 {{ disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-gray-400 dark:hover:border-slate-500' }} transition-colors"
+        class="{{ ('flex items-center gap-2 px-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 transition-colors ' ~ sizeClasses[size] ~ ' ' ~ (disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-gray-400 dark:hover:border-slate-500') ~ ' ' ~ triggerAttrs.render('class'))|tailwind_merge }}"
+        {{ triggerAttrs.without('class') }}
     >
         {# Display value #}
         <span
             data-cisse--ui-bundle--combobox-target="display"
-            class="flex-1 truncate {{ value ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500' }}"
+            class="{{ ('flex-1 truncate ' ~ (value ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500') ~ ' ' ~ displayAttrs.render('class'))|tailwind_merge }}"
+            {{ displayAttrs.without('class') }}
         >
             {% if value %}
                 {% set selectedLabels = [] %}
@@ -90,7 +100,8 @@
     {# Dropdown #}
     <div
         data-cisse--ui-bundle--combobox-target="dropdown"
-        class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900 hidden"
+        class="{{ ('absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900 hidden ' ~ dropdownAttrs.render('class'))|tailwind_merge }}"
+        {{ dropdownAttrs.without('class') }}
     >
         {# Search input #}
         <div class="px-2 pb-2">
@@ -99,7 +110,8 @@
                 data-cisse--ui-bundle--combobox-target="search"
                 data-action="input->cisse--ui-bundle--combobox#filter keydown->cisse--ui-bundle--combobox#handleKeydown"
                 placeholder="{{ searchPlaceholder }}"
-                class="w-full px-3 py-2 text-sm border border-gray-200 dark:border-slate-600 rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                class="{{ ('w-full px-3 py-2 text-sm border border-gray-200 dark:border-slate-600 rounded-lg bg-gray-50 dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 ' ~ searchAttrs.render('class'))|tailwind_merge }}"
+                {{ searchAttrs.without('class') }}
             />
         </div>
 
@@ -113,7 +125,8 @@
                     data-label="{{ option.label }}"
                     data-cisse--ui-bundle--combobox-target="option"
                     {% if option.disabled is defined and option.disabled %}disabled{% endif %}
-                    class="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors {{ option.disabled is defined and option.disabled ? 'cursor-not-allowed text-gray-400 dark:text-gray-500' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }}"
+                    class="{{ ('flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors ' ~ (option.disabled is defined and option.disabled ? 'cursor-not-allowed text-gray-400 dark:text-gray-500' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800') ~ ' ' ~ optionAttrs.render('class'))|tailwind_merge }}"
+                    {{ optionAttrs.without('class') }}
                 >
                     {% if multiple %}
                         <span class="flex size-4 items-center justify-center rounded border border-gray-300 dark:border-gray-600" data-cisse--ui-bundle--combobox-target="checkbox">
