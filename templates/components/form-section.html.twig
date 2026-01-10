@@ -9,6 +9,15 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set headerAttrs = attributes.nested('header') %}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set subtitleAttrs = attributes.nested('subtitle') %}
+{% set toggleAttrs = attributes.nested('toggle') %}
+{% set contentAttrs = attributes.nested('content') %}
+{% set footerAttrs = attributes.nested('footer') %}
+
 {% set iconColorClasses = {
   'primary': { 'bg': 'bg-primary-100 dark:bg-primary-900/30', 'text': 'text-primary-600 dark:text-primary-400' },
   'gray': { 'bg': 'bg-gray-100 dark:bg-slate-700', 'text': 'text-gray-600 dark:text-gray-400' },
@@ -32,14 +41,15 @@
 >
   {# Header #}
   <div
-    class="p-5 border-b border-gray-100 dark:border-slate-700 bg-gradient-to-r from-gray-50 to-white dark:from-slate-800 dark:to-slate-800 {{ collapsible ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors' : '' }}"
+    class="{{ ('p-5 border-b border-gray-100 dark:border-slate-700 bg-gradient-to-r from-gray-50 to-white dark:from-slate-800 dark:to-slate-800 ' ~ (collapsible ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors' : '') ~ ' ' ~ headerAttrs.render('class'))|tailwind_merge }}"
+    {{ headerAttrs.without('class') }}
     {% if collapsible %}data-action="click->cisse--ui-bundle--form-section#toggle"{% endif %}
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-3">
         {# Icon #}
         {% if icon %}
-          <div class="size-10 rounded-xl flex items-center justify-center {{ currentIconColor.bg }}">
+          <div class="{{ ('size-10 rounded-xl flex items-center justify-center ' ~ currentIconColor.bg ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }}>
             <svg xmlns="http://www.w3.org/2000/svg" class="size-5 {{ currentIconColor.text }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               {{ icon|raw }}
             </svg>
@@ -48,11 +58,11 @@
 
         {# Title & Subtitle #}
         <div>
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+          <h2 class="{{ ('text-lg font-semibold text-gray-900 dark:text-white ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
             {{ title }}
           </h2>
           {% if subtitle %}
-            <p class="text-sm text-gray-500 dark:text-gray-400">
+            <p class="{{ ('text-sm text-gray-500 dark:text-gray-400 ' ~ subtitleAttrs.render('class'))|tailwind_merge }}" {{ subtitleAttrs.without('class') }}>
               {{ subtitle }}
             </p>
           {% endif %}
@@ -65,7 +75,8 @@
           type="button"
           data-cisse--ui-bundle--form-section-target="toggle"
           data-action="click->cisse--ui-bundle--form-section#toggle:stop"
-          class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+          class="{{ ('p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors ' ~ toggleAttrs.render('class'))|tailwind_merge }}"
+          {{ toggleAttrs.without('class') }}
         >
           <twig:ux:icon name="heroicons:chevron-down" data-cisse--ui-bundle--form-section-target="chevron" class="size-5 text-gray-400 transition-transform duration-200 {{ collapsed ? '-rotate-90' : '' }}" />
         </button>
@@ -79,7 +90,8 @@
   {# Content #}
   <div
     {% if collapsible %}data-cisse--ui-bundle--form-section-target="content"{% endif %}
-    class="p-5 sm:p-6 {{ collapsed ? 'hidden' : '' }}"
+    class="{{ ('p-5 sm:p-6 ' ~ (collapsed ? 'hidden' : '') ~ ' ' ~ contentAttrs.render('class'))|tailwind_merge }}"
+    {{ contentAttrs.without('class') }}
   >
     {% block content '' %}
   </div>
@@ -88,7 +100,8 @@
   {% if footer_block|trim %}
     <div
       {% if collapsible %}data-cisse--ui-bundle--form-section-target="footer"{% endif %}
-      class="px-5 py-4 bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700 {{ collapsed ? 'hidden' : '' }}"
+      class="{{ ('px-5 py-4 bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700 ' ~ (collapsed ? 'hidden' : '') ~ ' ' ~ footerAttrs.render('class'))|tailwind_merge }}"
+      {{ footerAttrs.without('class') }}
     >
       {{ footer_block|raw }}
     </div>

@@ -49,6 +49,12 @@
 
 {% set labelBlock %}{% block label label ?? 'Progress' %}{% endset %}
 
+{# Nested attributes for fine-grained customization #}
+{% set labelAttrs = attributes.nested('label') %}
+{% set valueAttrs = attributes.nested('value') %}
+{% set trackAttrs = attributes.nested('track') %}
+{% set barAttrs = attributes.nested('bar') %}
+
 {# Format the value display #}
 {% if valueFormat == 'percent' %}
     {% set valueDisplay = percentage|round ~ '%' %}
@@ -69,16 +75,17 @@
     {# Top label #}
     {% if showLabel and labelPosition == 'top' and not indeterminate %}
         <div class="mb-1 flex justify-between {{ labelSizeClasses[size] ?? 'text-sm' }}">
-            <span class="text-gray-600 dark:text-gray-400">{{ labelBlock|raw }}</span>
+            <span class="{{ ('text-gray-600 dark:text-gray-400 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>{{ labelBlock|raw }}</span>
             {% if showValue %}
-                <span class="font-medium text-gray-900 dark:text-white">{{ valueDisplay }}</span>
+                <span class="{{ ('font-medium text-gray-900 dark:text-white ' ~ valueAttrs.render('class'))|tailwind_merge }}" {{ valueAttrs.without('class') }}>{{ valueDisplay }}</span>
             {% endif %}
         </div>
     {% endif %}
 
     {# Progress bar container #}
     <div
-        class="w-full overflow-hidden {{ rounded ? 'rounded-full' : '' }} bg-gray-200 dark:bg-gray-700 {{ sizeClasses[size] ?? sizeClasses['md'] }} {{ size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' ? 'relative' : '' }}"
+        class="{{ ('w-full overflow-hidden ' ~ (rounded ? 'rounded-full' : '') ~ ' bg-gray-200 dark:bg-gray-700 ' ~ (sizeClasses[size] ?? sizeClasses['md']) ~ ' ' ~ (size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' ? 'relative' : '') ~ ' ' ~ trackAttrs.render('class'))|tailwind_merge }}"
+        {{ trackAttrs.without('class') }}
         role="progressbar"
         {% if not indeterminate %}aria-valuenow="{{ value }}"{% endif %}
         aria-valuemin="0"
@@ -86,12 +93,13 @@
         {% if label %}aria-label="{{ label }}"{% endif %}
     >
         <div
-            class="h-full {{ rounded ? 'rounded-full' : '' }} transition-all duration-300 {{ barColorClass }} {{ striped ? 'progress-striped' : '' }} {{ animated ? 'progress-animated' : '' }} {{ indeterminate ? 'progress-indeterminate' : '' }} {{ size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' ? 'flex items-center justify-center' : '' }}"
+            class="{{ ('h-full ' ~ (rounded ? 'rounded-full' : '') ~ ' transition-all duration-300 ' ~ barColorClass ~ ' ' ~ (striped ? 'progress-striped' : '') ~ ' ' ~ (animated ? 'progress-animated' : '') ~ ' ' ~ (indeterminate ? 'progress-indeterminate' : '') ~ ' ' ~ (size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' ? 'flex items-center justify-center' : '') ~ ' ' ~ barAttrs.render('class'))|tailwind_merge }}"
+            {{ barAttrs.without('class') }}
             style="width: {{ indeterminate ? '30%' : percentage ~ '%' }};"
         >
             {# Inside label for large sizes #}
             {% if size in ['lg', 'xl'] and showLabel and labelPosition == 'inside' and not indeterminate and percentage > 10 %}
-                <span class="text-xs font-medium text-white px-2">{{ valueDisplay }}</span>
+                <span class="{{ ('text-xs font-medium text-white px-2 ' ~ valueAttrs.render('class'))|tailwind_merge }}">{{ valueDisplay }}</span>
             {% endif %}
         </div>
     </div>
@@ -99,9 +107,9 @@
     {# Bottom label #}
     {% if showLabel and labelPosition == 'bottom' and not indeterminate %}
         <div class="mt-1 flex justify-between {{ labelSizeClasses[size] ?? 'text-sm' }}">
-            <span class="text-gray-600 dark:text-gray-400">{{ labelBlock|raw }}</span>
+            <span class="{{ ('text-gray-600 dark:text-gray-400 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>{{ labelBlock|raw }}</span>
             {% if showValue %}
-                <span class="font-medium text-gray-900 dark:text-white">{{ valueDisplay }}</span>
+                <span class="{{ ('font-medium text-gray-900 dark:text-white ' ~ valueAttrs.render('class'))|tailwind_merge }}" {{ valueAttrs.without('class') }}>{{ valueDisplay }}</span>
             {% endif %}
         </div>
     {% endif %}

@@ -83,26 +83,32 @@
   {% set avatarColor = autoColorPalette[hash % autoColorPalette|length] %}
 {% endif %}
 
+{# Nested attributes for fine-grained customization #}
+{% set imageAttrs = attributes.nested('image') %}
+{% set initialsAttrs = attributes.nested('initials') %}
+{% set statusAttrs = attributes.nested('status') %}
+
 <div {{ attributes }} class="{{ ('relative inline-block ' ~ class)|tailwind_merge }}">
   <div class="{{ sizeClasses[size] ?? sizeClasses['md'] }} {{ roundedClasses[rounded] ?? roundedClasses['full'] }} {{ colorClasses[avatarColor] ?? colorClasses['gray'] }} flex items-center justify-center overflow-hidden font-medium">
     {% if src %}
       <img
         src="{{ src }}"
         alt="{{ alt ?? name ?? 'Avatar' }}"
-        class="size-full object-cover"
+        class="{{ ('size-full object-cover ' ~ imageAttrs.render('class'))|tailwind_merge }}"
+        {{ imageAttrs.without('class') }}
         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
       >
-      <span style="display: none;" class="flex items-center justify-center size-full">
+      <span style="display: none;" class="{{ ('flex items-center justify-center size-full ' ~ initialsAttrs.render('class'))|tailwind_merge }}" {{ initialsAttrs.without('class') }}>
         {% if initials %}{{ initials }}{% else %}<twig:ux:icon name="lucide:user" class="size-1/2" />{% endif %}
       </span>
     {% elseif initials %}
-      {{ initials }}
+      <span class="{{ initialsAttrs.render('class')|tailwind_merge }}" {{ initialsAttrs.without('class') }}>{{ initials }}</span>
     {% else %}
       <twig:ux:icon name="lucide:user" class="size-1/2" />
     {% endif %}
   </div>
 
   {% if status %}
-    <span class="absolute bottom-0 right-0 block rounded-full ring-2 ring-white dark:ring-gray-900 {{ statusSizes[size] ?? statusSizes['md'] }} {{ statusColors[status] ?? '' }}"></span>
+    <span class="{{ ('absolute bottom-0 right-0 block rounded-full ring-2 ring-white dark:ring-gray-900 ' ~ (statusSizes[size] ?? statusSizes['md']) ~ ' ' ~ (statusColors[status] ?? '') ~ ' ' ~ statusAttrs.render('class'))|tailwind_merge }}" {{ statusAttrs.without('class') }}></span>
   {% endif %}
 </div>

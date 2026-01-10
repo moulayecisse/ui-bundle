@@ -10,6 +10,13 @@
     class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set stepAttrs = attributes.nested('step') %}
+{% set circleAttrs = attributes.nested('circle') %}
+{% set lineAttrs = attributes.nested('line') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+
 {# Size configurations #}
 {% set sizeConfig = {
     'sm': { circle: 'size-8', icon: 'size-4', text: 'text-xs', lineTop: 'top-4', lineLeft: 'left-4', gap: 'gap-2', title: 'text-xs', desc: 'text-xs' },
@@ -47,10 +54,10 @@
 
         {% if orientation == 'horizontal' %}
             {# Horizontal Progress Line - Background #}
-            <div class="absolute left-0 {{ sizes.lineTop }} h-0.5 w-full bg-gray-200 dark:bg-gray-700" aria-hidden="true"></div>
+            <div class="{{ ('absolute left-0 h-0.5 w-full bg-gray-200 dark:bg-gray-700 ' ~ sizes.lineTop ~ ' ' ~ lineAttrs.render('class'))|tailwind_merge }}" {{ lineAttrs.without('class') }} aria-hidden="true"></div>
             {# Horizontal Progress Line - Active #}
             {% set progressWidth = steps|length > 1 ? (currentIndex / (steps|length - 1)) * 100 : 0 %}
-            <div class="absolute left-0 {{ sizes.lineTop }} h-0.5 {{ colors.active|split(' ')|last }} transition-all duration-500 ease-in-out" style="width: {{ progressWidth }}%;" aria-hidden="true"></div>
+            <div class="{{ ('absolute left-0 h-0.5 transition-all duration-500 ease-in-out ' ~ sizes.lineTop ~ ' ' ~ colors.active|split(' ')|last)|tailwind_merge }}" style="width: {{ progressWidth }}%;" aria-hidden="true"></div>
         {% endif %}
 
         {% for step in steps %}
@@ -64,7 +71,8 @@
 
             <{{ stepTag }}
                 {% if stepHref %}href="{{ stepHref }}"{% endif %}
-                class="{{ orientation == 'horizontal' ? 'relative flex flex-1 flex-col items-center' : 'relative flex items-start ' ~ sizes.gap }} {{ clickable and (isComplete or stepUrl) ? 'cursor-pointer group' : '' }}"
+                class="{{ ((orientation == 'horizontal' ? 'relative flex flex-1 flex-col items-center' : 'relative flex items-start ' ~ sizes.gap) ~ ' ' ~ (clickable and (isComplete or stepUrl) ? 'cursor-pointer group' : '') ~ ' ' ~ stepAttrs.render('class'))|tailwind_merge }}"
+                {{ stepAttrs.without('class') }}
                 {% if step.key is defined %}data-step-key="{{ step.key }}"{% endif %}
                 data-step-index="{{ loop.index0 }}"
                 data-step-status="{{ isComplete ? 'complete' : (isActive ? 'active' : 'pending') }}"
@@ -72,11 +80,11 @@
 
                 {# Vertical Line #}
                 {% if orientation == 'vertical' and not loop.last %}
-                    <div class="absolute {{ sizes.lineLeft }} top-12 h-full w-0.5 -translate-x-1/2 transition-colors {{ isComplete ? colors.active|split(' ')|last : 'bg-gray-200 dark:bg-gray-700' }}"></div>
+                    <div class="{{ ('absolute top-12 h-full w-0.5 -translate-x-1/2 transition-colors ' ~ sizes.lineLeft ~ ' ' ~ (isComplete ? colors.active|split(' ')|last : 'bg-gray-200 dark:bg-gray-700') ~ ' ' ~ lineAttrs.render('class'))|tailwind_merge }}" {{ lineAttrs.without('class') }}></div>
                 {% endif %}
 
                 {# Step Circle #}
-                <div class="relative z-10 flex {{ sizes.circle }} shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 {{ (isActive or isComplete) ? colors.active ~ ' text-white shadow-lg' : 'border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500' }} {{ clickable and (isComplete or stepUrl) ? 'group-hover:scale-110' : '' }}">
+                <div class="{{ ('relative z-10 flex shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 ' ~ sizes.circle ~ ' ' ~ ((isActive or isComplete) ? colors.active ~ ' text-white shadow-lg' : 'border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500') ~ ' ' ~ (clickable and (isComplete or stepUrl) ? 'group-hover:scale-110' : '') ~ ' ' ~ circleAttrs.render('class'))|tailwind_merge }}" {{ circleAttrs.without('class') }}>
                     {% if isComplete %}
                         <twig:ux:icon name="lucide:check" class="{{ sizes.icon }}" />
                     {% elseif step.icon is defined and step.icon %}
@@ -88,11 +96,11 @@
 
                 {# Step Content #}
                 <div class="{{ orientation == 'horizontal' ? 'mt-4 flex flex-col items-center text-center' : 'flex flex-col pt-2' }}">
-                    <p class="{{ sizes.title }} font-semibold transition-colors {{ (isActive or isComplete) ? colors.text ~ ' dark:' ~ colors.text : 'text-gray-500 dark:text-gray-400' }}">
+                    <p class="{{ (sizes.title ~ ' font-semibold transition-colors ' ~ ((isActive or isComplete) ? colors.text ~ ' dark:' ~ colors.text : 'text-gray-500 dark:text-gray-400') ~ ' ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                         {{ step.title }}
                     </p>
                     {% if step.description is defined and step.description %}
-                        <p class="mt-1 {{ sizes.desc }} {{ isActive ? 'text-gray-600 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400' }}">
+                        <p class="{{ ('mt-1 ' ~ sizes.desc ~ ' ' ~ (isActive ? 'text-gray-600 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400') ~ ' ' ~ descriptionAttrs.render('class'))|tailwind_merge }}" {{ descriptionAttrs.without('class') }}>
                             {{ step.description }}
                         </p>
                     {% endif %}

@@ -12,6 +12,13 @@
     showIcon = true,
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set messageAttrs = attributes.nested('message') %}
+{% set contentAttrs = attributes.nested('content') %}
+{% set dismissAttrs = attributes.nested('dismiss') %}
+
 {% set sizeConfig = {
     'sm': { padding: 'p-3', icon: 'size-4', title: 'text-xs', message: 'text-xs', gap: 'gap-2' },
     'md': { padding: 'p-4', icon: 'size-5', title: 'text-sm', message: 'text-sm', gap: 'gap-3' },
@@ -41,19 +48,20 @@
         {% if showIcon %}
             <twig:ux:icon
                 name="{{ displayIcon }}"
-                class="{{ currentSize.icon }} shrink-0 {{ config.iconClass }}"
+                class="{{ (currentSize.icon ~ ' shrink-0 ' ~ config.iconClass ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+                {{ ...iconAttrs.without('class') }}
             />
         {% endif %}
 
         {# Content #}
-        <div class="flex-1 min-w-0">
+        <div class="{{ ('flex-1 min-w-0 ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
             {% if title %}
-                <p class="{{ currentSize.title }} font-semibold {{ config.titleClass }}">
+                <p class="{{ (currentSize.title ~ ' font-semibold ' ~ config.titleClass ~ ' ' ~ titleAttrs.render('class'))|tailwind_merge }}" {{ titleAttrs.without('class') }}>
                     {{ title }}
                 </p>
             {% endif %}
             {% if message %}
-                <p class="mt-1 {{ currentSize.message }} text-gray-600 dark:text-gray-400">
+                <p class="{{ ('mt-1 text-gray-600 dark:text-gray-400 ' ~ currentSize.message ~ ' ' ~ messageAttrs.render('class'))|tailwind_merge }}" {{ messageAttrs.without('class') }}>
                     {{ message }}
                 </p>
             {% endif %}
@@ -66,7 +74,8 @@
                 type="button"
                 data-action="click->cisse--ui-bundle--notification-list#dismiss"
                 data-notification-id="{{ id }}"
-                class="shrink-0 rounded p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+                class="{{ ('shrink-0 rounded p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:text-gray-300 dark:hover:bg-gray-800 transition-colors ' ~ dismissAttrs.render('class'))|tailwind_merge }}"
+                {{ dismissAttrs.without('class') }}
                 aria-label="Dismiss notification"
             >
                 <twig:ux:icon name="heroicons:x-mark-20-solid" class="size-4" />

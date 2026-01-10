@@ -9,6 +9,11 @@
   class = '',
 %}
 
+{# Nested attributes for fine-grained customization #}
+{% set triggerAttrs = attributes.nested('trigger') %}
+{% set contentAttrs = attributes.nested('content') %}
+{% set arrowAttrs = attributes.nested('arrow') %}
+
 {% set widthClasses = {
   'auto': 'w-auto min-w-48',
   'sm': 'w-48',
@@ -40,6 +45,8 @@
   <div
     data-cisse--ui-bundle--popover-target="trigger"
     data-action="{{ hover ? 'mouseenter->cisse--ui-bundle--popover#open mouseleave->cisse--ui-bundle--popover#close' : 'click->cisse--ui-bundle--popover#toggle' }}"
+    class="{{ triggerAttrs.render('class')|tailwind_merge }}"
+    {{ triggerAttrs.without('class') }}
   >
     {{ trigger_block|raw }}
   </div>
@@ -48,14 +55,16 @@
   <div
     data-cisse--ui-bundle--popover-target="popover"
     data-position="{{ position }}"
-    class="absolute z-50 rounded-lg p-4 shadow-lg {{ variantClasses[variant] ?? variantClasses['default'] }} {{ widthClasses[width] ?? widthClasses['auto'] }}"
+    class="{{ ('absolute z-50 rounded-lg p-4 shadow-lg ' ~ (variantClasses[variant] ?? variantClasses['default']) ~ ' ' ~ (widthClasses[width] ?? widthClasses['auto']) ~ ' ' ~ contentAttrs.render('class'))|tailwind_merge }}"
+    {{ contentAttrs.without('class') }}
     role="dialog"
     style="display: none;"
   >
     {% if arrow %}
       <div
         data-position="{{ position }}"
-        class="absolute size-3 rotate-45 {{ variant == 'dark' ? 'bg-gray-900 dark:bg-gray-950' : 'bg-white dark:bg-gray-800 border-l border-t border-gray-200 dark:border-gray-700' }} data-[position=top]:bottom-0 data-[position=top]:left-1/2 data-[position=top]:-translate-x-1/2 data-[position=top]:translate-y-1/2 data-[position=bottom]:top-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-translate-y-1/2 data-[position=left]:right-0 data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:translate-x-1/2 data-[position=right]:left-0 data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-translate-x-1/2"
+        class="{{ ('absolute size-3 rotate-45 ' ~ (variant == 'dark' ? 'bg-gray-900 dark:bg-gray-950' : 'bg-white dark:bg-gray-800 border-l border-t border-gray-200 dark:border-gray-700') ~ ' data-[position=top]:bottom-0 data-[position=top]:left-1/2 data-[position=top]:-translate-x-1/2 data-[position=top]:translate-y-1/2 data-[position=bottom]:top-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-translate-y-1/2 data-[position=left]:right-0 data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:translate-x-1/2 data-[position=right]:left-0 data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-translate-x-1/2 ' ~ arrowAttrs.render('class'))|tailwind_merge }}"
+        {{ arrowAttrs.without('class') }}
       ></div>
     {% endif %}
     {% block content '' %}
