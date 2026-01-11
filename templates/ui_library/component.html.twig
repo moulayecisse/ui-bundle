@@ -126,24 +126,26 @@
                 </a>
             </div>
 
-            {# Search box #}
-            <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex-shrink-0" data-controller="sidebar-search">
-                <div class="relative">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    <input
-                        type="text"
-                        placeholder="Search components..."
-                        class="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        data-sidebar-search-target="input"
-                        data-action="input->sidebar-search#filter"
-                    >
+            {# Search box and Navigation wrapper #}
+            <div class="flex-1 flex flex-col overflow-hidden" data-controller="sidebar-search">
+                {# Search box #}
+                <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input
+                            type="text"
+                            placeholder="Search components..."
+                            class="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                            data-sidebar-search-target="input"
+                            data-action="input->sidebar-search#filter"
+                        >
+                    </div>
                 </div>
-            </div>
 
-            {# Navigation with collapsible categories #}
-            <nav class="flex-1 overflow-y-auto p-2" data-controller="sidebar-search">
+                {# Navigation with collapsible categories #}
+                <nav class="flex-1 overflow-y-auto p-2">
                 {% for cat, categoryComponents in components %}
                     <div class="mb-1" data-controller="category-collapse" data-category-collapse-expanded-value="true" data-sidebar-search-target="category">
                         {# Category header #}
@@ -181,7 +183,8 @@
                         </ul>
                     </div>
                 {% endfor %}
-            </nav>
+                </nav>
+            </div>
 
             {# Footer with dark mode toggle #}
             <div class="p-3 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">

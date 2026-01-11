@@ -1,167 +1,231 @@
 {% props
-  type = null,
-  class = '',
   form = null,
+  type = null,
   name = null,
   id = null,
-  for = null,
-  label = null,
   value = null,
-  placeholder = null,
-  horizontal = false,
-  required = null,
   autofocus = false,
   autocomplete = null,
-  col = null,
-  reverse = null,
-  disabled = null,
-  help = null,
   options = null,
+
+  layout = 'vertical',
+  col = null,
+
+  size = 'md',
+  variant = 'default',
+  rounded = 'lg',
+  class = '',
 %}
 
-{% set id = id ?? name %}
-{% set for = for ?? id %}
-{% set label = label ?? name %}
+{# Nested attributes for fine-grained customization #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set labelAttrs = attributes.nested('label') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set helpAttrs = attributes.nested('help') %}
+{% set errorAttrs = attributes.nested('error') %}
+
+{# Extract nested values with defaults #}
+{% set labelText = labelAttrs.render('text') %}
+{% set labelCol = labelAttrs.render('col')|default(4) %}
+{% set helpText = helpAttrs.render('text') %}
+{% set errorText = errorAttrs.render('text') %}
+{% set inputCol = inputAttrs.render('col')|default(8) %}
+{% set inputPlaceholder = inputAttrs.render('placeholder') %}
+{% set inputRequired = inputAttrs.has('required') ? true : null %}
+{% set inputDisabled = inputAttrs.has('disabled') ? true : null %}
+
+{# Form integration - extract values from Symfony form #}
 {% if form %}
   {% set name = name ?? field_name(form) %}
   {% set id = id ?? form.vars.id %}
-  {% set for = for ?? form.vars.id %}
-  {% set label = label ?? field_label(form) %}
+  {% set labelText = labelText ?? field_label(form) %}
+  {% set helpText = helpText ?? form.vars.help %}
+  {% set inputRequired = inputRequired is not null ? inputRequired : form.vars.required %}
+  {% set inputDisabled = inputDisabled ?? form.vars.disabled %}
   {% set value = value ?? field_value(form) %}
-  {% set required = required is not null ? required : form.vars.required %}
-  {% set disabled = disabled ?? form.vars.disabled %}
-  {% set help = help ?? form.vars.help %}
+  {% set errorText = errorText ?? (form.vars.errors|length > 0 ? form.vars.errors|first.message : null) %}
 
-  {% if type is not null %}
-    {% set type = type %}
-  {% elseif 'email' in  form.vars.block_prefixes %}
-    {% set type = 'email' %}
-  {% elseif 'checkbox' in  form.vars.block_prefixes %}
-    {% set type = 'checkbox' %}
-  {% elseif 'tab' in  form.vars.block_prefixes %}
-    {% set type = 'tab' %}
-  {% elseif 'password' in  form.vars.block_prefixes %}
-    {% set type = 'password' %}
-  {% elseif 'entity' in  form.vars.block_prefixes %}
-    {% set type = 'choice' %}
-  {% elseif 'live_collection_button_add' in  form.vars.block_prefixes %}
-    {% set type = 'live_collection_button_add' %}
-  {% elseif 'live_collection_button_delete' in  form.vars.block_prefixes %}
-    {% set type = 'live_collection_button_delete' %}
-  {% elseif 'live_collection_entry' in  form.vars.block_prefixes %}
-    {% set type = 'live_collection_entry' %}
-  {% elseif 'live_collection' in  form.vars.block_prefixes %}
-    {% set type = 'live_collection' %}
-  {% elseif 'collection_button_add' in  form.vars.block_prefixes %}
-    {% set type = 'collection_button_add' %}
-  {% elseif 'collection_button_delete' in  form.vars.block_prefixes %}
-    {% set type = 'collection_button_delete' %}
-  {% elseif 'collection_entry' in  form.vars.block_prefixes %}
-    {% set type = 'collection_entry' %}
-  {% elseif 'collection' in  form.vars.block_prefixes %}
-    {% set type = 'collection' %}
-  {% elseif 'date' in  form.vars.block_prefixes %}
-    {% set type = 'date' %}
-  {% elseif 'choice' in  form.vars.block_prefixes %}
-    {% set type = 'choice' %}
-  {% elseif 'hidden' in  form.vars.block_prefixes %}
-    {% set type = 'hidden' %}
-  {% else %}
-    {% set type = 'text' %}
+  {# Type detection from block_prefixes #}
+  {% if type is null %}
+    {% if 'email' in form.vars.block_prefixes %}
+      {% set type = 'email' %}
+    {% elseif 'password' in form.vars.block_prefixes %}
+      {% set type = 'password' %}
+    {% elseif 'textarea' in form.vars.block_prefixes %}
+      {% set type = 'textarea' %}
+    {% elseif 'checkbox' in form.vars.block_prefixes %}
+      {% set type = 'checkbox' %}
+    {% elseif 'entity' in form.vars.block_prefixes or 'choice' in form.vars.block_prefixes %}
+      {% set type = 'choice' %}
+    {% elseif 'date' in form.vars.block_prefixes %}
+      {% set type = 'date' %}
+    {% elseif 'search' in form.vars.block_prefixes %}
+      {% set type = 'search' %}
+    {% elseif 'number' in form.vars.block_prefixes or 'integer' in form.vars.block_prefixes %}
+      {% set type = 'number' %}
+    {% elseif 'money' in form.vars.block_prefixes %}
+      {% set type = 'money' %}
+    {% elseif 'percent' in form.vars.block_prefixes %}
+      {% set type = 'percent' %}
+    {% elseif 'url' in form.vars.block_prefixes %}
+      {% set type = 'url' %}
+    {% elseif 'tel' in form.vars.block_prefixes %}
+      {% set type = 'phone' %}
+    {% else %}
+      {% set type = 'text' %}
+    {% endif %}
   {% endif %}
 {% endif %}
 
-{% set colClass = 'col-span-6' %}
-{% if horizontal %}
-  {% set colClass = 'col-span-12' %}
-{% elseif col %}
-  {% set colClass = 'col-span-' ~ col %}
-{% endif %}
+{% set type = type ?? 'text' %}
+{% set id = id ?? name %}
+{% set hasError = errorText is not null and errorText != '' %}
 
-{% if type in ['checkbox'] and reverse == null %}
-  {% set reverse = true %}
-{% endif %}
-
-{% set inputContent %}
-  {% block input %}
-    <twig:ui:input
-      {{ ...attributes.nested('input') }}
-      :form="form"
-      :type="type"
-      :name="name"
-      :id="id"
-      :placeholder="placeholder"
-      :value="value"
-      :required="required"
-      :autofocus="autofocus"
-      :autocomplete="autocomplete"
-      :disabled="disabled"
-      :options="options"
-    />
-  {% endblock %}
-{% endset %}
-
-{% set content_block %}
-  {% block content %}
-    {% if type in ['hidden'] %}
-      {{ inputContent|raw }}
-    {% elseif type in ['checkbox'] %}
-      {{ inputContent|raw }}
-
-      <twig:ui:label
-        :form="form"
-        :for="for"
-        :label="label"
-        {{ ...attributes.nested('label') }}
-      />
-    {% elseif horizontal %}
-      <twig:ui:label
-        :form="form"
-        :for="for"
-        :label="label"
-        {{ ...attributes.nested('label').without('class') }}
-        data-reverse="{{ reverse ? 'true' : 'false' }}"
-        class="{{ attributes.nested('label').render('class') }} sm:pt-1.5 col-span-4 data-[reverse=true]:order-last"
-      />
-
-      <div class="mt-2 col-span-8 sm:mt-0 flex flex-col gap-1">
-        {{ inputContent|raw }}
-
-        {% if help %}
-          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ help }}</p>
-        {% endif %}
-      </div>
-    {% else %}
-      <twig:ui:label
-        :form="form"
-        :for="for"
-        :label="label"
-        {{ ...attributes.nested('label').without('class') }}
-        data-reverse="{{ reverse ? 'true' : 'false' }}"
-        class="{{ attributes.nested('label').render('class') }} data-[reverse=true]:order-last"
-      />{{ attributes.nested('label').without('class') }}
-
-      <div class="mt-2 flex flex-col gap-1">
-        {{ inputContent|raw }}
-
-        {% if help %}
-          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">{{ help }}</p>
-        {% endif %}
-      </div>
-    {% endif %}
-  {% endblock %}
-{% endset %}
-
-{% if type in ['hidden'] %}
-  {{ content_block|raw }}
+{# Column span logic #}
+{% set colClass = '' %}
+{% if col %}
+  {% set colClass = 'col-span-12 sm:col-span-' ~ col %}
 {% else %}
-  {% set class = (colClass ~ ' ' ~ class)|tailwind_merge %}
-  <div 
-    {{ attributes}} 
-    data-type="{{ type }}"
-    data-horizontal="{{ horizontal ? 'true' : 'false' }}"
-    class="{{ class }} data-[type=checkbox]:flex data-[type=checkbox]:gap-3 data-[type=checkbox]:col-span-12 data-[horizontal=true]:sm:grid data-[horizontal=true]:sm:grid-cols-12 data-[horizontal=true]:sm:items-start data-[horizontal=true]:sm:gap-4 data-[horizontal=true]:sm:py-6"
+  {# Default: 12 on mobile, 6 on desktop. Checkbox/hidden always 12 #}
+  {% if type in ['checkbox', 'hidden'] %}
+    {% set colClass = 'col-span-12' %}
+  {% else %}
+    {% set colClass = 'col-span-12 sm:col-span-6' %}
+  {% endif %}
+{% endif %}
+
+{# Input component parameters #}
+{% set inputParams = {
+  form: form,
+  type: type,
+  name: name,
+  id: id,
+  value: value,
+  placeholder: inputPlaceholder,
+  required: inputRequired,
+  disabled: inputDisabled,
+  autofocus: autofocus,
+  autocomplete: autocomplete,
+  size: size,
+  variant: variant,
+  rounded: rounded,
+} %}
+
+{% if type in ['choice'] and options is not null %}
+  {% set inputParams = inputParams|merge({ choices: options }) %}
+{% elseif form and type in ['choice'] %}
+  {% set inputParams = inputParams|merge({ choices: form.vars.choices ?? [] }) %}
+{% endif %}
+
+{# Determine component name based on type #}
+{% set componentName = 'Ui:input:text' %}
+{% if type in ['checkbox', 'textarea', 'date', 'choice', 'money', 'percent', 'otp', 'search', 'email', 'password', 'url', 'phone', 'number', 'quantity'] %}
+  {% set componentName = 'Ui:input:' ~ type %}
+{% endif %}
+
+{# Hidden fields render directly without wrapper #}
+{% if type == 'hidden' %}
+  <input type="hidden" name="{{ name }}" value="{{ value }}" />
+{% elseif type == 'checkbox' %}
+  {# Checkbox layout: input then label #}
+  <div
+    {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
+    class="{{ (colClass ~ ' flex items-start gap-3 ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {{ wrapperAttrs.without('class') }}
   >
-    {{ content_block|raw }}
+    {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col', 'placeholder', 'required', 'disabled') })) }}
+
+    <div class="flex flex-col">
+      {% if labelText %}
+        <twig:ui:label
+          :for="id"
+          :required="inputRequired"
+          class="{{ ('cursor-pointer ' ~ labelAttrs.render('class'))|tailwind_merge }}"
+          {{ ...labelAttrs.without('class', 'text', 'col') }}
+        >
+          {{ labelText }}
+        </twig:ui:label>
+      {% endif %}
+
+      {% if helpText and not hasError %}
+        <p class="{{ ('text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
+          {{ helpText }}
+        </p>
+      {% endif %}
+
+      {% if hasError %}
+        <p class="{{ ('text-sm text-red-600 dark:text-red-400 ' ~ errorAttrs.render('class'))|tailwind_merge }}" {{ errorAttrs.without('class', 'text') }}>
+          {{ errorText }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+{% elseif layout == 'horizontal' %}
+  {# Horizontal layout: label left, input right #}
+  <div
+    {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
+    class="{{ (colClass ~ ' grid grid-cols-12 gap-4 items-start ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {{ wrapperAttrs.without('class') }}
+  >
+    {% if labelText %}
+      <twig:ui:label
+        :for="id"
+        :required="inputRequired"
+        class="{{ ('col-span-12 sm:col-span-' ~ labelCol ~ ' sm:pt-2 sm:text-right ' ~ labelAttrs.render('class'))|tailwind_merge }}"
+        {{ ...labelAttrs.without('class', 'text', 'col') }}
+      >
+        {{ labelText }}
+      </twig:ui:label>
+    {% endif %}
+
+    <div class="col-span-12 sm:col-span-{{ inputCol }}">
+      {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col', 'placeholder', 'required', 'disabled') })) }}
+
+      {% if helpText and not hasError %}
+        <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
+          {{ helpText }}
+        </p>
+      {% endif %}
+
+      {% if hasError %}
+        <p class="{{ ('mt-1 text-sm text-red-600 dark:text-red-400 ' ~ errorAttrs.render('class'))|tailwind_merge }}" {{ errorAttrs.without('class', 'text') }}>
+          {{ errorText }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  {# Vertical layout (default): label above, input below #}
+  <div
+    {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
+    class="{{ (colClass ~ ' ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {{ wrapperAttrs.without('class') }}
+  >
+    {% if labelText %}
+      <twig:ui:label
+        :for="id"
+        :required="inputRequired"
+        class="{{ labelAttrs.render('class') }}"
+        {{ ...labelAttrs.without('class', 'text', 'col') }}
+      >
+        {{ labelText }}
+      </twig:ui:label>
+    {% endif %}
+
+    <div class="{{ labelText ? 'mt-2' : '' }}">
+      {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col', 'placeholder', 'required', 'disabled') })) }}
+    </div>
+
+    {% if helpText and not hasError %}
+      <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
+        {{ helpText }}
+      </p>
+    {% endif %}
+
+    {% if hasError %}
+      <p class="{{ ('mt-1 text-sm text-red-600 dark:text-red-400 ' ~ errorAttrs.render('class'))|tailwind_merge }}" {{ errorAttrs.without('class', 'text') }}>
+        {{ errorText }}
+      </p>
+    {% endif %}
   </div>
 {% endif %}

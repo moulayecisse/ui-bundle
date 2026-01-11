@@ -5,28 +5,47 @@
   method = null,
   action = null,
   enctype = null,
+
   title = null,
   description = null,
-  submitLabel = 'Envoyer',
-  cancelLabel = 'Annuler',
+
+  layout = 'vertical',
+  cols = 12,
+  gap = 6,
   divide = false,
-  hideFooter = false,
-  horizontal = false,
   class = '',
 %}
+
+{# Nested attributes for fine-grained customization #}
+{% set headerAttrs = attributes.nested('header') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+{% set gridAttrs = attributes.nested('grid') %}
+{% set footerAttrs = attributes.nested('footer') %}
+{% set submitAttrs = attributes.nested('submit') %}
+{% set cancelAttrs = attributes.nested('cancel') %}
+
+{# Extract nested values with defaults #}
+{% set submitLabel = submitAttrs.render('label')|default('Submit') %}
+{% set cancelLabel = cancelAttrs.render('label')|default('Cancel') %}
+{% set hideFooter = footerAttrs.has('hide') %}
+{% set hideCancel = cancelAttrs.has('hide') %}
+{% set hideSubmit = submitAttrs.has('hide') %}
 
 {% if form %}
   {% set name = name ?? form.vars.full_name %}
   {% set method = method ?? form.vars.method %}
   {% set action = action ?? form.vars.action %}
-{#  {% set enctype = enctype ?? (form ? form.vars.enctype : null) %}#}
 {% endif %}
 
 {% set headerBlock %}{% block header '' %}{% endset %}
 {% set footerBlock %}{% block footer '' %}{% endset %}
 
+{# Gap classes mapping #}
+{% set gapClass = 'gap-' ~ gap %}
+
 <form
-  {{ attributes }}
+  {{ attributes.without('header', 'title', 'description', 'grid', 'footer', 'submit', 'cancel') }}
   {% if method %}method="{{ method }}"{% endif %}
   {% if name %}name="{{ name }}"{% endif %}
   {% if action %}action="{{ action }}"{% endif %}
@@ -34,29 +53,45 @@
   class="{{ class }}"
 >
   {% if form._token is defined %}
-    <twig:ui:input :form="form._token" />
+    <input type="hidden" name="{{ field_name(form._token) }}" value="{{ field_value(form._token) }}">
   {% endif %}
 
-  {% if headerBlock or title or description %}
-    <div class="pb-5 mb-5">
-      {% if headerBlock %}
+  {# Header Section #}
+  {% if headerBlock|trim is not empty or title or description %}
+    <div
+      class="{{ ('pb-5 mb-5 ' ~ headerAttrs.render('class'))|tailwind_merge }}"
+      {{ headerAttrs.without('class') }}
+    >
+      {% if headerBlock|trim is not empty %}
         {{ headerBlock|raw }}
       {% else %}
         {% if title %}
-          <h2 class="text-base/7 font-semibold text-gray-900">{{ title }}</h2>
+          <h2
+            class="{{ ('text-base/7 font-semibold text-gray-900 dark:text-gray-100 ' ~ titleAttrs.render('class'))|tailwind_merge }}"
+            {{ titleAttrs.without('class') }}
+          >
+            {{ title }}
+          </h2>
         {% endif %}
 
         {% if description %}
-          <p class="mt-1 max-w-2xl text-sm/6 text-gray-600">{{ description }}</p>
+          <p
+            class="{{ ('mt-1 max-w-2xl text-sm/6 text-gray-600 dark:text-gray-400 ' ~ descriptionAttrs.render('class'))|tailwind_merge }}"
+            {{ descriptionAttrs.without('class') }}
+          >
+            {{ description }}
+          </p>
         {% endif %}
       {% endif %}
     </div>
   {% endif %}
 
+  {# Grid Content Section #}
   <div
-    data-horizontal="{{ horizontal ? 'true' : 'false' }}"
+    data-layout="{{ layout }}"
     data-divide="{{ divide ? 'true' : 'false' }}"
-    class="grid grid-cols-12 gap-6 space-y-8 pb-12 sm:space-y-0 sm:pb-0 data-[divide=true]:sm:divide-y data-[divide=true]:sm:divide-gray-900/10 data-[horizontal=true]:grid-cols-1 data-[horizontal=true]:gap-x-6 data-[horizontal=true]:gap-y-8 data-[horizontal=true]:sm:grid-cols-12 data-[horizontal=true]:space-y-0 data-[horizontal=true]:pb-0"
+    class="{{ ('grid grid-cols-' ~ cols ~ ' ' ~ gapClass ~ ' data-[divide=true]:divide-y data-[divide=true]:divide-gray-200 data-[divide=true]:dark:divide-gray-700 ' ~ gridAttrs.render('class'))|tailwind_merge }}"
+    {{ gridAttrs.without('class') }}
   >
     {% block content %}
       {% for child in (form.children ?? [])|filter(child => child.vars.name != '_token') %}
@@ -67,20 +102,43 @@
           {% if 'hidden' in child.vars.block_prefixes %}
             <input type="hidden" name="{{ field_name(child) }}" value="{{ field_value(child) }}">
           {% else %}
-            <twig:ui:input-group :form="child" :horizontal="horizontal" {{ ...child.vars.row_attr }} />
+            <twig:ui:input-group
+              :form="child"
+              :layout="layout"
+              {{ ...child.vars.row_attr }}
+            />
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endblock %}
   </div>
 
-  {% if footerBlock or not hideFooter %}
-    <div class="border-gray-900/10 sm:border-t pt-5 mt-5 flex items-center justify-end gap-x-6">
-      {% if footerBlock %}
+  {# Footer Section #}
+  {% if footerBlock|trim is not empty or not hideFooter %}
+    <div
+      class="{{ ('border-gray-200 dark:border-gray-700 border-t pt-5 mt-5 flex items-center justify-end gap-x-4 ' ~ footerAttrs.render('class'))|tailwind_merge }}"
+      {{ footerAttrs.without('class', 'hide') }}
+    >
+      {% if footerBlock|trim is not empty %}
         {{ footerBlock|raw }}
       {% else %}
-        <twig:ui:button type="cancel">{{ cancelLabel }}</twig:ui:button>
-        <twig:ui:button success type="submit">{{ submitLabel }}</twig:ui:button>
+        {% if not hideCancel %}
+          <twig:ui:button
+            type="button"
+            variant="{{ cancelAttrs.render('variant')|default('ghost') }}"
+            {{ ...cancelAttrs.without('label', 'hide', 'variant') }}
+          >
+            {{ cancelLabel }}
+          </twig:ui:button>
+        {% endif %}
+        {% if not hideSubmit %}
+          <twig:ui:button
+            type="submit"
+            {{ ...submitAttrs.without('label', 'hide') }}
+          >
+            {{ submitLabel }}
+          </twig:ui:button>
+        {% endif %}
       {% endif %}
     </div>
   {% endif %}

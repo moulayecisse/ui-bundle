@@ -1,0 +1,226 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'form', type: 'FormView | null', default: 'null', description: 'Symfony form object' },
+        { name: 'action', type: 'string | null', default: 'null', description: 'Form action URL' },
+        { name: 'method', type: 'string | null', default: 'null', description: 'Form method (GET, POST)' },
+        { name: 'name', type: 'string | null', default: 'null', description: 'Form name attribute' },
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Search input size' },
+        { name: 'variant', type: "'default' | 'filled' | 'flushed'", default: "'default'", description: 'Input style variant' },
+        { name: 'rounded', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'", description: 'Border radius' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disabled state' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Nested Attributes #}
+    {{ ui.slots([
+        { name: 'wrapper:*', description: 'Attributes passed to the input-wrapper element' },
+        { name: 'icon:name', description: 'Icon name (default: heroicons:magnifying-glass)' },
+        { name: 'icon:class', description: 'Additional classes for icon' },
+        { name: 'input:name', description: 'Input field name' },
+        { name: 'input:value', description: 'Input field value' },
+        { name: 'input:placeholder', description: 'Input placeholder (default: Search...)' },
+        { name: 'input:class', description: 'Additional classes for input' },
+        { name: 'submit:show', description: 'Show submit button (boolean attribute)' },
+        { name: 'submit:label', description: 'Submit button text (default: Search)' },
+        { name: 'submit:icon', description: 'Submit button icon' },
+        { name: 'submit:class', description: 'Additional classes for submit button' },
+        { name: 'divider:hide', description: 'Hide divider before submit button (boolean attribute)' },
+        { name: 'token:name', description: 'CSRF token name' },
+        { name: 'token:value', description: 'CSRF token value' },
+    ]) }}
+
+    {# Default #}
+    {% set defaultPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search action="/search" method="GET" input:name="q" input:placeholder="Search..." />
+        </div>
+    {% endset %}
+    {% set defaultCode %}{% verbatim %}<twig:ui:form:search action="/search" method="GET" input:name="q" input:placeholder="Search..." />{% endverbatim %}{% endset %}
+    {{ ui.story('Default', defaultPreview, defaultCode) }}
+
+    {# With Submit Button #}
+    {% set submitPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search
+                action="/search"
+                method="GET"
+                input:name="q"
+                input:placeholder="Search products..."
+                submit:show
+            />
+        </div>
+    {% endset %}
+    {% set submitCode %}{% verbatim %}<twig:ui:form:search
+    action="/search"
+    method="GET"
+    input:name="q"
+    input:placeholder="Search products..."
+    submit:show
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Submit Button', submitPreview, submitCode) }}
+
+    {# With Submit Button and Icon #}
+    {% set submitIconPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search
+                action="/search"
+                method="GET"
+                input:name="q"
+                input:placeholder="Search..."
+                submit:show
+                submit:label="Go"
+                submit:icon="heroicons:arrow-right"
+            />
+        </div>
+    {% endset %}
+    {% set submitIconCode %}{% verbatim %}<twig:ui:form:search
+    action="/search"
+    input:name="q"
+    submit:show
+    submit:label="Go"
+    submit:icon="heroicons:arrow-right"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Submit Icon', submitIconPreview, submitIconCode) }}
+
+    {# Without Divider #}
+    {% set noDividerPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search
+                action="/search"
+                input:name="q"
+                input:placeholder="Search..."
+                submit:show
+                divider:hide
+            />
+        </div>
+    {% endset %}
+    {% set noDividerCode %}{% verbatim %}<twig:ui:form:search
+    action="/search"
+    input:name="q"
+    submit:show
+    divider:hide
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Without Divider', noDividerPreview, noDividerCode) }}
+
+    {# Sizes #}
+    {% set sizesPreview %}
+        <div class="max-w-md space-y-4">
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Small</span>
+                <twig:ui:form:search action="#" input:name="q" size="sm" submit:show input:placeholder="Small search" />
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Medium (default)</span>
+                <twig:ui:form:search action="#" input:name="q" size="md" submit:show input:placeholder="Medium search" />
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Large</span>
+                <twig:ui:form:search action="#" input:name="q" size="lg" submit:show input:placeholder="Large search" />
+            </div>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:form:search size="sm" submit:show />
+<twig:ui:form:search size="md" submit:show />
+<twig:ui:form:search size="lg" submit:show />{% endverbatim %}{% endset %}
+    {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# Variants #}
+    {% set variantsPreview %}
+        <div class="max-w-md space-y-4">
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Default</span>
+                <twig:ui:form:search action="#" input:name="q" variant="default" submit:show input:placeholder="Default variant" />
+            </div>
+            <div>
+                <span class="text-xs text-gray-500 mb-1 block">Filled</span>
+                <twig:ui:form:search action="#" input:name="q" variant="filled" submit:show input:placeholder="Filled variant" />
+            </div>
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:form:search variant="default" submit:show />
+<twig:ui:form:search variant="filled" submit:show />{% endverbatim %}{% endset %}
+    {{ ui.story('Variants', variantsPreview, variantsCode) }}
+
+    {# Custom Icon #}
+    {% set iconPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search
+                action="/filter"
+                input:name="filter"
+                icon:name="heroicons:funnel"
+                input:placeholder="Filter results..."
+                submit:show
+                submit:label="Apply"
+            />
+        </div>
+    {% endset %}
+    {% set iconCode %}{% verbatim %}<twig:ui:form:search
+    action="/filter"
+    input:name="filter"
+    icon:name="heroicons:funnel"
+    input:placeholder="Filter results..."
+    submit:show
+    submit:label="Apply"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Custom Icon', iconPreview, iconCode) }}
+
+    {# Full Customization #}
+    {% set fullPreview %}
+        <div class="max-w-lg">
+            <twig:ui:form:search
+                action="/search"
+                input:name="q"
+                size="lg"
+                variant="filled"
+                rounded="full"
+                submit:show
+                submit:label="Find"
+                submit:icon="heroicons:magnifying-glass"
+                submit:class="bg-primary text-white rounded-full hover:bg-primary/90"
+            />
+        </div>
+    {% endset %}
+    {% set fullCode %}{% verbatim %}<twig:ui:form:search
+    action="/search"
+    input:name="q"
+    size="lg"
+    variant="filled"
+    rounded="full"
+    submit:show
+    submit:label="Find"
+    submit:icon="heroicons:magnifying-glass"
+    submit:class="bg-primary text-white rounded-full hover:bg-primary/90"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Full Customization', fullPreview, fullCode) }}
+
+    {# With Pre-filled Value #}
+    {% set valuePreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search action="/search" input:name="q" input:value="existing query" submit:show input:placeholder="Search..." />
+        </div>
+    {% endset %}
+    {% set valueCode %}{% verbatim %}<twig:ui:form:search
+    action="/search"
+    input:name="q"
+    input:value="existing query"
+    submit:show
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('With Pre-filled Value', valuePreview, valueCode) }}
+
+    {# Disabled #}
+    {% set disabledPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:search action="/search" input:name="q" submit:show disabled input:placeholder="Disabled..." />
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:form:search
+    action="/search"
+    input:name="q"
+    submit:show
+    disabled
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled', disabledPreview, disabledCode) }}
+</div>
