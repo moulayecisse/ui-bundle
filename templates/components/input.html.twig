@@ -66,6 +66,8 @@
     {% set type = 'date' %}
   {% elseif 'choice' in  form.vars.block_prefixes %}
     {% set type = 'choice' %}
+  {% elseif 'search' in  form.vars.block_prefixes %}
+    {% set type = 'search' %}
   {% elseif 'hidden' in  form.vars.block_prefixes %}
     {% set type = 'hidden' %}
   {% else %}
@@ -80,7 +82,7 @@
 
 {% set componentName = 'Ui:input:text' %}
 
-{% if type in ['checkbox', 'textarea', 'date', 'choice', 'money', 'percent', 'otp'] %}
+{% if type in ['checkbox', 'textarea', 'date', 'choice', 'money', 'percent', 'otp', 'search'] %}
   {% set componentName = 'Ui:input:' ~ type %}
 {% endif %}
 

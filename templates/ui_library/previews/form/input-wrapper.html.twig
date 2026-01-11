@@ -1,0 +1,363 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Input size' },
+        { name: 'variant', type: "'default' | 'filled' | 'flushed' | 'unstyled'", default: "'default'", description: 'Visual variant' },
+        { name: 'rounded', type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'", description: 'Border radius' },
+        { name: 'disabled', type: 'boolean', default: 'null', description: 'Disabled state' },
+        { name: 'invalid', type: 'boolean', default: 'false', description: 'Invalid/error state' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Nested Attributes Documentation #}
+    {{ ui.slots([
+        { name: 'before:class', description: 'CSS classes for before slot wrapper' },
+        { name: 'before:divide', description: 'Show divider after before slot' },
+        { name: 'after:class', description: 'CSS classes for after slot wrapper' },
+        { name: 'after:divide', description: 'Show divider before after slot' },
+        { name: 'content:*', description: 'Attributes passed to the content wrapper' },
+    ]) }}
+
+    {# Blocks Documentation #}
+    {{ ui.slots([
+        { name: '{% block before %}', description: 'Content before the main content (icons, labels)' },
+        { name: '{% block content %}', description: 'Main content area' },
+        { name: '{% block after %}', description: 'Content after the main content (icons, buttons)' },
+    ]) }}
+
+    {# Description #}
+    <div class="prose prose-sm dark:prose-invert max-w-none mb-6">
+        <p>
+            The Input Wrapper component provides a styled container with before/after slots.
+            It's used as the base for input components like text, search, email, etc.
+        </p>
+    </div>
+
+    {# Basic with Icon #}
+    {% set iconPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper>
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Search..." class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set iconCode %}{% verbatim %}<twig:ui:input-wrapper>
+    <twig:block name="before">
+        <twig:ux:icon name="heroicons:magnifying-glass" class="size-5 text-gray-400" />
+    </twig:block>
+    <twig:block name="content">
+        <input type="text" placeholder="Search..." class="..." />
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Icon Before', iconPreview, iconCode) }}
+
+    {# Icon After #}
+    {% set iconAfterPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper>
+                <twig:block name="content">
+                    <input type="text" placeholder="Enter email..." class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+                <twig:block name="after">
+                    <twig:ux:icon name="heroicons:envelope" class="size-5 text-gray-400" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set iconAfterCode %}{% verbatim %}<twig:ui:input-wrapper>
+    <twig:block name="content">
+        <input type="text" placeholder="Enter email..." class="..." />
+    </twig:block>
+    <twig:block name="after">
+        <twig:ux:icon name="heroicons:envelope" class="size-5 text-gray-400" />
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Icon After', iconAfterPreview, iconAfterCode) }}
+
+    {# With Divider Before #}
+    {% set dividerBeforePreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper :before:divide="true">
+                <twig:block name="before">
+                    <span class="text-gray-500 text-sm">+1</span>
+                </twig:block>
+                <twig:block name="content">
+                    <input type="tel" placeholder="Phone number" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set dividerBeforeCode %}{% verbatim %}<twig:ui:input-wrapper :before:divide="true">
+    <twig:block name="before">
+        <span class="text-gray-500 text-sm">+1</span>
+    </twig:block>
+    <twig:block name="content">
+        <input type="tel" placeholder="Phone number" class="..." />
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('With Divider (before:divide)', dividerBeforePreview, dividerBeforeCode) }}
+
+    {# With Divider After #}
+    {% set dividerAfterPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper :after:divide="true">
+                <twig:block name="content">
+                    <input type="text" value="ABC-123-XYZ" readonly class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+                <twig:block name="after">
+                    <button type="button" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                        <twig:ux:icon name="heroicons:clipboard" class="size-5" />
+                    </button>
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set dividerAfterCode %}{% verbatim %}<twig:ui:input-wrapper :after:divide="true">
+    <twig:block name="content">
+        <input type="text" value="ABC-123-XYZ" readonly class="..." />
+    </twig:block>
+    <twig:block name="after">
+        <button type="button" class="text-gray-400 hover:text-gray-600">
+            <twig:ux:icon name="heroicons:clipboard" class="size-5" />
+        </button>
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('With Divider (after:divide)', dividerAfterPreview, dividerAfterCode) }}
+
+    {# Both Dividers #}
+    {% set bothDividersPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper :before:divide="true" :after:divide="true">
+                <twig:block name="before">
+                    <span class="text-gray-500 font-medium">$</span>
+                </twig:block>
+                <twig:block name="content">
+                    <input type="number" placeholder="0.00" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+                <twig:block name="after">
+                    <span class="text-gray-400 text-sm">USD</span>
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set bothDividersCode %}{% verbatim %}<twig:ui:input-wrapper :before:divide="true" :after:divide="true">
+    <twig:block name="before">
+        <span class="text-gray-500 font-medium">$</span>
+    </twig:block>
+    <twig:block name="content">
+        <input type="number" placeholder="0.00" class="..." />
+    </twig:block>
+    <twig:block name="after">
+        <span class="text-gray-400 text-sm">USD</span>
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Both Dividers', bothDividersPreview, bothDividersCode) }}
+
+    {# Colored Before (Text Prefix) #}
+    {% set coloredBeforePreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper before:class="bg-gray-100 dark:bg-gray-800 border-r border-gray-300 dark:border-gray-700 rounded-l-lg -ml-px px-3">
+                <twig:block name="before">
+                    <span class="text-gray-500 text-sm">https://</span>
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="example.com" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set coloredBeforeCode %}{% verbatim %}<twig:ui:input-wrapper before:class="bg-gray-100 dark:bg-gray-800 border-r border-gray-300 dark:border-gray-700 rounded-l-lg -ml-px px-3">
+    <twig:block name="before">
+        <span class="text-gray-500 text-sm">https://</span>
+    </twig:block>
+    <twig:block name="content">
+        <input type="text" placeholder="example.com" class="..." />
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Colored Before (Text Prefix)', coloredBeforePreview, coloredBeforeCode) }}
+
+    {# Colored After (Text Suffix) #}
+    {% set coloredAfterPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper after:class="bg-gray-100 dark:bg-gray-800 border-l border-gray-300 dark:border-gray-700 rounded-r-lg -mr-px px-3">
+                <twig:block name="content">
+                    <input type="number" placeholder="0.00" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+                <twig:block name="after">
+                    <span class="text-gray-500 text-sm">EUR</span>
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set coloredAfterCode %}{% verbatim %}<twig:ui:input-wrapper after:class="bg-gray-100 dark:bg-gray-800 border-l border-gray-300 dark:border-gray-700 rounded-r-lg -mr-px px-3">
+    <twig:block name="content">
+        <input type="number" placeholder="0.00" class="..." />
+    </twig:block>
+    <twig:block name="after">
+        <span class="text-gray-500 text-sm">EUR</span>
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Colored After (Text Suffix)', coloredAfterPreview, coloredAfterCode) }}
+
+    {# Both Colored #}
+    {% set bothColoredPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper
+                before:class="bg-gray-100 dark:bg-gray-800 border-r border-gray-300 dark:border-gray-700 rounded-l-lg -ml-px px-3"
+                after:class="bg-gray-100 dark:bg-gray-800 border-l border-gray-300 dark:border-gray-700 rounded-r-lg -mr-px px-3"
+            >
+                <twig:block name="before">
+                    <span class="text-gray-500 font-medium">$</span>
+                </twig:block>
+                <twig:block name="content">
+                    <input type="number" placeholder="0.00" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+                <twig:block name="after">
+                    <span class="text-gray-500 text-sm">.00</span>
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set bothColoredCode %}{% verbatim %}<twig:ui:input-wrapper
+    before:class="bg-gray-100 border-r border-gray-300 rounded-l-lg -ml-px px-3"
+    after:class="bg-gray-100 border-l border-gray-300 rounded-r-lg -mr-px px-3"
+>
+    <twig:block name="before">
+        <span class="text-gray-500 font-medium">$</span>
+    </twig:block>
+    <twig:block name="content">
+        <input type="number" placeholder="0.00" class="..." />
+    </twig:block>
+    <twig:block name="after">
+        <span class="text-gray-500 text-sm">.00</span>
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Both Colored', bothColoredPreview, bothColoredCode) }}
+
+    {# Different Sizes #}
+    {% set sizesPreview %}
+        <div class="max-w-md space-y-4">
+            <twig:ui:input-wrapper size="sm">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-4 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Small" class="block w-full bg-transparent px-2.5 py-1 text-xs focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+            <twig:ui:input-wrapper size="md">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Medium (default)" class="block w-full bg-transparent px-3 py-1.5 text-sm focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+            <twig:ui:input-wrapper size="lg">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-6 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Large" class="block w-full bg-transparent px-4 py-2 text-base focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:input-wrapper size="sm">...</twig:ui:input-wrapper>
+<twig:ui:input-wrapper size="md">...</twig:ui:input-wrapper>
+<twig:ui:input-wrapper size="lg">...</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Different Sizes', sizesPreview, sizesCode) }}
+
+    {# Variants #}
+    {% set variantsPreview %}
+        <div class="max-w-md space-y-4">
+            <twig:ui:input-wrapper variant="default">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Default variant" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+            <twig:ui:input-wrapper variant="filled">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Filled variant" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+            <twig:ui:input-wrapper variant="flushed">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:magnifying-glass" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" placeholder="Flushed variant" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set variantsCode %}{% verbatim %}<twig:ui:input-wrapper variant="default">...</twig:ui:input-wrapper>
+<twig:ui:input-wrapper variant="filled">...</twig:ui:input-wrapper>
+<twig:ui:input-wrapper variant="flushed">...</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Variants', variantsPreview, variantsCode) }}
+
+    {# Invalid State #}
+    {% set invalidPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper :invalid="true">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:envelope" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="email" value="invalid-email" class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+                <twig:block name="after">
+                    <twig:ux:icon name="heroicons:exclamation-circle" class="size-5 text-red-500" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set invalidCode %}{% verbatim %}<twig:ui:input-wrapper :invalid="true">
+    <twig:block name="before">
+        <twig:ux:icon name="heroicons:envelope" class="size-5 text-gray-400" />
+    </twig:block>
+    <twig:block name="content">
+        <input type="email" value="invalid-email" class="..." />
+    </twig:block>
+    <twig:block name="after">
+        <twig:ux:icon name="heroicons:exclamation-circle" class="size-5 text-red-500" />
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Invalid State', invalidPreview, invalidCode) }}
+
+    {# Disabled State #}
+    {% set disabledPreview %}
+        <div class="max-w-md">
+            <twig:ui:input-wrapper :disabled="true">
+                <twig:block name="before">
+                    <twig:ux:icon name="heroicons:lock-closed" class="size-5 text-gray-400" />
+                </twig:block>
+                <twig:block name="content">
+                    <input type="text" value="Disabled input" disabled class="block w-full bg-transparent px-3 py-1.5 focus:outline-none" />
+                </twig:block>
+            </twig:ui:input-wrapper>
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:input-wrapper :disabled="true">
+    <twig:block name="before">
+        <twig:ux:icon name="heroicons:lock-closed" class="size-5 text-gray-400" />
+    </twig:block>
+    <twig:block name="content">
+        <input type="text" value="Disabled input" disabled class="..." />
+    </twig:block>
+</twig:ui:input-wrapper>{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled State', disabledPreview, disabledCode) }}
+</div>

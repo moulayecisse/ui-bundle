@@ -1,0 +1,66 @@
+{% props
+  class = '',
+  size = 'md',
+  variant = 'default',
+  rounded = 'lg',
+  divide = false,
+%}
+
+{# Nested attributes for fine-grained customization #}
+{# Root attributes go to input by default #}
+{% set wrapperAttrs = attributes.nested('wrapper') %}
+{% set beforeAttrs = attributes.nested('before') %}
+{% set afterAttrs = attributes.nested('after') %}
+
+{# Check if disabled is passed via attributes #}
+{% set disabled = attributes.render('disabled')|default(false) %}
+
+{# Size configuration for input padding #}
+{% set paddingConfig = {
+  'sm': 'px-2.5 py-1',
+  'md': 'px-3 py-1.5',
+  'lg': 'px-4 py-2',
+} %}
+
+{% set inputPadding = paddingConfig[size] ?? paddingConfig['md'] %}
+
+{# Capture block content to check if they're empty #}
+{% set beforeContent %}{% block before %}{% endblock %}{% endset %}
+{% set afterContent %}{% block after %}{% endblock %}{% endset %}
+
+{# Compute divide flags #}
+{% set showBeforeDivide = divide and beforeContent|trim is not empty %}
+{% set showAfterDivide = divide and afterContent|trim is not empty %}
+
+{# Compute input classes upfront #}
+{% set inputClass = ('block w-full flex-1 min-w-0 bg-transparent focus:outline-none ' ~ inputPadding)|tailwind_merge %}
+
+<twig:ui:input-wrapper
+  :size="size"
+  :variant="variant"
+  :rounded="rounded"
+  :disabled="disabled"
+  :before:divide="showBeforeDivide"
+  :after:divide="showAfterDivide"
+  class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+  before:class="{{ beforeAttrs.render('class') }}"
+  after:class="{{ afterAttrs.render('class') }}"
+  data-input-addon
+  {{ ...wrapperAttrs.without('class') }}
+>
+  {% block before %}
+    {{ beforeContent|raw }}
+  {% endblock %}
+
+  {% block content %}
+    <!--suppress HtmlFormInputWithoutLabel -->
+    <input
+      {{ attributes.without('wrapper', 'before', 'after', 'class') }}
+      class="{{ inputClass }}"
+    >
+  {% endblock %}
+
+  {% block after %}
+    {{ afterContent|raw }}
+  {% endblock %}
+</twig:ui:input-wrapper>

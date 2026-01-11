@@ -1,27 +1,24 @@
 {% props
-  type = 'text',
   form = null,
   class = '',
   value = null,
   name = null,
   id = null,
-  placeholder = null,
+  icon = 'heroicons:magnifying-glass',
+  placeholder = 'Search...',
   required = null,
   autofocus = null,
   autocomplete = null,
   disabled = null,
-  readonly = null,
   size = 'md',
   variant = 'default',
   rounded = 'lg',
-  icon = null,
-  iconPosition = 'before',
 %}
 
 {# Nested attributes for fine-grained customization #}
 {% set wrapperAttrs = attributes.nested('wrapper') %}
-{% set inputAttrs = attributes.nested('input') %}
 {% set iconAttrs = attributes.nested('icon') %}
+{% set inputAttrs = attributes.nested('input') %}
 
 {% set id = id ?? name %}
 
@@ -33,16 +30,14 @@
   {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
+{# Size configuration for icon and padding #}
 {% set inputSizeConfig = {
-  'sm': { padding: 'px-2.5 py-1', icon: 'size-4', iconPadding: 'pl-1' },
-  'md': { padding: 'px-3 py-1.5', icon: 'size-5', iconPadding: 'pl-1.5' },
-  'lg': { padding: 'px-4 py-2', icon: 'size-6', iconPadding: 'pl-2' },
+  'sm': { icon: 'size-4', padding: 'px-2.5 py-1' },
+  'md': { icon: 'size-5', padding: 'px-3 py-1.5' },
+  'lg': { icon: 'size-6', padding: 'px-4 py-2' },
 } %}
 
 {% set inputSize = inputSizeConfig[size] ?? inputSizeConfig['md'] %}
-
-{# Resolve icon from prop or nested attribute #}
-{% set resolvedIcon = iconAttrs.render('name')|default(icon) %}
 
 <twig:ui:input-wrapper
   :disabled="disabled"
@@ -50,23 +45,21 @@
   :variant="variant"
   :rounded="rounded"
   class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+  before:class="pl-1"
   {{ ...wrapperAttrs.without('class') }}
 >
   {% block before %}
-    {% if resolvedIcon and iconPosition == 'before' %}
-      <div class="{{ ('flex items-center shrink-0 ' ~ inputSize.iconPadding)|tailwind_merge }}">
-        <twig:ux:icon
-          name="{{ resolvedIcon }}"
-          class="{{ (inputSize.icon ~ ' text-gray-400 dark:text-gray-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
-        />
-      </div>
-    {% endif %}
+    <twig:ux:icon
+      name="{{ iconAttrs.render('name')|default(icon) }}"
+      class="{{ (inputSize.icon ~ ' text-gray-400 dark:text-gray-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+    />
   {% endblock %}
 
   {% block content %}
     <!--suppress HtmlFormInputWithoutLabel -->
     <input
-      {{ attributes.without('wrapper', 'input', 'icon') }}
+      {{ attributes.without('wrapper', 'icon', 'input') }}
+      type="search"
       class="{{ ('block w-full bg-transparent focus:outline-none ' ~ inputSize.padding ~ ' ' ~ inputAttrs.render('class'))|tailwind_merge }}"
       {{ inputAttrs.without('class') }}
       {% if value is not null %}value="{{ value }}"{% endif %}
@@ -74,22 +67,9 @@
       {% if id %}id="{{ id }}"{% endif %}
       {% if placeholder %}placeholder="{{ placeholder }}"{% endif %}
       {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
-      type="{{ type }}"
       {{ required ? 'required' }}
       {{ autofocus ? 'autofocus' }}
       {{ disabled ? 'disabled' }}
-      {{ readonly ? 'readonly' }}
     >
-  {% endblock %}
-
-  {% block after %}
-    {% if resolvedIcon and iconPosition == 'after' %}
-      <div class="{{ ('flex items-center shrink-0 pr-3')|tailwind_merge }}">
-        <twig:ux:icon
-          name="{{ resolvedIcon }}"
-          class="{{ (inputSize.icon ~ ' text-gray-400 dark:text-gray-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
-        />
-      </div>
-    {% endif %}
   {% endblock %}
 </twig:ui:input-wrapper>

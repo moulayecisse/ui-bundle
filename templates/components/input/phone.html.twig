@@ -75,7 +75,7 @@
     <input type="hidden" name="{{ name }}_country" data-cisse--ui-bundle--phone-input-target="countryInput" value="{{ selectedCountry.code }}" />
 
     <twig:ui:input-wrapper :size="size" :disabled="disabled" class="{{ wrapperAttrs.render('class') }}" {{ ...wrapperAttrs.without('class') }}>
-        {% block icon %}
+        {% block before %}
             {# Country selector button #}
             <button
                 type="button"
@@ -108,7 +108,7 @@
             />
         {% endblock %}
 
-        {% block actions %}
+        {% block after %}
             <span data-cisse--ui-bundle--phone-input-target="dialCode" class="text-xs text-gray-400 font-medium">
                 {{ selectedCountry.dialCode }}
             </span>

@@ -11,6 +11,9 @@
   min = 0,
   max = 100,
   decimals = 0,
+  size = 'md',
+  variant = 'default',
+  rounded = 'lg',
 %}
 
 {# Nested attributes for fine-grained customization #}
@@ -30,30 +33,46 @@
 
 {% set step = decimals > 0 ? (10 ** -decimals) : 1 %}
 
+{# Size configuration for input padding #}
+{% set sizeConfig = {
+  'sm': 'px-2.5 py-1',
+  'md': 'px-3 py-1.5',
+  'lg': 'px-4 py-2',
+} %}
+
+{% set inputPadding = sizeConfig[size] ?? sizeConfig['md'] %}
+
 <twig:ui:input-wrapper
   :disabled="disabled"
+  :size="size"
+  :variant="variant"
+  :rounded="rounded"
   class="{{ (class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
   {{ ...wrapperAttrs.without('class') }}
 >
-  <input
-    {{ attributes }}
-    class="{{ ('block w-full bg-transparent px-3 py-1.5 focus:outline-none text-right pr-10 ' ~ inputAttrs.render('class'))|tailwind_merge }}"
-    {{ inputAttrs.without('class') }}
-    {% if value is not null %}value="{{ value }}"{% endif %}
-    {% if name %}name="{{ name }}"{% endif %}
-    {% if id %}id="{{ id }}"{% endif %}
-    type="number"
-    inputmode="decimal"
-    placeholder="{{ placeholder }}"
-    min="{{ min }}"
-    max="{{ max }}"
-    step="{{ step }}"
-    {{ required ? 'required' }}
-    {{ autofocus ? 'autofocus' }}
-    {{ disabled ? 'disabled' }}
-  >
+  {% block content %}
+    <input
+      {{ attributes.without('wrapper', 'input', 'symbol') }}
+      class="{{ ('block w-full bg-transparent focus:outline-none text-right ' ~ inputPadding ~ ' ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+      {{ inputAttrs.without('class') }}
+      {% if value is not null %}value="{{ value }}"{% endif %}
+      {% if name %}name="{{ name }}"{% endif %}
+      {% if id %}id="{{ id }}"{% endif %}
+      type="number"
+      inputmode="decimal"
+      placeholder="{{ placeholder }}"
+      min="{{ min }}"
+      max="{{ max }}"
+      step="{{ step }}"
+      {{ required ? 'required' }}
+      {{ autofocus ? 'autofocus' }}
+      {{ disabled ? 'disabled' }}
+    >
+  {% endblock %}
 
-  <span class="{{ ('pr-3 text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center ' ~ symbolAttrs.render('class'))|tailwind_merge }}" {{ symbolAttrs.without('class') }}>
-    %
-  </span>
+  {% block after %}
+    <span class="{{ ('text-sm font-medium text-gray-500 dark:text-gray-400 ' ~ symbolAttrs.render('class'))|tailwind_merge }}" {{ symbolAttrs.without('class') }}>
+      %
+    </span>
+  {% endblock %}
 </twig:ui:input-wrapper>
