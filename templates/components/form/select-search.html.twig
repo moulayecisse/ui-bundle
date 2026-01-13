@@ -1,0 +1,122 @@
+{% props
+  class = '',
+  name = null,
+  method = 'get',
+  action = null,
+  baseUrl = null,
+  size = 'md',
+  disabled = false,
+  options = [],
+  placeholders = {},
+  defaultPlaceholder = 'Search...',
+%}
+
+{# Nested attributes for fine-grained customization #}
+{% set selectAttrs = attributes.nested('select') %}
+{% set inputAttrs = attributes.nested('input') %}
+{% set submitAttrs = attributes.nested('submit') %}
+{% set tokenAttrs = attributes.nested('token') %}
+
+{# Extract nested values with defaults #}
+{% set selectName = selectAttrs.render('name')|default('type') %}
+{% set selectValue = selectAttrs.render('value') %}
+
+{% set inputName = inputAttrs.render('name')|default('query') %}
+{% set inputValue = inputAttrs.render('value') %}
+
+{% set submitLabel = submitAttrs.render('label')|default('Rechercher') %}
+{% set submitIcon = submitAttrs.render('icon')|default('heroicons:magnifying-glass') %}
+{% set hideSubmitLabel = submitAttrs.has('hideLabel') %}
+
+{% set tokenName = tokenAttrs.render('name') %}
+{% set tokenValue = tokenAttrs.render('value') %}
+
+{# Size configuration #}
+{% set sizeConfig = {
+  'sm': { select: 'w-28 px-2.5 py-1.5 text-xs', input: 'py-1.5 pl-8 pr-3 text-xs', icon: 'size-4 ml-2.5', button: 'px-3 py-1.5 text-xs', buttonIcon: 'size-3.5' },
+  'md': { select: 'w-32 px-3 py-2.5 text-sm', input: 'py-2.5 pl-10 pr-3 text-sm', icon: 'size-5 ml-3', button: 'px-4 py-2.5 text-sm', buttonIcon: 'size-4' },
+  'lg': { select: 'w-36 px-4 py-3 text-base', input: 'py-3 pl-12 pr-4 text-base', icon: 'size-6 ml-4', button: 'px-5 py-3 text-base', buttonIcon: 'size-5' },
+} %}
+
+{% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
+
+{# Convert placeholders to JSON for Stimulus #}
+{% set placeholdersJson = placeholders|json_encode %}
+
+<form
+  {{ attributes.without('select', 'input', 'submit', 'token', 'class') }}
+  {% if action %}action="{{ action }}"{% endif %}
+  method="{{ method }}"
+  {% if name %}name="{{ name }}"{% endif %}
+  class="{{ ('flex flex-col sm:flex-row ' ~ class)|tailwind_merge }}"
+  data-controller="cisse--ui-bundle--select-search"
+  data-cisse--ui-bundle--select-search-placeholders-value="{{ placeholdersJson }}"
+  {% if baseUrl %}data-cisse--ui-bundle--select-search-base-url-value="{{ baseUrl }}"{% endif %}
+  data-action="submit->cisse--ui-bundle--select-search#submit"
+>
+  {# Select Dropdown #}
+  <label class="grid shrink-0 grid-cols-1 relative">
+    <select
+      name="{{ selectName }}"
+      data-cisse--ui-bundle--select-search-target="select"
+      data-action="change->cisse--ui-bundle--select-search#selectChanged"
+      class="{{ (currentSize.select ~ ' appearance-none flex shrink-0 items-center gap-x-1.5 rounded-t-lg sm:rounded-t-none sm:rounded-l-lg bg-white dark:bg-black font-semibold text-slate-900 dark:text-slate-100 outline-1 -outline-offset-1 outline-slate-300 dark:outline-slate-700 hover:bg-slate-50 dark:hover:bg-slate-950 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-primary-500 ' ~ selectAttrs.render('class'))|tailwind_merge }}"
+      {{ selectAttrs.without('class', 'name', 'value') }}
+      {{ disabled ? 'disabled' }}
+    >
+      {% for option in options %}
+        {% set optionValue = option.value is defined ? option.value : option %}
+        {% set optionLabel = option.label is defined ? option.label : option %}
+        <option
+          value="{{ optionValue }}"
+          {{ selectValue == optionValue ? 'selected' }}
+        >
+          {{ optionLabel }}
+        </option>
+      {% endfor %}
+    </select>
+    <twig:ux:icon
+      name="heroicons:chevron-down"
+      class="absolute pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+    />
+  </label>
+
+  {# Input Field #}
+  <label class="-mt-px sm:-mt-0 sm:-ml-px grid grow grid-cols-1 focus-within:relative">
+    <input
+      type="text"
+      name="{{ inputName }}"
+      value="{{ inputValue }}"
+      data-cisse--ui-bundle--select-search-target="input"
+      data-default-placeholder="{{ defaultPlaceholder }}"
+      placeholder="{{ defaultPlaceholder }}"
+      class="{{ (currentSize.input ~ ' col-start-1 row-start-1 block w-full bg-white dark:bg-black text-slate-900 dark:text-slate-100 outline-1 -outline-offset-1 outline-slate-300 dark:outline-slate-700 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-500 ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+      {{ inputAttrs.without('class', 'name', 'value') }}
+      {{ disabled ? 'disabled' }}
+    >
+    <twig:ux:icon
+      name="heroicons:magnifying-glass"
+      class="{{ (currentSize.icon ~ ' pointer-events-none col-start-1 row-start-1 self-center text-slate-400 dark:text-slate-600')|tailwind_merge }}"
+    />
+  </label>
+
+  {# Submit Button #}
+  <button
+    type="submit"
+    class="{{ (currentSize.button ~ ' flex shrink-0 items-center justify-center gap-x-1.5 -mt-px sm:-mt-0 sm:-ml-px rounded-b-lg sm:rounded-b-none sm:rounded-r-lg bg-white dark:bg-black font-semibold text-slate-900 dark:text-slate-100 outline-1 -outline-offset-1 outline-slate-300 dark:outline-slate-700 hover:bg-slate-50 dark:hover:bg-slate-950 focus:relative focus:outline-2 focus:-outline-offset-2 focus:outline-primary-500 ' ~ submitAttrs.render('class'))|tailwind_merge }}"
+    {{ submitAttrs.without('class', 'label', 'icon', 'hideLabel') }}
+    {{ disabled ? 'disabled' }}
+  >
+    {% if submitIcon %}
+      <twig:ux:icon name="{{ submitIcon }}" class="{{ currentSize.buttonIcon }} {{ hideSubmitLabel ? '' : '-ml-0.5' }} text-slate-400 dark:text-slate-600"/>
+    {% endif %}
+    {% if not hideSubmitLabel %}
+      {{ submitLabel }}
+    {% endif %}
+  </button>
+
+  {# CSRF Token (if provided) #}
+  {% if tokenName and tokenValue %}
+    <input type="hidden" name="{{ tokenName }}" value="{{ tokenValue }}">
+  {% endif %}
+</form>

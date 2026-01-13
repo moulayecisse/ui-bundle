@@ -1,0 +1,47 @@
+{# templates/components/responsive-list/mobile.html.twig #}
+{#
+    Mobile view wrapper for responsive-list.
+    A container for mobile card items with spacing.
+
+    Usage:
+    <twig:ui:responsive-list:mobile>
+        {% for item in items %}
+            <twig:ui:responsive-list:item>
+                <twig:block name="content">
+                    <div>{{ item.name }}</div>
+                </twig:block>
+                <twig:block name="actions">
+                    <twig:ui:button size="sm" label="Edit" />
+                </twig:block>
+            </twig:ui:responsive-list:item>
+        {% endfor %}
+    </twig:ui:responsive-list:mobile>
+
+    With empty state:
+    <twig:ui:responsive-list:mobile emptyLabel="No items found">
+        {% for item in items %}...{% endfor %}
+    </twig:ui:responsive-list:mobile>
+#}
+{% props
+    class = '',
+    gap = '3',
+    emptyLabel = 'Aucun résultat trouvé'
+%}
+
+{% set class = ('space-y-' ~ gap ~ ' ' ~ class)|tailwind_merge %}
+
+<div {{ attributes }} class="{{ class }}">
+    {% set contentBlock %}{% block content '' %}{% endset %}
+
+    {% if contentBlock|trim is not empty %}
+        {{ contentBlock|raw }}
+    {% else %}
+        {# Empty state #}
+        <twig:ui:card>
+            <div class="p-8 text-center">
+                <twig:ux:icon name="heroicons:inbox-20-solid" class="size-12 mx-auto text-gray-300 dark:text-gray-600" />
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ emptyLabel }}</p>
+            </div>
+        </twig:ui:card>
+    {% endif %}
+</div>

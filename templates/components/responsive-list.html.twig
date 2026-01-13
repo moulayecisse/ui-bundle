@@ -1,16 +1,48 @@
-{# templates/components/Ui/responsive-list.html.twig #}
-{# Responsive list that shows table on desktop, cards on mobile #}
+{# templates/components/responsive-list.html.twig #}
+{#
+    Responsive list wrapper that switches between desktop (table) and mobile (cards) views.
+
+    Usage with slots (full control):
+    <twig:ui:responsive-list breakpoint="md">
+        <twig:block name="desktop">
+            <twig:ui:table:selectable :items="items" :fields="fields">
+                ...
+            </twig:ui:table:selectable>
+        </twig:block>
+
+        <twig:block name="mobile">
+            {% for item in items %}
+                <twig:ui:responsive-list:item>
+                    ...
+                </twig:ui:responsive-list:item>
+            {% endfor %}
+        </twig:block>
+    </twig:ui:responsive-list>
+
+    Usage with sub-components:
+    <twig:ui:responsive-list breakpoint="md">
+        <twig:block name="desktop">
+            <twig:ui:responsive-list:desktop :items="items" :fields="fields" showActions>
+                {% block tbody %}...{% endblock %}
+            </twig:ui:responsive-list:desktop>
+        </twig:block>
+
+        <twig:block name="mobile">
+            <twig:ui:responsive-list:mobile>
+                {% for item in items %}
+                    <twig:ui:responsive-list:item>
+                        {% block content %}...{% endblock %}
+                        {% block actions %}...{% endblock %}
+                    </twig:ui:responsive-list:item>
+                {% endfor %}
+            </twig:ui:responsive-list:mobile>
+        </twig:block>
+    </twig:ui:responsive-list>
+#}
 {% props
     class = '',
-    items = [],
-    fields = [],
-    keyField = 'id',
-    selectable = false,
-    showActions = false,
-    loading = false,
-    loadingRows = 5,
     breakpoint = 'md',
-    emptyLabel = 'No items found'
+    loading = false
 %}
 
 {% set class = (class)|tailwind_merge %}
@@ -20,79 +52,25 @@
     data-controller="cisse--ui-bundle--responsive-list"
     class="{{ class }}"
 >
-    {# Desktop: Table view #}
+    {# Desktop view - hidden below breakpoint #}
     <div class="hidden {{ breakpoint }}:block">
-        <twig:ui:table:selectable
-            :fields="fields"
-            :items="items"
-            :selectable="selectable"
-            :showActions="showActions"
-            :emptyLabel="emptyLabel"
-        >
-            {% block thead '' %}
-            {% block tbody '' %}
-            {% block tfoot '' %}
-            {% block batch_actions '' %}
-            {% block tbody_actions '' %}
-            {% block empty '' %}
-        </twig:ui:table:selectable>
+        {% if loading %}
+            <twig:ui:card>
+                <twig:ui:skeleton:table rows="5" cols="4" />
+            </twig:ui:card>
+        {% else %}
+            {% block desktop '' %}
+        {% endif %}
     </div>
 
-    {# Mobile: Card view #}
+    {# Mobile view - visible below breakpoint #}
     <div class="{{ breakpoint }}:hidden">
         {% if loading %}
             <twig:ui:card>
-                <twig:ui:skeleton:list :items="loadingRows" showAvatar showSecondary showAction />
+                <twig:ui:skeleton:list items="5" showAvatar showSecondary showAction />
             </twig:ui:card>
-        {% elseif items|length == 0 %}
-            {% set emptyBlock %}{% block mobile_empty '' %}{% endset %}
-            {% if emptyBlock is not empty %}
-                {{ emptyBlock|raw }}
-            {% else %}
-                <twig:ui:card>
-                    <div class="p-8 text-center">
-                        <twig:ux:icon name="heroicons:inbox-20-solid" class="size-12 mx-auto text-gray-300 dark:text-gray-600" />
-                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ emptyLabel }}</p>
-                    </div>
-                </twig:ui:card>
-            {% endif %}
         {% else %}
-            <div class="space-y-3">
-                {% for item in items %}
-                    {% set itemId = attribute(item, keyField) ?? loop.index0 %}
-
-                    <twig:ui:card class="hover:shadow-lg transition-all duration-200">
-                        <div class="p-4">
-                            {# Mobile card content slot #}
-                            {% set mobileContentBlock %}{% block mobile_content '' %}{% endset %}
-                            {% if mobileContentBlock is not empty %}
-                                {{ mobileContentBlock|raw }}
-                            {% else %}
-                                {# Default: Show fields as key-value pairs #}
-                                <dl class="space-y-2">
-                                    {% for field in fields %}
-                                        {% set fieldName = field.name ?? field %}
-                                        {% set fieldLabel = field.label ?? fieldName %}
-                                        {% set fieldValue = attribute(item, fieldName) ?? '' %}
-
-                                        <div class="flex justify-between items-center">
-                                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ fieldLabel }}</dt>
-                                            <dd class="text-sm text-gray-900 dark:text-gray-100">{{ fieldValue }}</dd>
-                                        </div>
-                                    {% endfor %}
-                                </dl>
-                            {% endif %}
-
-                            {# Mobile actions #}
-                            {% if showActions %}
-                                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-2">
-                                    {% block mobile_actions '' %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    </twig:ui:card>
-                {% endfor %}
-            </div>
+            {% block mobile '' %}
         {% endif %}
     </div>
 </div>

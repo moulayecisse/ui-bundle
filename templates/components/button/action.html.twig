@@ -1,7 +1,7 @@
 {%- set contentBlock -%}{% block content '' %}{%- endset -%}
 
 {% if contentBlock %}
-  <twig:ui:button {{ attributes }}>{{ contentBlock|raw }}</twig:ui:button>
+  <twig:ui:button {{ ...attributes }}>{{ contentBlock|raw }}</twig:ui:button>
 {% else %}
-  <twig:ui:button {{ attributes }} />
+  <twig:ui:button {{ ...attributes }} />
 {% endif %}
