@@ -1,0 +1,37 @@
+{# templates/components/responsive-list/desktop.html.twig #}
+{#
+    Desktop view wrapper for responsive-list.
+    A simple card wrapper for table content.
+
+    Usage:
+    <twig:ui:responsive-list:desktop>
+        <twig:ui:table:selectable :items="items" :fields="fields" showActions>
+            {% block tbody %}...{% endblock %}
+        </twig:ui:table:selectable>
+    </twig:ui:responsive-list:desktop>
+
+    Or with custom table:
+    <twig:ui:responsive-list:desktop>
+        <table class="min-w-full">
+            <thead>...</thead>
+            <tbody>...</tbody>
+        </table>
+    </twig:ui:responsive-list:desktop>
+#}
+{% props
+    class = '',
+    variant = 'card'
+%}
+
+{% set wrapperClass = variant == 'card'
+    ? 'bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden'
+    : ''
+%}
+
+{% set class = (wrapperClass ~ ' ' ~ class)|tailwind_merge %}
+
+<div {{ attributes }} class="{{ class }}">
+    <div class="overflow-x-auto">
+        {% block content '' %}
+    </div>
+</div>

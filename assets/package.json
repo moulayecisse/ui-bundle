@@ -148,6 +148,11 @@
         "main": "dist/icon_picker_controller.js",
         "fetch": "eager",
         "enabled": true
+      },
+      "select-search": {
+        "main": "dist/select_search_controller.js",
+        "fetch": "eager",
+        "enabled": true
       }
     },
     "importmap": {

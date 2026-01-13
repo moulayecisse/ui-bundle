@@ -1,0 +1,209 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Component size' },
+        { name: 'method', type: 'string', default: "'get'", description: 'Form method' },
+        { name: 'action', type: 'string', default: 'null', description: 'Form action URL' },
+        { name: 'baseUrl', type: 'string', default: 'null', description: 'Base URL for path-based submission (e.g., /search → /search/{type}/{identifier})' },
+        { name: 'name', type: 'string', default: 'null', description: 'Form name' },
+        { name: 'options', type: 'array', default: '[]', description: 'Select options: [{value, label}] or [string]' },
+        { name: 'placeholders', type: 'object', default: '{}', description: 'Dynamic placeholders: {optionValue: "placeholder"}' },
+        { name: 'defaultPlaceholder', type: 'string', default: "'Search...'", description: 'Default input placeholder' },
+        { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the form' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Nested Attributes Documentation #}
+    {{ ui.slots([
+        { name: 'select:name', description: 'Name attribute for the select (default: "type")' },
+        { name: 'select:value', description: 'Selected value' },
+        { name: 'input:name', description: 'Name attribute for the input (default: "query")' },
+        { name: 'input:value', description: 'Input value' },
+        { name: 'submit:label', description: 'Submit button label (default: "Rechercher")' },
+        { name: 'submit:icon', description: 'Submit button icon (default: "heroicons:magnifying-glass")' },
+        { name: 'submit:hideLabel', description: 'Hide the submit button label (icon only)' },
+        { name: 'token:name', description: 'CSRF token field name' },
+        { name: 'token:value', description: 'CSRF token value' },
+    ]) }}
+
+    {# Description #}
+    <div class="prose prose-sm dark:prose-invert max-w-none mb-6">
+        <p>
+            A compact search form with a select dropdown, input field, and submit button all in a single connected unit.
+            Perfect for filtering searches by type (e.g., search by ID, name, email).
+            The input placeholder dynamically updates based on the selected option.
+        </p>
+    </div>
+
+    {# Basic Example #}
+    {% set basicPreview %}
+        <div class="max-w-lg">
+            <twig:ui:form:select-search
+                :options="[
+                    { value: 'name', label: 'Nom' },
+                    { value: 'email', label: 'Email' },
+                    { value: 'id', label: 'ID' },
+                ]"
+                :placeholders="{
+                    name: 'Rechercher par nom...',
+                    email: 'Rechercher par email...',
+                    id: 'Rechercher par ID...',
+                }"
+                defaultPlaceholder="Rechercher..."
+            />
+        </div>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:form:select-search
+    :options="[
+        { value: 'name', label: 'Nom' },
+        { value: 'email', label: 'Email' },
+        { value: 'id', label: 'ID' },
+    ]"
+    :placeholders="{
+        name: 'Rechercher par nom...',
+        email: 'Rechercher par email...',
+        id: 'Rechercher par ID...',
+    }"
+    defaultPlaceholder="Rechercher..."
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Usage', basicPreview, basicCode) }}
+
+    {# Animal Search Example #}
+    {% set animalPreview %}
+        <div class="max-w-lg">
+            <twig:ui:form:select-search
+                :options="[
+                    { value: 'insert', label: 'Puce/Insert' },
+                    { value: 'tattoo', label: 'Tatouage' },
+                ]"
+                :placeholders="{
+                    insert: 'Numéro de puce...',
+                    tattoo: 'Numéro de tatouage...',
+                }"
+                select:name="type"
+                input:name="identifier"
+            />
+        </div>
+    {% endset %}
+    {% set animalCode %}{% verbatim %}<twig:ui:form:select-search
+    :options="[
+        { value: 'insert', label: 'Puce/Insert' },
+        { value: 'tattoo', label: 'Tatouage' },
+    ]"
+    :placeholders="{
+        insert: 'Numéro de puce...',
+        tattoo: 'Numéro de tatouage...',
+    }"
+    select:name="type"
+    input:name="identifier"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Animal Search', animalPreview, animalCode) }}
+
+    {# With Pre-selected Value #}
+    {% set preselectedPreview %}
+        <div class="max-w-lg">
+            <twig:ui:form:select-search
+                :options="[
+                    { value: 'all', label: 'Tous' },
+                    { value: 'active', label: 'Actifs' },
+                    { value: 'inactive', label: 'Inactifs' },
+                ]"
+                :placeholders="{
+                    all: 'Rechercher dans tous...',
+                    active: 'Rechercher les actifs...',
+                    inactive: 'Rechercher les inactifs...',
+                }"
+                select:value="active"
+                input:value="test"
+            />
+        </div>
+    {% endset %}
+    {% set preselectedCode %}{% verbatim %}<twig:ui:form:select-search
+    :options="[
+        { value: 'all', label: 'Tous' },
+        { value: 'active', label: 'Actifs' },
+        { value: 'inactive', label: 'Inactifs' },
+    ]"
+    select:value="active"
+    input:value="test"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Pre-selected Value', preselectedPreview, preselectedCode) }}
+
+    {# Different Sizes #}
+    {% set sizesPreview %}
+        <div class="max-w-lg space-y-4">
+            <twig:ui:form:select-search
+                size="sm"
+                :options="[{ value: 'a', label: 'Small' }]"
+                defaultPlaceholder="Small size..."
+            />
+            <twig:ui:form:select-search
+                size="md"
+                :options="[{ value: 'a', label: 'Medium' }]"
+                defaultPlaceholder="Medium size (default)..."
+            />
+            <twig:ui:form:select-search
+                size="lg"
+                :options="[{ value: 'a', label: 'Large' }]"
+                defaultPlaceholder="Large size..."
+            />
+        </div>
+    {% endset %}
+    {% set sizesCode %}{% verbatim %}<twig:ui:form:select-search size="sm" ... />
+<twig:ui:form:select-search size="md" ... />
+<twig:ui:form:select-search size="lg" ... />{% endverbatim %}{% endset %}
+    {{ ui.story('Different Sizes', sizesPreview, sizesCode) }}
+
+    {# Icon Only Button #}
+    {% set iconOnlyPreview %}
+        <div class="max-w-md">
+            <twig:ui:form:select-search
+                :options="[
+                    { value: 'name', label: 'Nom' },
+                    { value: 'email', label: 'Email' },
+                ]"
+                submit:hideLabel
+            />
+        </div>
+    {% endset %}
+    {% set iconOnlyCode %}{% verbatim %}<twig:ui:form:select-search
+    :options="[...]"
+    submit:hideLabel
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Icon Only Button', iconOnlyPreview, iconOnlyCode) }}
+
+    {# Custom Button #}
+    {% set customButtonPreview %}
+        <div class="max-w-lg">
+            <twig:ui:form:select-search
+                :options="[{ value: 'all', label: 'Tous' }]"
+                submit:label="Filtrer"
+                submit:icon="heroicons:funnel"
+            />
+        </div>
+    {% endset %}
+    {% set customButtonCode %}{% verbatim %}<twig:ui:form:select-search
+    :options="[...]"
+    submit:label="Filtrer"
+    submit:icon="heroicons:funnel"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Custom Button', customButtonPreview, customButtonCode) }}
+
+    {# Disabled State #}
+    {% set disabledPreview %}
+        <div class="max-w-lg">
+            <twig:ui:form:select-search
+                :options="[{ value: 'a', label: 'Option' }]"
+                :disabled="true"
+                defaultPlaceholder="Disabled..."
+            />
+        </div>
+    {% endset %}
+    {% set disabledCode %}{% verbatim %}<twig:ui:form:select-search
+    :options="[...]"
+    :disabled="true"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Disabled State', disabledPreview, disabledCode) }}
+</div>
