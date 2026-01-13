@@ -130,4 +130,41 @@
 <twig:ui:skeleton variant="button" width="8rem" />
 <twig:ui:skeleton variant="input" />{% endverbatim %}{% endset %}
     {{ ui.story('More Variants', moreVariantsPreview, moreVariantsCode) }}
+
+    {# Chart Skeleton Props #}
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mt-8 mb-4">Chart Skeleton (skeleton:chart)</h3>
+    {{ ui.props([
+        { name: 'variant', type: "'line' | 'bar'", default: "'line'", description: 'Chart type to simulate' },
+        { name: 'bars', type: 'number', default: '12', description: 'Number of bars/data points' },
+        { name: 'height', type: 'string', default: "'18rem'", description: 'Chart height (CSS value)' },
+        { name: 'showLegend', type: 'boolean', default: 'true', description: 'Show legend placeholder' },
+        { name: 'showAxis', type: 'boolean', default: 'true', description: 'Show axis labels placeholder' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Chart Skeleton - Line #}
+    {% set lineChartPreview %}
+        <twig:ui:skeleton:chart variant="line" height="16rem" />
+    {% endset %}
+    {% set lineChartCode %}{% verbatim %}<twig:ui:skeleton:chart variant="line" height="16rem" />{% endverbatim %}{% endset %}
+    {{ ui.story('Line Chart Skeleton', lineChartPreview, lineChartCode) }}
+
+    {# Chart Skeleton - Bar #}
+    {% set barChartPreview %}
+        <twig:ui:skeleton:chart variant="bar" height="16rem" bars="8" />
+    {% endset %}
+    {% set barChartCode %}{% verbatim %}<twig:ui:skeleton:chart variant="bar" height="16rem" bars="8" />{% endverbatim %}{% endset %}
+    {{ ui.story('Bar Chart Skeleton', barChartPreview, barChartCode) }}
+
+    {# Chart Skeleton - Minimal #}
+    {% set minimalChartPreview %}
+        <twig:ui:skeleton:chart variant="line" height="12rem" showLegend="{{ false }}" showAxis="{{ false }}" />
+    {% endset %}
+    {% set minimalChartCode %}{% verbatim %}<twig:ui:skeleton:chart
+    variant="line"
+    height="12rem"
+    showLegend="{{ false }}"
+    showAxis="{{ false }}"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Minimal Chart Skeleton', minimalChartPreview, minimalChartCode) }}
 </div>

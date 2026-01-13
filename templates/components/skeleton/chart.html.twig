@@ -1,0 +1,85 @@
+{% props
+  variant = 'line',
+  bars = 12,
+  height = '18rem',
+  showLegend = true,
+  showAxis = true,
+  class = '',
+%}
+
+{% set baseClass = 'bg-white dark:bg-gray-800 rounded-xl p-4 md:p-6' %}
+
+<div {{ attributes }} class="{{ (baseClass ~ ' ' ~ class)|tailwind_merge }}" aria-hidden="true">
+  {# Legend skeleton #}
+  {% if showLegend %}
+    <div class="flex justify-center gap-4 mb-4">
+      {% for i in 1..4 %}
+        <div class="flex items-center gap-1.5">
+          <div class="size-3 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+          <div class="h-3 w-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {# Chart area #}
+  <div class="relative" style="height: {{ height }}">
+    {# Y-axis labels #}
+    {% if showAxis %}
+      <div class="absolute left-0 top-0 bottom-6 w-10 flex flex-col justify-between py-2">
+        {% for i in 1..5 %}
+          <div class="h-3 w-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {# Chart content #}
+    <div class="{{ showAxis ? 'ml-12' : '' }} h-full flex items-end gap-1 pb-6">
+      {% if variant == 'bar' %}
+        {# Bar chart skeleton #}
+        {% set heights = [72, 56, 80, 64, 48, 72, 88, 56, 64, 80, 72, 56] %}
+        {% for i in 1..bars %}
+          <div
+            class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-t animate-pulse"
+            style="height: {{ heights[(i - 1) % 12] }}%"
+          ></div>
+        {% endfor %}
+      {% else %}
+        {# Line chart skeleton - simulated with gradient area #}
+        <div class="w-full h-full relative overflow-hidden">
+          {# Multiple line representations #}
+          {% set lineColors = ['bg-gray-300 dark:bg-gray-600', 'bg-gray-200 dark:bg-gray-700', 'bg-gray-250 dark:bg-gray-650', 'bg-gray-200 dark:bg-gray-700'] %}
+          {% for lineIndex in 0..3 %}
+            <div class="absolute inset-x-0 bottom-0 animate-pulse" style="height: {{ 40 + (lineIndex * 12) }}%">
+              <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <path
+                  d="M0,{{ 80 - (lineIndex * 15) }} Q10,{{ 70 - (lineIndex * 10) }} 20,{{ 75 - (lineIndex * 12) }} T40,{{ 65 - (lineIndex * 8) }} T60,{{ 70 - (lineIndex * 10) }} T80,{{ 60 - (lineIndex * 12) }} T100,{{ 65 - (lineIndex * 10) }}"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="text-gray-{{ 200 + (lineIndex * 50) }} dark:text-gray-{{ 700 - (lineIndex * 50) }}"
+                />
+              </svg>
+            </div>
+          {% endfor %}
+
+          {# Horizontal grid lines #}
+          <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+            {% for i in 1..5 %}
+              <div class="border-b border-gray-100 dark:border-gray-800"></div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    {# X-axis labels #}
+    {% if showAxis %}
+      <div class="absolute bottom-0 left-12 right-0 flex justify-between">
+        {% for i in 1..(bars > 7 ? 7 : bars) %}
+          <div class="h-3 w-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>

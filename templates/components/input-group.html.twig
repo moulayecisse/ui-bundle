@@ -2,13 +2,17 @@
   form = null,
   type = null,
   name = null,
+  label = null,
+  placeholder = null,
+  required = null,
+  disabled = null,
   id = null,
   value = null,
   autofocus = false,
   autocomplete = null,
   options = null,
 
-  layout = 'vertical',
+  layout = null,
   col = null,
 
   size = 'md',
@@ -25,14 +29,11 @@
 {% set errorAttrs = attributes.nested('error') %}
 
 {# Extract nested values with defaults #}
-{% set labelText = labelAttrs.render('text') %}
+{% set labelText = labelAttrs.render('text') ?? label %}
 {% set labelCol = labelAttrs.render('col')|default(4) %}
 {% set helpText = helpAttrs.render('text') %}
 {% set errorText = errorAttrs.render('text') %}
 {% set inputCol = inputAttrs.render('col')|default(8) %}
-{% set inputPlaceholder = inputAttrs.render('placeholder') %}
-{% set inputRequired = inputAttrs.has('required') ? true : null %}
-{% set inputDisabled = inputAttrs.has('disabled') ? true : null %}
 
 {# Form integration - extract values from Symfony form #}
 {% if form %}
@@ -40,8 +41,7 @@
   {% set id = id ?? form.vars.id %}
   {% set labelText = labelText ?? field_label(form) %}
   {% set helpText = helpText ?? form.vars.help %}
-  {% set inputRequired = inputRequired is not null ? inputRequired : form.vars.required %}
-  {% set inputDisabled = inputDisabled ?? form.vars.disabled %}
+  {% set disabled = disabled ?? form.vars.disabled ?? false %}
   {% set value = value ?? field_value(form) %}
   {% set errorText = errorText ?? (form.vars.errors|length > 0 ? form.vars.errors|first.message : null) %}
 
@@ -81,29 +81,50 @@
 {% set id = id ?? name %}
 {% set hasError = errorText is not null and errorText != '' %}
 
-{# Column span logic #}
+{# Inherit layout from parent form if not explicitly set #}
+{# Try multiple approaches to get parent layout #}
+{% set inheritedLayout = outerScope._formLayout ?? outerScope.layout ?? null %}
+{% set layout = layout ?? inheritedLayout ?? 'vertical' %}
+
+{# Check if inline layout (flex context) #}
+{% set isInline = layout == 'inline' %}
+
+{# Column/sizing logic - different for grid vs flex contexts #}
 {% set colClass = '' %}
-{% if col %}
-  {% set colClass = 'col-span-12 sm:col-span-' ~ col %}
-{% else %}
-  {# Default: 12 on mobile, 6 on desktop. Checkbox/hidden always 12 #}
-  {% if type in ['checkbox', 'hidden'] %}
-    {% set colClass = 'col-span-12' %}
+{% set inlineStyle = '' %}
+{% if isInline %}
+  {# Inline/flex context: use flex-basis for sizing via inline style (Tailwind can't compile dynamic arbitrary values) #}
+  {% if col %}
+    {% set percentage = (col / 12 * 100)|round(2) %}
+    {% set colClass = 'shrink-0' %}
+    {% set inlineStyle = 'flex-basis: ' ~ percentage ~ '%' %}
   {% else %}
-    {% set colClass = 'col-span-12 sm:col-span-6' %}
+    {% set colClass = 'flex-1 min-w-0' %}
+  {% endif %}
+{% else %}
+  {# Grid context: use col-span #}
+  {% if col %}
+    {% set colClass = 'col-span-12 sm:col-span-' ~ col %}
+  {% else %}
+    {# Default: 12 on mobile, 6 on desktop. Checkbox/hidden always 12 #}
+    {% if type in ['checkbox', 'hidden'] %}
+      {% set colClass = 'col-span-12' %}
+    {% else %}
+      {% set colClass = 'col-span-12 sm:col-span-6' %}
+    {% endif %}
   {% endif %}
 {% endif %}
 
 {# Input component parameters #}
 {% set inputParams = {
-  form: form,
-  type: type,
-  name: name,
-  id: id,
-  value: value,
-  placeholder: inputPlaceholder,
-  required: inputRequired,
-  disabled: inputDisabled,
+  form,
+  type,
+  name,
+  id,
+  value,
+  placeholder,
+  required,
+  disabled,
   autofocus: autofocus,
   autocomplete: autocomplete,
   size: size,
@@ -131,15 +152,16 @@
   <div
     {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
     class="{{ (colClass ~ ' flex items-start gap-3 ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {% if inlineStyle %}style="{{ inlineStyle }}"{% endif %}
     {{ wrapperAttrs.without('class') }}
   >
-    {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col', 'placeholder', 'required', 'disabled') })) }}
+    {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col') })) }}
 
     <div class="flex flex-col">
       {% if labelText %}
         <twig:ui:label
           :for="id"
-          :required="inputRequired"
+          :required="required"
           class="{{ ('cursor-pointer ' ~ labelAttrs.render('class'))|tailwind_merge }}"
           {{ ...labelAttrs.without('class', 'text', 'col') }}
         >
@@ -165,12 +187,13 @@
   <div
     {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
     class="{{ (colClass ~ ' grid grid-cols-12 gap-4 items-start ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {% if inlineStyle %}style="{{ inlineStyle }}"{% endif %}
     {{ wrapperAttrs.without('class') }}
   >
     {% if labelText %}
       <twig:ui:label
         :for="id"
-        :required="inputRequired"
+        :required="required"
         class="{{ ('col-span-12 sm:col-span-' ~ labelCol ~ ' sm:pt-2 sm:text-right ' ~ labelAttrs.render('class'))|tailwind_merge }}"
         {{ ...labelAttrs.without('class', 'text', 'col') }}
       >
@@ -179,7 +202,7 @@
     {% endif %}
 
     <div class="col-span-12 sm:col-span-{{ inputCol }}">
-      {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col', 'placeholder', 'required', 'disabled') })) }}
+      {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col') })) }}
 
       {% if helpText and not hasError %}
         <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
@@ -199,12 +222,13 @@
   <div
     {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
     class="{{ (colClass ~ ' ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
+    {% if inlineStyle %}style="{{ inlineStyle }}"{% endif %}
     {{ wrapperAttrs.without('class') }}
   >
     {% if labelText %}
       <twig:ui:label
         :for="id"
-        :required="inputRequired"
+        :required="required"
         class="{{ labelAttrs.render('class') }}"
         {{ ...labelAttrs.without('class', 'text', 'col') }}
       >
@@ -213,7 +237,7 @@
     {% endif %}
 
     <div class="{{ labelText ? 'mt-2' : '' }}">
-      {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col', 'placeholder', 'required', 'disabled') })) }}
+      {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col') })) }}
     </div>
 
     {% if helpText and not hasError %}

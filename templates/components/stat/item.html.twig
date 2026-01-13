@@ -1,26 +1,12 @@
+{# @var icon string|\Cisse\Bundle\Ui\Model\Icon|null #}
 {% props
   label = '',
   value = '',
   description = '',
-  prefix = '',
-  suffix = '',
   icon = null,
-  iconPosition = 'top',
-  iconColor = 'primary',
-  iconRounded = 'xl',
-  hideIconBg = false,
-  change = null,
-  changeLabel = null,
   trend = null,
-  trendOnly = false,
-  hideTrendIcon = false,
-  invertTrendColors = false,
   size = 'md',
   variant = 'default',
-  clickable = false,
-  centered = null,
-  labelFirst = false,
-  compact = false,
   class = '',
 %}
 
@@ -30,6 +16,34 @@
 {% set labelAttrs = attributes.nested('label') %}
 {% set contentAttrs = attributes.nested('content') %}
 {% set trendAttrs = attributes.nested('trend') %}
+{% set cardAttrs = attributes.nested('card') %}
+
+{# Icon nested attributes with defaults #}
+{% set iconPosition = iconAttrs.render('position')|default('top') %}
+{% set iconColor = iconAttrs.render('color')|default('primary') %}
+{% set iconRounded = iconAttrs.render('rounded')|default('xl') %}
+{% set hideIconBg = iconAttrs.render('hideBg')|default('false') == 'true' or iconAttrs.render('hideBg')|default('false') == '1' %}
+
+{# Value nested attributes with defaults #}
+{% set prefix = valueAttrs.render('prefix')|default('') %}
+{% set suffix = valueAttrs.render('suffix')|default('') %}
+
+{# Label nested attributes with defaults #}
+{% set labelFirst = labelAttrs.render('first')|default('false') == 'true' or labelAttrs.render('first')|default('false') == '1' %}
+
+{# Trend nested attributes with defaults #}
+{% set changeStr = trendAttrs.render('change')|default('') %}
+{% set change = changeStr != '' ? (changeStr + 0) : null %}
+{% set changeLabel = trendAttrs.render('label')|default(null) %}
+{% set trendOnly = trendAttrs.render('only')|default('false') == 'true' or trendAttrs.render('only')|default('false') == '1' %}
+{% set hideTrendIcon = trendAttrs.render('hideIcon')|default('false') == 'true' or trendAttrs.render('hideIcon')|default('false') == '1' %}
+{% set invertTrendColors = trendAttrs.render('invertColors')|default('false') == 'true' or trendAttrs.render('invertColors')|default('false') == '1' %}
+
+{# Card nested attributes with defaults #}
+{% set compact = cardAttrs.render('compact')|default('false') == 'true' or cardAttrs.render('compact')|default('false') == '1' %}
+{% set clickable = cardAttrs.render('clickable')|default('false') == 'true' or cardAttrs.render('clickable')|default('false') == '1' %}
+{% set centeredStr = cardAttrs.render('centered')|default('') %}
+{% set centered = centeredStr == 'true' or centeredStr == '1' ? true : (centeredStr == '' ? null : false) %}
 
 {# Determine centering #}
 {% set isCentered = centered ?? (iconPosition in ['top', 'bottom']) %}
@@ -138,7 +152,7 @@
   <div class="{{ layoutClass }} {{ centerClass }}">
     {# Icon #}
     {% if icon %}
-      <div class="{{ (sizeConfig.icon ~ ' ' ~ iconRoundedClass ~ ' ' ~ iconBgClass ~ ' ' ~ iconMarginClass ~ ' flex items-center justify-center shrink-0 ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }}>
+      <div class="{{ (sizeConfig.icon ~ ' ' ~ iconRoundedClass ~ ' ' ~ iconBgClass ~ ' ' ~ iconMarginClass ~ ' flex items-center justify-center shrink-0 ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class', 'position', 'color', 'rounded', 'hideBg') }}>
         {% block icon %}
           <twig:ux:icon :name="icon" class="{{ sizeConfig.iconInner }} {{ iconColorClass }}" />
         {% endblock %}
@@ -149,13 +163,13 @@
     <div class="{{ ('flex flex-col ' ~ sizeConfig.gap ~ ' ' ~ (iconPosition in ['left', 'right'] ? 'flex-1 min-w-0' : '') ~ ' ' ~ contentAttrs.render('class'))|tailwind_merge }}" {{ contentAttrs.without('class') }}>
       {# Label (if labelFirst) #}
       {% if labelFirst %}
-        <div class="{{ (sizeConfig.label ~ ' text-gray-500 dark:text-gray-400 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>
+        <div class="{{ (sizeConfig.label ~ ' text-gray-500 dark:text-gray-400 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class', 'first') }}>
           {% block label %}{{ label }}{% endblock %}
         </div>
       {% endif %}
 
       {# Value #}
-      <div class="{{ (sizeConfig.value ~ ' text-gray-900 dark:text-white ' ~ valueAttrs.render('class'))|tailwind_merge }}" {{ valueAttrs.without('class') }}>
+      <div class="{{ (sizeConfig.value ~ ' text-gray-900 dark:text-white ' ~ valueAttrs.render('class'))|tailwind_merge }}" {{ valueAttrs.without('class', 'prefix', 'suffix') }}>
         {% block value %}
           {% if prefix %}<span class="mr-0.5">{{ prefix }}</span>{% endif %}
           {{ value }}
@@ -165,7 +179,7 @@
 
       {# Label (if not labelFirst) #}
       {% if not labelFirst %}
-        <div class="{{ (sizeConfig.label ~ ' text-gray-500 dark:text-gray-400 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>
+        <div class="{{ (sizeConfig.label ~ ' text-gray-500 dark:text-gray-400 ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class', 'first') }}>
           {{ block('label') }}
         </div>
       {% endif %}
@@ -179,7 +193,7 @@
 
       {# Change indicator #}
       {% if change is not null or trend %}
-        <div class="{{ ('mt-1 font-medium inline-flex items-center gap-1 ' ~ sizeConfig.change ~ ' ' ~ trendColorClass ~ ' ' ~ trendAttrs.render('class'))|tailwind_merge }}" {{ trendAttrs.without('class') }}>
+        <div class="{{ ('mt-1 font-medium inline-flex items-center gap-1 ' ~ sizeConfig.change ~ ' ' ~ trendColorClass ~ ' ' ~ trendAttrs.render('class'))|tailwind_merge }}" {{ trendAttrs.without('class', 'change', 'label', 'only', 'hideIcon', 'invertColors') }}>
           {% if not hideTrendIcon %}
             <twig:ux:icon :name="trendIcon" class="size-3.5" />
           {% endif %}
