@@ -1,21 +1,53 @@
+{# @var items \Cisse\Bundle\Ui\Model\Stat|array<\Cisse\Bundle\Ui\Model\StatItem|array> #}
 {% props
-  stats = [],
+  items = [],
   cols = null,
-  gap = 'md',
-  variant = 'default',
-  size = 'md',
-  iconPosition = 'top',
-  iconRounded = 'xl',
-  hideIconBg = false,
-  color = 'primary',
-  labelFirst = false,
-  compact = false,
-  clickable = false,
-  centered = null,
-  invertTrendColors = false,
-  hideTrendIcon = false,
+  gap = null,
+  size = null,
+  variant = null,
   class = '',
 %}
+
+{# Check if items is a Stat model with configuration #}
+{% set isStat = items is iterable and items.cols is defined %}
+
+{# Resolve props: template prop > model prop > default #}
+{% set cols = cols ?? (isStat ? items.cols : null) %}
+{% set gap = gap ?? (isStat ? items.gap : 'md') %}
+{% set size = size ?? (isStat ? items.size : 'md') %}
+{% set variant = variant ?? (isStat ? items.variant : 'default') %}
+
+{# Icon nested attributes with defaults from model #}
+{% set iconAttrs = attributes.nested('icon') %}
+{% set modelIconPosition = isStat ? items.iconPosition : 'top' %}
+{% set modelIconColor = isStat ? items.iconColor : 'primary' %}
+{% set modelIconRounded = isStat ? items.iconRounded : 'xl' %}
+{% set modelHideIconBg = isStat ? items.hideIconBg : false %}
+{% set iconPosition = iconAttrs.render('position')|default(modelIconPosition) %}
+{% set iconColor = iconAttrs.render('color')|default(modelIconColor) %}
+{% set iconRounded = iconAttrs.render('rounded')|default(modelIconRounded) %}
+{% set hideIconBg = iconAttrs.has('hideBg') ? true : modelHideIconBg %}
+
+{# Label nested attributes with defaults from model #}
+{% set labelAttrs = attributes.nested('label') %}
+{% set modelLabelFirst = isStat ? items.labelFirst : false %}
+{% set labelFirst = labelAttrs.has('first') ? true : modelLabelFirst %}
+
+{# Trend nested attributes with defaults from model #}
+{% set trendAttrs = attributes.nested('trend') %}
+{% set modelHideTrendIcon = isStat ? items.hideTrendIcon : false %}
+{% set modelInvertTrendColors = isStat ? items.invertTrendColors : false %}
+{% set hideTrendIcon = trendAttrs.has('hideIcon') ? true : modelHideTrendIcon %}
+{% set invertTrendColors = trendAttrs.has('invertColors') ? true : modelInvertTrendColors %}
+
+{# Card nested attributes with defaults from model #}
+{% set cardAttrs = attributes.nested('card') %}
+{% set modelCompact = isStat ? items.cardCompact : false %}
+{% set modelClickable = isStat ? items.cardClickable : false %}
+{% set modelCentered = isStat ? items.cardCentered : false %}
+{% set compact = cardAttrs.has('compact') ? true : modelCompact %}
+{% set clickable = cardAttrs.has('clickable') ? true : modelClickable %}
+{% set centered = cardAttrs.has('centered') ? true : modelCentered %}
 
 {# Gap classes #}
 {% set gapClass = {
@@ -39,15 +71,15 @@
     6: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6',
   }[cols] ?? 'grid-cols-1' %}
 {% else %}
-  {# Auto columns based on stats length #}
-  {% set statsCount = stats|length %}
-  {% if statsCount == 1 %}
+  {# Auto columns based on items length #}
+  {% set itemsCount = items|length %}
+  {% if itemsCount == 1 %}
     {% set colsClass = 'grid-cols-1' %}
-  {% elseif statsCount == 2 %}
+  {% elseif itemsCount == 2 %}
     {% set colsClass = 'grid-cols-1 sm:grid-cols-2' %}
-  {% elseif statsCount == 3 %}
+  {% elseif itemsCount == 3 %}
     {% set colsClass = 'grid-cols-1 sm:grid-cols-3' %}
-  {% elseif statsCount == 4 %}
+  {% elseif itemsCount == 4 %}
     {% set colsClass = 'grid-cols-2 sm:grid-cols-4' %}
   {% else %}
     {% set colsClass = 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' %}
@@ -55,29 +87,30 @@
 {% endif %}
 
 <div {{ attributes }} class="{{ ('grid ' ~ gapClass ~ ' ' ~ colsClass ~ ' ' ~ class)|tailwind_merge }}">
-  {% for stat in stats %}
+  {# @var item \Cisse\Bundle\Ui\Model\StatItem|array #}
+  {% for item in items %}
     <twig:ui:stat:item
-      :label="stat.label ?? ''"
-      :value="stat.value ?? ''"
-      :description="stat.description ?? ''"
-      :prefix="stat.prefix ?? ''"
-      :suffix="stat.suffix ?? ''"
-      :icon="stat.icon ?? null"
-      :iconPosition="iconPosition"
-      :iconRounded="iconRounded"
-      :hideIconBg="hideIconBg"
-      :change="stat.change ?? null"
-      :changeLabel="stat.changeLabel ?? null"
-      :trend="stat.trend ?? null"
+      :label="item.label|default('')"
+      :label:first="labelFirst ? 'true' : 'false'"
+      :value="item.value|default('')"
+      :value:prefix="item.prefix|default('')"
+      :value:suffix="item.suffix|default('')"
+      :description="item.description|default('')"
+      :icon="item.icon|default(null)"
+      :icon:position="iconPosition"
+      :icon:color="item.color|default(iconColor)"
+      :icon:rounded="iconRounded"
+      :icon:hideBg="hideIconBg ? 'true' : 'false'"
+      :trend="item.trend|default(null)"
+      :trend:change="item.change|default(null) is not null ? item.change ~ '' : null"
+      :trend:label="item.changeLabel|default(null)"
+      :trend:hideIcon="hideTrendIcon ? 'true' : 'false'"
+      :trend:invertColors="invertTrendColors ? 'true' : 'false'"
       :size="size"
       :variant="variant"
-      :color="stat.color ?? color"
-      :labelFirst="labelFirst"
-      :compact="compact"
-      :clickable="clickable"
-      :centered="centered"
-      :invertTrendColors="invertTrendColors"
-      :hideTrendIcon="hideTrendIcon"
+      :card:compact="compact ? 'true' : 'false'"
+      :card:clickable="clickable ? 'true' : 'false'"
+      :card:centered="centered is null ? '' : (centered ? 'true' : 'false')"
     />
   {% endfor %}
 

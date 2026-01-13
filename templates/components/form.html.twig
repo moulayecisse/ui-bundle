@@ -26,11 +26,19 @@
 {% set cancelAttrs = attributes.nested('cancel') %}
 
 {# Extract nested values with defaults #}
-{% set submitLabel = submitAttrs.render('label')|default('Submit') %}
-{% set cancelLabel = cancelAttrs.render('label')|default('Cancel') %}
-{% set hideFooter = footerAttrs.has('hide') %}
+{% set submitLabel = submitAttrs.render('label')|default(null) %}
+{% set submitIcon = submitAttrs.render('icon')|default(null) %}
+{% set cancelLabel = cancelAttrs.render('label')|default(null) %}
+{% set cancelIcon = cancelAttrs.render('icon')|default(null) %}
 {% set hideCancel = cancelAttrs.has('hide') %}
 {% set hideSubmit = submitAttrs.has('hide') %}
+
+{# Check if inline layout #}
+{% set isInline = layout == 'inline' %}
+
+{# Footer is hidden by default, shown if footer:show or any footer element is configured #}
+{% set showFooter = (footerAttrs.has('show') or submitLabel or cancelLabel) and not isInline %}
+{% set hasButtons = submitLabel or cancelLabel %}
 
 {% if form %}
   {% set name = name ?? form.vars.full_name %}
@@ -44,6 +52,33 @@
 {# Gap classes mapping #}
 {% set gapClass = 'gap-' ~ gap %}
 
+{# Expose layout to child components via outerScope #}
+{% set _formLayout = layout %}
+
+{# Inline layout classes #}
+{% set inlineClass = isInline ? 'flex flex-wrap items-end ' ~ gapClass : 'grid grid-cols-' ~ cols ~ ' ' ~ gapClass ~ ' data-[divide=true]:divide-y data-[divide=true]:divide-gray-200 data-[divide=true]:dark:divide-gray-700' %}
+
+{# Reusable buttons markup #}
+{% set buttonsMarkup %}
+  {% if cancelLabel and not hideCancel %}
+    <twig:ui:button
+      type="button"
+      variant="{{ cancelAttrs.render('variant')|default('ghost') }}"
+      icon="{{ cancelIcon }}"
+      label="{{ cancelLabel }}"
+      {{ ...cancelAttrs.without('label', 'hide', 'variant', 'icon') }}
+    />
+  {% endif %}
+  {% if submitLabel and not hideSubmit %}
+    <twig:ui:button
+      type="submit"
+      icon="{{ submitIcon }}"
+      label="{{ submitLabel }}"
+      {{ ...submitAttrs.without('label', 'hide', 'icon') }}
+    />
+  {% endif %}
+{% endset %}
+
 <form
   {{ attributes.without('header', 'title', 'description', 'grid', 'footer', 'submit', 'cancel') }}
   {% if method %}method="{{ method }}"{% endif %}
@@ -56,8 +91,8 @@
     <input type="hidden" name="{{ field_name(form._token) }}" value="{{ field_value(form._token) }}">
   {% endif %}
 
-  {# Header Section #}
-  {% if headerBlock|trim is not empty or title or description %}
+  {# Header Section - hidden for inline layout #}
+  {% if not isInline and (headerBlock|trim is not empty or title or description) %}
     <div
       class="{{ ('pb-5 mb-5 ' ~ headerAttrs.render('class'))|tailwind_merge }}"
       {{ headerAttrs.without('class') }}
@@ -86,11 +121,11 @@
     </div>
   {% endif %}
 
-  {# Grid Content Section #}
+  {# Content Section - grid or inline flex #}
   <div
     data-layout="{{ layout }}"
     data-divide="{{ divide ? 'true' : 'false' }}"
-    class="{{ ('grid grid-cols-' ~ cols ~ ' ' ~ gapClass ~ ' data-[divide=true]:divide-y data-[divide=true]:divide-gray-200 data-[divide=true]:dark:divide-gray-700 ' ~ gridAttrs.render('class'))|tailwind_merge }}"
+    class="{{ (inlineClass ~ ' ' ~ gridAttrs.render('class'))|tailwind_merge }}"
     {{ gridAttrs.without('class') }}
   >
     {% block content %}
@@ -104,41 +139,30 @@
           {% else %}
             <twig:ui:input-group
               :form="child"
-              :layout="layout"
+              :layout="isInline ? 'inline' : layout"
               {{ ...child.vars.row_attr }}
             />
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endblock %}
+
+    {# Inline layout: render buttons inside the flex container #}
+    {% if isInline and hasButtons %}
+      {{ buttonsMarkup|raw }}
+    {% endif %}
   </div>
 
-  {# Footer Section #}
-  {% if footerBlock|trim is not empty or not hideFooter %}
+  {# Footer Section - hidden by default and for inline layout #}
+  {% if not isInline and (footerBlock|trim is not empty or showFooter) %}
     <div
       class="{{ ('border-gray-200 dark:border-gray-700 border-t pt-5 mt-5 flex items-center justify-end gap-x-4 ' ~ footerAttrs.render('class'))|tailwind_merge }}"
-      {{ footerAttrs.without('class', 'hide') }}
+      {{ footerAttrs.without('class', 'show') }}
     >
       {% if footerBlock|trim is not empty %}
         {{ footerBlock|raw }}
       {% else %}
-        {% if not hideCancel %}
-          <twig:ui:button
-            type="button"
-            variant="{{ cancelAttrs.render('variant')|default('ghost') }}"
-            {{ ...cancelAttrs.without('label', 'hide', 'variant') }}
-          >
-            {{ cancelLabel }}
-          </twig:ui:button>
-        {% endif %}
-        {% if not hideSubmit %}
-          <twig:ui:button
-            type="submit"
-            {{ ...submitAttrs.without('label', 'hide') }}
-          >
-            {{ submitLabel }}
-          </twig:ui:button>
-        {% endif %}
+        {{ buttonsMarkup|raw }}
       {% endif %}
     </div>
   {% endif %}

@@ -23,13 +23,13 @@
         { name: 'title:*', description: 'Attributes passed to the title element' },
         { name: 'description:*', description: 'Attributes passed to the description element' },
         { name: 'grid:*', description: 'Attributes passed to the grid container' },
-        { name: 'footer:hide', description: 'Hide the entire footer section (boolean attribute)' },
+        { name: 'footer:show', description: 'Show the footer section (hidden by default)' },
         { name: 'footer:class', description: 'Additional classes for footer section' },
-        { name: 'submit:label', description: 'Submit button text (default: "Submit")' },
+        { name: 'submit:label', description: 'Submit button text (shows footer automatically)' },
         { name: 'submit:hide', description: 'Hide the submit button (boolean attribute)' },
         { name: 'submit:class', description: 'Additional classes for submit button' },
         { name: 'submit:*', description: 'Other attributes forwarded to submit button' },
-        { name: 'cancel:label', description: 'Cancel button text (default: "Cancel")' },
+        { name: 'cancel:label', description: 'Cancel button text (shows footer automatically)' },
         { name: 'cancel:hide', description: 'Hide the cancel button (boolean attribute)' },
         { name: 'cancel:class', description: 'Additional classes for cancel button' },
         { name: 'cancel:*', description: 'Other attributes forwarded to cancel button' },
@@ -47,13 +47,14 @@
         <p>
             The Form component provides a complete form wrapper with header, content grid, and footer sections.
             Use with <code>input-group</code> components for form fields.
+            <strong>The footer is hidden by default</strong> and appears when <code>submit:label</code>, <code>cancel:label</code>, or <code>footer:show</code> is set.
         </p>
     </div>
 
-    {# Basic Form - Direct render #}
+    {# Basic Form (no footer by default) #}
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden" data-controller="code-toggle">
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Basic Form</h3>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Basic Form (no footer by default)</h3>
             <button type="button" data-code-toggle-target="button" data-action="code-toggle#toggle" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                 <svg class="size-4" data-code-toggle-target="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 <span>Show code</span>
@@ -67,7 +68,8 @@
             </twig:ui:form>
         </div>
         <div class="hidden border-t border-gray-200 dark:border-gray-700" data-code-toggle-target="code">
-            <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>{% verbatim %}<twig:ui:form action="#" method="POST" title="Contact Us" description="Send us a message.">
+            <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>{% verbatim %}{# Footer is hidden by default #}
+<twig:ui:form action="#" method="POST" title="Contact Us" description="Send us a message.">
     <twig:ui:input-group name="name" label:text="Name" input:placeholder="John Doe" />
     <twig:ui:input-group name="email" type="email" label:text="Email" input:placeholder="john@example.com" />
     <twig:ui:input-group name="message" type="textarea" label:text="Message" :col="12" />
@@ -103,24 +105,24 @@
     {# Login Form Example #}
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden" data-controller="code-toggle">
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Login Form</h3>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Login Form (full-width button)</h3>
             <button type="button" data-code-toggle-target="button" data-action="code-toggle#toggle" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                 <svg class="size-4" data-code-toggle-target="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 <span>Show code</span>
             </button>
         </div>
         <div class="p-6 bg-gray-50 dark:bg-gray-900/30">
-            <twig:ui:form action="#" class="max-w-md" title="Welcome Back" description="Sign in to your account." cancel:hide submit:label="Sign In">
-                <twig:ui:input-group name="email" type="email" label:text="Email" :col="12" input:placeholder="you@example.com" input:required />
-                <twig:ui:input-group name="password" type="password" label:text="Password" :col="12" input:required />
-                <twig:ui:input-group name="remember" type="checkbox" label:text="Remember me" :col="12" />
+            <twig:ui:form action="#" class="max-w-md" title="Bienvenue" description="Connectez-vous à votre compte." submit:label="Connexion" submit:class="w-full" footer:class="block">
+                <twig:ui:input-group name="email" type="email" label:text="Email" :col="12" input:placeholder="vous@exemple.com" input:required />
+                <twig:ui:input-group name="password" type="password" label:text="Mot de passe" :col="12" input:required />
+                <twig:ui:input-group name="remember" type="checkbox" label:text="Se souvenir de moi" :col="12" />
             </twig:ui:form>
         </div>
         <div class="hidden border-t border-gray-200 dark:border-gray-700" data-code-toggle-target="code">
-            <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>{% verbatim %}<twig:ui:form action="/login" title="Welcome Back" description="Sign in to your account." cancel:hide submit:label="Sign In">
+            <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>{% verbatim %}<twig:ui:form action="/login" title="Bienvenue" description="Connectez-vous à votre compte." submit:label="Connexion" submit:class="w-full" footer:class="block">
     <twig:ui:input-group name="email" type="email" label:text="Email" :col="12" input:required />
-    <twig:ui:input-group name="password" type="password" label:text="Password" :col="12" input:required />
-    <twig:ui:input-group name="remember" type="checkbox" label:text="Remember me" :col="12" />
+    <twig:ui:input-group name="password" type="password" label:text="Mot de passe" :col="12" input:required />
+    <twig:ui:input-group name="remember" type="checkbox" label:text="Se souvenir de moi" :col="12" />
 </twig:ui:form>{% endverbatim %}</code></pre>
         </div>
     </div>
@@ -150,22 +152,23 @@
         </div>
     </div>
 
-    {# Without Footer #}
+    {# With Footer (explicit) #}
     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden" data-controller="code-toggle">
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Without Footer</h3>
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">With Footer (footer:show)</h3>
             <button type="button" data-code-toggle-target="button" data-action="code-toggle#toggle" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
                 <svg class="size-4" data-code-toggle-target="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 <span>Show code</span>
             </button>
         </div>
         <div class="p-6 bg-gray-50 dark:bg-gray-900/30">
-            <twig:ui:form action="#" class="max-w-lg" title="Quick Search" footer:hide>
+            <twig:ui:form action="#" class="max-w-lg" title="Quick Search" footer:show submit:label="Search">
                 <twig:ui:input-group name="query" type="search" label:text="Search" :col="12" input:placeholder="Search..." />
             </twig:ui:form>
         </div>
         <div class="hidden border-t border-gray-200 dark:border-gray-700" data-code-toggle-target="code">
-            <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>{% verbatim %}<twig:ui:form action="#" title="Quick Search" footer:hide>
+            <pre class="p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>{% verbatim %}{# Use footer:show or set submit:label/cancel:label to show footer #}
+<twig:ui:form action="#" title="Quick Search" footer:show submit:label="Search">
     <twig:ui:input-group name="query" type="search" label:text="Search" :col="12" />
 </twig:ui:form>{% endverbatim %}</code></pre>
         </div>

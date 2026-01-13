@@ -4,7 +4,7 @@
     class = '',
     value = null,
     decimals = null,
-    locale = 'en',
+    locale = 'fr',
     currency = null,
     prefix = '',
     suffix = '',
@@ -12,12 +12,20 @@
     align = 'right'
 %}
 
+{# Locale-specific formatting #}
+{% set localeConfig = {
+    'fr': { 'dec': ',', 'thousands': ' ' },
+    'en': { 'dec': '.', 'thousands': ',' },
+    'de': { 'dec': ',', 'thousands': '.' }
+} %}
+{% set fmt = localeConfig[locale] ?? localeConfig['fr'] %}
+
 {% set displayValue = fallback %}
 
 {% if value is not null %}
     {% if currency %}
         {# Format as currency #}
-        {% set displayValue = value|number_format(decimals ?? 2, '.', ',') %}
+        {% set displayValue = value|number_format(decimals ?? 2, fmt.dec, fmt.thousands) %}
         {% if currency == 'EUR' %}
             {% set displayValue = displayValue ~ ' €' %}
         {% elseif currency == 'USD' %}
@@ -28,9 +36,9 @@
             {% set displayValue = displayValue ~ ' ' ~ currency %}
         {% endif %}
     {% elseif decimals is not null %}
-        {% set displayValue = value|number_format(decimals, '.', ',') %}
+        {% set displayValue = value|number_format(decimals, fmt.dec, fmt.thousands) %}
     {% else %}
-        {% set displayValue = value|number_format(0, '.', ',') %}
+        {% set displayValue = value|number_format(0, fmt.dec, fmt.thousands) %}
     {% endif %}
 
     {% set displayValue = prefix ~ displayValue ~ suffix %}

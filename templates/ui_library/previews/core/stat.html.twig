@@ -3,14 +3,14 @@
 <div class="space-y-6">
     {# Basic Stats Grid #}
     {% set basicPreview %}
-        <twig:ui:stat :stats="[
+        <twig:ui:stat :items="[
             { label: 'Total Revenue', value: '45,231', prefix: '$', icon: 'heroicons:currency-dollar' },
             { label: 'Active Users', value: '2,350', icon: 'heroicons:users' },
             { label: 'Pending Orders', value: '12', icon: 'heroicons:shopping-cart' },
             { label: 'Conversion Rate', value: '3.2', suffix: '%', icon: 'heroicons:chart-bar' }
         ]" />
     {% endset %}
-    {% set basicCode %}{% verbatim %}<twig:ui:stat :stats="[
+    {% set basicCode %}{% verbatim %}<twig:ui:stat :items="[
     { label: 'Total Revenue', value: '45,231', prefix: '$', icon: 'heroicons:currency-dollar' },
     { label: 'Active Users', value: '2,350', icon: 'heroicons:users' },
     { label: 'Pending Orders', value: '12', icon: 'heroicons:shopping-cart' },
@@ -20,13 +20,13 @@
 
     {# With Trends #}
     {% set trendsPreview %}
-        <twig:ui:stat :stats="[
+        <twig:ui:stat :items="[
             { label: 'Revenue', value: '45,231', prefix: '$', change: 12.5, changeLabel: 'vs last month' },
             { label: 'Orders', value: '1,250', change: -3.2, changeLabel: 'vs last month' },
             { label: 'Customers', value: '8,400', change: 8.1, changeLabel: 'vs last month' }
         ]" cols="3" />
     {% endset %}
-    {% set trendsCode %}{% verbatim %}<twig:ui:stat :stats="[
+    {% set trendsCode %}{% verbatim %}<twig:ui:stat :items="[
     { label: 'Revenue', value: '45,231', prefix: '$', change: 12.5, changeLabel: 'vs last month' },
     { label: 'Orders', value: '1,250', change: -3.2, changeLabel: 'vs last month' },
     { label: 'Customers', value: '8,400', change: 8.1, changeLabel: 'vs last month' }
@@ -39,32 +39,32 @@
             <twig:ui:stat:item
                 label="Total Sales"
                 value="12,345"
-                prefix="$"
+                value:prefix="$"
                 icon="heroicons:banknotes"
-                change="8.2"
-                changeLabel="from last week"
+                trend:change="8.2"
+                trend:label="from last week"
             />
         </div>
     {% endset %}
     {% set singleCode %}{% verbatim %}<twig:ui:stat:item
     label="Total Sales"
     value="12,345"
-    prefix="$"
+    value:prefix="$"
     icon="heroicons:banknotes"
-    change="8.2"
-    changeLabel="from last week"
+    trend:change="8.2"
+    trend:label="from last week"
 />{% endverbatim %}{% endset %}
     {{ ui.story('Single Stat Item', singlePreview, singleCode) }}
 
     {# Icon Positions #}
     {% set positionsPreview %}
         <div class="grid grid-cols-2 gap-4">
-            <twig:ui:stat:item label="Top Icon" value="1,234" icon="heroicons:star" iconPosition="top" />
-            <twig:ui:stat:item label="Left Icon" value="1,234" icon="heroicons:star" iconPosition="left" />
+            <twig:ui:stat:item label="Top Icon" value="1,234" icon="heroicons:star" icon:position="top" />
+            <twig:ui:stat:item label="Left Icon" value="1,234" icon="heroicons:star" icon:position="left" />
         </div>
     {% endset %}
-    {% set positionsCode %}{% verbatim %}<twig:ui:stat:item label="Top Icon" value="1,234" icon="heroicons:star" iconPosition="top" />
-<twig:ui:stat:item label="Left Icon" value="1,234" icon="heroicons:star" iconPosition="left" />{% endverbatim %}{% endset %}
+    {% set positionsCode %}{% verbatim %}<twig:ui:stat:item label="Top Icon" value="1,234" icon="heroicons:star" icon:position="top" />
+<twig:ui:stat:item label="Left Icon" value="1,234" icon="heroicons:star" icon:position="left" />{% endverbatim %}{% endset %}
     {{ ui.story('Icon Positions', positionsPreview, positionsCode) }}
 
     {# Variants #}
@@ -80,18 +80,18 @@
 <twig:ui:stat:item label="Flat" value="1,234" variant="flat" />{% endverbatim %}{% endset %}
     {{ ui.story('Variants', variantsPreview, variantsCode) }}
 
-    {# Colors #}
+    {# Icon Colors #}
     {% set colorsPreview %}
         <div class="grid grid-cols-3 gap-4">
-            <twig:ui:stat:item label="Primary" value="100" icon="heroicons:star" color="primary" />
-            <twig:ui:stat:item label="Success" value="200" icon="heroicons:check-circle" color="success" />
-            <twig:ui:stat:item label="Warning" value="50" icon="heroicons:exclamation-triangle" color="warning" />
+            <twig:ui:stat:item label="Primary" value="100" icon="heroicons:star" icon:color="primary" />
+            <twig:ui:stat:item label="Success" value="200" icon="heroicons:check-circle" icon:color="success" />
+            <twig:ui:stat:item label="Warning" value="50" icon="heroicons:exclamation-triangle" icon:color="warning" />
         </div>
     {% endset %}
-    {% set colorsCode %}{% verbatim %}<twig:ui:stat:item label="Primary" value="100" icon="heroicons:star" color="primary" />
-<twig:ui:stat:item label="Success" value="200" icon="heroicons:check-circle" color="success" />
-<twig:ui:stat:item label="Warning" value="50" icon="heroicons:exclamation-triangle" color="warning" />{% endverbatim %}{% endset %}
-    {{ ui.story('Colors', colorsPreview, colorsCode) }}
+    {% set colorsCode %}{% verbatim %}<twig:ui:stat:item label="Primary" value="100" icon="heroicons:star" icon:color="primary" />
+<twig:ui:stat:item label="Success" value="200" icon="heroicons:check-circle" icon:color="success" />
+<twig:ui:stat:item label="Warning" value="50" icon="heroicons:exclamation-triangle" icon:color="warning" />{% endverbatim %}{% endset %}
+    {{ ui.story('Icon Colors', colorsPreview, colorsCode) }}
 
     {# Sizes #}
     {% set sizesPreview %}
@@ -105,4 +105,39 @@
 <twig:ui:stat:item label="Medium" value="456" size="md" />
 <twig:ui:stat:item label="Large" value="789" size="lg" />{% endverbatim %}{% endset %}
     {{ ui.story('Sizes', sizesPreview, sizesCode) }}
+
+    {# Card Options #}
+    {% set cardPreview %}
+        <div class="grid grid-cols-2 gap-4">
+            <twig:ui:stat:item label="Clickable" value="1,234" icon="heroicons:cursor-arrow-rays" card:clickable />
+            <twig:ui:stat:item label="Centered" value="5,678" icon="heroicons:arrows-pointing-in" icon:position="left" card:centered />
+        </div>
+    {% endset %}
+    {% set cardCode %}{% verbatim %}<twig:ui:stat:item label="Clickable" value="1,234" icon="heroicons:cursor-arrow-rays" card:clickable />
+<twig:ui:stat:item label="Centered" value="5,678" icon="heroicons:arrows-pointing-in" icon:position="left" card:centered />{% endverbatim %}{% endset %}
+    {{ ui.story('Card Options', cardPreview, cardCode) }}
+
+    {# Label First #}
+    {% set labelFirstPreview %}
+        <div class="grid grid-cols-2 gap-4">
+            <twig:ui:stat:item label="Label After (default)" value="1,234" />
+            <twig:ui:stat:item label="Label First" value="1,234" label:first />
+        </div>
+    {% endset %}
+    {% set labelFirstCode %}{% verbatim %}<twig:ui:stat:item label="Label After (default)" value="1,234" />
+<twig:ui:stat:item label="Label First" value="1,234" label:first />{% endverbatim %}{% endset %}
+    {{ ui.story('Label First', labelFirstPreview, labelFirstCode) }}
+
+    {# Trend Options #}
+    {% set trendOptionsPreview %}
+        <div class="grid grid-cols-3 gap-4">
+            <twig:ui:stat:item label="With Change" value="1,234" trend:change="5.2" />
+            <twig:ui:stat:item label="Trend Only" value="1,234" trend="up" trend:only />
+            <twig:ui:stat:item label="Inverted Colors" value="1,234" trend:change="-3.1" trend:invertColors />
+        </div>
+    {% endset %}
+    {% set trendOptionsCode %}{% verbatim %}<twig:ui:stat:item label="With Change" value="1,234" trend:change="5.2" />
+<twig:ui:stat:item label="Trend Only" value="1,234" trend="up" trend:only />
+<twig:ui:stat:item label="Inverted Colors" value="1,234" trend:change="-3.1" trend:invertColors />{% endverbatim %}{% endset %}
+    {{ ui.story('Trend Options', trendOptionsPreview, trendOptionsCode) }}
 </div>
