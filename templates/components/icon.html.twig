@@ -1,0 +1,42 @@
+{% props
+    name = '',
+    class = '',
+    size = 'md',
+    color = '',
+%}
+
+{# Size configurations #}
+{% set sizeClasses = {
+    'xs': 'size-3',
+    'sm': 'size-4',
+    'md': 'size-5',
+    'lg': 'size-6',
+    'xl': 'size-8',
+    '2xl': 'size-10',
+    '3xl': 'size-12',
+} %}
+
+{# Color configurations #}
+{% set colorClasses = {
+    'primary': 'text-primary-500',
+    'secondary': 'text-gray-500 dark:text-gray-400',
+    'success': 'text-emerald-500',
+    'danger': 'text-red-500',
+    'warning': 'text-amber-500',
+    'info': 'text-blue-500',
+    'muted': 'text-gray-400 dark:text-gray-500',
+    'white': 'text-white',
+    'black': 'text-gray-900 dark:text-white',
+    'inherit': 'text-inherit',
+} %}
+
+{% set sizeClass = sizeClasses[size] ?? sizeClasses['md'] %}
+{% set colorClass = color ? (colorClasses[color] ?? color) : '' %}
+
+{% if name %}
+    <twig:ux:icon
+        :name="name"
+        {{ ...attributes.without('class') }}
+        class="{{ (sizeClass ~ ' ' ~ colorClass ~ ' ' ~ class)|tailwind_merge }}"
+    />
+{% endif %}

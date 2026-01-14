@@ -9,6 +9,7 @@
     loadingLines = 3,
     loadingAvatar = false,
     loadingActions = false,
+    icon = '',
 %}
 
 {% set cardTitleBlock %}{% block title title|raw %}{% endset %}
@@ -39,8 +40,19 @@
                     {{ cardHeaderBlock|raw }}
                 {% else %}
                     <twig:ui:card:header {{ ...attributes.nested('header') }}>
-                        <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
-                        <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
+                        {% if icon %}
+                            {% set iconClasses = attributes.nested('icon').render('class')|default('text-gray-400') %}
+                            <div class="flex items-center gap-3">
+                                <twig:ux:icon :name="icon" class="{{ ('size-8 flex-shrink-0 ' ~ iconClasses)|tailwind_merge }}" />
+                                <div class="flex flex-col flex-1 min-w-0">
+                                    <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
+                                    <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
+                                </div>
+                            </div>
+                        {% else %}
+                            <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
+                            <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
+                        {% endif %}
 
                         <twig:block name="actions">
                             <twig:ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:ui:card:actions>
