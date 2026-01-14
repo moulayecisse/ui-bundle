@@ -21,13 +21,13 @@
   {% set content_block = label_block %}
 {% endif %}
 
-{% set class = ('even:bg-gray-50 dark:even:bg-gray-950 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3 ' ~ class)|tailwind_merge %}
+{% set class = ('even:bg-gray-50 dark:even:bg-gray-950 px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3 ' ~ class)|tailwind_merge %}
 
 <div {{ attributes }} class="{{ class }}">
   {% if content_block %}
     {{ content_block|raw }}
   {% else %}
-    <twig:ui:datalist:label label="{{ label|raw }}" />
-    <twig:ui:datalist:value value="{{ value|raw }}" />
+    <twig:ui:datalist:label label="{{ label|raw }}" {{ ...attributes.nested('label') }} />
+    <twig:ui:datalist:value value="{{ value|raw }}" {{ ...attributes.nested('label') }} />
   {% endif %}
 </div>
