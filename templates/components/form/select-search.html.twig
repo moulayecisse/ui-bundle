@@ -1,5 +1,6 @@
 {% props
   class = '',
+  form = null,
   name = null,
   method = 'get',
   action = null,
@@ -30,6 +31,11 @@
 
 {% set tokenName = tokenAttrs.render('name') %}
 {% set tokenValue = tokenAttrs.render('value') %}
+
+{% if form %}
+  {% set tokenName = tokenName ?? field_name(form._token) %}
+  {% set tokenValue = tokenValue ?? field_value(form._token) %}
+{% endif %}
 
 {# Size configuration #}
 {% set sizeConfig = {

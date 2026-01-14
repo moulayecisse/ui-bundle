@@ -3,6 +3,7 @@
 <div class="space-y-6">
     {# Props Documentation #}
     {{ ui.props([
+        { name: 'form', type: 'FormView | null', default: 'null', description: 'Symfony form object (auto-extracts CSRF token)' },
         { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Component size' },
         { name: 'method', type: 'string', default: "'get'", description: 'Form method' },
         { name: 'action', type: 'string', default: 'null', description: 'Form action URL' },
