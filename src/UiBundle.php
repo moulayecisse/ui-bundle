@@ -65,11 +65,13 @@ class UiBundle extends AbstractBundle
     {
         // Add lowercase "ui" Twig namespace alias to allow <twig:ui:button>
         // in addition to <twig:Ui:button>
+        // Enable string_loader for template_from_string() used in story previews
         $container->prependExtensionConfig('twig', [
             'paths' => [
                 $this->getPath() . '/templates' => 'ui',
             ],
         ]);
+
 
         if (!$this->isAssetMapperAvailable($container)) {
             return;
