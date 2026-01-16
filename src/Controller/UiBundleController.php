@@ -24,6 +24,7 @@ class UiBundleController extends AbstractController
             'button' => ['label' => 'Button', 'description' => 'Primary action buttons with variants'],
             'card' => ['label' => 'Card', 'description' => 'Content container cards'],
             'collapsible-card' => ['label' => 'Collapsible Card', 'description' => 'Expandable/collapsible cards'],
+            'container' => ['label' => 'Container', 'description' => 'Base wrapper for visual harmony'],
             'dark-mode-toggle' => ['label' => 'Dark Mode Toggle', 'description' => 'Dark mode switch'],
             'data-table' => ['label' => 'Data Table', 'description' => 'Feature-rich data table'],
             'datalist' => ['label' => 'Data List', 'description' => 'Key-value pair list'],

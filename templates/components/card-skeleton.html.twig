@@ -5,9 +5,11 @@
     showActions = false,
 %}
 
-<div
-    {{ attributes }}
-    class="{{ ('bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 space-y-4 ' ~ class)|tailwind_merge }}"
+<twig:ui:container
+    {{ ...attributes }}
+    :border="false"
+    :shadow="true"
+    class="{{ ('p-4 space-y-4 ' ~ class)|tailwind_merge }}"
     aria-hidden="true"
 >
     {# Header with avatar #}
@@ -38,4 +40,4 @@
             <div class="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
         </div>
     {% endif %}
-</div>
+</twig:ui:container>

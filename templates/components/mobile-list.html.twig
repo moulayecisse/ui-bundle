@@ -11,6 +11,8 @@
 %}
 
 {% set selectAllBlock %}{% block select_all '' %}{% endset %}
+{% set contentBlock %}{% block content '' %}{% endset %}
+{% set emptyBlock %}{% block empty '' %}{% endset %}
 
 {% set class = ('space-y-3 ' ~ class)|tailwind_merge %}
 
@@ -49,48 +51,12 @@
             {% endif %}
         {% endif %}
 
-        {# Items List #}
-        {% for item in items %}
-            {% set itemId = attribute(item, keyField) ?? loop.index0 %}
-
-            <twig:ui:card
-                data-cisse--ui-bundle--mobile-list-target="item"
-                data-item-id="{{ itemId }}"
-                class="hover:shadow-lg transition-all duration-200"
-            >
-                <div class="p-4 flex items-center gap-4">
-                    {# Checkbox #}
-                    {% if selectable %}
-                        <div class="shrink-0">
-                            <twig:ui:input:checkbox
-                                data-cisse--ui-bundle--mobile-list-target="itemCheckbox"
-                                data-action="change->cisse--ui-bundle--mobile-list#selectItem"
-                                value="{{ itemId }}"
-                            />
-                        </div>
-                    {% endif %}
-
-                    {# Avatar slot #}
-                    {% set avatarBlock %}{% block avatar '' %}{% endset %}
-                    {% if avatarBlock is not empty %}
-                        {{ avatarBlock|raw }}
-                    {% endif %}
-
-                    {# Content #}
-                    <div class="flex-1 min-w-0 overflow-hidden">
-                        {% block content '' %}
-                    </div>
-
-                    {# Actions #}
-                    <div class="shrink-0">
-                        {% block actions '' %}
-                    </div>
-                </div>
-            </twig:ui:card>
+        {# Items List - render the content block which should contain the loop #}
+        {% if items|length > 0 %}
+            {{ contentBlock|raw }}
         {% else %}
             {# Empty state #}
-            {% set emptyBlock %}{% block empty '' %}{% endset %}
-            {% if emptyBlock is not empty %}
+            {% if emptyBlock|trim %}
                 {{ emptyBlock|raw }}
             {% else %}
                 <twig:ui:card>
@@ -100,6 +66,6 @@
                     </div>
                 </twig:ui:card>
             {% endif %}
-        {% endfor %}
+        {% endif %}
     {% endif %}
 </div>

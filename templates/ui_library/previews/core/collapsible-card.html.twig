@@ -1,6 +1,14 @@
 {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
 <div class="space-y-6">
+    {# Deprecation Notice #}
+    <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+        <p class="text-sm text-amber-700 dark:text-amber-300">
+            <strong>Deprecated:</strong> Use <code class="bg-amber-100 dark:bg-amber-900/50 px-1.5 py-0.5 rounded">&lt;twig:ui:card collapsible&gt;</code> instead.
+            This component is kept for backward compatibility.
+        </p>
+    </div>
+
     {# Props Documentation #}
     {{ ui.props([
         { name: 'title', type: 'string | null', default: 'null', description: 'Card title displayed in header' },

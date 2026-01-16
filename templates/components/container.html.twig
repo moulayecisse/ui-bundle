@@ -1,0 +1,26 @@
+{% props
+    class = '',
+    tag = 'div',
+    border = true,
+    shadow = false,
+    rounded = true,
+    overflow = 'visible',
+%}
+
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+{% set baseClasses = [
+    'flex flex-col',
+    'bg-white dark:bg-slate-950',
+    rounded ? 'rounded-lg' : '',
+    border ? 'border border-slate-200 dark:border-slate-800' : '',
+    shadow ? 'shadow-md' : '',
+    overflow != 'visible' ? 'overflow-' ~ overflow : '',
+]|join(' ') %}
+
+<{{ tag }}
+    {{ attributes }}
+    class="{{ (baseClasses ~ ' ' ~ class)|tailwind_merge }}"
+>
+    {{ contentBlock|raw }}
+</{{ tag }}>

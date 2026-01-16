@@ -109,31 +109,31 @@
     {# Card Options #}
     {% set cardPreview %}
         <div class="grid grid-cols-2 gap-4">
-            <twig:ui:stat:item label="Clickable" value="1,234" icon="heroicons:cursor-arrow-rays" card:clickable />
-            <twig:ui:stat:item label="Centered" value="5,678" icon="heroicons:arrows-pointing-in" icon:position="left" card:centered />
+            <twig:ui:stat:item label="Clickable" value="1,234" icon="heroicons:cursor-arrow-rays" card:clickable="true" />
+            <twig:ui:stat:item label="Centered" value="5,678" icon="heroicons:arrows-pointing-in" icon:position="left" card:centered="true" />
         </div>
     {% endset %}
-    {% set cardCode %}{% verbatim %}<twig:ui:stat:item label="Clickable" value="1,234" icon="heroicons:cursor-arrow-rays" card:clickable />
-<twig:ui:stat:item label="Centered" value="5,678" icon="heroicons:arrows-pointing-in" icon:position="left" card:centered />{% endverbatim %}{% endset %}
+    {% set cardCode %}{% verbatim %}<twig:ui:stat:item label="Clickable" value="1,234" icon="heroicons:cursor-arrow-rays" card:clickable="true" />
+<twig:ui:stat:item label="Centered" value="5,678" icon="heroicons:arrows-pointing-in" icon:position="left" card:centered="true" />{% endverbatim %}{% endset %}
     {{ ui.story('Card Options', cardPreview, cardCode) }}
 
     {# Label First #}
     {% set labelFirstPreview %}
         <div class="grid grid-cols-2 gap-4">
             <twig:ui:stat:item label="Label After (default)" value="1,234" />
-            <twig:ui:stat:item label="Label First" value="1,234" label:first />
+            <twig:ui:stat:item label="Label First" value="1,234" label:first="true" />
         </div>
     {% endset %}
     {% set labelFirstCode %}{% verbatim %}<twig:ui:stat:item label="Label After (default)" value="1,234" />
-<twig:ui:stat:item label="Label First" value="1,234" label:first />{% endverbatim %}{% endset %}
+<twig:ui:stat:item label="Label First" value="1,234" label:first="true" />{% endverbatim %}{% endset %}
     {{ ui.story('Label First', labelFirstPreview, labelFirstCode) }}
 
     {# Trend Options #}
     {% set trendOptionsPreview %}
         <div class="grid grid-cols-3 gap-4">
             <twig:ui:stat:item label="With Change" value="1,234" trend:change="5.2" />
-            <twig:ui:stat:item label="Trend Only" value="1,234" trend="up" trend:only />
-            <twig:ui:stat:item label="Inverted Colors" value="1,234" trend:change="-3.1" trend:invertColors />
+            <twig:ui:stat:item label="Trend Only" value="1,234" trend="up" trend:only="true" />
+            <twig:ui:stat:item label="Inverted Colors" value="1,234" trend:change="-3.1" trend:invertColors="true" />
         </div>
     {% endset %}
     {% set trendOptionsCode %}{% verbatim %}<twig:ui:stat:item label="With Change" value="1,234" trend:change="5.2" />

@@ -5,8 +5,14 @@
     {{ ui.props([
         { name: 'title', type: 'string', default: "''", description: 'Card title text' },
         { name: 'description', type: 'string', default: "''", description: 'Card description below title' },
+        { name: 'icon', type: 'string', default: "''", description: 'Icon name to display in header' },
         { name: 'divide', type: 'boolean', default: 'false', description: 'Show dividers between header, content, and footer' },
+        { name: 'collapsible', type: 'boolean', default: 'false', description: 'Enable collapse/expand functionality' },
+        { name: 'defaultExpanded', type: 'boolean', default: 'true', description: 'Initial expanded state (when collapsible)' },
         { name: 'tag', type: 'string', default: "'div'", description: 'HTML tag for the card container' },
+        { name: 'border', type: 'boolean', default: 'true', description: 'Show border styling (auto: false when collapsible)' },
+        { name: 'shadow', type: 'boolean', default: 'false', description: 'Show shadow (auto: true when collapsible)' },
+        { name: 'overflow', type: 'string', default: "'visible'", description: 'Overflow behavior (auto: hidden when collapsible)' },
         { name: 'loading', type: 'boolean', default: 'false', description: 'Show loading skeleton instead of content' },
         { name: 'loadingLines', type: 'number', default: '3', description: 'Number of skeleton lines when loading' },
         { name: 'loadingAvatar', type: 'boolean', default: 'false', description: 'Show avatar in loading skeleton' },
@@ -145,4 +151,90 @@
 <twig:ui:card loading :loadingLines="4" />
 <twig:ui:card loading :loadingLines="6" :loadingAvatar="true" />{% endverbatim %}{% endset %}
     {{ ui.story('Loading with Custom Lines', loadingLinesPreview, loadingLinesCode) }}
+
+    {# Shadow Variant #}
+    {% set shadowPreview %}
+        <twig:ui:card title="Shadow Card" :border="false" :shadow="true">
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    Card with shadow instead of border. Useful for elevated content.
+                </p>
+            </twig:block>
+        </twig:ui:card>
+    {% endset %}
+    {% set shadowCode %}{% verbatim %}<twig:ui:card title="Shadow Card" :border="false" :shadow="true">
+    <twig:block name="content">
+        <p>Elevated content with shadow.</p>
+    </twig:block>
+</twig:ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Shadow Variant', shadowPreview, shadowCode) }}
+
+    {# Collapsible Card #}
+    {% set collapsiblePreview %}
+        <twig:ui:card title="Collapsible Card" description="Click to expand/collapse" collapsible>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This content can be collapsed by clicking the toggle button in the header.
+                </p>
+            </twig:block>
+        </twig:ui:card>
+    {% endset %}
+    {% set collapsibleCode %}{% verbatim %}<twig:ui:card title="Collapsible Card" description="Click to expand/collapse" collapsible>
+    <twig:block name="content">
+        <p>Collapsible content here.</p>
+    </twig:block>
+</twig:ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Collapsible Card', collapsiblePreview, collapsibleCode) }}
+
+    {# Collapsible - Collapsed by Default #}
+    {% set collapsedPreview %}
+        <twig:ui:card title="Collapsed by Default" collapsible :defaultExpanded="false">
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    This card starts collapsed. Click to expand.
+                </p>
+            </twig:block>
+        </twig:ui:card>
+    {% endset %}
+    {% set collapsedCode %}{% verbatim %}<twig:ui:card title="Collapsed by Default" collapsible :defaultExpanded="false">
+    <twig:block name="content">
+        <p>Hidden content until expanded.</p>
+    </twig:block>
+</twig:ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Collapsible - Collapsed by Default', collapsedPreview, collapsedCode) }}
+
+    {# Collapsible with Actions and Footer #}
+    {% set collapsibleFullPreview %}
+        <twig:ui:card title="Full Featured Collapsible" description="With actions and footer" collapsible divide>
+            <twig:block name="actions">
+                <twig:ui:button variant="ghost" size="sm" icon="lucide:settings" />
+            </twig:block>
+            <twig:block name="content">
+                <p class="text-gray-600 dark:text-gray-400">
+                    Collapsible card with custom actions, content, and footer.
+                </p>
+            </twig:block>
+            <twig:block name="footer">
+                <div class="flex justify-end gap-2">
+                    <twig:ui:button variant="outline" size="sm">Cancel</twig:ui:button>
+                    <twig:ui:button variant="primary" size="sm">Save</twig:ui:button>
+                </div>
+            </twig:block>
+        </twig:ui:card>
+    {% endset %}
+    {% set collapsibleFullCode %}{% verbatim %}<twig:ui:card title="Full Featured" description="With actions and footer" collapsible divide>
+    <twig:block name="actions">
+        <twig:ui:button variant="ghost" size="sm" icon="lucide:settings" />
+    </twig:block>
+    <twig:block name="content">
+        <p>Card content here.</p>
+    </twig:block>
+    <twig:block name="footer">
+        <div class="flex justify-end gap-2">
+            <twig:ui:button variant="outline" size="sm">Cancel</twig:ui:button>
+            <twig:ui:button variant="primary" size="sm">Save</twig:ui:button>
+        </div>
+    </twig:block>
+</twig:ui:card>{% endverbatim %}{% endset %}
+    {{ ui.story('Collapsible with Actions & Footer', collapsibleFullPreview, collapsibleFullCode) }}
 </div>

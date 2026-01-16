@@ -1,0 +1,145 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'fields', type: 'array', default: '[]', description: 'Array of field definitions ({ name, label })' },
+        { name: 'items', type: 'array', default: '[]', description: 'Array of items to display' },
+        { name: 'identifier', type: 'string', default: "'id'", description: 'Field to use as unique identifier' },
+        { name: 'selectable', type: 'boolean', default: 'false', description: 'Enable row selection with checkboxes' },
+        { name: 'showActions', type: 'boolean', default: 'false', description: 'Show actions column' },
+        { name: 'expandable', type: 'boolean', default: 'false', description: 'Enable expandable rows' },
+        { name: 'emptyLabel', type: 'string', default: "'Aucun résultat trouvé'", description: 'Text when no items' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'thead', description: 'Custom table header content' },
+        { name: 'tbody', description: 'Custom table body content' },
+        { name: 'tfoot', description: 'Table footer content' },
+        { name: 'batch_actions', description: 'Batch action buttons when rows selected' },
+        { name: 'tbody_actions', description: 'Action buttons for each row' },
+        { name: 'expanded', description: 'Content for expanded rows' },
+        { name: 'empty', description: 'Custom empty state content' },
+    ]) }}
+
+    {# Basic Selectable Table #}
+    {% set basicPreview %}
+        {% set users = [
+            { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
+            { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Editor' },
+            { id: 3, name: 'Bob Wilson', email: 'bob@example.com', role: 'User' },
+        ] %}
+        <twig:ui:table:selectable
+            :fields="[
+                { name: 'name', label: 'Name' },
+                { name: 'email', label: 'Email' },
+                { name: 'role', label: 'Role' }
+            ]"
+            :items="users"
+            :selectable="true"
+        />
+    {% endset %}
+    {% set basicCode %}{% verbatim %}{% set users = [
+    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
+    ...
+] %}
+
+<twig:ui:table:selectable
+    :fields="[
+        { name: 'name', label: 'Name' },
+        { name: 'email', label: 'Email' },
+        { name: 'role', label: 'Role' }
+    ]"
+    :items="users"
+    :selectable="true"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Selectable Table', basicPreview, basicCode) }}
+
+    {# With Actions #}
+    {% set actionsPreview %}
+        {% set products = [
+            { id: 1, product: 'Widget A', price: '$29.99', stock: '150' },
+            { id: 2, product: 'Widget B', price: '$49.99', stock: '75' },
+            { id: 3, product: 'Widget C', price: '$19.99', stock: '200' },
+        ] %}
+        <twig:ui:table:selectable
+            :fields="[
+                { name: 'product', label: 'Product' },
+                { name: 'price', label: 'Price' },
+                { name: 'stock', label: 'Stock' }
+            ]"
+            :items="products"
+            :showActions="true"
+        >
+            <twig:block name="tbody_actions">
+                <twig:ui:button size="sm" variant="ghost">Edit</twig:ui:button>
+                <twig:ui:button size="sm" variant="ghost" color="danger">Delete</twig:ui:button>
+            </twig:block>
+        </twig:ui:table:selectable>
+    {% endset %}
+    {% set actionsCode %}{% verbatim %}<twig:ui:table:selectable
+    :fields="fields"
+    :items="products"
+    :showActions="true"
+>
+    <twig:block name="tbody_actions">
+        <twig:ui:button size="sm" variant="ghost">Edit</twig:ui:button>
+        <twig:ui:button size="sm" variant="ghost" color="danger">Delete</twig:ui:button>
+    </twig:block>
+</twig:ui:table:selectable>{% endverbatim %}{% endset %}
+    {{ ui.story('With Actions', actionsPreview, actionsCode) }}
+
+    {# With Batch Actions #}
+    {% set batchPreview %}
+        {% set items = [
+            { id: 1, name: 'Document A', type: 'PDF', size: '2.5 MB' },
+            { id: 2, name: 'Document B', type: 'DOC', size: '1.2 MB' },
+            { id: 3, name: 'Document C', type: 'XLS', size: '3.8 MB' },
+        ] %}
+        <twig:ui:table:selectable
+            :fields="[
+                { name: 'name', label: 'Name' },
+                { name: 'type', label: 'Type' },
+                { name: 'size', label: 'Size' }
+            ]"
+            :items="items"
+            :selectable="true"
+        >
+            <twig:block name="batch_actions">
+                <twig:ui:button size="sm" variant="outline">Download</twig:ui:button>
+                <twig:ui:button size="sm" variant="outline" color="danger">Delete</twig:ui:button>
+            </twig:block>
+        </twig:ui:table:selectable>
+    {% endset %}
+    {% set batchCode %}{% verbatim %}<twig:ui:table:selectable
+    :fields="fields"
+    :items="items"
+    :selectable="true"
+>
+    <twig:block name="batch_actions">
+        <twig:ui:button size="sm" variant="outline">Download</twig:ui:button>
+        <twig:ui:button size="sm" variant="outline" color="danger">Delete</twig:ui:button>
+    </twig:block>
+</twig:ui:table:selectable>{% endverbatim %}{% endset %}
+    {{ ui.story('With Batch Actions', batchPreview, batchCode) }}
+
+    {# Empty State #}
+    {% set emptyPreview %}
+        <twig:ui:table:selectable
+            :fields="[
+                { name: 'name', label: 'Name' },
+                { name: 'email', label: 'Email' }
+            ]"
+            :items="[]"
+            emptyLabel="No users found"
+        />
+    {% endset %}
+    {% set emptyCode %}{% verbatim %}<twig:ui:table:selectable
+    :fields="fields"
+    :items="[]"
+    emptyLabel="No users found"
+/>{% endverbatim %}{% endset %}
+    {{ ui.story('Empty State', emptyPreview, emptyCode) }}
+</div>

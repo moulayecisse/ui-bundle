@@ -10,6 +10,8 @@
   class = '',
 %}
 
+{% set extraBlock %}{% block extra '' %}{% endset %}
+
 {# Nested attributes for fine-grained customization #}
 {% set iconAttrs = attributes.nested('icon') %}
 {% set valueAttrs = attributes.nested('value') %}
@@ -208,5 +210,5 @@
     </div>
   </div>
 
-  {% block extra '' %}
+  {{ extraBlock|raw }}
 </div>

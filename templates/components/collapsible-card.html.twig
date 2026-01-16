@@ -1,76 +1,32 @@
-{# templates/components/Ui/collapsible-card.html.twig #}
-{# Expandable/collapsible card component - matches cisse-vue-ui CollapsibleCard #}
+{# templates/components/collapsible-card.html.twig #}
+{# @deprecated Use <twig:ui:card collapsible> instead #}
+{# Kept for backward compatibility #}
 {% props
     class = '',
-    title = null,
-    description = null,
+    title = '',
+    description = '',
     defaultExpanded = true,
+    divide = false,
+    icon = '',
 %}
 
-{% set headerBlock %}{% block header '' %}{% endset %}
-{% set actionsBlock %}{% block actions '' %}{% endset %}
-{% set hasCustomHeader = headerBlock is not empty %}
+{% set headerContent %}{% block header '' %}{% endset %}
+{% set actionsContent %}{% block actions '' %}{% endset %}
+{% set mainContent %}{% block content '' %}{% endset %}
+{% set footerContent %}{% block footer '' %}{% endset %}
 
-{% set class = (class)|tailwind_merge %}
-
-<div
-    {{ attributes.without('header', 'content', 'card') }}
-    data-controller="cisse--ui-bundle--collapsible-card"
-    data-cisse--ui-bundle--collapsible-card-expanded-value="{{ defaultExpanded ? 'true' : 'false' }}"
+<twig:ui:card
+    collapsible
+    :title="title"
+    :description="description"
+    :defaultExpanded="defaultExpanded"
+    :divide="divide"
+    :icon="icon"
     class="{{ class }}"
+    {{ ...attributes }}
 >
-    {# Card container matching Vue CardComponent structure #}
-    <div class="{{ ('flex flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-slate-950 ' ~ attributes.nested('card').render('class'))|tailwind_merge }}" {{ attributes.nested('card').without('class') }}>
-        {% if hasCustomHeader %}
-            {# Custom header mode - button wraps the header content #}
-            <div class="border-b border-gray-200 dark:border-gray-700">
-                <button
-                    type="button"
-                    data-action="click->cisse--ui-bundle--collapsible-card#toggle"
-                    class="{{ ('w-full text-left ' ~ attributes.nested('header').render('class'))|tailwind_merge }}"
-                    {{ attributes.nested('header').without('class') }}
-                >
-                    {{ headerBlock|raw }}
-                </button>
-            </div>
-        {% else %}
-            {# Standard header with title/description/actions #}
-            <div class="flex items-center justify-between border-b border-gray-200 px-5 py-3 dark:border-gray-700">
-                <div class="flex flex-col gap-0.5">
-                    {% if title %}
-                        <span class="text-md font-semibold text-gray-800 dark:text-gray-200">{{ title }}</span>
-                    {% endif %}
-                    {% if description %}
-                        <span class="text-sm font-normal text-gray-600 dark:text-gray-400">{{ description }}</span>
-                    {% endif %}
-                </div>
-                <div class="flex gap-2">
-                    {{ actionsBlock|raw }}
-                    <button
-                        type="button"
-                        data-action="click->cisse--ui-bundle--collapsible-card#toggle"
-                        class="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-                    >
-                        <twig:ux:icon
-                            data-cisse--ui-bundle--collapsible-card-target="icon"
-                            name="{{ defaultExpanded ? 'lucide:chevron-up' : 'lucide:chevron-down' }}"
-                            class="size-5"
-                        />
-                    </button>
-                </div>
-            </div>
-        {% endif %}
-
-        {# Collapsible content #}
-        <div
-            data-cisse--ui-bundle--collapsible-card-target="content"
-            class="{{ ('overflow-hidden transition-all duration-200 ease-out ' ~ attributes.nested('content').render('class'))|tailwind_merge }}"
-            style="{{ defaultExpanded ? '' : 'max-height: 0; opacity: 0;' }}"
-            {{ attributes.nested('content').without('class') }}
-        >
-            <div class="{{ hasCustomHeader ? '' : 'space-y-4 p-6' }}">
-                {% block content '' %}
-            </div>
-        </div>
-    </div>
-</div>
+    <twig:block name="header">{{ headerContent|raw }}</twig:block>
+    <twig:block name="actions">{{ actionsContent|raw }}</twig:block>
+    <twig:block name="content">{{ mainContent|raw }}</twig:block>
+    <twig:block name="footer">{{ footerContent|raw }}</twig:block>
+</twig:ui:card>
