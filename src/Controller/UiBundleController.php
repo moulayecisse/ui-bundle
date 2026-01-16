@@ -2,6 +2,7 @@
 
 namespace Cisse\Bundle\Ui\Controller;
 
+use Cisse\Bundle\Ui\Story\StoryRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,7 +16,15 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/_ui', name: '_ui_')]
 class UiBundleController extends AbstractController
 {
-    private array $components = [
+    public function __construct(
+        private readonly StoryRegistry $storyRegistry,
+    ) {}
+
+    /**
+     * Fallback component list for components without Story classes.
+     * These will be migrated to Story classes over time.
+     */
+    private array $fallbackComponents = [
         'core' => [
             'accordion' => ['label' => 'Accordion', 'description' => 'Collapsible content sections'],
             'avatar' => ['label' => 'Avatar', 'description' => 'User avatar display'],
@@ -104,9 +113,11 @@ class UiBundleController extends AbstractController
     #[Route('', name: 'index')]
     public function index(): Response
     {
+        $components = $this->getMergedComponentList();
+
         // Redirect to the first component (no dashboard)
-        $firstCategory = array_key_first($this->components);
-        $firstComponent = array_key_first($this->components[$firstCategory]);
+        $firstCategory = array_key_first($components);
+        $firstComponent = array_key_first($components[$firstCategory]);
 
         return $this->redirectToRoute('_ui_component', [
             'category' => $firstCategory,
@@ -117,17 +128,46 @@ class UiBundleController extends AbstractController
     #[Route('/component/{category}/{component}', name: 'component', requirements: ['component' => '.+'])]
     public function component(string $category, string $component): Response
     {
-        if (!isset($this->components[$category][$component])) {
+        $components = $this->getMergedComponentList();
+
+        if (!isset($components[$category][$component])) {
             throw $this->createNotFoundException('Component not found');
         }
 
-        $componentInfo = $this->components[$category][$component];
+        $componentInfo = $components[$category][$component];
+
+        // Check if we have a Story class for this component
+        $story = $this->storyRegistry->get($category, $component);
 
         return $this->render('@Ui/ui_library/component.html.twig', [
             'category' => $category,
             'component' => $component,
             'componentInfo' => $componentInfo,
-            'components' => $this->components,
+            'components' => $components,
+            'story' => $story?->toArray(),
         ]);
+    }
+
+    /**
+     * Merge story registry components with fallback components.
+     * Story registry takes precedence.
+     */
+    private function getMergedComponentList(): array
+    {
+        $storyComponents = $this->storyRegistry->getComponentList();
+        $merged = $this->fallbackComponents;
+
+        foreach ($storyComponents as $category => $components) {
+            if (!isset($merged[$category])) {
+                $merged[$category] = [];
+            }
+            foreach ($components as $name => $info) {
+                $merged[$category][$name] = $info;
+            }
+            ksort($merged[$category]);
+        }
+
+        ksort($merged);
+        return $merged;
     }
 }

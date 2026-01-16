@@ -3,6 +3,10 @@
 {% block title %}{{ componentInfo.label }} - UI Bundle{% endblock %}
 
 {% block styles %}
+    {# Prism.js for syntax highlighting #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
     <script type="module">
         import { Application, Controller } from 'https://unpkg.com/@hotwired/stimulus/dist/stimulus.js'
 
@@ -11,6 +15,7 @@
         // Code toggle controller for showing/hiding source code
         application.register('code-toggle', class extends Controller {
             static targets = ['code', 'button', 'icon']
+            static values = { highlighted: Boolean }
 
             toggle() {
                 const isHidden = this.codeTarget.classList.contains('hidden')
@@ -26,6 +31,12 @@
                 // Rotate icon
                 if (this.hasIconTarget) {
                     this.iconTarget.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)'
+                }
+
+                // Trigger Prism highlighting on first reveal
+                if (isHidden && !this.highlightedValue && window.Prism) {
+                    Prism.highlightAllUnder(this.codeTarget)
+                    this.highlightedValue = true
                 }
             }
         })
@@ -100,12 +111,10 @@
         })
     </script>
     <style>
-        /* Syntax highlighting for code blocks */
-        .code-block { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
-        .code-tag { color: #ff79c6; }
-        .code-attr { color: #50fa7b; }
-        .code-string { color: #f1fa8c; }
-        .code-comment { color: #6272a4; }
+        /* Prism overrides for better dark theme integration */
+        pre[class*="language-"] { background: #1a1a2e; margin: 0; }
+        code[class*="language-"] { font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.875rem; }
+        :not(pre) > code[class*="language-"] { background: transparent; }
     </style>
 {% endblock %}
 
@@ -221,29 +230,62 @@
 
             {# Component preview #}
             <div class="p-8">
-                {# Try to include a preview template for this component #}
-                {% set previewTemplate = '@Ui/ui_library/previews/' ~ category ~ '/' ~ component ~ '.html.twig' %}
-                {% set previewContent = include(previewTemplate, ignore_missing = true) %}
+                {% import '@Ui/ui_library/_macros.html.twig' as ui %}
 
-                {% if previewContent %}
-                    {{ previewContent|raw }}
+                {# If we have story data, render from PHP Story class #}
+                {% if story %}
+                    <div class="space-y-6">
+                        {# First story (before props/slots documentation) #}
+                        {% if story.stories|length > 0 %}
+                            {% set firstStory = story.stories|first %}
+                            {{ ui.story(firstStory.title, firstStory.preview|raw, firstStory.code) }}
+                        {% endif %}
+
+                        {# Props documentation #}
+                        {% if story.props|length > 0 %}
+                            {{ ui.props(story.props) }}
+                        {% endif %}
+
+                        {# Slots documentation #}
+                        {% if story.slots|length > 0 %}
+                            {{ ui.slots(story.slots) }}
+                        {% endif %}
+
+                        {# Nested attributes documentation #}
+                        {% if story.nestedAttributes|length > 0 %}
+                            {{ ui.nested(story.nestedAttributes) }}
+                        {% endif %}
+
+                        {# Remaining stories #}
+                        {% for storyItem in story.stories|slice(1) %}
+                            {{ ui.story(storyItem.title, storyItem.preview|raw, storyItem.code) }}
+                        {% endfor %}
+                    </div>
                 {% else %}
-                    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                            <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Preview</h2>
-                        </div>
-                        <div class="p-8">
-                            <div class="border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 bg-gray-50 dark:bg-gray-900/50">
-                                <p class="text-center text-gray-500 dark:text-gray-400">
-                                    <svg class="size-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
-                                    </svg>
-                                    Preview template not found.<br>
-                                    <code class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mt-2 inline-block">{{ previewTemplate }}</code>
-                                </p>
+                    {# Fallback: Try to include a preview template for this component #}
+                    {% set previewTemplate = '@Ui/ui_library/previews/' ~ category ~ '/' ~ component ~ '.html.twig' %}
+                    {% set previewContent = include(previewTemplate, ignore_missing = true) %}
+
+                    {% if previewContent %}
+                        {{ previewContent|raw }}
+                    {% else %}
+                        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Preview</h2>
+                            </div>
+                            <div class="p-8">
+                                <div class="border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 bg-gray-50 dark:bg-gray-900/50">
+                                    <p class="text-center text-gray-500 dark:text-gray-400">
+                                        <svg class="size-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                                        </svg>
+                                        Preview template not found.<br>
+                                        <code class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mt-2 inline-block">{{ previewTemplate }}</code>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endif %}
             </div>
         </main>

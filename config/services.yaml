@@ -1,4 +1,20 @@
 services:
+    # Enable template_from_string() function for story previews
+    Twig\Extension\StringLoaderExtension:
+        tags: ['twig.extension']
+
+    # Auto-discover component Story classes (all *Story.php files in subdirectories)
+    Cisse\Bundle\Ui\Story\:
+        resource: '../src/Story/**/*Story.php'
+        autowire: true
+        autoconfigure: true
+        tags: ['ui.component_story']
+
+    # Story Registry (collects all stories)
+    Cisse\Bundle\Ui\Story\StoryRegistry:
+        autowire: true
+        autoconfigure: true
+
     Cisse\Bundle\Ui\Controller\UiBundleController:
         autowire: true
         autoconfigure: true
