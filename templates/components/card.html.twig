@@ -10,6 +10,11 @@
     loadingAvatar = false,
     loadingActions = false,
     icon = '',
+    border = true,
+    shadow = false,
+    overflow = 'visible',
+    collapsible = false,
+    defaultExpanded = true,
 %}
 
 {% set cardTitleBlock %}{% block title title|raw %}{% endset %}
@@ -18,8 +23,19 @@
 {% set cardHeaderBlock %}{% block header '' %}{% endset %}
 {% set cardContentBlock %}{% block content '' %}{% endset %}
 {% set cardFooterBlock %}{% block footer '' %}{% endset %}
-{% set showHeader = cardTitleBlock|trim or cardDescriptionBlock|trim or cardActionsBlock|trim or cardHeaderBlock|trim %}
+{% set showHeader = cardTitleBlock|trim or cardDescriptionBlock|trim or cardActionsBlock|trim or cardHeaderBlock|trim or collapsible %}
 {% set showFooter = cardFooterBlock|trim != '' %}
+
+{# Collapsible mode overrides container styling #}
+{% set containerBorder = collapsible ? false : border %}
+{% set containerShadow = collapsible ? true : shadow %}
+{% set containerOverflow = collapsible ? 'hidden' : overflow %}
+{% set iconClasses = attributes.nested('icon').render('class') %}
+{% set iconAttrs = attributes.nested('icon').without('class') %}
+{% set iconWrapperClasses = attributes.nested('icon-wrapper').render('class') %}
+{% set iconWrapperAttrs = attributes.nested('icon-wrapper').without('class') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set descriptionAttrs = attributes.nested('description') %}
 
 {# Loading state - render skeleton #}
 {% if loading %}
@@ -30,47 +46,95 @@
         class="{{ class }}"
     />
 {% else %}
-    <{{ tag }}
-        {{ attributes }}
-        class="{{ ('flex flex-col rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 ' ~ class)|tailwind_merge }}"
+    {% set collapsibleAttrs = collapsible ? {
+        'data-controller': 'cisse--ui-bundle--collapsible-card',
+        'data-cisse--ui-bundle--collapsible-card-expanded-value': defaultExpanded ? 'true' : 'false'
+    } : {} %}
+
+    <twig:ui:container
+        :tag="tag"
+        :border="containerBorder"
+        :shadow="containerShadow"
+        :overflow="containerOverflow"
+        class="{{ class }}"
+        {{ ...collapsibleAttrs }}
+        {{ ...attributes }}
     >
-        {% block wrapper %}
-            {% if showHeader %}
-                {% if cardHeaderBlock|trim %}
-                    {{ cardHeaderBlock|raw }}
-                {% else %}
-                    <twig:ui:card:header {{ ...attributes.nested('header') }}>
-                        {% if icon %}
-                            {% set iconClasses = attributes.nested('icon').render('class')|default('text-gray-400') %}
-                            <div class="flex items-center gap-3">
-                                <twig:ux:icon :name="icon" class="{{ ('size-8 flex-shrink-0 ' ~ iconClasses)|tailwind_merge }}" />
-                                <div class="flex flex-col flex-1 min-w-0">
-                                    <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
-                                    <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
-                                </div>
+        {% if showHeader %}
+            {% if cardHeaderBlock|trim %}
+                {{ cardHeaderBlock|raw }}
+            {% else %}
+                <twig:ui:card:header {{ ...attributes.nested('header') }}>
+                    {% if icon %}
+                        <div class="flex items-center gap-3">
+                            <div class="{{ (' ' ~ iconWrapperClasses)|tailwind_merge }}" {{ iconWrapperAttrs }}>
+                                <twig:ux:icon :name="icon" class="{{ ('size-8 flex-shrink-0 text-gray-400 ' ~ iconClasses)|tailwind_merge }}" {{ ...iconAttrs }} />
                             </div>
-                        {% else %}
-                            <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
-                            <twig:ui:card:description {{ ...attributes.nested('description') }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
-                        {% endif %}
 
-                        <twig:block name="actions">
-                            <twig:ui:card:actions {{ ...attributes.nested('actions') }}>{{ cardActionsBlock|raw }}</twig:ui:card:actions>
-                        </twig:block>
-                    </twig:ui:card:header>
+                            <div class="flex flex-col flex-1 min-w-0">
+                                <twig:ui:card:title {{ ...titleAttrs }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
+                                <twig:ui:card:description {{ ...descriptionAttrs }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
+                            </div>
+                        </div>
+                    {% else %}
+                        <twig:ui:card:title {{ ...titleAttrs }}>{{ cardTitleBlock|raw }}</twig:ui:card:title>
+                        <twig:ui:card:description {{ ...descriptionAttrs }}>{{ cardDescriptionBlock|raw }}</twig:ui:card:description>
+                    {% endif %}
+
+                    <twig:block name="actions_wrapper">
+                        <twig:ui:card:actions {{ ...attributes.nested('actions') }}>
+                            {{ cardActionsBlock|raw }}
+                            {% if collapsible %}
+                                <button
+                                        type="button"
+                                        data-action="click->cisse--ui-bundle--collapsible-card#toggle"
+                                        class="rounded-lg p-1.5 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+                                >
+                                    <twig:ux:icon
+                                            data-cisse--ui-bundle--collapsible-card-target="icon"
+                                            name="{{ defaultExpanded ? 'lucide:chevron-up' : 'lucide:chevron-down' }}"
+                                            class="size-5"
+                                    />
+                                </button>
+                            {% endif %}
+                        </twig:ui:card:actions>
+                    </twig:block>
+                </twig:ui:card:header>
+            {% endif %}
+        {% endif %}
+
+        {% if divide and showHeader %}
+            <twig:ui:divider class="my-0" />
+        {% endif %}
+
+        {% if collapsible %}
+            {# Collapsible content wrapper #}
+            <div
+                data-cisse--ui-bundle--collapsible-card-target="content"
+                class="overflow-hidden transition-all duration-200 ease-out"
+                style="{{ defaultExpanded ? '' : 'max-height: 0; opacity: 0;' }}"
+            >
+                <twig:ui:card:content {{ ...attributes.nested('content') }}>
+                    {{ cardContentBlock|raw }}
+                </twig:ui:card:content>
+
+                {% if divide and showFooter %}
+                    <twig:ui:divider class="my-0" />
                 {% endif %}
-            {% endif %}
 
-            {% if divide and showHeader %}
-                <twig:ui:divider />
-            {% endif %}
-
+                {% if showFooter %}
+                    <twig:ui:card:footer {{ ...attributes.nested('footer') }}>
+                        {{ cardFooterBlock|raw }}
+                    </twig:ui:card:footer>
+                {% endif %}
+            </div>
+        {% else %}
             <twig:ui:card:content {{ ...attributes.nested('content') }}>
                 {{ cardContentBlock|raw }}
             </twig:ui:card:content>
 
             {% if divide and showFooter %}
-                <twig:ui:divider />
+                <twig:ui:divider class="my-0" />
             {% endif %}
 
             {% if showFooter %}
@@ -78,6 +142,6 @@
                     {{ cardFooterBlock|raw }}
                 </twig:ui:card:footer>
             {% endif %}
-        {% endblock %}
-    </{{ tag }}>
+        {% endif %}
+    </twig:ui:container>
 {% endif %}

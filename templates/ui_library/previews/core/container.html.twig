@@ -1,0 +1,145 @@
+{% import '@Ui/ui_library/_macros.html.twig' as ui %}
+
+<div class="space-y-6">
+    {# Props Documentation #}
+    {{ ui.props([
+        { name: 'tag', type: 'string', default: "'div'", description: 'HTML tag for the container element' },
+        { name: 'border', type: 'boolean', default: 'true', description: 'Show border styling' },
+        { name: 'shadow', type: 'boolean', default: 'false', description: 'Show shadow instead of border' },
+        { name: 'rounded', type: 'boolean', default: 'true', description: 'Apply rounded corners' },
+        { name: 'overflow', type: 'string', default: "'visible'", description: 'Overflow behavior (visible, hidden, auto, scroll)' },
+        { name: 'class', type: 'string', default: "''", description: 'Additional CSS classes' },
+    ]) }}
+
+    {# Slots Documentation #}
+    {{ ui.slots([
+        { name: 'content', description: 'Main container content' },
+    ]) }}
+
+    {# Basic Container #}
+    {% set basicPreview %}
+        <twig:ui:container class="p-4">
+            <p class="text-gray-600 dark:text-gray-400">
+                Basic container with default styling (border, rounded corners, white background).
+            </p>
+        </twig:ui:container>
+    {% endset %}
+    {% set basicCode %}{% verbatim %}<twig:ui:container class="p-4">
+    <p>Your content here.</p>
+</twig:ui:container>{% endverbatim %}{% endset %}
+    {{ ui.story('Basic Container', basicPreview, basicCode) }}
+
+    {# Container with Shadow #}
+    {% set shadowPreview %}
+        <twig:ui:container :border="false" :shadow="true" class="p-4">
+            <p class="text-gray-600 dark:text-gray-400">
+                Container with shadow instead of border. Useful for elevated content.
+            </p>
+        </twig:ui:container>
+    {% endset %}
+    {% set shadowCode %}{% verbatim %}<twig:ui:container :border="false" :shadow="true" class="p-4">
+    <p>Elevated content with shadow.</p>
+</twig:ui:container>{% endverbatim %}{% endset %}
+    {{ ui.story('Container with Shadow', shadowPreview, shadowCode) }}
+
+    {# Container without Border #}
+    {% set noBorderPreview %}
+        <twig:ui:container :border="false" class="p-4">
+            <p class="text-gray-600 dark:text-gray-400">
+                Container without border, just the background and rounded corners.
+            </p>
+        </twig:ui:container>
+    {% endset %}
+    {% set noBorderCode %}{% verbatim %}<twig:ui:container :border="false" class="p-4">
+    <p>Content without border.</p>
+</twig:ui:container>{% endverbatim %}{% endset %}
+    {{ ui.story('Container without Border', noBorderPreview, noBorderCode) }}
+
+    {# Container with Overflow Hidden #}
+    {% set overflowPreview %}
+        <twig:ui:container overflow="hidden" class="p-4">
+            <p class="text-gray-600 dark:text-gray-400">
+                Container with overflow hidden. Useful for image containers or clipped content.
+            </p>
+        </twig:ui:container>
+    {% endset %}
+    {% set overflowCode %}{% verbatim %}<twig:ui:container overflow="hidden" class="p-4">
+    <p>Content with overflow hidden.</p>
+</twig:ui:container>{% endverbatim %}{% endset %}
+    {{ ui.story('Container with Overflow Hidden', overflowPreview, overflowCode) }}
+
+    {# Custom Tag #}
+    {% set tagPreview %}
+        <twig:ui:container tag="section" class="p-4">
+            <p class="text-gray-600 dark:text-gray-400">
+                This container renders as a &lt;section&gt; element for semantic HTML.
+            </p>
+        </twig:ui:container>
+    {% endset %}
+    {% set tagCode %}{% verbatim %}<twig:ui:container tag="section" class="p-4">
+    <p>Semantic section content.</p>
+</twig:ui:container>
+
+<twig:ui:container tag="article" class="p-4">
+    <p>Article content.</p>
+</twig:ui:container>{% endverbatim %}{% endset %}
+    {{ ui.story('Custom HTML Tag', tagPreview, tagCode) }}
+
+    {# Style Override #}
+    {% set overridePreview %}
+        <div class="grid grid-cols-2 gap-4">
+            <twig:ui:container class="p-4 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+                <p class="text-blue-700 dark:text-blue-300">Blue themed container</p>
+            </twig:ui:container>
+            <twig:ui:container class="p-4 bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+                <p class="text-green-700 dark:text-green-300">Green themed container</p>
+            </twig:ui:container>
+        </div>
+    {% endset %}
+    {% set overrideCode %}{% verbatim %}{# Override colors via class prop #}
+<twig:ui:container class="p-4 bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+    <p>Blue themed content</p>
+</twig:ui:container>
+
+<twig:ui:container class="p-4 bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+    <p>Green themed content</p>
+</twig:ui:container>{% endverbatim %}{% endset %}
+    {{ ui.story('Style Override', overridePreview, overrideCode) }}
+
+    {# Component Hierarchy #}
+    {% set hierarchyPreview %}
+        <div class="space-y-4">
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                The container component provides the base styling used throughout the UI library:
+            </p>
+            <div class="space-y-2 text-sm">
+                <div class="flex items-center gap-2">
+                    <span class="font-mono text-primary-600 dark:text-primary-400">container</span>
+                    <span class="text-gray-400">-></span>
+                    <span class="font-mono text-gray-600 dark:text-gray-400">card</span>
+                    <span class="text-gray-400 text-xs">(+ collapsible mode)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-mono text-primary-600 dark:text-primary-400">container</span>
+                    <span class="text-gray-400">-></span>
+                    <span class="font-mono text-gray-600 dark:text-gray-400">card-skeleton</span>
+                    <span class="text-gray-400 text-xs">(shadow variant)</span>
+                </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                    Card with <code class="text-primary-600 dark:text-primary-400">collapsible</code> prop auto-sets: shadow=true, border=false, overflow=hidden.
+                </p>
+            </div>
+        </div>
+    {% endset %}
+    {% set hierarchyCode %}{% verbatim %}{# Regular card (border, no shadow) #}
+<twig:ui:card title="Card">...</twig:ui:card>
+
+{# Collapsible card (auto: shadow, no border, overflow hidden) #}
+<twig:ui:card title="Collapsible" collapsible>...</twig:ui:card>
+
+{# Card skeleton (shadow variant) #}
+<twig:ui:card-skeleton />{% endverbatim %}{% endset %}
+    {{ ui.story('Component Hierarchy', hierarchyPreview, hierarchyCode) }}
+</div>

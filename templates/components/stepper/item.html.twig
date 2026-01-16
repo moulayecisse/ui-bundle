@@ -1,0 +1,60 @@
+{% props
+    title = '',
+    description = null,
+    icon = null,
+    step = null,
+    completed = false,
+    active = false,
+    showNumber = true,
+    class = '',
+%}
+
+{# Nested attributes for fine-grained customization #}
+{% set circleAttrs = attributes.nested('circle') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set descriptionAttrs = attributes.nested('description') %}
+
+{# Determine status #}
+{% set status = completed ? 'complete' : (active ? 'active' : 'pending') %}
+{% set isHighlighted = completed or active %}
+
+<div
+    {{ attributes.without('circle', 'title', 'description') }}
+    data-cisse--ui-bundle--stepper-target="item"
+    data-step-status="{{ status }}"
+    {% if step %}data-step="{{ step }}"{% endif %}
+    class="{{ ('relative flex flex-1 flex-col items-center group/item ' ~ class)|tailwind_merge }}"
+>
+    {# Step Circle #}
+    <div
+        data-stepper-target="circle"
+        class="{{ ('relative z-10 flex shrink-0 items-center justify-center rounded-full border-2 transition-all duration-300 size-12 ' ~ (isHighlighted ? 'border-primary bg-primary text-white shadow-lg' : 'border-gray-300 bg-white text-gray-400 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-500') ~ ' ' ~ circleAttrs.render('class'))|tailwind_merge }}"
+        {{ circleAttrs.without('class') }}
+    >
+        {% if completed %}
+            <twig:ux:icon name="lucide:check" class="size-6" />
+        {% elseif icon %}
+            <twig:ux:icon :name="icon" class="size-6" />
+        {% elseif showNumber and step %}
+            <span class="text-sm font-semibold">{{ step }}</span>
+        {% endif %}
+    </div>
+
+    {# Step Content #}
+    <div class="mt-4 flex flex-col items-center text-center">
+        <p
+            class="{{ ('text-sm font-semibold transition-colors ' ~ (isHighlighted ? 'text-primary dark:text-primary' : 'text-gray-500 dark:text-gray-400') ~ ' ' ~ titleAttrs.render('class'))|tailwind_merge }}"
+            {{ titleAttrs.without('class') }}
+        >
+            {{ title }}
+        </p>
+        {% if description %}
+            <p
+                class="{{ ('mt-1 text-xs ' ~ (active ? 'text-gray-600 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400') ~ ' ' ~ descriptionAttrs.render('class'))|tailwind_merge }}"
+                {{ descriptionAttrs.without('class') }}
+            >
+                {{ description }}
+            </p>
+        {% endif %}
+    </div>
+</div>

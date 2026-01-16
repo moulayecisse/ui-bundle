@@ -8,6 +8,8 @@
   class = '',
 %}
 
+{% set contentBlock %}{% block content '' %}{% endset %}
+
 {# Check if items is a Stat model with configuration #}
 {% set isStat = items is iterable and items.cols is defined %}
 
@@ -114,5 +116,5 @@
     />
   {% endfor %}
 
-  {% block content '' %}
+  {{ contentBlock|raw }}
 </div>
