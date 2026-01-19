@@ -15,6 +15,11 @@
 {% set hasRightSlot = rightBlock is not empty or badge or count is not null %}
 
 {# This component renders differently in inline submenu vs flyout #}
+{#
+  Inline submenu (in sidebar): dark background -> light text
+  Flyout (collapsed mode): light background -> dark text
+  Uses [[data-flyout-children]_&] arbitrary variant to detect flyout context
+#}
 <li
     {{ attributes.without('class') }}
     data-active="{{ active ? 'true' : 'false' }}"
@@ -22,7 +27,7 @@
 >
     <a
         href="{{ href ?? '#' }}"
-        class="flex items-center gap-3 px-4 py-2 text-sm transition-colors {{ active ? 'bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700' }} {{ disabled ? 'opacity-50 pointer-events-none' : '' }}"
+        class="flex items-center gap-3 px-4 py-2 text-sm rounded-md transition-colors {{ disabled ? 'opacity-50 pointer-events-none' : '' }} {{ active ? 'text-primary-400 bg-white/10 [[data-flyout-children]_&]:bg-primary/10 [[data-flyout-children]_&]:text-primary' : 'text-white/70 hover:text-white hover:bg-white/10 [[data-flyout-children]_&]:text-gray-700 [[data-flyout-children]_&]:hover:bg-gray-100 [[data-flyout-children]_&]:hover:text-gray-900 dark:[[data-flyout-children]_&]:text-gray-300 dark:[[data-flyout-children]_&]:hover:bg-gray-700 dark:[[data-flyout-children]_&]:hover:text-white' }}"
         {% if disabled %}aria-disabled="true"{% endif %}
     >
         {% block content %}
@@ -53,7 +58,7 @@
                     {% endif %}
 
                     {% if count is not null %}
-                        <span class="text-xs font-medium {{ active ? 'text-primary/80' : 'text-gray-500' }}">
+                        <span class="text-xs font-medium {{ active ? 'text-primary-400 [[data-flyout-children]_&]:text-primary/80' : 'text-white/50 [[data-flyout-children]_&]:text-gray-500' }}">
                             {{ count }}
                         </span>
                     {% endif %}

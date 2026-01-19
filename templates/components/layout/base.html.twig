@@ -5,6 +5,7 @@
   dark = true,
   user = null,
   avatar = null,
+  logout = null,
   class = '',
 %}
 
@@ -27,57 +28,26 @@
     class="absolute z-40 h-full w-full bg-slate-950/20 lg:hidden dark:bg-white/20 hidden"
   ></div>
 
-  {# Sidebar - collapses to w-16 on desktop, slides out on mobile #}
-  <aside
-    data-cisse--ui-bundle--base-layout-target="sidebar"
-    class="{{ ('group/sidebar max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 data-[collapsed=true]:lg:w-16 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full bg-slate-800 dark:bg-slate-950 ' ~ attributes.nested('sidebar').render('class'))|tailwind_merge }}"
-    {{ attributes.nested('sidebar').without('class') }}
+  {# Sidebar #}
+  <twig:ui:layout:sidebar
+    :name="name"
+    :icon="icon"
+    :home="home"
+    class="{{ attributes.nested('sidebar').render('class') }}"
+    :menu:class="attributes.nested('menu').render('class')"
   >
-    {# Sidebar Header #}
-    <div class="flex h-16 items-center px-3">
-      {% if sidebar_header_block|trim %}
-        {{ sidebar_header_block|raw }}
-      {% else %}
-        <{{ home ? 'a' : 'div' }}{% if home %} href="{{ home }}"{% endif %} class="flex flex-1 items-center gap-3 justify-center">
-          {% if icon %}
-            <div class="flex size-8 items-center justify-center rounded-lg bg-white/20 shrink-0">
-              <twig:ux:icon
-                      name="{{ icon }}"
-                      class="{{ ('size-5 text-white ' ~ attributes.nested('icon').render('class'))|tailwind_merge }}"
-                      {{ ...attributes.nested('icon').without('class') }}
-              />
-            </div>
-          {% endif %}
+    {% block header %}
+      {{ sidebar_header_block|raw }}
+    {% endblock %}
 
-          <span class="flex-1 text-lg font-semibold text-white transition-opacity duration-300 group-data-[collapsed=true]/sidebar:lg:hidden">
-            {{ name }}
-          </span>
-        </{{ home ? 'a' : 'div' }}>
-      {% endif %}
-
-      <button
-        data-action="click->cisse--ui-bundle--base-layout#toggleSidebar"
-        class="rounded-lg bg-white/10 p-1 transition hover:bg-white/20 lg:hidden"
-      >
-        <twig:ux:icon name="heroicons:bars-3" class="size-6 text-white" />
-      </button>
-    </div>
-
-    {# Menu Items #}
-    <div
-      class="{{ ('ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start group-data-[collapsed=true]/sidebar:items-center group-data-[collapsed=true]/sidebar:gap-4 transition-all duration-300 ' ~ attributes.nested('menu').render('class'))|tailwind_merge }}"
-      {{ attributes.nested('menu').without('class') }}
-    >
+    {% block menu %}
       {{ menu_block|raw }}
-    </div>
+    {% endblock %}
 
-    {# Sidebar Footer #}
-    {% if sidebar_footer_block|trim %}
-      <div class="flex flex-col gap-3 px-3 pb-3">
-        {{ sidebar_footer_block|raw }}
-      </div>
-    {% endif %}
-  </aside>
+    {% block footer %}
+      {{ sidebar_footer_block|raw }}
+    {% endblock %}
+  </twig:ui:layout:sidebar>
 
   {# Main Content Area #}
   <div class="flex flex-1 flex-col min-w-0">
@@ -129,7 +99,7 @@
               {{ attributes.nested('user.button').without('class') }}
             >
               <div
-                class="{{ ('flex size-8 items-center justify-center rounded-full bg-primary-600 text-sm font-medium text-white ' ~ attributes.nested('avatar').render('class'))|tailwind_merge }}"
+                class="{{ ('flex size-8 items-center justify-center rounded-full bg-primary text-sm font-medium text-primary-foreground ' ~ attributes.nested('avatar').render('class'))|tailwind_merge }}"
                 {{ attributes.nested('avatar').without('class') }}
               >
                 {{ avatar ?? '?' }}
@@ -155,6 +125,19 @@
               {{ attributes.nested('user.menu').without('class') }}
             >
               {{ user_menu_block|raw }}
+
+              {% if logout %}
+                {% if user_menu_block|trim %}
+                  <twig:ui:dropdown:divider />
+                {% endif %}
+                <twig:ui:dropdown:item
+                  href="{{ logout }}"
+                  icon="{{ attributes.nested('logout').render('icon')|default('heroicons:arrow-right-start-on-rectangle') }}"
+                  class="{{ attributes.nested('logout').render('class') }}"
+                >
+                  {{ attributes.nested('logout').render('label')|default('Se déconnecter') }}
+                </twig:ui:dropdown:item>
+              {% endif %}
             </div>
           </div>
         {% endif %}

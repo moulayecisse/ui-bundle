@@ -1,6 +1,6 @@
 {
   "name": "@cisse/ui",
-  "version": "1.0.0",
+  "version": "1.17.0",
   "style": "styles/ui-scrollbar.css",
   "symfony": {
     "controllers": {
@@ -36,6 +36,11 @@
       },
       "dark-mode-toggle": {
         "main": "dist/dark_mode_toggle_controller.js",
+        "fetch": "eager",
+        "enabled": true
+      },
+      "dropdown": {
+        "main": "dist/dropdown_controller.js",
         "fetch": "eager",
         "enabled": true
       },
