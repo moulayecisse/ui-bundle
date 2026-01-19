@@ -1,0 +1,27 @@
+{# templates/components/dropdown/label.html.twig #}
+{% props
+    icon = null,
+    muted = false,
+    class = '',
+%}
+
+{% set textClasses = muted
+    ? 'text-gray-500 dark:text-gray-400'
+    : 'text-gray-700 dark:text-gray-300'
+%}
+
+<div
+    {{ attributes.without('class') }}
+    class="{{ ('flex items-center gap-2 px-3 py-2 text-sm ' ~ textClasses ~ ' ' ~ class)|tailwind_merge }}"
+>
+    {% if icon %}
+        <twig:ux:icon
+            name="{{ icon }}"
+            class="{{ ('size-4 shrink-0 ' ~ attributes.nested('icon').render('class'))|tailwind_merge }}"
+        />
+    {% endif %}
+
+    <span class="flex-1">
+        {% block content %}{% endblock %}
+    </span>
+</div>

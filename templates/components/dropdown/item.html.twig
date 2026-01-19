@@ -1,0 +1,36 @@
+{# templates/components/dropdown/item.html.twig #}
+{% props
+    href = null,
+    icon = null,
+    danger = false,
+    disabled = false,
+    class = '',
+%}
+
+{% set tag = href ? 'a' : 'button' %}
+
+{% set baseClasses = 'flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors' %}
+{% set colorClasses = danger
+    ? 'text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20'
+    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+%}
+{% set disabledClasses = disabled ? 'opacity-50 pointer-events-none' : '' %}
+
+<{{ tag }}
+    {{ attributes.without('class') }}
+    {% if href %}href="{{ href }}"{% endif %}
+    {% if disabled %}aria-disabled="true"{% endif %}
+    {% if tag == 'button' %}type="button"{% endif %}
+    class="{{ (baseClasses ~ ' ' ~ colorClasses ~ ' ' ~ disabledClasses ~ ' ' ~ class)|tailwind_merge }}"
+>
+    {% if icon %}
+        <twig:ux:icon
+            name="{{ icon }}"
+            class="{{ ('size-4 shrink-0 ' ~ attributes.nested('icon').render('class'))|tailwind_merge }}"
+        />
+    {% endif %}
+
+    <span class="flex-1 text-left">
+        {% block content %}{% endblock %}
+    </span>
+</{{ tag }}>

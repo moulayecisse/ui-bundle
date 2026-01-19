@@ -1,0 +1,44 @@
+{# templates/components/dropdown.html.twig #}
+{% props
+    align = 'right',
+    width = 'auto',
+    class = '',
+%}
+
+{% set triggerBlock %}{% block trigger '' %}{% endset %}
+{% set menuBlock %}{% block menu '' %}{% endset %}
+
+{% set alignClasses = {
+    'left': 'left-0',
+    'right': 'right-0',
+    'center': 'left-1/2 -translate-x-1/2',
+} %}
+
+{% set widthClasses = {
+    'auto': 'min-w-48',
+    'sm': 'w-32',
+    'md': 'w-48',
+    'lg': 'w-64',
+    'xl': 'w-80',
+    'full': 'w-full',
+} %}
+
+<div
+    {{ attributes.without('class') }}
+    data-controller="cisse--ui-bundle--dropdown"
+    class="{{ ('relative inline-block ' ~ class)|tailwind_merge }}"
+>
+    {# Trigger #}
+    <div data-action="click->cisse--ui-bundle--dropdown#toggle">
+        {{ triggerBlock|raw }}
+    </div>
+
+    {# Menu #}
+    <div
+        data-cisse--ui-bundle--dropdown-target="menu"
+        class="{{ ('absolute z-50 mt-2 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden ' ~ (alignClasses[align] ?? alignClasses['right']) ~ ' ' ~ (widthClasses[width] ?? widthClasses['auto']) ~ ' ' ~ attributes.nested('menu').render('class'))|tailwind_merge }}"
+        {{ attributes.nested('menu').without('class') }}
+    >
+        {{ menuBlock|raw }}
+    </div>
+</div>

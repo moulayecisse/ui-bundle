@@ -1,0 +1,65 @@
+{# templates/components/layout/sidebar.html.twig #}
+{% props
+    name = 'App',
+    icon = null,
+    home = null,
+    collapsed = false,
+    class = '',
+%}
+
+{% set header_block %}{% block header '' %}{% endset %}
+{% set menu_block %}{% block menu '' %}{% endset %}
+{% set footer_block %}{% block footer '' %}{% endset %}
+
+<aside
+    {{ attributes.without('class') }}
+    data-cisse--ui-bundle--base-layout-target="sidebar"
+    {% if collapsed %}data-collapsed="true"{% endif %}
+    class="{{ ('group/sidebar max-lg:absolute max-lg:z-50 flex h-full w-72 lg:w-60 data-[collapsed=true]:lg:w-16 flex-col justify-between transition-all duration-300 ease-in-out max-lg:-translate-x-full bg-slate-800 dark:bg-slate-950 ' ~ class)|tailwind_merge }}"
+>
+    {# Sidebar Header #}
+    <div class="flex h-16 items-center px-3">
+        {% if header_block|trim %}
+            {{ header_block|raw }}
+        {% else %}
+            <{{ home ? 'a' : 'div' }}{% if home %} href="{{ home }}"{% endif %} class="flex flex-1 items-center gap-3 justify-center">
+                {% if icon %}
+                    <div
+                        class="{{ ('flex size-8 items-center justify-center rounded-lg bg-white/20 shrink-0 ' ~ attributes.nested('icon').render('class'))|tailwind_merge }}"
+                    >
+                        <twig:ux:icon
+                            name="{{ icon }}"
+                            class="size-5 text-white"
+                        />
+                    </div>
+                {% endif %}
+
+                <span class="flex-1 text-lg font-semibold text-white transition-opacity duration-300 group-data-[collapsed=true]/sidebar:lg:hidden">
+                    {{ name }}
+                </span>
+            </{{ home ? 'a' : 'div' }}>
+        {% endif %}
+
+        <button
+            data-action="click->cisse--ui-bundle--base-layout#toggleSidebar"
+            class="rounded-lg bg-white/10 p-1 transition hover:bg-white/20 lg:hidden"
+        >
+            <twig:ux:icon name="heroicons:bars-3" class="size-6 text-white" />
+        </button>
+    </div>
+
+    {# Menu Items #}
+    <div
+        class="{{ ('ui-scrollbar-dark flex min-h-0 flex-1 flex-col overflow-y-auto overflow-x-hidden px-2 items-start group-data-[collapsed=true]/sidebar:items-center group-data-[collapsed=true]/sidebar:gap-4 transition-all duration-300 ' ~ attributes.nested('menu').render('class'))|tailwind_merge }}"
+        {{ attributes.nested('menu').without('class') }}
+    >
+        {{ menu_block|raw }}
+    </div>
+
+    {# Sidebar Footer #}
+    {% if footer_block|trim %}
+        <div class="{{ ('flex flex-col gap-3 px-3 pb-3 ' ~ attributes.nested('footer').render('class'))|tailwind_merge }}" {{ attributes.nested('footer').without('class') }}>
+            {{ footer_block|raw }}
+        </div>
+    {% endif %}
+</aside>
