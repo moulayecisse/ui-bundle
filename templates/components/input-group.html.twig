@@ -90,10 +90,9 @@
 {% set isInline = layout == 'inline' %}
 
 {# Column/sizing logic - different for grid vs flex contexts #}
-{% set colClass = '' %}
+{% set colClass = 'col-span-12' %}
 {% set inlineStyle = '' %}
 {% if isInline %}
-  {# Inline/flex context: use flex-basis for sizing via inline style (Tailwind can't compile dynamic arbitrary values) #}
   {% if col %}
     {% set percentage = (col / 12 * 100)|round(2) %}
     {% set colClass = 'shrink-0' %}
@@ -102,16 +101,32 @@
     {% set colClass = 'flex-1 min-w-0' %}
   {% endif %}
 {% else %}
-  {# Grid context: use col-span #}
-  {% if col %}
-    {% set colClass = 'col-span-12 sm:col-span-' ~ col %}
-  {% else %}
-    {# Default: 12 on mobile, 6 on desktop. Checkbox/hidden always 12 #}
-    {% if type in ['checkbox', 'hidden'] %}
-      {% set colClass = 'col-span-12' %}
-    {% else %}
-      {% set colClass = 'col-span-12 sm:col-span-6' %}
-    {% endif %}
+  {% if col == 1 %}
+    {% set colClass = colClass ~ ' sm:col-span-1' %}
+  {% elseif col == 2 %}
+    {% set colClass = colClass ~ ' sm:col-span-2' %}
+  {% elseif col == 3 %}
+    {% set colClass = colClass ~ ' sm:col-span-3' %}
+  {% elseif col == 4 %}
+    {% set colClass = colClass ~ ' sm:col-span-4' %}
+  {% elseif col == 5 %}
+    {% set colClass = colClass ~ ' sm:col-span-5' %}
+  {% elseif col == 6 %}
+    {% set colClass = colClass ~ ' sm:col-span-6' %}
+  {% elseif col == 7 %}
+    {% set colClass = colClass ~ ' sm:col-span-7' %}
+  {% elseif col == 8 %}
+    {% set colClass = colClass ~ ' sm:col-span-8' %}
+  {% elseif col == 9 %}
+    {% set colClass = colClass ~ ' sm:col-span-9' %}
+  {% elseif col == 10 %}
+    {% set colClass = colClass ~ ' sm:col-span-10' %}
+  {% elseif col == 11 %}
+    {% set colClass = colClass ~ ' sm:col-span-11' %}
+  {% elseif col == 12 %}
+    {% set colClass = colClass ~ ' sm:col-span-12' %}
+  {% elseif type not in ['checkbox', 'hidden'] %}
+    {% set colClass = colClass ~ ' sm:col-span-6' %}
   {% endif %}
 {% endif %}
 
@@ -184,6 +199,38 @@
   </div>
 {% elseif layout == 'horizontal' %}
   {# Horizontal layout: label left, input right #}
+  {% if labelCol == 1 %}
+    {% set labelColClass = 'col-span-12 sm:col-span-1' %}
+  {% elseif labelCol == 2 %}
+    {% set labelColClass = 'col-span-12 sm:col-span-2' %}
+  {% elseif labelCol == 3 %}
+    {% set labelColClass = 'col-span-12 sm:col-span-3' %}
+  {% elseif labelCol == 4 %}
+    {% set labelColClass = 'col-span-12 sm:col-span-4' %}
+  {% elseif labelCol == 5 %}
+    {% set labelColClass = 'col-span-12 sm:col-span-5' %}
+  {% elseif labelCol == 6 %}
+    {% set labelColClass = 'col-span-12 sm:col-span-6' %}
+  {% else %}
+    {% set labelColClass = 'col-span-12 sm:col-span-4' %}
+  {% endif %}
+  {% if inputCol == 6 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-6' %}
+  {% elseif inputCol == 7 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-7' %}
+  {% elseif inputCol == 8 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-8' %}
+  {% elseif inputCol == 9 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-9' %}
+  {% elseif inputCol == 10 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-10' %}
+  {% elseif inputCol == 11 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-11' %}
+  {% elseif inputCol == 12 %}
+    {% set inputColClass = 'col-span-12 sm:col-span-12' %}
+  {% else %}
+    {% set inputColClass = 'col-span-12 sm:col-span-8' %}
+  {% endif %}
   <div
     {{ attributes.without('wrapper', 'label', 'input', 'help', 'error') }}
     class="{{ (colClass ~ ' grid grid-cols-12 gap-4 items-start ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
@@ -194,14 +241,14 @@
       <twig:ui:label
         :for="id"
         :required="required"
-        class="{{ ('col-span-12 sm:col-span-' ~ labelCol ~ ' sm:pt-2 sm:text-right ' ~ labelAttrs.render('class'))|tailwind_merge }}"
+        class="{{ (labelColClass ~ ' sm:pt-2 sm:text-right ' ~ labelAttrs.render('class'))|tailwind_merge }}"
         {{ ...labelAttrs.without('class', 'text', 'col') }}
       >
         {{ labelText }}
       </twig:ui:label>
     {% endif %}
 
-    <div class="col-span-12 sm:col-span-{{ inputCol }}">
+    <div class="{{ inputColClass }}">
       {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col') })) }}
 
       {% if helpText and not hasError %}

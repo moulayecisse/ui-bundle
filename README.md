@@ -111,19 +111,32 @@ Create your main CSS file with the required setup:
 
 ### 🔘 Buttons
 ```twig
-{# Button variants - now using data attributes #}
-<twig:Ui:button color="primary">Save Changes</twig:Ui:button>
-<twig:Ui:button color="secondary">Cancel</twig:Ui:button>  
-<twig:Ui:button color="error">Delete Account</twig:Ui:button>
+{# Button colors #}
+<twig:Ui:button color="primary">Primary</twig:Ui:button>
+<twig:Ui:button color="secondary">Secondary</twig:Ui:button>
+<twig:Ui:button color="success">Success</twig:Ui:button>
+<twig:Ui:button color="warning">Warning</twig:Ui:button>
+<twig:Ui:button color="danger">Danger</twig:Ui:button>
+<twig:Ui:button color="info">Info</twig:Ui:button>
+<twig:Ui:button color="neutral">Neutral</twig:Ui:button>
+<twig:Ui:button color="white">White</twig:Ui:button>
+<twig:Ui:button color="black">Black</twig:Ui:button>
+
+{# Button variants #}
+<twig:Ui:button variant="solid" color="primary">Solid</twig:Ui:button>
+<twig:Ui:button variant="outline" color="primary">Outline</twig:Ui:button>
+<twig:Ui:button variant="ghost" color="primary">Ghost</twig:Ui:button>
+<twig:Ui:button variant="soft" color="primary">Soft</twig:Ui:button>
+
+{# White/Black buttons swap in dark mode #}
+<twig:Ui:button color="white">White in light → Black in dark</twig:Ui:button>
+<twig:Ui:button color="black">Black in light → White in dark</twig:Ui:button>
 
 {# Link buttons #}
 <twig:Ui:button href="/dashboard" color="primary">Go to Dashboard</twig:Ui:button>
 
 {# Custom styling #}
 <twig:Ui:button color="primary" class="w-full mt-4">Full Width Submit</twig:Ui:button>
-
-{# Backward compatibility - boolean props still work #}
-<twig:Ui:button primary>Legacy Usage</twig:Ui:button>
 ```
 
 ### 🏷️ Badges

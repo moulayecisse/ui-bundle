@@ -16,7 +16,6 @@
 {% set inputAttrs = attributes.nested('input') %}
 {% set submitAttrs = attributes.nested('submit') %}
 {% set dividerAttrs = attributes.nested('divider') %}
-{% set tokenAttrs = attributes.nested('token') %}
 
 {# Extract nested values with defaults #}
 {% set iconName = iconAttrs.render('name')|default('heroicons:magnifying-glass') %}
@@ -30,12 +29,7 @@
 
 {% set hideDivider = dividerAttrs.has('hide') %}
 
-{% set tokenName = tokenAttrs.render('name') %}
-{% set tokenValue = tokenAttrs.render('value') %}
-
 {% if form %}
-  {% set tokenName = tokenName ?? field_name(form._token) %}
-  {% set tokenValue = tokenValue ?? field_value(form._token) %}
   {% for child in form.children %}
     {% if child.vars.name != '_token' %}
       {% set inputPlaceholder = inputPlaceholder ?? child.vars.attr.placeholder ?? 'Search...' %}
@@ -44,8 +38,6 @@
     {% endif %}
   {% endfor %}
 
-  {% set method = method ?? form.vars.method %}
-  {% set name = name ?? field_name(form) %}
   {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
@@ -58,12 +50,16 @@
 
 {% set currentSizeConfig = sizeConfig[size] ?? sizeConfig['md'] %}
 
-<form
-  {{ attributes.without('wrapper', 'icon', 'input', 'submit', 'divider', 'token') }}
-  {% if action %}action="{{ action }}"{% endif %}
-  {% if method %}method="{{ method }}"{% endif %}
-  {% if name %}name="{{ name }}"{% endif %}
+{# Pass through extra attributes #}
+{% set extraAttrs = attributes.without('wrapper', 'icon', 'input', 'submit', 'divider') %}
+
+<twig:ui:form:wrapper
+  :form="form"
+  :name="name"
+  :method="method"
+  :action="action"
   class="{{ class }}"
+  {{ ...extraAttrs }}
 >
   <twig:ui:input-wrapper
     :disabled="disabled"
@@ -111,8 +107,4 @@
       {% endif %}
     {% endblock %}
   </twig:ui:input-wrapper>
-
-  {% if tokenName and tokenValue %}
-    <input type="hidden" name="{{ tokenName }}" value="{{ tokenValue }}">
-  {% endif %}
-</form>
+</twig:ui:form:wrapper>

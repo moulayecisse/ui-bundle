@@ -21,7 +21,7 @@ class ButtonStory extends AbstractComponentStory
     #[Prop(type: "'solid'|'outline'|'ghost'|'soft'", default: "'solid'")]
     public string $variant = 'Button style variant';
 
-    #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'|'neutral'", default: "'primary'")]
+    #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'|'neutral'|'white'|'black'", default: "'primary'")]
     public string $color = 'Button color theme';
 
     #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
@@ -51,6 +51,9 @@ class ButtonStory extends AbstractComponentStory
     #[Prop(type: 'boolean', default: 'false')]
     public string $block = 'Full width button';
 
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $bordered = 'Add subtle border matching the color';
+
     #[Prop(type: 'string', default: "''")]
     public string $class = 'Additional CSS classes';
 
@@ -71,6 +74,8 @@ class ButtonStory extends AbstractComponentStory
             <twig:ui:button color="danger">Danger</twig:ui:button>
             <twig:ui:button color="info">Info</twig:ui:button>
             <twig:ui:button color="neutral">Neutral</twig:ui:button>
+            <twig:ui:button color="white">White</twig:ui:button>
+            <twig:ui:button color="black">Black</twig:ui:button>
         </div>
         TWIG);
     }
@@ -87,6 +92,8 @@ class ButtonStory extends AbstractComponentStory
             <twig:ui:button variant="outline" color="danger">Danger</twig:ui:button>
             <twig:ui:button variant="outline" color="info">Info</twig:ui:button>
             <twig:ui:button variant="outline" color="neutral">Neutral</twig:ui:button>
+            <twig:ui:button variant="outline" color="white">White</twig:ui:button>
+            <twig:ui:button variant="outline" color="black">Black</twig:ui:button>
         </div>
         TWIG);
     }
@@ -103,6 +110,8 @@ class ButtonStory extends AbstractComponentStory
             <twig:ui:button variant="ghost" color="danger">Danger</twig:ui:button>
             <twig:ui:button variant="ghost" color="info">Info</twig:ui:button>
             <twig:ui:button variant="ghost" color="neutral">Neutral</twig:ui:button>
+            <twig:ui:button variant="ghost" color="white">White</twig:ui:button>
+            <twig:ui:button variant="ghost" color="black">Black</twig:ui:button>
         </div>
         TWIG);
     }
@@ -119,6 +128,8 @@ class ButtonStory extends AbstractComponentStory
             <twig:ui:button variant="soft" color="danger">Danger</twig:ui:button>
             <twig:ui:button variant="soft" color="info">Info</twig:ui:button>
             <twig:ui:button variant="soft" color="neutral">Neutral</twig:ui:button>
+            <twig:ui:button variant="soft" color="white">White</twig:ui:button>
+            <twig:ui:button variant="soft" color="black">Black</twig:ui:button>
         </div>
         TWIG);
     }
@@ -230,6 +241,27 @@ class ButtonStory extends AbstractComponentStory
             <twig:ui:button type="button">Button</twig:ui:button>
             <twig:ui:button type="submit" color="success">Submit</twig:ui:button>
             <twig:ui:button type="reset" variant="outline">Reset</twig:ui:button>
+        </div>
+        TWIG);
+    }
+
+    #[Story('Bordered', order: 13)]
+    public function bordered(): StoryExample
+    {
+        return StoryExample::create()->preview(<<<'TWIG'
+        <div class="flex flex-wrap gap-2">
+            <twig:ui:button bordered>Primary</twig:ui:button>
+            <twig:ui:button bordered color="secondary">Secondary</twig:ui:button>
+            <twig:ui:button bordered color="success">Success</twig:ui:button>
+            <twig:ui:button bordered color="warning">Warning</twig:ui:button>
+            <twig:ui:button bordered color="danger">Danger</twig:ui:button>
+            <twig:ui:button bordered color="white">White</twig:ui:button>
+            <twig:ui:button bordered color="black">Black</twig:ui:button>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-4">
+            <twig:ui:button bordered variant="soft">Soft Primary</twig:ui:button>
+            <twig:ui:button bordered variant="soft" color="success">Soft Success</twig:ui:button>
+            <twig:ui:button bordered variant="ghost" color="danger">Ghost Danger</twig:ui:button>
         </div>
         TWIG);
     }

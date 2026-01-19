@@ -1,0 +1,31 @@
+{% props
+  form = null,
+  name = null,
+  method = null,
+  action = null,
+  enctype = null,
+  class = '',
+%}
+
+{# Extract form attributes from Symfony FormView if provided #}
+{% if form %}
+  {% set name = name ?? form.vars.full_name %}
+  {% set method = method ?? form.vars.method %}
+  {% set action = action ?? form.vars.action %}
+{% endif %}
+
+<form
+  {{ attributes }}
+  {% if method %}method="{{ method }}"{% endif %}
+  {% if name %}name="{{ name }}"{% endif %}
+  {% if action %}action="{{ action }}"{% endif %}
+  {% if enctype %}enctype="{{ enctype }}"{% endif %}
+  {% if class %}class="{{ class }}"{% endif %}
+>
+  {# CSRF Token #}
+  {% if form._token is defined %}
+    <input type="hidden" name="{{ field_name(form._token) }}" value="{{ field_value(form._token) }}">
+  {% endif %}
+
+  {% block content %}{% endblock %}
+</form>
