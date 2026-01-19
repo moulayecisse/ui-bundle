@@ -1,0 +1,103 @@
+{% props
+  icon = null,
+  iconColor = 'primary',
+  subtitle = null,
+  bordered = false,
+  variant = 'inline',
+  class = '',
+%}
+
+{% set iconAttrs = attributes.nested('icon') %}
+{% set titleAttrs = attributes.nested('title') %}
+{% set subtitleAttrs = attributes.nested('subtitle') %}
+
+{# Capture blocks #}
+{% set contentBlock %}{% block content '' %}{% endset %}
+{% set actionsBlock %}{% block actions '' %}{% endset %}
+
+{# Color classes per variant #}
+{% set inlineIconColors = {
+  'primary': 'text-primary-500',
+  'secondary': 'text-secondary-500',
+  'gray': 'text-gray-500',
+  'success': 'text-emerald-500',
+  'warning': 'text-amber-500',
+  'danger': 'text-red-500',
+} %}
+
+{% set cardIconColors = {
+  'primary': { 'bg': 'bg-primary-100 dark:bg-primary-900/30', 'text': 'text-primary-600 dark:text-primary-400' },
+  'secondary': { 'bg': 'bg-secondary-100 dark:bg-secondary-900/30', 'text': 'text-secondary-600 dark:text-secondary-400' },
+  'gray': { 'bg': 'bg-gray-100 dark:bg-slate-700', 'text': 'text-gray-600 dark:text-gray-400' },
+  'success': { 'bg': 'bg-emerald-100 dark:bg-emerald-900/30', 'text': 'text-emerald-600 dark:text-emerald-400' },
+  'warning': { 'bg': 'bg-amber-100 dark:bg-amber-900/30', 'text': 'text-amber-600 dark:text-amber-400' },
+  'danger': { 'bg': 'bg-red-100 dark:bg-red-900/30', 'text': 'text-red-600 dark:text-red-400' },
+} %}
+
+{% if variant == 'card' %}
+  {# Card variant - styled header with icon box, title, subtitle, actions #}
+  {% set currentIconColor = cardIconColors[iconColor] ?? cardIconColors['primary'] %}
+
+  <div
+    {{ attributes.without('icon', 'title', 'subtitle') }}
+    class="{{ ('col-span-12 flex items-center justify-between ' ~ (bordered ? 'border-t border-gray-100 dark:border-gray-800 pt-4 mt-2' : '') ~ ' ' ~ class)|tailwind_merge }}"
+  >
+    <div class="flex items-center gap-3">
+      {% if icon %}
+        <div class="{{ ('size-10 rounded-xl flex items-center justify-center ' ~ currentIconColor.bg ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}" {{ iconAttrs.without('class') }}>
+          <twig:ux:icon
+            :name="icon"
+            class="{{ ('size-5 ' ~ currentIconColor.text)|tailwind_merge }}"
+          />
+        </div>
+      {% endif %}
+
+      <div>
+        <h3
+          class="{{ ('text-base font-semibold text-gray-900 dark:text-white ' ~ titleAttrs.render('class'))|tailwind_merge }}"
+          {{ titleAttrs.without('class') }}
+        >
+          {{ contentBlock|raw }}
+        </h3>
+        {% if subtitle %}
+          <p
+            class="{{ ('text-sm text-gray-500 dark:text-gray-400 ' ~ subtitleAttrs.render('class'))|tailwind_merge }}"
+            {{ subtitleAttrs.without('class') }}
+          >
+            {{ subtitle }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if actionsBlock|trim %}
+      <div class="flex items-center gap-2">
+        {{ actionsBlock|raw }}
+      </div>
+    {% endif %}
+  </div>
+{% else %}
+  {# Inline variant (default) - lightweight divider with small icon and uppercase text #}
+  {% set currentIconColor = inlineIconColors[iconColor] ?? inlineIconColors['primary'] %}
+
+  <div
+    {{ attributes.without('icon', 'title', 'subtitle') }}
+    class="{{ ('col-span-12 ' ~ (bordered ? 'border-t border-gray-100 dark:border-gray-800 pt-4 mt-2' : '') ~ ' ' ~ class)|tailwind_merge }}"
+  >
+    <div class="flex items-center gap-2 mb-3">
+      {% if icon %}
+        <twig:ux:icon
+          :name="icon"
+          class="{{ ('size-4 ' ~ currentIconColor ~ ' ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+          {{ ...iconAttrs.without('class') }}
+        />
+      {% endif %}
+      <p
+        class="{{ ('text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider ' ~ titleAttrs.render('class'))|tailwind_merge }}"
+        {{ titleAttrs.without('class') }}
+      >
+        {{ contentBlock|raw }}
+      </p>
+    </div>
+  </div>
+{% endif %}

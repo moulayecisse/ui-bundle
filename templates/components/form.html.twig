@@ -49,14 +49,53 @@
 {% set headerBlock %}{% block header '' %}{% endset %}
 {% set footerBlock %}{% block footer '' %}{% endset %}
 
-{# Gap classes mapping #}
-{% set gapClass = 'gap-' ~ gap %}
+{# Gap classes mapping - explicit for Tailwind JIT #}
+{% if gap == 0 %}
+  {% set gapClass = 'gap-0' %}
+{% elseif gap == 1 %}
+  {% set gapClass = 'gap-1' %}
+{% elseif gap == 2 %}
+  {% set gapClass = 'gap-2' %}
+{% elseif gap == 3 %}
+  {% set gapClass = 'gap-3' %}
+{% elseif gap == 4 %}
+  {% set gapClass = 'gap-4' %}
+{% elseif gap == 5 %}
+  {% set gapClass = 'gap-5' %}
+{% elseif gap == 6 %}
+  {% set gapClass = 'gap-6' %}
+{% elseif gap == 8 %}
+  {% set gapClass = 'gap-8' %}
+{% elseif gap == 10 %}
+  {% set gapClass = 'gap-10' %}
+{% elseif gap == 12 %}
+  {% set gapClass = 'gap-12' %}
+{% else %}
+  {% set gapClass = 'gap-6' %}
+{% endif %}
+
+{# Grid cols classes - explicit for Tailwind JIT #}
+{% if cols == 1 %}
+  {% set colsClass = 'grid-cols-1' %}
+{% elseif cols == 2 %}
+  {% set colsClass = 'grid-cols-2' %}
+{% elseif cols == 3 %}
+  {% set colsClass = 'grid-cols-3' %}
+{% elseif cols == 4 %}
+  {% set colsClass = 'grid-cols-4' %}
+{% elseif cols == 6 %}
+  {% set colsClass = 'grid-cols-6' %}
+{% elseif cols == 12 %}
+  {% set colsClass = 'grid-cols-12' %}
+{% else %}
+  {% set colsClass = 'grid-cols-12' %}
+{% endif %}
 
 {# Expose layout to child components via outerScope #}
 {% set _formLayout = layout %}
 
 {# Inline layout classes #}
-{% set inlineClass = isInline ? 'flex flex-wrap items-end ' ~ gapClass : 'grid grid-cols-' ~ cols ~ ' ' ~ gapClass ~ ' data-[divide=true]:divide-y data-[divide=true]:divide-gray-200 data-[divide=true]:dark:divide-gray-700' %}
+{% set inlineClass = isInline ? 'flex flex-wrap items-end ' ~ gapClass : 'grid ' ~ colsClass ~ ' ' ~ gapClass ~ ' data-[divide=true]:divide-y data-[divide=true]:divide-gray-200 data-[divide=true]:dark:divide-gray-700' %}
 
 {# Reusable buttons markup #}
 {% set buttonsMarkup %}

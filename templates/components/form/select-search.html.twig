@@ -16,7 +16,6 @@
 {% set selectAttrs = attributes.nested('select') %}
 {% set inputAttrs = attributes.nested('input') %}
 {% set submitAttrs = attributes.nested('submit') %}
-{% set tokenAttrs = attributes.nested('token') %}
 
 {# Extract nested values with defaults #}
 {% set selectName = selectAttrs.render('name')|default('type') %}
@@ -28,14 +27,6 @@
 {% set submitLabel = submitAttrs.render('label')|default('Rechercher') %}
 {% set submitIcon = submitAttrs.render('icon')|default('heroicons:magnifying-glass') %}
 {% set hideSubmitLabel = submitAttrs.has('hideLabel') %}
-
-{% set tokenName = tokenAttrs.render('name') %}
-{% set tokenValue = tokenAttrs.render('value') %}
-
-{% if form %}
-  {% set tokenName = tokenName ?? field_name(form._token) %}
-  {% set tokenValue = tokenValue ?? field_value(form._token) %}
-{% endif %}
 
 {# Size configuration #}
 {% set sizeConfig = {
@@ -49,16 +40,20 @@
 {# Convert placeholders to JSON for Stimulus #}
 {% set placeholdersJson = placeholders|json_encode %}
 
-<form
-  {{ attributes.without('select', 'input', 'submit', 'token', 'class') }}
-  {% if action %}action="{{ action }}"{% endif %}
-  method="{{ method }}"
-  {% if name %}name="{{ name }}"{% endif %}
+{# Pass through extra attributes #}
+{% set extraAttrs = attributes.without('select', 'input', 'submit', 'class') %}
+
+<twig:ui:form:wrapper
+  :form="form"
+  :name="name"
+  :method="method"
+  :action="action"
   class="{{ ('flex flex-col sm:flex-row ' ~ class)|tailwind_merge }}"
   data-controller="cisse--ui-bundle--select-search"
   data-cisse--ui-bundle--select-search-placeholders-value="{{ placeholdersJson }}"
-  {% if baseUrl %}data-cisse--ui-bundle--select-search-base-url-value="{{ baseUrl }}"{% endif %}
+  data-cisse--ui-bundle--select-search-base-url-value="{{ baseUrl }}"
   data-action="submit->cisse--ui-bundle--select-search#submit"
+  {{ ...extraAttrs }}
 >
   {# Select Dropdown #}
   <label class="grid shrink-0 grid-cols-1 relative">
@@ -120,9 +115,4 @@
       {{ submitLabel }}
     {% endif %}
   </button>
-
-  {# CSRF Token (if provided) #}
-  {% if tokenName and tokenValue %}
-    <input type="hidden" name="{{ tokenName }}" value="{{ tokenValue }}">
-  {% endif %}
-</form>
+</twig:ui:form:wrapper>
