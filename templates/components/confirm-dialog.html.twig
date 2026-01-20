@@ -2,6 +2,7 @@
   open = false,
   title = 'Confirm',
   message = 'Are you sure you want to proceed?',
+  rawMessage = false,
   confirmText = 'Confirm',
   cancelText = 'Cancel',
   color = 'info',
@@ -57,9 +58,9 @@
       {{ title }}
     </h3>
 
-    {# Message #}
+    {# Message - use rawMessage=true to allow HTML in message #}
     <p class="{{ ('mb-6 text-gray-600 dark:text-gray-400 ' ~ messageAttrs.render('class'))|tailwind_merge }}" {{ messageAttrs.without('class') }}>
-      {{ message }}
+      {{ rawMessage ? message|raw : message }}
     </p>
 
     {# Actions #}
