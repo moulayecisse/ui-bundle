@@ -558,6 +558,81 @@ export default class extends Controller {
 </twig:Ui:table>
 ```
 
+### 🔽 Expandable Rows
+
+Create expandable table rows with the `expandable` prop on `<twig:Ui:tr>`. The expand button is automatically added as the first cell:
+
+```twig
+<twig:Ui:table>
+    <twig:Ui:thead>
+        <twig:Ui:th class="w-10"></twig:Ui:th>  {# For the auto expand button #}
+        <twig:Ui:th>Name</twig:Ui:th>
+        <twig:Ui:th>Email</twig:Ui:th>
+        <twig:Ui:th>Status</twig:Ui:th>
+    </twig:Ui:thead>
+
+    {% for user in users %}
+        <twig:Ui:tr expandable :colspan="3">
+            {# No need to add expand button - it's automatic! #}
+            <twig:Ui:td>{{ user.name }}</twig:Ui:td>
+            <twig:Ui:td>{{ user.email }}</twig:Ui:td>
+            <twig:Ui:td>
+                <twig:Ui:badge color="success">Active</twig:Ui:badge>
+            </twig:Ui:td>
+
+            {# Expanded content block #}
+            <twig:block name="expanded">
+                <twig:Ui:code-block title="User Details">
+                    {{ user|json_encode(constant('JSON_PRETTY_PRINT')) }}
+                </twig:Ui:code-block>
+            </twig:block>
+        </twig:Ui:tr>
+    {% endfor %}
+</twig:Ui:table>
+```
+
+#### Expandable Row Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `expandable` | boolean | `false` | Enable expandable row mode |
+| `colspan` | number | `1` | Number of data columns (expand button column is added automatically) |
+| `defaultExpanded` | boolean | `false` | Start in expanded state |
+| `expandedClass` | string | `''` | Additional classes for expanded row |
+
+### 💻 Code Block
+
+Display code or JSON with optional title and copy button:
+
+```twig
+{# Basic JSON display #}
+<twig:Ui:code-block title="Response Data">
+    {{ data|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</twig:Ui:code-block>
+
+{# With copy button #}
+<twig:Ui:code-block title="API Response" copyable>
+    {
+        "status": "success",
+        "message": "Data saved"
+    }
+</twig:Ui:code-block>
+
+{# Custom max height #}
+<twig:Ui:code-block title="Large Data" maxHeight="20rem">
+    {{ largeData|json_encode(constant('JSON_PRETTY_PRINT')) }}
+</twig:Ui:code-block>
+```
+
+#### Code Block Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | string | `null` | Optional header title |
+| `language` | string | `'json'` | Code language (for syntax highlighting) |
+| `maxHeight` | string | `'12rem'` | Maximum height with scroll |
+| `copyable` | boolean | `false` | Show copy to clipboard button |
+
 ## ⚙️ Configuration
 
 The bundle can be configured in `config/packages/ux_components.yaml`:

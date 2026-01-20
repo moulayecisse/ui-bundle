@@ -158,6 +158,11 @@
         "main": "dist/select_search_controller.js",
         "fetch": "eager",
         "enabled": true
+      },
+      "expandable-row": {
+        "main": "dist/expandable_row_controller.js",
+        "fetch": "eager",
+        "enabled": true
       }
     },
     "importmap": {

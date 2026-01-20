@@ -3,9 +3,13 @@
     selected = false,
     disabled = false,
     clickable = false,
+    expandable = false,
+    defaultExpanded = false,
+    expandedClass = '',
+    colspan = 1,
 %}
 
-{% set baseClass = '' %}
+{% set baseClass = 'transition-colors' %}
 {% if selected %}
     {% set baseClass = baseClass ~ ' bg-primary-50 dark:bg-primary-900/20' %}
 {% endif %}
@@ -13,16 +17,69 @@
     {% set baseClass = baseClass ~ ' opacity-50 pointer-events-none' %}
 {% endif %}
 {% if clickable %}
-    {% set baseClass = baseClass ~ ' cursor-pointer' %}
+    {% set baseClass = baseClass ~ ' cursor-pointer hover:bg-black/5 dark:hover:bg-white/5' %}
 {% endif %}
 
 {% set class = (baseClass ~ ' ' ~ class)|tailwind_merge %}
 
+{# Capture content and expanded blocks #}
+{% set row_content %}{% block content '' %}{% endset %}
+{% set expanded_content %}{% block expanded '' %}{% endset %}
+
+{% if expandable %}
+{# Expandable mode: wrap in tbody with Stimulus controller #}
+<tbody
+    {{ attributes.only('id', 'data-*') }}
+    data-controller="cisse--ui-bundle--expandable-row"
+    data-cisse--ui-bundle--expandable-row-expanded-value="{{ defaultExpanded ? 'true' : 'false' }}"
+>
+    <tr
+        {{ attributes.without('id') }}
+        {% if selected %}data-selected="true"{% endif %}
+        {% if disabled %}data-disabled="true"{% endif %}
+        class="{{ class }}"
+    >
+        {# Auto-generated expand button #}
+        <td class="w-10 p-2">
+            <button
+                type="button"
+                {% if disabled %}disabled{% endif %}
+                class="flex size-6 items-center justify-center rounded transition-colors hover:bg-black/10 dark:hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Toggle row details"
+                data-action="click->cisse--ui-bundle--expandable-row#toggle"
+            >
+                <svg
+                    data-cisse--ui-bundle--expandable-row-target="icon"
+                    class="size-4 transition-transform {{ defaultExpanded ? 'rotate-90' : '' }}"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+                </svg>
+            </button>
+        </td>
+        {{ row_content|raw }}
+    </tr>
+    <tr
+        data-cisse--ui-bundle--expandable-row-target="content"
+        class="{{ ('bg-gray-50 dark:bg-gray-800/50 ' ~ expandedClass)|tailwind_merge }}"
+        {% if not defaultExpanded %}style="display: none;"{% endif %}
+    >
+        <td colspan="{{ colspan + 1 }}" class="p-0">
+            <div class="p-4">
+                {{ expanded_content|raw }}
+            </div>
+        </td>
+    </tr>
+</tbody>
+{% else %}
+{# Normal mode: just a tr #}
 <tr
     {{ attributes }}
     {% if selected %}data-selected="true"{% endif %}
     {% if disabled %}data-disabled="true"{% endif %}
     class="{{ class }}"
 >
-    {% block content '' %}
+    {{ row_content|raw }}
 </tr>
+{% endif %}
