@@ -6,7 +6,6 @@
   unstyled = false,
   variant = 'dark',
   size = 'md',
-  delay = 0,
   trigger = 'hover',
   class = '',
 %}
@@ -36,48 +35,56 @@
 {% set contentBlock %}{% block content content %}{% endset %}
 {% set tooltipBlock %}{% block tooltip tooltip %}{% endset %}
 
-{% set class = ('relative ' ~ class)|tailwind_merge %}
+{% set class = ('relative inline-block ' ~ class)|tailwind_merge %}
 
 {% set triggerActions = {
-    'hover': 'mouseenter->popover#show mouseleave->popover#hide',
-    'click': 'click->popover#toggle',
-    'focus': 'focus->popover#show blur->popover#hide',
+    'hover': 'mouseenter->cisse--ui-bundle--popover#open mouseleave->cisse--ui-bundle--popover#close',
+    'click': 'click->cisse--ui-bundle--popover#toggle',
+    'focus': 'focus->cisse--ui-bundle--popover#open blur->cisse--ui-bundle--popover#close',
 } %}
 
-<div {{ attributes }} data-controller="popover" data-popover-delay-value="{{ delay }}" class="{{ class }}">
+<div
+  {{ attributes.without('trigger', 'tooltip', 'arrow') }}
+  data-controller="cisse--ui-bundle--popover"
+  data-cisse--ui-bundle--popover-hover-value="{{ trigger == 'hover' ? 'true' : 'false' }}"
+  data-cisse--ui-bundle--popover-position-value="{{ position }}"
+  class="{{ class }}"
+>
+  {# Trigger #}
   <div
+    data-cisse--ui-bundle--popover-target="trigger"
     data-action="{{ triggerActions[trigger] ?? triggerActions['hover'] }}"
     data-unstyled="{{ unstyled ? 'true' : 'false' }}"
-    class="{{ ('px-3 py-1 text-xs rounded-full cursor-pointer text-neutral-500 bg-slate-100 dark:bg-slate-900 data-[unstyled=true]:px-0 data-[unstyled=true]:py-0 data-[unstyled=true]:bg-transparent data-[unstyled=true]:text-inherit ' ~ triggerAttrs.render('class'))|tailwind_merge }}"
+    class="{{ ('cursor-pointer data-[unstyled=false]:px-3 data-[unstyled=false]:py-1 data-[unstyled=false]:text-xs data-[unstyled=false]:rounded-full data-[unstyled=false]:text-neutral-500 data-[unstyled=false]:bg-slate-100 data-[unstyled=false]:dark:bg-slate-900 ' ~ triggerAttrs.render('class'))|tailwind_merge }}"
     {{ triggerAttrs.without('class') }}
   >
     {{ contentBlock|raw }}
   </div>
 
-  <template data-popover-target="content">
-    <div
-      data-popover-target="card"
-      data-position="{{ position }}"
-      class="{{ ('absolute w-auto text-sm top-0 left-1/2 -translate-x-1/2 -mt-0.5 -translate-y-full data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:-ml-0.5 data-[position=left]:left-0 data-[position=left]:-translate-x-full data-[position=bottom]:bottom-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-mb-0.5 data-[position=bottom]:translate-y-full data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-mr-0.5 data-[position=right]:right-0 data-[position=right]:translate-x-full ' ~ tooltipAttrs.render('class'))|tailwind_merge }}"
-      {{ tooltipAttrs.without('class') }}
-    >
-      <div class="relative {{ sizeStyles }} {{ variantStyles.text }} {{ variantStyles.bg }} rounded">
-        <div class="shrink-0 block whitespace-nowrap">
-          {{ tooltipBlock|raw }}
-        </div>
+  {# Tooltip content #}
+  <div
+    data-cisse--ui-bundle--popover-target="popover"
+    data-position="{{ position }}"
+    role="tooltip"
+    style="display: none;"
+    class="{{ ('absolute z-50 ' ~ tooltipAttrs.render('class'))|tailwind_merge }}"
+    {{ tooltipAttrs.without('class') }}
+  >
+    <div class="relative {{ sizeStyles }} {{ variantStyles.text }} {{ variantStyles.bg }} rounded whitespace-nowrap">
+      {{ tooltipBlock|raw }}
 
+      {% if showArrow %}
         <div
-          data-show-arrow="{{ showArrow ? 'true' : 'false' }}"
           data-position="{{ position }}"
-          class="{{ ('hidden data-[show-arrow=true]:block absolute inline-flex items-center justify-center overflow-hidden bottom-0 -translate-x-1/2 left-1/2 w-2.5 translate-y-full data-[position=left]:right-0 data-[position=left]:-translate-y-1/2 data-[position=left]:top-1/2 data-[position=left]:h-2.5 data-[position=left]:-mt-px data-[position=left]:translate-x-full data-[position=left]:w-auto data-[position=bottom]:top-0 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:left-1/2 data-[position=bottom]:w-2.5 data-[position=bottom]:-translate-y-full data-[position=right]:left-0 data-[position=right]:-translate-y-1/2 data-[position=right]:top-1/2 data-[position=right]:h-2.5 data-[position=right]:-mt-px data-[position=right]:-translate-x-full data-[position=right]:w-auto ' ~ arrowAttrs.render('class'))|tailwind_merge }}"
+          class="{{ ('absolute w-2.5 h-2.5 overflow-hidden data-[position=top]:bottom-0 data-[position=top]:left-1/2 data-[position=top]:-translate-x-1/2 data-[position=top]:translate-y-full data-[position=bottom]:top-0 data-[position=bottom]:left-1/2 data-[position=bottom]:-translate-x-1/2 data-[position=bottom]:-translate-y-full data-[position=left]:right-0 data-[position=left]:top-1/2 data-[position=left]:-translate-y-1/2 data-[position=left]:translate-x-full data-[position=right]:left-0 data-[position=right]:top-1/2 data-[position=right]:-translate-y-1/2 data-[position=right]:-translate-x-full ' ~ arrowAttrs.render('class'))|tailwind_merge }}"
           {{ arrowAttrs.without('class') }}
         >
           <div
             data-position="{{ position }}"
-            class="w-1.5 h-1.5 transform {{ variantStyles.arrow }} origin-top-left -rotate-45 data-[position=left]:origin-top-left data-[position=left]:rotate-45 data-[position=bottom]:origin-bottom-left data-[position=bottom]:rotate-45 data-[position=right]:origin-top-right data-[position=right]:-rotate-45"
+            class="w-1.5 h-1.5 {{ variantStyles.arrow }} transform origin-center rotate-45 data-[position=top]:translate-y-[-50%] data-[position=bottom]:translate-y-[50%] data-[position=left]:translate-x-[-50%] data-[position=right]:translate-x-[50%]"
           ></div>
         </div>
-      </div>
+      {% endif %}
     </div>
-  </template>
+  </div>
 </div>
