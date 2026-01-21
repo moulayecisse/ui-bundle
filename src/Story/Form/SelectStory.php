@@ -17,47 +17,47 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class SelectStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Select element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Select element ID.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Selected value';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Selected value.';
 
     #[Prop(type: 'string', default: "'Sélectionnez une option'")]
-    public string $placeholder = 'Placeholder text for empty state';
+    public string $placeholder = 'Placeholder text for empty state.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $options = 'Array of options: [{value, label, disabled?}] or simple values';
+    public string $options = 'Array of options: [{value, label, disabled?}] or simple values.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Select size';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Whether field is required';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Select size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $autofocus = 'Autofocus on page load';
-
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $autocomplete = 'Autocomplete attribute';
+    public string $required = 'Whether field is required.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the select';
+    public string $autofocus = 'Autofocus on page load.';
+
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $autocomplete = 'Autocomplete attribute.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $invalid = 'Mark as invalid';
+    public string $disabled = 'Disable the select.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field for auto-configuration';
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $invalid = 'Mark as invalid.';
+
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field for auto-configuration.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Custom options (alternative to options prop)';
+    public string $content = 'Custom options (alternative to options prop).';
 
     #[Story('Basic Select (options prop)', order: 0)]
     public function basic(): StoryExample

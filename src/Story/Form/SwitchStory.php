@@ -17,37 +17,37 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class SwitchStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: 'null')]
-    public string $name = 'Input name attribute';
+    public string $name = 'Input name attribute.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $id = 'Input id attribute';
+    public string $id = 'Input id attribute.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $checked = 'Whether the switch is on';
+    public string $checked = 'Whether the switch is on.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $label = 'Label text next to the switch';
+    public string $label = 'Label text next to the switch.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $description = 'Description text below the label';
+    public string $description = 'Description text below the label.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the switch';
+    public string $disabled = 'Disable the switch.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Mark as required field';
+    public string $required = 'Mark as required field.';
 
     #[Prop(type: 'string', default: "'md'")]
-    public string $size = 'Switch size (sm, md, lg)';
+    public string $size = 'Switch size (sm, md, lg).';
 
     #[Prop(type: 'string', default: "'primary'")]
-    public string $color = 'Switch color when on (primary, success, warning, danger, info)';
+    public string $color = 'Switch color when on (primary, success, warning, danger, info).';
 
     #[Prop(type: 'string', default: "'right'")]
-    public string $labelPosition = 'Position of label (left, right)';
+    public string $labelPosition = 'Position of label (left, right).';
 
     #[Prop(type: 'string', default: "'1'")]
-    public string $value = 'Value when checked';
+    public string $value = 'Value when checked.';
 
     #[Story('Basic Switch', order: 0)]
     public function basic(): StoryExample

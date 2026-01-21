@@ -17,50 +17,50 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class SelectSearchStory extends AbstractComponentStory
 {
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form object (auto-extracts CSRF token)';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form object (auto-extracts CSRF token).';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Component size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Component size.';
 
     #[Prop(type: 'string', default: "'get'")]
-    public string $method = 'Form method';
+    public string $method = 'Form method.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $action = 'Form action URL';
+    public string $action = 'Form action URL.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $baseUrl = 'Base URL for path-based submission';
+    public string $baseUrl = 'Base URL for path-based submission.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $name = 'Form name';
+    public string $name = 'Form name.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $options = 'Select options: [{value, label}] or [string]';
+    public string $options = 'Select options: [{value, label}] or [string].';
 
     #[Prop(type: 'object', default: '{}')]
-    public string $placeholders = 'Dynamic placeholders: {optionValue: "placeholder"}';
+    public string $placeholders = 'Dynamic placeholders: {optionValue: "placeholder"}.';
 
     #[Prop(type: 'string', default: "'Search...'")]
-    public string $defaultPlaceholder = 'Default input placeholder';
+    public string $defaultPlaceholder = 'Default input placeholder.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the form';
+    public string $disabled = 'Disable the form.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $select = 'Select attributes (select:name, select:value)';
+    public string $select = 'Select attributes (select:name, select:value).';
 
     #[NestedAttribute]
-    public string $input = 'Input attributes (input:name, input:value)';
+    public string $input = 'Input attributes (input:name, input:value).';
 
     #[NestedAttribute]
-    public string $submit = 'Submit button attributes (submit:label, submit:icon, submit:hideLabel)';
+    public string $submit = 'Submit button attributes (submit:label, submit:icon, submit:hideLabel).';
 
     #[NestedAttribute]
-    public string $token = 'CSRF token attributes (token:name, token:value)';
+    public string $token = 'CSRF token attributes (token:name, token:value).';
 
     #[Story('Basic Usage', order: 0)]
     public function basic(): StoryExample

@@ -16,26 +16,26 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class OtpInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name prefix';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name prefix.';
 
     #[Prop(type: 'number', default: '6')]
-    public string $length = 'Number of OTP digits';
+    public string $length = 'Number of OTP digits.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $autoFocus = 'Auto focus first input on mount';
+    public string $autoFocus = 'Auto focus first input on mount.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $masked = 'Mask input (show dots instead of numbers)';
+    public string $masked = 'Mask input (show dots instead of numbers).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic OTP Input', order: 0)]
     public function basic(): StoryExample

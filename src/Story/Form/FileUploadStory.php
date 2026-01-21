@@ -16,47 +16,47 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class FileUploadStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name ([] appended if multiple)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name ([] appended if multiple).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $accept = 'Accepted file types (e.g., "image/*", ".pdf")';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $multiple = 'Allow multiple file selection';
-
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $maxSize = 'Maximum file size in bytes';
-
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $maxFiles = 'Maximum number of files allowed';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $accept = 'Accepted file types (e.g., "image/*", ".pdf").';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the file upload';
+    public string $multiple = 'Allow multiple file selection.';
+
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $maxSize = 'Maximum file size in bytes.';
+
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $maxFiles = 'Maximum number of files allowed.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $disabled = 'Disable the file upload.';
 
     #[Prop(type: 'string', default: "'Drop files here...'")]
-    public string $label = 'Dropzone label text';
+    public string $label = 'Dropzone label text.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $description = 'Help text below the label';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $description = 'Help text below the label.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Dropzone size (padding, icon, text)';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Dropzone size (padding, icon, text).';
 
-    #[Prop(type: "'default' | 'solid' | 'minimal'", default: "'default'")]
-    public string $variant = 'Dropzone visual style';
-
-    #[Prop(type: 'boolean', default: 'true')]
-    public string $showIcon = 'Show upload icon';
+    #[Prop(type: "'default'|'solid'|'minimal'", default: "'default'")]
+    public string $variant = 'Dropzone visual style.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showFileList = 'Show list of selected files';
+    public string $showIcon = 'Show upload icon.';
+
+    #[Prop(type: 'boolean', default: 'true')]
+    public string $showFileList = 'Show list of selected files.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic File Upload', order: 0)]
     public function basic(): StoryExample

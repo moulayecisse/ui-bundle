@@ -18,10 +18,10 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class MenuStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes for the menu container';
+    public string $class = 'Additional CSS classes for the menu container.';
 
     #[Slot]
-    public string $content = 'Menu items content';
+    public string $content = 'Menu items content.';
 
     #[Story('Basic Menu', order: 0)]
     public function basic(): StoryExample

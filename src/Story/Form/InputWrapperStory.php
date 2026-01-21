@@ -18,41 +18,41 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class InputWrapperStory extends AbstractComponentStory
 {
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
-    #[Prop(type: "'default' | 'filled' | 'flushed' | 'unstyled'", default: "'default'")]
-    public string $variant = 'Visual variant';
+    #[Prop(type: "'default'|'filled'|'flushed'|'unstyled'", default: "'default'")]
+    public string $variant = 'Visual variant.';
 
-    #[Prop(type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'")]
-    public string $rounded = 'Border radius';
+    #[Prop(type: "'none'|'sm'|'md'|'lg'|'xl'|'full'", default: "'lg'")]
+    public string $rounded = 'Border radius.';
 
     #[Prop(type: 'boolean', default: 'null')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $invalid = 'Invalid/error state';
+    public string $invalid = 'Invalid/error state.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $before = 'Attributes for before slot (before:class, before:divide)';
+    public string $before = 'Attributes for before slot (before:class, before:divide).';
 
     #[NestedAttribute]
-    public string $after = 'Attributes for after slot (after:class, after:divide)';
+    public string $after = 'Attributes for after slot (after:class, after:divide).';
 
     #[NestedAttribute]
-    public string $content = 'Attributes passed to the content wrapper';
+    public string $content = 'Attributes passed to the content wrapper.';
 
     #[Slot]
-    public string $beforeSlot = 'Content before the main content (icons, labels)';
+    public string $beforeSlot = 'Content before the main content (icons, labels).';
 
     #[Slot]
-    public string $contentSlot = 'Main content area';
+    public string $contentSlot = 'Main content area.';
 
     #[Slot]
-    public string $afterSlot = 'Content after the main content (icons, buttons)';
+    public string $afterSlot = 'Content after the main content (icons, buttons).';
 
     #[Story('Icon Before', order: 0)]
     public function iconBefore(): StoryExample

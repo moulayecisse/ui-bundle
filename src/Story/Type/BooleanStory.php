@@ -17,34 +17,34 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class BooleanStory extends AbstractComponentStory
 {
     #[Prop(type: 'boolean', default: 'false')]
-    public string $value = 'The boolean value to display';
+    public string $value = 'The boolean value to display.';
 
-    #[Prop(type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Display size';
+    #[Prop(type: "'xs'|'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Display size.';
 
-    #[Prop(type: "'icon' | 'text' | 'badge'", default: "'icon'")]
-    public string $variant = 'Display style';
+    #[Prop(type: "'icon'|'text'|'badge'", default: "'icon'")]
+    public string $variant = 'Display style.';
 
     #[Prop(type: 'string', default: "'heroicons:check-16-solid'")]
-    public string $trueIcon = 'Icon for true value (icon variant)';
+    public string $trueIcon = 'Icon for true value (icon variant).';
 
     #[Prop(type: 'string', default: "'heroicons:x-mark-16-solid'")]
-    public string $falseIcon = 'Icon for false value (icon variant)';
+    public string $falseIcon = 'Icon for false value (icon variant).';
 
     #[Prop(type: 'string', default: "'text-green-600'")]
-    public string $trueColor = 'Color class for true value';
+    public string $trueColor = 'Color class for true value.';
 
     #[Prop(type: 'string', default: "'text-red-600'")]
-    public string $falseColor = 'Color class for false value';
+    public string $falseColor = 'Color class for false value.';
 
     #[Prop(type: 'string', default: "'Yes'")]
-    public string $trueLabel = 'Label for true value (text/badge variants)';
+    public string $trueLabel = 'Label for true value (text/badge variants).';
 
     #[Prop(type: 'string', default: "'No'")]
-    public string $falseLabel = 'Label for false value (text/badge variants)';
+    public string $falseLabel = 'Label for false value (text/badge variants).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Boolean', order: 0)]
     public function basic(): StoryExample

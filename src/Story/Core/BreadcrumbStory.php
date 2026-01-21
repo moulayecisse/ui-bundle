@@ -17,28 +17,28 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class BreadcrumbStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of breadcrumb items with label, href, icon';
+    public string $items = 'Array of breadcrumb items with label, href, icon.';
 
     #[Prop(type: 'string', default: "'heroicons:chevron-right'")]
-    public string $separator = 'Icon name for separator';
+    public string $separator = 'Icon name for separator.';
 
     #[Prop(type: 'string', default: "'heroicons:home'")]
-    public string $homeIcon = 'Icon for home/first item';
+    public string $homeIcon = 'Icon for home/first item.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showHomeIcon = 'Show icon on first item';
+    public string $showHomeIcon = 'Show icon on first item.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Text and icon size';
+    public string $size = 'Text and icon size.';
 
     #[Prop(type: "'default'|'pills'|'bordered'", default: "'default'")]
-    public string $variant = 'Visual style variant';
+    public string $variant = 'Visual style variant.';
 
     #[Prop(type: 'number|null', default: 'null')]
-    public string $maxItems = 'Max items to show (truncates middle)';
+    public string $maxItems = 'Max items to show (truncates middle).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Breadcrumb', order: 0)]
     public function basic(): StoryExample

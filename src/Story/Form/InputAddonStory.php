@@ -18,38 +18,38 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class InputAddonStory extends AbstractComponentStory
 {
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
-    #[Prop(type: "'default' | 'filled' | 'flushed'", default: "'default'")]
-    public string $variant = 'Visual variant';
+    #[Prop(type: "'default'|'filled'|'flushed'", default: "'default'")]
+    public string $variant = 'Visual variant.';
 
-    #[Prop(type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'")]
-    public string $rounded = 'Border radius';
+    #[Prop(type: "'none'|'sm'|'md'|'lg'|'xl'|'full'", default: "'lg'")]
+    public string $rounded = 'Border radius.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $divide = 'Show dividers between addons';
+    public string $divide = 'Show dividers between addons.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $wrapper = 'Attributes passed to the outer container';
+    public string $wrapper = 'Attributes passed to the outer container.';
 
     #[NestedAttribute]
-    public string $before = 'Attributes passed to the before slot wrapper';
+    public string $before = 'Attributes passed to the before slot wrapper.';
 
     #[NestedAttribute]
-    public string $after = 'Attributes passed to the after slot wrapper';
+    public string $after = 'Attributes passed to the after slot wrapper.';
 
     #[Slot]
-    public string $beforeSlot = 'Content before the input (icons, labels, buttons)';
+    public string $beforeSlot = 'Content before the input (icons, labels, buttons).';
 
     #[Slot]
-    public string $content = 'Main content (default: input element)';
+    public string $content = 'Main content (default: input element).';
 
     #[Slot]
-    public string $afterSlot = 'Content after the input (icons, buttons, text)';
+    public string $afterSlot = 'Content after the input (icons, buttons, text).';
 
     #[Story('Icon Before', order: 0)]
     public function iconBefore(): StoryExample

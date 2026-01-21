@@ -16,26 +16,26 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class NumberTypeStory extends AbstractComponentStory
 {
-    #[Prop(type: 'number | string', default: '0')]
-    public string $value = 'Number value to display';
+    #[Prop(type: 'number|string', default: '0')]
+    public string $value = 'Number value to display.';
 
     #[Prop(type: 'int', default: '0')]
-    public string $decimals = 'Number of decimal places';
+    public string $decimals = 'Number of decimal places.';
 
-    #[Prop(type: "'number' | 'currency' | 'percent'", default: "'number'")]
-    public string $format = 'Number format type';
+    #[Prop(type: "'number'|'currency'|'percent'", default: "'number'")]
+    public string $format = 'Number format type.';
 
     #[Prop(type: 'string', default: "'USD'")]
-    public string $currency = 'Currency code for currency format';
+    public string $currency = 'Currency code for currency format.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $prefix = 'Text to prepend to the number';
+    public string $prefix = 'Text to prepend to the number.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $suffix = 'Text to append to the number';
+    public string $suffix = 'Text to append to the number.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Number', order: 0)]
     public function basic(): StoryExample

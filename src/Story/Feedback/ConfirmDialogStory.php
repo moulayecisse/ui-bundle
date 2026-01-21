@@ -18,40 +18,40 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class ConfirmDialogStory extends AbstractComponentStory
 {
     #[Prop(type: 'boolean', default: 'false')]
-    public string $open = 'Whether the dialog is visible';
+    public string $open = 'Whether the dialog is visible.';
 
     #[Prop(type: 'string', default: "'Confirm'")]
-    public string $title = 'The dialog title';
+    public string $title = 'The dialog title.';
 
     #[Prop(type: 'string', default: "'Are you sure...'")]
-    public string $message = 'The confirmation message text';
+    public string $message = 'The confirmation message text.';
 
     #[Prop(type: 'string', default: "'Confirm'")]
-    public string $confirmText = 'Text for the confirm button';
+    public string $confirmText = 'Text for the confirm button.';
 
     #[Prop(type: 'string', default: "'Cancel'")]
-    public string $cancelText = 'Text for the cancel button';
+    public string $cancelText = 'Text for the cancel button.';
 
-    #[Prop(type: "'info' | 'danger' | 'warning' | 'success'", default: "'info'")]
-    public string $variant = 'Visual variant affecting icon and button colors';
+    #[Prop(type: "'info'|'danger'|'warning'|'success'", default: "'info'")]
+    public string $variant = 'Visual variant affecting icon and button colors.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loading = 'Shows loading spinner and disables buttons';
+    public string $loading = 'Shows loading spinner and disables buttons.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $icon = 'Override the default icon (Iconify name)';
+    public string $icon = 'Override the default icon (Iconify name).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $titleSlot = 'Custom title content (overrides title prop)';
+    public string $titleSlot = 'Custom title content (overrides title prop).';
 
     #[Slot]
-    public string $messageSlot = 'Custom message content (overrides message prop)';
+    public string $messageSlot = 'Custom message content (overrides message prop).';
 
     #[Slot]
-    public string $actions = 'Custom action buttons (overrides default Cancel/Confirm buttons)';
+    public string $actions = 'Custom action buttons (overrides default Cancel/Confirm buttons).';
 
     #[Story('Variants', order: 0)]
     public function variants(): StoryExample

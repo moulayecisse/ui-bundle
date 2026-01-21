@@ -17,43 +17,43 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class RangeSliderStory extends AbstractComponentStory
 {
     #[Prop(type: 'number', default: '0')]
-    public string $min = 'Minimum range value';
+    public string $min = 'Minimum range value.';
 
     #[Prop(type: 'number', default: '100')]
-    public string $max = 'Maximum range value';
+    public string $max = 'Maximum range value.';
 
     #[Prop(type: 'number', default: '1')]
-    public string $step = 'Step increment between values';
+    public string $step = 'Step increment between values.';
 
     #[Prop(type: 'number', default: '25')]
-    public string $minValue = 'Initial lower bound value';
+    public string $minValue = 'Initial lower bound value.';
 
     #[Prop(type: 'number', default: '75')]
-    public string $maxValue = 'Initial upper bound value';
+    public string $maxValue = 'Initial upper bound value.';
 
     #[Prop(type: 'string', default: "'range_min'")]
-    public string $minName = 'Form field name for min value';
+    public string $minName = 'Form field name for min value.';
 
     #[Prop(type: 'string', default: "'range_max'")]
-    public string $maxName = 'Form field name for max value';
+    public string $maxName = 'Form field name for max value.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the slider';
+    public string $disabled = 'Disable the slider.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showLabels = 'Show current value labels';
+    public string $showLabels = 'Show current value labels.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showMinMax = 'Show min/max range labels';
+    public string $showMinMax = 'Show min/max range labels.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Slider track and handle size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Slider track and handle size.';
 
-    #[Prop(type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger'", default: "'primary'")]
-    public string $color = 'Slider color theme';
+    #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'", default: "'primary'")]
+    public string $color = 'Slider color theme.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Range Slider', order: 0)]
     public function basic(): StoryExample

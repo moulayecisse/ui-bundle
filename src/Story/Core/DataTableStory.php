@@ -18,25 +18,25 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class DataTableStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $fields = 'Array of field definitions (name, label)';
+    public string $fields = 'Array of field definitions (name, label).';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of data items to display';
+    public string $items = 'Array of data items to display.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $hideHeader = 'Hide the table header row';
+    public string $hideHeader = 'Hide the table header row.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $hideFooter = 'Hide the table footer row';
+    public string $hideFooter = 'Hide the table footer row.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $thead_field = 'Custom header cell content for specific field';
+    public string $thead_field = 'Custom header cell content for specific field.';
 
     #[Slot]
-    public string $tbody_field = 'Custom body cell content for specific field (has access to item variable)';
+    public string $tbody_field = 'Custom body cell content for specific field (has access to item variable).';
 
     #[Story('Basic Data Table', order: 0)]
     public function basic(): StoryExample

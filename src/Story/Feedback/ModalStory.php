@@ -18,55 +18,55 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class ModalStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: 'null')]
-    public string $title = 'Modal title in header';
+    public string $title = 'Modal title in header.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $description = 'Description text below title';
+    public string $description = 'Description text below title.';
 
-    #[Prop(type: "'default' | 'sm' | 'lg' | 'xl' | 'full'", default: "'default'")]
-    public string $size = 'Modal width size';
-
-    #[Prop(type: 'boolean', default: 'true')]
-    public string $closeOnBackdrop = 'Close when clicking backdrop';
+    #[Prop(type: "'default'|'sm'|'lg'|'xl'|'full'", default: "'default'")]
+    public string $size = 'Modal width size.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $closeOnEscape = 'Close when pressing Escape key';
+    public string $closeOnBackdrop = 'Close when clicking backdrop.';
+
+    #[Prop(type: 'boolean', default: 'true')]
+    public string $closeOnEscape = 'Close when pressing Escape key.';
 
     #[Prop(type: 'string', default: "'Close'")]
-    public string $closeButtonLabel = 'Screen reader label for close button';
+    public string $closeButtonLabel = 'Screen reader label for close button.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $hideCloseButton = 'Hide the close button entirely';
+    public string $hideCloseButton = 'Hide the close button entirely.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $centered = 'Center modal vertically';
+    public string $centered = 'Center modal vertically.';
 
-    #[Prop(type: "'inside' | 'outside'", default: "'inside'")]
-    public string $scrollBehavior = 'Where scrollbar appears for long content';
+    #[Prop(type: "'inside'|'outside'", default: "'inside'")]
+    public string $scrollBehavior = 'Where scrollbar appears for long content.';
 
-    #[Prop(type: "'center' | 'top' | 'bottom'", default: "'center'")]
-    public string $position = 'Vertical position of modal';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $fullScreen = 'Display as fullscreen modal';
+    #[Prop(type: "'center'|'top'|'bottom'", default: "'center'")]
+    public string $position = 'Vertical position of modal.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $open = 'Initial open state';
+    public string $fullScreen = 'Display as fullscreen modal.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $open = 'Initial open state.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $trigger = 'Element that triggers opening the modal';
+    public string $trigger = 'Element that triggers opening the modal.';
 
     #[Slot]
-    public string $header = 'Custom header content (overrides title)';
+    public string $header = 'Custom header content (overrides title).';
 
     #[Slot]
-    public string $content = 'Modal body content';
+    public string $content = 'Modal body content.';
 
     #[Slot]
-    public string $footer = 'Footer with action buttons';
+    public string $footer = 'Footer with action buttons.';
 
     #[Story('Modal with Title & Footer', order: 0)]
     public function basic(): StoryExample

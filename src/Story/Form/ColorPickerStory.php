@@ -16,35 +16,35 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class ColorPickerStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'string', default: "'#3b82f6'")]
-    public string $value = 'Current color value (hex format)';
+    public string $value = 'Current color value (hex format).';
 
     #[Prop(type: 'array', default: '[20 colors]')]
-    public string $swatches = 'Preset color swatches to display';
+    public string $swatches = 'Preset color swatches to display.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showInput = 'Show text/native color input below swatches';
+    public string $showInput = 'Show text/native color input below swatches.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showValue = 'Show hex value next to color preview';
+    public string $showValue = 'Show hex value next to color preview.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the color picker';
+    public string $disabled = 'Disable the color picker.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $label = 'Label text above the picker';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $label = 'Label text above the picker.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Picker trigger size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Picker trigger size.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Color Picker', order: 0)]
     public function basic(): StoryExample

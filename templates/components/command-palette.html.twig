@@ -1,0 +1,94 @@
+{% props
+    class = '',
+    placeholder = 'Type a command or search...',
+    shortcut = 'k',
+    shortcutModifier = 'meta',
+    emptyMessage = 'No results found.',
+    closeOnSelect = true,
+    open = false,
+%}
+
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+{# Nested attributes #}
+{% set inputAttrs = attributes.nested('input') %}
+{% set backdropAttrs = attributes.nested('backdrop') %}
+{% set panelAttrs = attributes.nested('panel') %}
+
+<div
+    {{ attributes.without('input', 'backdrop', 'panel') }}
+    data-controller="cisse--ui-bundle--command-palette"
+    data-cisse--ui-bundle--command-palette-shortcut-value="{{ shortcut }}"
+    data-cisse--ui-bundle--command-palette-shortcut-modifier-value="{{ shortcutModifier }}"
+    data-cisse--ui-bundle--command-palette-close-on-select-value="{{ closeOnSelect ? 'true' : 'false' }}"
+    data-cisse--ui-bundle--command-palette-open-value="{{ open ? 'true' : 'false' }}"
+    class="{{ class }}"
+>
+    {# Trigger #}
+    <div data-action="click->cisse--ui-bundle--command-palette#toggle">
+        {% block trigger %}{% endblock %}
+    </div>
+
+    {# Command Palette Modal #}
+    <div
+        data-cisse--ui-bundle--command-palette-target="modal"
+        class="fixed inset-0 z-50 overflow-y-auto"
+        style="display: none;"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
+    >
+        {# Backdrop #}
+        <div
+            data-cisse--ui-bundle--command-palette-target="backdrop"
+            data-action="click->cisse--ui-bundle--command-palette#close"
+            class="{{ ('fixed inset-0 bg-gray-900/50 dark:bg-gray-900/80 backdrop-blur-sm ' ~ backdropAttrs.render('class'))|tailwind_merge }}"
+            {{ backdropAttrs.without('class') }}
+        ></div>
+
+        {# Panel Container #}
+        <div class="fixed inset-0 flex items-start justify-center pt-[15vh] px-4">
+            <div
+                data-cisse--ui-bundle--command-palette-target="panel"
+                class="{{ ('w-full max-w-xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl ring-1 ring-gray-900/5 dark:ring-gray-700 overflow-hidden ' ~ panelAttrs.render('class'))|tailwind_merge }}"
+                {{ panelAttrs.without('class') }}
+            >
+                {# Search Input #}
+                <div class="flex items-center gap-3 px-4 border-b border-gray-200 dark:border-gray-700">
+                    <twig:ux:icon name="lucide:search" class="size-5 text-gray-400 dark:text-gray-500 shrink-0" />
+                    <input
+                        data-cisse--ui-bundle--command-palette-target="input"
+                        data-action="input->cisse--ui-bundle--command-palette#filter keydown->cisse--ui-bundle--command-palette#handleKeydown"
+                        type="text"
+                        placeholder="{{ placeholder }}"
+                        class="{{ ('flex-1 h-14 bg-transparent text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none text-base ' ~ inputAttrs.render('class'))|tailwind_merge }}"
+                        {{ inputAttrs.without('class') }}
+                        autocomplete="off"
+                        autocorrect="off"
+                        spellcheck="false"
+                    />
+                    <div class="flex items-center gap-1">
+                        <twig:ui:kbd size="sm">Esc</twig:ui:kbd>
+                    </div>
+                </div>
+
+                {# Results #}
+                <div
+                    data-cisse--ui-bundle--command-palette-target="results"
+                    class="max-h-80 overflow-y-auto ui-scrollbar py-2"
+                >
+                    {{ contentBlock|raw }}
+                </div>
+
+                {# Empty State #}
+                <div
+                    data-cisse--ui-bundle--command-palette-target="empty"
+                    class="hidden px-4 py-12 text-center"
+                >
+                    <twig:ux:icon name="lucide:search-x" class="mx-auto size-10 text-gray-300 dark:text-gray-600" />
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ emptyMessage }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

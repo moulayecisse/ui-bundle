@@ -18,37 +18,37 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class EmptyStateStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "'lucide:inbox'")]
-    public string $icon = 'Icon name (Iconify)';
+    public string $icon = 'Icon name (Iconify).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $title = 'Title text';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $title = 'Title text.';
 
     #[Prop(type: 'string', default: "'No results found'")]
-    public string $message = 'Description message';
+    public string $message = 'Description message.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'")]
-    public string $size = 'Empty state size';
+    #[Prop(type: "'sm'|'md'|'lg'|'xl'", default: "'md'")]
+    public string $size = 'Empty state size.';
 
-    #[Prop(type: "'default' | 'card' | 'dashed'", default: "'default'")]
-    public string $variant = 'Visual style variant';
+    #[Prop(type: "'default'|'card'|'dashed'", default: "'default'")]
+    public string $variant = 'Visual style variant.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $iconSlot = 'Custom icon content';
+    public string $iconSlot = 'Custom icon content.';
 
     #[Slot]
-    public string $titleSlot = 'Title content (alternative to title prop)';
+    public string $titleSlot = 'Title content (alternative to title prop).';
 
     #[Slot]
-    public string $messageSlot = 'Message content (alternative to message prop)';
+    public string $messageSlot = 'Message content (alternative to message prop).';
 
     #[Slot]
-    public string $action = 'Primary action button';
+    public string $action = 'Primary action button.';
 
     #[Slot]
-    public string $secondaryAction = 'Secondary action button';
+    public string $secondaryAction = 'Secondary action button.';
 
     #[Story('Basic Empty State', order: 0)]
     public function basic(): StoryExample

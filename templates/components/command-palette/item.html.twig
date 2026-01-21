@@ -1,0 +1,55 @@
+{% props
+    class = '',
+    icon = null,
+    label = '',
+    description = null,
+    shortcut = null,
+    href = null,
+    disabled = false,
+    value = null,
+%}
+
+{% set contentBlock %}{% block content '' %}{% endset %}
+{% set hasCustomContent = contentBlock|trim %}
+{% set itemValue = value ?? label %}
+
+{% set baseClasses = 'flex items-center gap-3 w-full px-3 py-2.5 text-left rounded-lg transition-colors cursor-pointer focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700 data-[active=true]:bg-gray-100 dark:data-[active=true]:bg-gray-700 data-[disabled=true]:opacity-50 data-[disabled=true]:cursor-not-allowed hover:bg-gray-100 dark:hover:bg-gray-700' %}
+
+{% set element = href ? 'a' : 'button' %}
+
+<{{ element }}
+    {{ attributes }}
+    data-cisse--ui-bundle--command-palette-target="item"
+    data-action="click->cisse--ui-bundle--command-palette#select mouseenter->cisse--ui-bundle--command-palette#setActive"
+    data-value="{{ itemValue }}"
+    data-label="{{ label }}"
+    data-disabled="{{ disabled ? 'true' : 'false' }}"
+    {% if href %}href="{{ href }}"{% endif %}
+    {% if element == 'button' %}type="button"{% endif %}
+    {% if disabled %}disabled aria-disabled="true"{% endif %}
+    class="{{ (baseClasses ~ ' ' ~ class)|tailwind_merge }}"
+    role="option"
+>
+    {% if hasCustomContent %}
+        {{ contentBlock|raw }}
+    {% else %}
+        {% if icon %}
+            <span class="flex-shrink-0 text-gray-400 dark:text-gray-500">
+                <twig:ux:icon name="{{ icon }}" class="size-5" />
+            </span>
+        {% endif %}
+        <span class="flex-1 min-w-0">
+            <span class="block text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ label }}</span>
+            {% if description %}
+                <span class="block text-xs text-gray-500 dark:text-gray-400 truncate">{{ description }}</span>
+            {% endif %}
+        </span>
+        {% if shortcut %}
+            <span class="flex items-center gap-1 shrink-0">
+                {% for key in shortcut|split('+') %}
+                    <twig:ui:kbd size="sm">{{ key|trim }}</twig:ui:kbd>
+                {% endfor %}
+            </span>
+        {% endif %}
+    {% endif %}
+</{{ element }}>

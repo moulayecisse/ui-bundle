@@ -17,49 +17,49 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class ProgressStory extends AbstractComponentStory
 {
     #[Prop(type: 'number', default: '0')]
-    public string $value = 'Current progress value';
+    public string $value = 'Current progress value.';
 
     #[Prop(type: 'number', default: '100')]
-    public string $max = 'Maximum value for progress';
+    public string $max = 'Maximum value for progress.';
 
-    #[Prop(type: "'solid' | 'gradient'", default: "'solid'")]
-    public string $variant = 'Progress bar style variant';
+    #[Prop(type: "'solid'|'gradient'", default: "'solid'")]
+    public string $variant = 'Progress bar style variant.';
 
-    #[Prop(type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'", default: "'primary'")]
-    public string $color = 'Progress bar color';
+    #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'|'neutral'", default: "'primary'")]
+    public string $color = 'Progress bar color.';
 
-    #[Prop(type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'")]
-    public string $size = 'Height of the progress bar';
+    #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
+    public string $size = 'Height of the progress bar.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showLabel = 'Show progress label';
+    public string $showLabel = 'Show progress label.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $label = 'Custom label text';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $label = 'Custom label text.';
 
-    #[Prop(type: "'top' | 'bottom' | 'inside'", default: "'top'")]
-    public string $labelPosition = 'Label position';
+    #[Prop(type: "'top'|'bottom'|'inside'", default: "'top'")]
+    public string $labelPosition = 'Label position.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showValue = 'Show percentage value when showLabel is true';
+    public string $showValue = 'Show percentage value when showLabel is true.';
 
-    #[Prop(type: "'percent' | 'fraction' | 'value'", default: "'percent'")]
-    public string $valueFormat = 'Value display format';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $striped = 'Add striped pattern';
+    #[Prop(type: "'percent'|'fraction'|'value'", default: "'percent'")]
+    public string $valueFormat = 'Value display format.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $animated = 'Animate the stripes';
+    public string $striped = 'Add striped pattern.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $indeterminate = 'Show indeterminate loading state';
+    public string $animated = 'Animate the stripes.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $indeterminate = 'Show indeterminate loading state.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $rounded = 'Rounded corners';
+    public string $rounded = 'Rounded corners.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Progress', order: 0)]
     public function basic(): StoryExample

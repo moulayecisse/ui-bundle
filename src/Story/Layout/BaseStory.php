@@ -19,67 +19,67 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class BaseStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "'App'")]
-    public string $name = 'Application name shown in sidebar header';
+    public string $name = 'Application name shown in sidebar header.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $icon = 'Icon name for app icon in sidebar';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $icon = 'Icon name for app icon in sidebar.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $home = 'URL for logo link';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $home = 'URL for logo link.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $dark = 'Show dark mode toggle in header';
+    public string $dark = 'Show dark mode toggle in header.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $user = 'User name for header user menu';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $user = 'User name for header user menu.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $avatar = 'User avatar initials (e.g., "JD")';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $avatar = 'User avatar initials (e.g., "JD").';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $menu = 'Sidebar navigation menu content';
+    public string $menu = 'Sidebar navigation menu content.';
 
     #[Slot]
-    public string $header_center = 'Content in the center of the header';
+    public string $header_center = 'Content in the center of the header.';
 
     #[Slot]
-    public string $header_actions = 'Action buttons in the header';
+    public string $header_actions = 'Action buttons in the header.';
 
     #[Slot]
-    public string $sidebar_footer = 'Content at the bottom of the sidebar';
+    public string $sidebar_footer = 'Content at the bottom of the sidebar.';
 
     #[Slot]
-    public string $user_menu = 'Dropdown items for user menu';
+    public string $user_menu = 'Dropdown items for user menu.';
 
     #[Slot]
-    public string $content = 'Main page content area';
+    public string $content = 'Main page content area.';
 
     #[NestedAttribute]
-    public string $sidebar = 'Customize the sidebar element';
+    public string $sidebar = 'Customize the sidebar element.';
 
     #[NestedAttribute]
-    public string $header = 'Customize the header element';
+    public string $header = 'Customize the header element.';
 
     #[NestedAttribute]
-    public string $contentAttr = 'Customize the main content area';
+    public string $contentAttr = 'Customize the main content area.';
 
     #[NestedAttribute]
-    public string $menuAttr = 'Customize the menu container';
+    public string $menuAttr = 'Customize the menu container.';
 
     #[NestedAttribute]
-    public string $iconAttr = 'Customize the app icon';
+    public string $iconAttr = 'Customize the app icon.';
 
     #[NestedAttribute]
-    public string $darkAttr = 'Customize the dark toggle button';
+    public string $darkAttr = 'Customize the dark toggle button.';
 
     #[NestedAttribute]
-    public string $avatarAttr = 'Customize the user avatar';
+    public string $avatarAttr = 'Customize the user avatar.';
 
     #[NestedAttribute]
-    public string $userAttr = 'Customize the user name and menu';
+    public string $userAttr = 'Customize the user name and menu.';
 
     #[Story('Overview', order: 0)]
     public function overview(): StoryExample

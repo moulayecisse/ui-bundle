@@ -16,38 +16,38 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class DatePickerStory extends AbstractComponentStory
 {
-    #[Prop(type: "'date' | 'datetime-local' | 'time' | 'month' | 'week'", default: "'date'")]
-    public string $type = 'Input type for date selection';
+    #[Prop(type: "'date'|'datetime-local'|'time'|'month'|'week'", default: "'date'")]
+    public string $type = 'Input type for date selection.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Date value (YYYY-MM-DD format)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Date value (YYYY-MM-DD format).';
 
     #[Prop(type: 'string', default: "'YYYY-MM-DD'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $required = 'Required field.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $autofocus = 'Autofocus on page load';
+    public string $autofocus = 'Autofocus on page load.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $autocomplete = 'Autocomplete attribute';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $autocomplete = 'Autocomplete attribute.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field for auto-configuration';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field for auto-configuration.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Date Picker', order: 0)]
     public function basic(): StoryExample

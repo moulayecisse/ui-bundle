@@ -16,41 +16,41 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class RatingStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
     #[Prop(type: 'number', default: '0')]
-    public string $value = 'Current rating value';
+    public string $value = 'Current rating value.';
 
     #[Prop(type: 'number', default: '5')]
-    public string $max = 'Maximum rating value (number of stars)';
+    public string $max = 'Maximum rating value (number of stars).';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $allowHalf = 'Allow half-star ratings';
+    public string $allowHalf = 'Allow half-star ratings.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $readonly = 'Display only, no interaction';
+    public string $readonly = 'Display only, no interaction.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the rating input';
+    public string $disabled = 'Disable the rating input.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Star icon size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Star icon size.';
 
     #[Prop(type: 'string', default: "'heroicons:star-solid'")]
-    public string $filledIcon = 'Icon for filled stars';
+    public string $filledIcon = 'Icon for filled stars.';
 
     #[Prop(type: 'string', default: "'heroicons:star'")]
-    public string $emptyIcon = 'Icon for empty stars';
+    public string $emptyIcon = 'Icon for empty stars.';
 
     #[Prop(type: 'string', default: "'text-yellow-400'")]
-    public string $color = 'Color class for filled stars';
+    public string $color = 'Color class for filled stars.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showValue = 'Show numeric value next to stars';
+    public string $showValue = 'Show numeric value next to stars.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Rating', order: 0)]
     public function basic(): StoryExample

@@ -18,49 +18,49 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class SelectableTableStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $fields = 'Array of field definitions ({ name, label })';
+    public string $fields = 'Array of field definitions ({ name, label }).';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of items to display';
+    public string $items = 'Array of items to display.';
 
     #[Prop(type: 'string', default: "'id'")]
-    public string $identifier = 'Field to use as unique identifier';
+    public string $identifier = 'Field to use as unique identifier.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $selectable = 'Enable row selection with checkboxes';
+    public string $selectable = 'Enable row selection with checkboxes.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showActions = 'Show actions column';
+    public string $showActions = 'Show actions column.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $expandable = 'Enable expandable rows';
+    public string $expandable = 'Enable expandable rows.';
 
     #[Prop(type: 'string', default: "'Aucun résultat trouvé'")]
-    public string $emptyLabel = 'Text when no items';
+    public string $emptyLabel = 'Text when no items.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $thead = 'Custom table header content';
+    public string $thead = 'Custom table header content.';
 
     #[Slot]
-    public string $tbody = 'Custom table body content';
+    public string $tbody = 'Custom table body content.';
 
     #[Slot]
-    public string $tfoot = 'Table footer content';
+    public string $tfoot = 'Table footer content.';
 
     #[Slot]
-    public string $batch_actions = 'Batch action buttons when rows selected';
+    public string $batch_actions = 'Batch action buttons when rows selected.';
 
     #[Slot]
-    public string $tbody_actions = 'Action buttons for each row';
+    public string $tbody_actions = 'Action buttons for each row.';
 
     #[Slot]
-    public string $expanded = 'Content for expanded rows';
+    public string $expanded = 'Content for expanded rows.';
 
     #[Slot]
-    public string $empty = 'Custom empty state content';
+    public string $empty = 'Custom empty state content.';
 
     #[Story('Basic Selectable Table', order: 0)]
     public function basic(): StoryExample

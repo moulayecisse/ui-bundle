@@ -18,62 +18,62 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class FormStory extends AbstractComponentStory
 {
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form object';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form object.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form name attribute';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form name attribute.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $method = 'Form method (GET, POST)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $method = 'Form method (GET, POST).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $action = 'Form action URL';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $action = 'Form action URL.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $enctype = 'Form enctype';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $enctype = 'Form enctype.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $title = 'Form header title';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $title = 'Form header title.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $description = 'Form header description';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $description = 'Form header description.';
 
-    #[Prop(type: "'vertical' | 'horizontal'", default: "'vertical'")]
-    public string $layout = 'Field layout direction';
+    #[Prop(type: "'vertical'|'horizontal'", default: "'vertical'")]
+    public string $layout = 'Field layout direction.';
 
     #[Prop(type: 'number', default: '12')]
-    public string $cols = 'Grid columns';
+    public string $cols = 'Grid columns.';
 
     #[Prop(type: 'number', default: '6')]
-    public string $gap = 'Grid gap';
+    public string $gap = 'Grid gap.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $divide = 'Add dividers between rows';
+    public string $divide = 'Add dividers between rows.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $header = 'Attributes passed to the header section';
+    public string $header = 'Attributes passed to the header section.';
 
     #[NestedAttribute]
-    public string $footer = 'Footer attributes (footer:show, footer:class)';
+    public string $footer = 'Footer attributes (footer:show, footer:class).';
 
     #[NestedAttribute]
-    public string $submit = 'Submit button attributes (submit:label, submit:class)';
+    public string $submit = 'Submit button attributes (submit:label, submit:class).';
 
     #[NestedAttribute]
-    public string $cancel = 'Cancel button attributes (cancel:label, cancel:class)';
+    public string $cancel = 'Cancel button attributes (cancel:label, cancel:class).';
 
     #[Slot]
-    public string $headerSlot = 'Custom header content';
+    public string $headerSlot = 'Custom header content.';
 
     #[Slot]
-    public string $content = 'Form fields content (default block)';
+    public string $content = 'Form fields content (default block).';
 
     #[Slot]
-    public string $footerSlot = 'Custom footer content';
+    public string $footerSlot = 'Custom footer content.';
 
     #[Story('Basic Form', order: 0)]
     public function basic(): StoryExample

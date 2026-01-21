@@ -16,17 +16,17 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class LoadingSpinnerStory extends AbstractComponentStory
 {
-    #[Prop(type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'")]
-    public string $size = 'Spinner size';
+    #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
+    public string $size = 'Spinner size.';
 
-    #[Prop(type: "'primary' | 'white' | 'gray' | 'current'", default: "'primary'")]
-    public string $color = 'Spinner color';
+    #[Prop(type: "'primary'|'white'|'gray'|'current'", default: "'primary'")]
+    public string $color = 'Spinner color.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $label = 'Loading text displayed below spinner';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $label = 'Loading text displayed below spinner.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Default', order: 0)]
     public function default(): StoryExample

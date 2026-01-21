@@ -17,47 +17,47 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class ToastStory extends AbstractComponentStory
 {
-    #[Prop(type: "'info' | 'success' | 'warning' | 'error' | 'default'", default: "'info'")]
-    public string $type = 'Toast type (determines color and icon)';
+    #[Prop(type: "'info'|'success'|'warning'|'error'|'default'", default: "'info'")]
+    public string $type = 'Toast type (determines color and icon).';
 
-    #[Prop(type: "'default' | 'solid' | 'minimal'", default: "'default'")]
-    public string $variant = 'Toast style variant';
+    #[Prop(type: "'default'|'solid'|'minimal'", default: "'default'")]
+    public string $variant = 'Toast style variant.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $message = 'Toast message content';
+    public string $message = 'Toast message content.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $title = 'Optional toast title';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $title = 'Optional toast title.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $closable = 'Show close button';
+    public string $closable = 'Show close button.';
 
     #[Prop(type: 'number', default: '5000')]
-    public string $duration = 'Auto-dismiss duration in ms (0 = no auto-dismiss)';
+    public string $duration = 'Auto-dismiss duration in ms (0 = no auto-dismiss).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $icon = 'Custom icon (overrides type default)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $icon = 'Custom icon (overrides type default).';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showIcon = 'Show icon';
+    public string $showIcon = 'Show icon.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $actionLabel = 'Action button label';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $actionLabel = 'Action button label.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $actionUrl = 'Action button URL';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $actionUrl = 'Action button URL.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $messageSlot = 'Toast message content (alternative to message prop)';
+    public string $messageSlot = 'Toast message content (alternative to message prop).';
 
     #[Slot]
-    public string $titleSlot = 'Toast title (alternative to title prop)';
+    public string $titleSlot = 'Toast title (alternative to title prop).';
 
     #[Slot]
-    public string $action = 'Custom action content';
+    public string $action = 'Custom action content.';
 
     #[Story('Toast Types', order: 0)]
     public function types(): StoryExample

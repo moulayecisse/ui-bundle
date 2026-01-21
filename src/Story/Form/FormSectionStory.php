@@ -19,58 +19,58 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class FormSectionStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $title = 'Section title';
+    public string $title = 'Section title.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $subtitle = 'Optional subtitle below title';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $subtitle = 'Optional subtitle below title.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $icon = 'Icon name (Symfony UX Icons format, e.g., heroicons:lock-closed)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $icon = 'Icon name (Symfony UX Icons format, e.g., heroicons:lock-closed).';
 
-    #[Prop(type: "'primary' | 'secondary' | 'gray' | 'success' | 'warning' | 'danger'", default: "'primary'")]
-    public string $iconColor = 'Icon background and text color';
+    #[Prop(type: "'primary'|'secondary'|'gray'|'success'|'warning'|'danger'", default: "'primary'")]
+    public string $iconColor = 'Icon background and text color.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $bordered = 'Show border and shadow';
+    public string $bordered = 'Show border and shadow.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $collapsible = 'Enable collapse/expand functionality';
+    public string $collapsible = 'Enable collapse/expand functionality.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $collapsed = 'Initial collapsed state';
+    public string $collapsed = 'Initial collapsed state.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $header_actions = 'Action buttons in the header';
+    public string $header_actions = 'Action buttons in the header.';
 
     #[Slot]
-    public string $content = 'Section content (form fields)';
+    public string $content = 'Section content (form fields).';
 
     #[Slot]
-    public string $footer = 'Optional footer content';
+    public string $footer = 'Optional footer content.';
 
     #[NestedAttribute]
-    public string $header = 'Customize the header container';
+    public string $header = 'Customize the header container.';
 
     #[NestedAttribute]
-    public string $iconAttr = 'Customize the icon container';
+    public string $iconAttr = 'Customize the icon container.';
 
     #[NestedAttribute]
-    public string $titleAttr = 'Customize the title element';
+    public string $titleAttr = 'Customize the title element.';
 
     #[NestedAttribute]
-    public string $subtitleAttr = 'Customize the subtitle element';
+    public string $subtitleAttr = 'Customize the subtitle element.';
 
     #[NestedAttribute]
-    public string $toggle = 'Customize the collapse toggle button';
+    public string $toggle = 'Customize the collapse toggle button.';
 
     #[NestedAttribute]
-    public string $contentAttr = 'Customize the content container';
+    public string $contentAttr = 'Customize the content container.';
 
     #[NestedAttribute]
-    public string $footerAttr = 'Customize the footer container';
+    public string $footerAttr = 'Customize the footer container.';
 
     #[Story('Basic Section', order: 0)]
     public function basic(): StoryExample

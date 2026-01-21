@@ -17,41 +17,41 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class AlertStory extends AbstractComponentStory
 {
-    #[Prop(type: "'filled' | 'outline'", default: "'filled'")]
-    public string $variant = 'Alert style variant';
+    #[Prop(type: "'filled'|'outline'", default: "'filled'")]
+    public string $variant = 'Alert style variant.';
 
-    #[Prop(type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'", default: "'primary'")]
-    public string $color = 'Alert color theme';
+    #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'", default: "'primary'")]
+    public string $color = 'Alert color theme.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Alert size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Alert size.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $title = 'Alert title';
+    public string $title = 'Alert title.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $icon = 'Show default icon based on color';
+    public string $icon = 'Show default icon based on color.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $customIcon = 'Custom icon name (overrides default)';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $dismissible = 'Allow dismissing the alert';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $customIcon = 'Custom icon name (overrides default).';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $bordered = 'Add left border accent';
+    public string $dismissible = 'Allow dismissing the alert.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $bordered = 'Add left border accent.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Alert content (default slot)';
+    public string $content = 'Alert content (default slot).';
 
     #[Slot]
-    public string $titleSlot = 'Alert title (alternative to title prop)';
+    public string $titleSlot = 'Alert title (alternative to title prop).';
 
     #[Slot]
-    public string $actions = 'Action buttons slot';
+    public string $actions = 'Action buttons slot.';
 
     #[Story('Filled Variant (default)', order: 0)]
     public function filled(): StoryExample

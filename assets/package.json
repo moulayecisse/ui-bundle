@@ -163,6 +163,11 @@
         "main": "dist/expandable_row_controller.js",
         "fetch": "eager",
         "enabled": true
+      },
+      "command-palette": {
+        "main": "dist/command_palette_controller.js",
+        "fetch": "eager",
+        "enabled": true
       }
     },
     "importmap": {

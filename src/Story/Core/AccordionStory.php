@@ -18,34 +18,34 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class AccordionStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes for the accordion container';
+    public string $class = 'Additional CSS classes for the accordion container.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $active = 'ID of initially open item';
+    public string $active = 'ID of initially open item.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $multiple = 'Allow multiple items to be open simultaneously';
+    public string $multiple = 'Allow multiple items to be open simultaneously.';
 
     #[Prop(type: 'number', default: '300')]
-    public string $duration = 'Animation duration in milliseconds';
+    public string $duration = 'Animation duration in milliseconds.';
 
     #[Prop(type: 'string', default: "'ease-out'")]
-    public string $easing = 'Animation easing function';
+    public string $easing = 'Animation easing function.';
 
     #[Prop(type: "'default'|'bordered'|'separated'|'card'", default: "'default'")]
-    public string $variant = 'Visual style variant';
+    public string $variant = 'Visual style variant.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Accordion item size';
+    public string $size = 'Accordion item size.';
 
     #[Prop(type: "'left'|'right'", default: "'right'")]
-    public string $iconPosition = 'Position of expand/collapse icon';
+    public string $iconPosition = 'Position of expand/collapse icon.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $flush = 'Remove borders between items';
+    public string $flush = 'Remove borders between items.';
 
     #[Slot]
-    public string $content = 'Accordion items using <twig:ui:accordion:item> components';
+    public string $content = 'Accordion items.';
 
     #[Story('Basic Accordion', order: 0)]
     public function basic(): StoryExample

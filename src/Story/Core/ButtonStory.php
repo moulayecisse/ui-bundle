@@ -19,47 +19,47 @@ class ButtonStory extends AbstractComponentStory
 {
     // Props
     #[Prop(type: "'solid'|'outline'|'ghost'|'soft'", default: "'solid'")]
-    public string $variant = 'Button style variant';
+    public string $variant = 'Button style variant.';
 
     #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'|'neutral'|'white'|'black'", default: "'primary'")]
-    public string $color = 'Button color theme';
+    public string $color = 'Button color theme.';
 
     #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
-    public string $size = 'Button size';
+    public string $size = 'Button size.';
 
     #[Prop(type: "'button'|'submit'|'reset'", default: "'button'")]
-    public string $type = 'Button type attribute';
+    public string $type = 'Button type attribute.';
 
     #[Prop(type: 'string', default: 'null')]
-    public string $href = 'If provided, renders as <a> link instead of <button>';
+    public string $href = 'If provided, renders as anchor link instead of button.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $icon = 'Icon name (Iconify) shown before content';
+    public string $icon = 'Icon name (Iconify) shown before content.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $iconRight = 'Icon name shown after content';
+    public string $iconRight = 'Icon name shown after content.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $label = 'Button label text';
+    public string $label = 'Button label text.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loading = 'Show loading spinner and disable button';
+    public string $loading = 'Show loading spinner and disable button.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the button';
+    public string $disabled = 'Disable the button.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $block = 'Full width button';
+    public string $block = 'Full width button.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $bordered = 'Add subtle border matching the color';
+    public string $bordered = 'Add subtle border matching the color.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     // Slots
     #[Slot]
-    public string $content = 'Button content (default slot)';
+    public string $content = 'Button content (default slot).';
 
     // Stories
     #[Story('Solid Variant (default)', order: 0)]

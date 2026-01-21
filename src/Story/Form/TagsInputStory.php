@@ -16,26 +16,26 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class TagsInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $value = 'Initial tags array';
+    public string $value = 'Initial tags array.';
 
     #[Prop(type: 'string', default: "'Add tag...'")]
-    public string $placeholder = 'Input placeholder';
+    public string $placeholder = 'Input placeholder.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $max = 'Maximum number of tags';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $max = 'Maximum number of tags.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Tags Input', order: 0)]
     public function basic(): StoryExample

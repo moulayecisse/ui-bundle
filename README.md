@@ -1,10 +1,10 @@
 # Symfony UI Bundle
 
-🎨 A modern Symfony UI bundle with **60+ reusable Twig components** styled with TailwindCSS. Build beautiful, consistent interfaces faster with pre-built form controls, navigation, tables, and more.
+🎨 A modern Symfony UI bundle with **70+ reusable Twig components** styled with TailwindCSS. Build beautiful, consistent interfaces faster with pre-built form controls, navigation, tables, and more.
 
 ## ✨ Features
 
-- 🧩 **60+ Components** - Forms, tables, navigation, tabs, modals, cards, and more
+- 🧩 **70+ Components** - Forms, tables, navigation, tabs, modals, cards, and more
 - 🎨 **TailwindCSS Styled** - Modern, responsive design out of the box
 - 🔧 **Fully Customizable** - Override styles and extend components easily  
 - ⚡ **Smart Class Merging** - Intelligent TailwindCSS class deduplication
@@ -68,44 +68,84 @@ Create your main CSS file with the required setup:
 | `<twig:Ui:input>` | Smart input with automatic type detection |
 | `<twig:Ui:input:text>` `<twig:Ui:input:textarea>` | Text inputs and textareas |
 | `<twig:Ui:input:checkbox>` `<twig:Ui:input:date>` | Checkboxes and date pickers |
+| `<twig:Ui:input:email>` `<twig:Ui:input:url>` | Email and URL inputs with validation |
+| `<twig:Ui:input:phone>` `<twig:Ui:input:money>` | Phone and money inputs |
+| `<twig:Ui:input:number>` `<twig:Ui:input:quantity>` | Number and quantity inputs |
+| `<twig:Ui:input:otp>` | One-time password input |
+| `<twig:Ui:input:search>` | Search input with icon |
 | `<twig:Ui:label>` | Form labels with proper styling |
 | `<twig:Ui:select>` | Styled select dropdowns |
+| `<twig:Ui:combobox>` | Searchable select with autocomplete |
+| `<twig:Ui:switch>` | Toggle switches |
+| `<twig:Ui:slider>` `<twig:Ui:range-slider>` | Slider and range slider inputs |
+| `<twig:Ui:rating>` | Star rating input |
+| `<twig:Ui:color-picker>` | Color selection input |
+| `<twig:Ui:icon-picker>` | Icon selection input |
+| `<twig:Ui:file-upload>` | File upload with drag and drop |
+| `<twig:Ui:tags-input>` | Tags/chips input |
 | `<twig:Ui:form>` | Form container with validation |
+| `<twig:Ui:form-section>` | Form section with header and content |
+| `<twig:Ui:form-actions>` | Form action buttons container |
 | `<twig:Ui:input-group>` `<twig:Ui:input-wrapper>` | Input grouping and wrapping |
+| `<twig:Ui:input-addon>` | Input addons (prefix/suffix) |
 
-### 🎨 UI Components  
+### 🎨 UI Components
 | Component | Description |
 |-----------|-------------|
 | `<twig:Ui:button>` | Buttons with multiple variants (primary, secondary, error) |
+| `<twig:Ui:button-group>` | Group related buttons together with shared styling |
 | `<twig:Ui:badge>` | Status badges with colors, sizes, and variants |
 | `<twig:Ui:alert>` | Alert notifications with icons and dismiss functionality |
 | `<twig:Ui:card>` | Card layouts with header, content, and footer sections |
+| `<twig:Ui:collapsible-card>` | Cards with expandable/collapsible content |
 | `<twig:Ui:modal>` | Modal dialogs with backdrop |
+| `<twig:Ui:confirm-dialog>` | Confirmation dialogs for destructive actions |
 | `<twig:Ui:slide-over>` | Slide-out panels for details |
-| `<twig:Ui:divider>` | Visual content separators |
+| `<twig:Ui:dropdown>` | Dropdown menus with positioning options |
+| `<twig:Ui:popover>` | Contextual popovers with rich content |
 | `<twig:Ui:tooltip>` | Contextual tooltips |
+| `<twig:Ui:divider>` | Visual content separators |
+| `<twig:Ui:avatar>` | User avatars with images or initials |
+| `<twig:Ui:kbd>` | Keyboard key display for shortcuts |
+| `<twig:Ui:code-block>` | Code display with optional copy button |
+| `<twig:Ui:command-palette>` | Quick navigation and actions palette (⌘K) |
 
 ### 🧭 Navigation
 | Component | Description |
 |-----------|-------------|
 | `<twig:Ui:menu>` `<twig:Ui:menu:item>` | Navigation menus with sub-menus |
 | `<twig:Ui:tabs>` `<twig:Ui:tabs:item>` | Tabbed navigation with keyboard support |
+| `<twig:Ui:filter-tabs>` | Filter tabs for list filtering |
+| `<twig:Ui:breadcrumb>` | Breadcrumb navigation |
 | `<twig:Ui:pagination>` | Pagination controls |
+| `<twig:Ui:stepper>` | Step-by-step progress indicator |
+| `<twig:Ui:timeline>` | Vertical timeline for events |
 
 ### 📊 Tables & Data
 | Component | Description |
 |-----------|-------------|
 | `<twig:Ui:table>` `<twig:Ui:data-table>` | Responsive tables with sorting |
+| `<twig:Ui:table:selectable>` | Tables with row selection |
 | `<twig:Ui:thead>` `<twig:Ui:tbody>` `<twig:Ui:tfoot>` | Table sections |
-| `<twig:Ui:tr>` `<twig:Ui:th>` `<twig:Ui:td>` | Table rows and cells |
+| `<twig:Ui:tr>` `<twig:Ui:th>` `<twig:Ui:td>` | Table rows and cells (tr supports expandable) |
 | `<twig:Ui:datalist>` | Definition lists for key-value pairs |
-| `<twig:Ui:search>` | Search interfaces with filters |
+| `<twig:Ui:responsive-list>` | Responsive list with desktop/mobile views |
+| `<twig:Ui:mobile-list>` | Mobile-optimized list display |
+| `<twig:Ui:stat>` `<twig:Ui:stat:item>` | Statistics display with trends |
 | `<twig:Ui:boolean>` | Boolean value display with icons |
 
 ### 📈 Advanced Components
 | Component | Description |
 |-----------|-------------|
 | `<twig:Ui:accordion>` | Collapsible content sections |
+| `<twig:Ui:empty-state>` | Placeholder for empty data states |
+| `<twig:Ui:skeleton>` | Loading placeholders (text, card, table, list) |
+| `<twig:Ui:loading-spinner>` | Loading spinner indicator |
+| `<twig:Ui:progress>` | Progress bars |
+| `<twig:Ui:toast>` | Toast notifications |
+| `<twig:Ui:notification-list>` | Notification list display |
+| `<twig:Ui:dark-mode-toggle>` | Dark/light mode switcher |
+| `<twig:Ui:container>` | Responsive container wrapper |
 
 ## 💡 Usage Examples
 

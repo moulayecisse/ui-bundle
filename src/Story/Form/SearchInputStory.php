@@ -17,56 +17,56 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class SearchInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Input value';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Input value.';
 
     #[Prop(type: 'string', default: "'heroicons:magnifying-glass'")]
-    public string $icon = 'Icon name for the search icon';
+    public string $icon = 'Icon name for the search icon.';
 
     #[Prop(type: 'string', default: "'Search...'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
-    #[Prop(type: "'default' | 'filled' | 'flushed' | 'unstyled'", default: "'default'")]
-    public string $variant = 'Input style variant';
+    #[Prop(type: "'default'|'filled'|'flushed'|'unstyled'", default: "'default'")]
+    public string $variant = 'Input style variant.';
 
-    #[Prop(type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'")]
-    public string $rounded = 'Border radius';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    #[Prop(type: "'none'|'sm'|'md'|'lg'|'xl'|'full'", default: "'lg'")]
+    public string $rounded = 'Border radius.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $autofocus = 'Autofocus on load';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $autofocus = 'Autofocus on load.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $autocomplete = 'Autocomplete attribute';
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $required = 'Required field.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $autocomplete = 'Autocomplete attribute.';
+
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $wrapper = 'Attributes passed to the input-wrapper element';
+    public string $wrapper = 'Attributes passed to the input-wrapper element.';
 
     #[NestedAttribute]
-    public string $iconAttr = 'Attributes passed to the search icon (icon:name, icon:class)';
+    public string $iconAttr = 'Attributes passed to the search icon (icon:name, icon:class).';
 
     #[NestedAttribute]
-    public string $input = 'Attributes passed to the input element';
+    public string $input = 'Attributes passed to the input element.';
 
     #[Story('Default', order: 0)]
     public function default(): StoryExample

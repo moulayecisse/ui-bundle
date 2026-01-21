@@ -16,23 +16,23 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class DateTypeStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | DateTimeInterface', default: "''")]
-    public string $value = 'Date value to display';
+    #[Prop(type: 'string|DateTimeInterface', default: "''")]
+    public string $value = 'Date value to display.';
 
-    #[Prop(type: "'short' | 'medium' | 'long' | 'full'", default: "'medium'")]
-    public string $format = 'Date format preset';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $showTime = 'Include time in output';
+    #[Prop(type: "'short'|'medium'|'long'|'full'", default: "'medium'")]
+    public string $format = 'Date format preset.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $relative = 'Show relative time (e.g., "2 hours ago")';
+    public string $showTime = 'Include time in output.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $relative = 'Show relative time (e.g., "2 hours ago").';
 
     #[Prop(type: 'string', default: "''")]
-    public string $placeholder = 'Text to show when value is empty';
+    public string $placeholder = 'Text to show when value is empty.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Default Format', order: 0)]
     public function defaultFormat(): StoryExample

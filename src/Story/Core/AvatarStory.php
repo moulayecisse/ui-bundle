@@ -17,19 +17,19 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class AvatarStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $name = 'User name for generating initials';
+    public string $name = 'User name for generating initials.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $src = 'Image URL for the avatar';
+    public string $src = 'Image URL for the avatar.';
 
     #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
-    public string $size = 'Avatar size';
+    public string $size = 'Avatar size.';
 
     #[Prop(type: "'online'|'away'|'busy'|'offline'|null", default: 'null')]
-    public string $status = 'Status indicator';
+    public string $status = 'Status indicator.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Sizes', order: 0)]
     public function sizes(): StoryExample

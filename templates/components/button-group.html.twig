@@ -1,0 +1,27 @@
+{% props
+    class = '',
+    orientation = 'horizontal',
+    attached = true,
+%}
+
+{% set contentBlock %}{% block content '' %}{% endset %}
+
+{% set orientationClasses = {
+    'horizontal': 'flex-row',
+    'vertical': 'flex-col',
+} %}
+
+{% set attachedClasses = attached ? '[&>*]:rounded-none [&>*:first-child]:rounded-l-md [&>*:last-child]:rounded-r-md [&>*:not(:first-child)]:-ml-px' : 'gap-2' %}
+{% if orientation == 'vertical' and attached %}
+    {% set attachedClasses = '[&>*]:rounded-none [&>*:first-child]:rounded-t-md [&>*:last-child]:rounded-b-md [&>*:not(:first-child)]:-mt-px' %}
+{% elseif orientation == 'vertical' and not attached %}
+    {% set attachedClasses = 'gap-2' %}
+{% endif %}
+
+<div
+    {{ attributes }}
+    role="group"
+    class="{{ ('inline-flex ' ~ orientationClasses[orientation] ~ ' ' ~ attachedClasses ~ ' ' ~ class)|tailwind_merge }}"
+>
+    {{ contentBlock|raw }}
+</div>

@@ -18,58 +18,58 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class ResponsiveListStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of items to display';
+    public string $items = 'Array of items to display.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $fields = 'Array of field definitions (name, label)';
+    public string $fields = 'Array of field definitions (name, label).';
 
     #[Prop(type: 'string', default: "'id'")]
-    public string $keyField = 'Field to use as unique key for each item';
+    public string $keyField = 'Field to use as unique key for each item.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $selectable = 'Enable row selection';
+    public string $selectable = 'Enable row selection.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showActions = 'Show actions column/section';
+    public string $showActions = 'Show actions column/section.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loading = 'Show loading skeleton';
+    public string $loading = 'Show loading skeleton.';
 
     #[Prop(type: 'number', default: '5')]
-    public string $loadingRows = 'Number of skeleton rows when loading';
+    public string $loadingRows = 'Number of skeleton rows when loading.';
 
     #[Prop(type: "'sm'|'md'|'lg'|'xl'", default: "'md'")]
-    public string $breakpoint = 'Breakpoint to switch from cards to table';
+    public string $breakpoint = 'Breakpoint to switch from cards to table.';
 
     #[Prop(type: 'string', default: "'No items found'")]
-    public string $emptyLabel = 'Text to show when no items';
+    public string $emptyLabel = 'Text to show when no items.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $thead = 'Custom table header content';
+    public string $thead = 'Custom table header content.';
 
     #[Slot]
-    public string $tbody = 'Custom table body content';
+    public string $tbody = 'Custom table body content.';
 
     #[Slot]
-    public string $tfoot = 'Custom table footer content';
+    public string $tfoot = 'Custom table footer content.';
 
     #[Slot]
-    public string $tbody_actions = 'Action buttons for table rows';
+    public string $tbody_actions = 'Action buttons for table rows.';
 
     #[Slot]
-    public string $mobile_content = 'Custom mobile card content';
+    public string $mobile_content = 'Custom mobile card content.';
 
     #[Slot]
-    public string $mobile_actions = 'Action buttons for mobile cards';
+    public string $mobile_actions = 'Action buttons for mobile cards.';
 
     #[Slot]
-    public string $empty = 'Custom empty state for desktop';
+    public string $empty = 'Custom empty state for desktop.';
 
     #[Slot]
-    public string $mobile_empty = 'Custom empty state for mobile';
+    public string $mobile_empty = 'Custom empty state for mobile.';
 
     #[Story('Basic Responsive List', order: 0)]
     public function basic(): StoryExample

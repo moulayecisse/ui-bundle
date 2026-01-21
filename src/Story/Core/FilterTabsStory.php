@@ -17,25 +17,25 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class FilterTabsStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $name = 'Form input name';
+    public string $name = 'Form input name.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Currently selected value';
+    public string $value = 'Currently selected value.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $options = 'Array of options with key, label, count, icon';
+    public string $options = 'Array of options with key, label, count, icon.';
 
     #[Prop(type: "'pills'|'underline'|'boxed'", default: "'pills'")]
-    public string $variant = 'Visual style variant';
+    public string $variant = 'Visual style variant.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Tab size';
+    public string $size = 'Tab size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $fullWidth = 'Stretch tabs to full container width';
+    public string $fullWidth = 'Stretch tabs to full container width.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Pills Variant (Default)', order: 0)]
     public function pills(): StoryExample

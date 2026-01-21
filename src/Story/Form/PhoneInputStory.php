@@ -17,37 +17,37 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class PhoneInputStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "'phone'")]
-    public string $name = 'Form field name';
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Phone number value';
+    public string $value = 'Phone number value.';
 
     #[Prop(type: 'string', default: "'Phone number'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showDialCode = 'Show dial code in input value';
+    public string $disabled = 'Disabled state.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $showDialCode = 'Show dial code in input value.';
 
     #[Prop(type: 'string', default: "'FR'")]
-    public string $defaultCountry = 'Default country code (ISO 3166-1 alpha-2)';
+    public string $defaultCountry = 'Default country code (ISO 3166-1 alpha-2).';
 
-    #[Prop(type: 'array | null', default: 'null')]
-    public string $countries = 'Custom list of countries';
+    #[Prop(type: 'array|null', default: 'null')]
+    public string $countries = 'Custom list of countries.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $required = 'Required field.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Phone Input', order: 0)]
     public function basic(): StoryExample

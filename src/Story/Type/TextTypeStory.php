@@ -17,22 +17,22 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class TextTypeStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Text value to display';
+    public string $value = 'Text value to display.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $placeholder = 'Text to show when value is empty';
+    public string $placeholder = 'Text to show when value is empty.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $truncate = 'Truncate text with ellipsis when too long';
+    public string $truncate = 'Truncate text with ellipsis when too long.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $href = 'URL to make text a link';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $href = 'URL to make text a link.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $copyable = 'Show copy button to copy value';
+    public string $copyable = 'Show copy button to copy value.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Text', order: 0)]
     public function basic(): StoryExample

@@ -18,43 +18,43 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class StatItemStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $label = 'Stat label/title';
+    public string $label = 'Stat label/title.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Main value to display';
+    public string $value = 'Main value to display.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $description = 'Optional description text';
+    public string $description = 'Optional description text.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $icon = 'Icon name (e.g., "heroicons:users")';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $icon = 'Icon name (e.g., "heroicons:users").';
 
-    #[Prop(type: "'up' | 'down' | 'neutral' | null", default: 'null')]
-    public string $trend = 'Trend direction (auto-detected from change if not set)';
+    #[Prop(type: "'up'|'down'|'neutral'|null", default: 'null')]
+    public string $trend = 'Trend direction (auto-detected from change if not set).';
 
-    #[Prop(type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'")]
-    public string $size = 'Stat size';
+    #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
+    public string $size = 'Stat size.';
 
-    #[Prop(type: "'default' | 'outline' | 'flat' | 'glass'", default: "'default'")]
-    public string $variant = 'Card variant style';
+    #[Prop(type: "'default'|'outline'|'flat'|'glass'", default: "'default'")]
+    public string $variant = 'Card variant style.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $iconAttr = 'Icon positioning and styling (position, color, rounded, hideBg)';
+    public string $iconAttr = 'Icon positioning and styling (position, color, rounded, hideBg).';
 
     #[NestedAttribute]
-    public string $valueAttr = 'Value prefix and suffix';
+    public string $valueAttr = 'Value prefix and suffix.';
 
     #[NestedAttribute]
-    public string $labelAttr = 'Label positioning (first)';
+    public string $labelAttr = 'Label positioning (first).';
 
     #[NestedAttribute]
-    public string $trendAttr = 'Trend options (change, label, only, hideIcon, invertColors)';
+    public string $trendAttr = 'Trend options (change, label, only, hideIcon, invertColors).';
 
     #[NestedAttribute]
-    public string $cardAttr = 'Card options (clickable, centered, compact)';
+    public string $cardAttr = 'Card options (clickable, centered, compact).';
 
     #[Story('Basic Stat Item', order: 0)]
     public function basic(): StoryExample

@@ -17,50 +17,50 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class SearchStory extends AbstractComponentStory
 {
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form object';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form object.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $action = 'Form action URL';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $action = 'Form action URL.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $method = 'Form method (GET, POST)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $method = 'Form method (GET, POST).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form name attribute';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form name attribute.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Search input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Search input size.';
 
-    #[Prop(type: "'default' | 'filled' | 'flushed'", default: "'default'")]
-    public string $variant = 'Input style variant';
+    #[Prop(type: "'default'|'filled'|'flushed'", default: "'default'")]
+    public string $variant = 'Input style variant.';
 
-    #[Prop(type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'")]
-    public string $rounded = 'Border radius';
+    #[Prop(type: "'none'|'sm'|'md'|'lg'|'xl'|'full'", default: "'lg'")]
+    public string $rounded = 'Border radius.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $wrapper = 'Attributes passed to the input-wrapper element';
+    public string $wrapper = 'Attributes passed to the input-wrapper element.';
 
     #[NestedAttribute]
-    public string $icon = 'Icon attributes (icon:name, icon:class)';
+    public string $icon = 'Icon attributes (icon:name, icon:class).';
 
     #[NestedAttribute]
-    public string $input = 'Input attributes (input:name, input:value, input:placeholder)';
+    public string $input = 'Input attributes (input:name, input:value, input:placeholder).';
 
     #[NestedAttribute]
-    public string $submit = 'Submit button attributes (submit:show, submit:label, submit:icon)';
+    public string $submit = 'Submit button attributes (submit:show, submit:label, submit:icon).';
 
     #[NestedAttribute]
-    public string $divider = 'Divider attributes (divider:hide)';
+    public string $divider = 'Divider attributes (divider:hide).';
 
     #[NestedAttribute]
-    public string $token = 'CSRF token attributes (token:name, token:value)';
+    public string $token = 'CSRF token attributes (token:name, token:value).';
 
     #[Story('Default', order: 0)]
     public function default(): StoryExample
