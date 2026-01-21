@@ -1,6 +1,6 @@
 {% props value = '', class = '' %}
 {% set class = ('mt-1 text-sm/6 text-gray-700 dark:text-gray-300 col-span-2 sm:mt-0 ' ~ class)|tailwind_merge %}
 
-<dd {{ attributes}} class="{{ class }}">
+<dd {{ attributes.without('class') }} class="{{ class }}">
   {% block content %}{{ value|raw }}{% endblock %}
 </dd>

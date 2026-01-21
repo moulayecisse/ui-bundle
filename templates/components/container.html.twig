@@ -19,7 +19,7 @@
 ]|join(' ') %}
 
 <{{ tag }}
-    {{ attributes }}
+    {{ attributes.without('class') }}
     class="{{ (baseClasses ~ ' ' ~ class)|tailwind_merge }}"
 >
     {{ contentBlock|raw }}

@@ -71,8 +71,8 @@
 {% set class = (baseClasses ~ ' ' ~ invalidClasses ~ ' ' ~ currentSize.text ~ ' ' ~ currentSize.height ~ ' ' ~ currentVariant ~ ' ' ~ currentRounded ~ ' ' ~ class)|tailwind_merge %}
 
 {# Capture block content to check if they're empty #}
-{% set beforeContent %}{% block before %}{% endblock %}{% endset %}
-{% set afterContent %}{% block after %}{% endblock %}{% endset %}
+{% set beforeBlock %}{% block before '' %}{% endset %}
+{% set afterBlock %}{% block after '' %}{% endset %}
 
 <div
   {{ attributes.without('before', 'after', 'content') }}
@@ -83,12 +83,12 @@
   class="{{ class ?? '' }}"
 >
   {# BEFORE SLOT #}
-  {% if beforeContent|trim is not empty %}
+  {% if beforeBlock|trim is not empty %}
     <div
       class="{{ ('flex items-center shrink-0 ' ~ currentSize.beforePadding ~ ' ' ~ beforeAttrs.render('class'))|tailwind_merge }}"
       {{ beforeAttrs.without('class', 'divide') }}
     >
-      {{ beforeContent|raw }}
+      {{ beforeBlock|raw }}
     </div>
 
     {# Divider after before slot #}
@@ -108,7 +108,7 @@
   </div>
 
   {# AFTER SLOT #}
-  {% if afterContent|trim is not empty %}
+  {% if afterBlock|trim is not empty %}
     {# Divider before after slot #}
     {% if divideAfter %}
       <div class="flex items-center">
@@ -120,7 +120,7 @@
       class="{{ ('flex items-center shrink-0 ' ~ currentSize.afterPadding ~ ' ' ~ afterAttrs.render('class'))|tailwind_merge }}"
       {{ afterAttrs.without('class', 'divide') }}
     >
-      {{ afterContent|raw }}
+      {{ afterBlock|raw }}
     </div>
   {% endif %}
 </div>

@@ -5,10 +5,12 @@
 
 {% set class = ('flex flex-col gap-2 mb-6 w-full ' ~ class)|tailwind_merge %}
 
+{% set contentBlock %}{% block content '' %}{% endset %}
+
 <div
         {{ attributes }}
         data-controller="cisse--ui-bundle--menu"
         class="{{ class }}"
 >
-    {% block content '' %}
+    {{ contentBlock|raw }}
 </div>
