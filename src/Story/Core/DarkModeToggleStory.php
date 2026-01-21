@@ -17,19 +17,19 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class DarkModeToggleStory extends AbstractComponentStory
 {
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Toggle button size';
+    public string $size = 'Toggle button size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showLabel = 'Show text label next to icon';
+    public string $showLabel = 'Show text label next to icon.';
 
     #[Prop(type: 'string', default: "'lucide:sun'")]
-    public string $lightIcon = 'Icon shown in light mode';
+    public string $lightIcon = 'Icon shown in light mode.';
 
     #[Prop(type: 'string', default: "'lucide:moon'")]
-    public string $darkIcon = 'Icon shown in dark mode';
+    public string $darkIcon = 'Icon shown in dark mode.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Toggle', order: 0)]
     public function basic(): StoryExample

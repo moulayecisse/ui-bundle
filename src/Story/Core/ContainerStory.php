@@ -18,25 +18,25 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class ContainerStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "'div'")]
-    public string $tag = 'HTML tag for the container element';
+    public string $tag = 'HTML tag for the container element.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $border = 'Show border styling';
+    public string $border = 'Show border styling.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $shadow = 'Show shadow instead of border';
+    public string $shadow = 'Show shadow instead of border.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $rounded = 'Apply rounded corners';
+    public string $rounded = 'Apply rounded corners.';
 
     #[Prop(type: 'string', default: "'visible'")]
-    public string $overflow = 'Overflow behavior (visible, hidden, auto, scroll)';
+    public string $overflow = 'Overflow behavior (visible, hidden, auto, scroll).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Main container content';
+    public string $content = 'Main container content.';
 
     #[Story('Basic Container', order: 0)]
     public function basic(): StoryExample

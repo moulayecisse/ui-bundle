@@ -1,0 +1,23 @@
+{% props
+  class = '',
+  size = 'default',
+  small = false,
+  large = false,
+  text = null,
+%}
+
+{% if small %}
+  {% set size = 'sm' %}
+{% elseif large %}
+  {% set size = 'lg' %}
+{% endif %}
+
+{% set class = ('inline-flex items-center justify-center gap-0.5 font-sans font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-sm px-1.5 py-0.5 text-xs data-[size=sm]:text-[10px] data-[size=sm]:px-1 data-[size=sm]:py-0 data-[size=lg]:text-sm data-[size=lg]:px-2 data-[size=lg]:py-1 ' ~ class)|tailwind_merge %}
+
+{% set contentBlock %}{% block content text ?? '' %}{% endset %}
+
+<kbd
+  {{ attributes }}
+  data-size="{{ size }}"
+  class="{{ class }}"
+>{{ contentBlock|raw }}</kbd>

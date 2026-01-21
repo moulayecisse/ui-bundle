@@ -18,37 +18,37 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class SlideOverStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $title = 'The title displayed in the slide-over header';
+    public string $title = 'The title displayed in the slide-over header.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $description = 'Optional description text below the title';
+    public string $description = 'Optional description text below the title.';
 
     #[Prop(type: "'right'|'left'", default: "'right'")]
-    public string $position = 'Which side the panel slides in from';
+    public string $position = 'Which side the panel slides in from.';
 
     #[Prop(type: "'sm'|'default'|'lg'|'xl'|'full'", default: "'default'")]
-    public string $size = 'Width of the slide-over panel';
+    public string $size = 'Width of the slide-over panel.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $closeOnBackdrop = 'Close when clicking the backdrop';
+    public string $closeOnBackdrop = 'Close when clicking the backdrop.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $closeOnEscape = 'Close when pressing Escape key';
+    public string $closeOnEscape = 'Close when pressing Escape key.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $open = 'Initial open state of the panel';
+    public string $open = 'Initial open state of the panel.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $trigger = 'The element that triggers opening the slide-over';
+    public string $trigger = 'The element that triggers opening the slide-over.';
 
     #[Slot]
-    public string $content = 'The main content of the slide-over panel (default slot)';
+    public string $content = 'The main content of the slide-over panel (default slot).';
 
     #[Slot]
-    public string $footer = 'Optional footer area for action buttons';
+    public string $footer = 'Optional footer area for action buttons.';
 
     #[Story('Basic Slide Over', order: 0)]
     public function basic(): StoryExample

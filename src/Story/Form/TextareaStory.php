@@ -17,62 +17,62 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class TextareaStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Textarea value';
+    public string $value = 'Textarea value.';
 
     #[Prop(type: 'number', default: '3')]
-    public string $rows = 'Number of visible text rows';
+    public string $rows = 'Number of visible text rows.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $label = 'Label text above the textarea';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $label = 'Label text above the textarea.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $placeholder = 'Placeholder text';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $hint = 'Helper text below the textarea';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $hint = 'Helper text below the textarea.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $error = 'Error message (replaces hint when present)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $error = 'Error message (replaces hint when present).';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $maxLength = 'Maximum character limit';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $showCount = 'Show character count';
-
-    #[Prop(type: "'none' | 'vertical' | 'horizontal' | 'both'", default: "'vertical'")]
-    public string $resize = 'Resize behavior';
-
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Text and padding size';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $maxLength = 'Maximum character limit.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Whether field is required';
+    public string $showCount = 'Show character count.';
+
+    #[Prop(type: "'none'|'vertical'|'horizontal'|'both'", default: "'vertical'")]
+    public string $resize = 'Resize behavior.';
+
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Text and padding size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $autofocus = 'Autofocus on page load';
+    public string $required = 'Whether field is required.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the textarea';
+    public string $autofocus = 'Autofocus on page load.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $readonly = 'Make textarea read-only';
+    public string $disabled = 'Disable the textarea.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field for auto-configuration';
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $readonly = 'Make textarea read-only.';
+
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field for auto-configuration.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Default slot for textarea content/value';
+    public string $content = 'Default slot for textarea content/value.';
 
     #[Story('Basic Textarea', order: 0)]
     public function basic(): StoryExample

@@ -16,32 +16,32 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class UrlInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Input value';
+    public string $value = 'Input value.';
 
     #[Prop(type: 'string', default: "'https://example.com'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showValidation = 'Show validation state';
+    public string $showValidation = 'Show validation state.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $required = 'Required field.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic URL Input', order: 0)]
     public function basic(): StoryExample

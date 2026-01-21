@@ -16,20 +16,20 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class BadgeTypeStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Value to display (also used for auto color mapping)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Value to display (also used for auto color mapping).';
 
-    #[Prop(type: "'xs' | 'sm' | 'md' | 'lg'", default: "'sm'")]
-    public string $size = 'Badge size';
+    #[Prop(type: "'xs'|'sm'|'md'|'lg'", default: "'sm'")]
+    public string $size = 'Badge size.';
 
-    #[Prop(type: 'object | null', default: 'null')]
-    public string $mapping = 'Custom value-to-color mapping (overrides defaults)';
+    #[Prop(type: 'object|null', default: 'null')]
+    public string $mapping = 'Custom value-to-color mapping (overrides defaults).';
 
     #[Prop(type: 'string', default: "'-'")]
-    public string $fallback = 'Fallback text when value is null';
+    public string $fallback = 'Fallback text when value is null.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Auto-Mapped Status Badges', order: 0)]
     public function autoMapped(): StoryExample

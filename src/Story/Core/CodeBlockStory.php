@@ -18,22 +18,22 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class CodeBlockStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: 'null')]
-    public string $title = 'Optional header title displayed above the code';
+    public string $title = 'Optional header title displayed above the code.';
 
     #[Prop(type: 'string', default: "'json'")]
-    public string $language = 'Code language for syntax highlighting';
+    public string $language = 'Code language for syntax highlighting.';
 
     #[Prop(type: 'string', default: "'12rem'")]
-    public string $maxHeight = 'Maximum height with overflow scroll';
+    public string $maxHeight = 'Maximum height with overflow scroll.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $copyable = 'Show copy to clipboard button in header';
+    public string $copyable = 'Show copy to clipboard button in header.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'The code content to display';
+    public string $content = 'The code content to display.';
 
     #[Story('Basic JSON', order: 0)]
     public function basicJson(): StoryExample

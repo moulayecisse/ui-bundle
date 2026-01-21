@@ -18,41 +18,41 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class PageStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $title = 'Page title displayed as h1';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $title = 'Page title displayed as h1.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $description = 'Page description below title';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $description = 'Page description below title.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $breadcrumbs = 'Array of { label, link } objects for navigation';
+    public string $breadcrumbs = 'Array of { label, link } objects for navigation.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $actions = 'Action buttons displayed next to the title';
+    public string $actions = 'Action buttons displayed next to the title.';
 
     #[Slot]
-    public string $content = 'Main page content';
+    public string $content = 'Main page content.';
 
     #[NestedAttribute]
-    public string $breadcrumbsAttr = 'Customize the breadcrumbs nav element';
+    public string $breadcrumbsAttr = 'Customize the breadcrumbs nav element.';
 
     #[NestedAttribute]
-    public string $header = 'Customize the page header container';
+    public string $header = 'Customize the page header container.';
 
     #[NestedAttribute]
-    public string $titleAttr = 'Customize the h1 title element';
+    public string $titleAttr = 'Customize the h1 title element.';
 
     #[NestedAttribute]
-    public string $descriptionAttr = 'Customize the description paragraph';
+    public string $descriptionAttr = 'Customize the description paragraph.';
 
     #[NestedAttribute]
-    public string $actionsAttr = 'Customize the actions container';
+    public string $actionsAttr = 'Customize the actions container.';
 
     #[NestedAttribute]
-    public string $contentAttr = 'Customize the content wrapper';
+    public string $contentAttr = 'Customize the content wrapper.';
 
     #[Story('Basic Page Layout', order: 0)]
     public function basic(): StoryExample

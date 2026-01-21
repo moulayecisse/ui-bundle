@@ -18,37 +18,37 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class TableStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes for the table element';
+    public string $class = 'Additional CSS classes for the table element.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $striped = 'Alternate row background colors';
+    public string $striped = 'Alternate row background colors.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $hover = 'Highlight rows on hover';
+    public string $hover = 'Highlight rows on hover.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $compact = 'Reduce cell padding for compact display';
+    public string $compact = 'Reduce cell padding for compact display.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Table text size';
+    public string $size = 'Table text size.';
 
     #[Prop(type: "'default'|'card'|'simple'", default: "'default'")]
-    public string $variant = 'Visual style variant';
+    public string $variant = 'Visual style variant.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $stickyHeader = 'Make header sticky on scroll';
+    public string $stickyHeader = 'Make header sticky on scroll.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $responsive = 'Wrap table in overflow container';
+    public string $responsive = 'Wrap table in overflow container.';
 
     #[Slot]
-    public string $thead = 'Table header rows (<twig:ui:tr> with <twig:ui:th> cells)';
+    public string $thead = 'Table header rows with header cells.';
 
     #[Slot]
-    public string $tbody = 'Table body rows (<twig:ui:tr> with <twig:ui:td> cells)';
+    public string $tbody = 'Table body rows with data cells.';
 
     #[Slot]
-    public string $tfoot = 'Optional table footer rows';
+    public string $tfoot = 'Optional table footer rows.';
 
     #[Story('Basic Table', order: 0)]
     public function basic(): StoryExample

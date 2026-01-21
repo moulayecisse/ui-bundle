@@ -16,35 +16,35 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class PasswordInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Input value';
+    public string $value = 'Input value.';
 
     #[Prop(type: 'string', default: "'Enter password...'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showStrength = 'Show password strength indicator';
+    public string $disabled = 'Disabled state.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $showStrength = 'Show password strength indicator.';
 
     #[Prop(type: 'number', default: '8')]
-    public string $minLength = 'Minimum password length for strength calculation';
+    public string $minLength = 'Minimum password length for strength calculation.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $required = 'Required field.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Password Input', order: 0)]
     public function basic(): StoryExample

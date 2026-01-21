@@ -18,37 +18,37 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class FormActionsStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "'Enregistrer'")]
-    public string $submitLabel = 'Label for the submit button';
+    public string $submitLabel = 'Label for the submit button.';
 
     #[Prop(type: 'string', default: "'Annuler'")]
-    public string $cancelLabel = 'Label for the cancel button';
+    public string $cancelLabel = 'Label for the cancel button.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showCancel = 'Show the cancel button';
+    public string $showCancel = 'Show the cancel button.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loading = 'Show loading state on submit button';
+    public string $loading = 'Show loading state on submit button.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $loadingLabel = 'Custom label during loading (defaults to submitLabel + "...")';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the submit button';
-
-    #[Prop(type: "'left' | 'center' | 'right' | 'stretch'", default: "'right'")]
-    public string $align = 'Button alignment';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $loadingLabel = 'Custom label during loading (defaults to submitLabel + "...").';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $stackOnMobile = 'Stack buttons vertically on mobile';
+    public string $disabled = 'Disable the submit button.';
 
-    #[Prop(type: "'primary' | 'success' | 'danger'", default: "'primary'")]
-    public string $submitVariant = 'Submit button color variant';
+    #[Prop(type: "'left'|'center'|'right'|'stretch'", default: "'right'")]
+    public string $align = 'Button alignment.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $stackOnMobile = 'Stack buttons vertically on mobile.';
+
+    #[Prop(type: "'primary'|'success'|'danger'", default: "'primary'")]
+    public string $submitVariant = 'Submit button color variant.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $extra = 'Additional action buttons';
+    public string $extra = 'Additional action buttons.';
 
     #[Story('Default', order: 0)]
     public function default(): StoryExample

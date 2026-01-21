@@ -18,34 +18,34 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class TabsStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $tabs = 'Array of tab objects with key, label, icon, badge, disabled';
+    public string $tabs = 'Array of tab objects with key, label, icon, badge, disabled.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $current = 'Key of the currently active tab';
+    public string $current = 'Key of the currently active tab.';
 
     #[Prop(type: "'underline'|'pills'|'boxed'", default: "'underline'")]
-    public string $variant = 'Tab style variant';
+    public string $variant = 'Tab style variant.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Tab size (text and padding)';
+    public string $size = 'Tab size (text and padding).';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $fullWidth = 'Stretch tabs to fill container width';
+    public string $fullWidth = 'Stretch tabs to fill container width.';
 
     #[Prop(type: "'horizontal'|'vertical'", default: "'horizontal'")]
-    public string $orientation = 'Tab layout orientation';
+    public string $orientation = 'Tab layout orientation.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $animated = 'Enable transition animations';
+    public string $animated = 'Enable transition animations.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Tab items (when not using tabs prop)';
+    public string $content = 'Tab items (when not using tabs prop).';
 
     #[Slot]
-    public string $panels = 'Tab panel content';
+    public string $panels = 'Tab panel content.';
 
     #[Story('Underline Variant', order: 0)]
     public function underline(): StoryExample

@@ -16,50 +16,50 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class SliderStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
-
-    #[Prop(type: 'number', default: '0')]
-    public string $value = 'Current slider value';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'number', default: '0')]
-    public string $min = 'Minimum value';
+    public string $value = 'Current slider value.';
+
+    #[Prop(type: 'number', default: '0')]
+    public string $min = 'Minimum value.';
 
     #[Prop(type: 'number', default: '100')]
-    public string $max = 'Maximum value';
+    public string $max = 'Maximum value.';
 
     #[Prop(type: 'number', default: '1')]
-    public string $step = 'Step increment between values';
+    public string $step = 'Step increment between values.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disable the slider';
+    public string $disabled = 'Disable the slider.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showValue = 'Show current value';
+    public string $showValue = 'Show current value.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showMinMax = 'Show min and max labels';
+    public string $showMinMax = 'Show min and max labels.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Slider track and thumb size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Slider track and thumb size.';
 
-    #[Prop(type: "'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'", default: "'primary'")]
-    public string $color = 'Slider color theme';
+    #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'", default: "'primary'")]
+    public string $color = 'Slider color theme.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $showTicks = 'Show tick marks below slider';
+    public string $showTicks = 'Show tick marks below slider.';
 
     #[Prop(type: 'number', default: '5')]
-    public string $tickCount = 'Number of tick marks when showTicks is true';
+    public string $tickCount = 'Number of tick marks when showTicks is true.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $valueFormat = 'Format string for value display (use %value% placeholder)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $valueFormat = 'Format string for value display (use %value% placeholder).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Slider', order: 0)]
     public function basic(): StoryExample

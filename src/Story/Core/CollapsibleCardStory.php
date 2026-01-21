@@ -19,34 +19,34 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class CollapsibleCardStory extends AbstractComponentStory
 {
     #[Prop(type: 'string|null', default: 'null')]
-    public string $title = 'Card title displayed in header';
+    public string $title = 'Card title displayed in header.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $description = 'Card description below title';
+    public string $description = 'Card description below title.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $defaultExpanded = 'Initial expanded/collapsed state';
+    public string $defaultExpanded = 'Initial expanded/collapsed state.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes for container';
+    public string $class = 'Additional CSS classes for container.';
 
     #[Slot]
-    public string $header = 'Custom header content (replaces title/description mode)';
+    public string $header = 'Custom header content (replaces title/description mode).';
 
     #[Slot]
-    public string $actions = 'Action buttons next to the collapse toggle';
+    public string $actions = 'Action buttons next to the collapse toggle.';
 
     #[Slot]
-    public string $content = 'Main card content (default slot)';
+    public string $content = 'Main card content (default slot).';
 
     #[NestedAttribute]
-    public string $card = 'Customize the card container';
+    public string $card = 'Customize the card container.';
 
     #[NestedAttribute]
-    public string $headerAttr = 'Customize the header button';
+    public string $headerAttr = 'Customize the header button.';
 
     #[NestedAttribute]
-    public string $contentAttr = 'Customize the content wrapper';
+    public string $contentAttr = 'Customize the content wrapper.';
 
     #[Story('Basic Collapsible Card', order: 0)]
     public function basic(): StoryExample

@@ -16,41 +16,41 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class NumberInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $value = 'Input value';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $value = 'Input value.';
 
     #[Prop(type: 'string', default: "'0'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $min = 'Minimum value';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $min = 'Minimum value.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $max = 'Maximum value';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $max = 'Maximum value.';
 
     #[Prop(type: 'number', default: '1')]
-    public string $step = 'Step increment value';
+    public string $step = 'Step increment value.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showStepper = 'Show increment/decrement buttons';
+    public string $showStepper = 'Show increment/decrement buttons.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $required = 'Required field.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Number Input', order: 0)]
     public function basic(): StoryExample

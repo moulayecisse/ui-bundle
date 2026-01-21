@@ -18,34 +18,34 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class MobileListStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of items to display';
+    public string $items = 'Array of items to display.';
 
     #[Prop(type: 'string', default: "'id'")]
-    public string $keyField = 'Field to use as unique key for each item';
+    public string $keyField = 'Field to use as unique key for each item.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $selectable = 'Enable row selection with checkboxes';
+    public string $selectable = 'Enable row selection with checkboxes.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loading = 'Show loading skeleton';
+    public string $loading = 'Show loading skeleton.';
 
     #[Prop(type: 'number', default: '5')]
-    public string $loadingItems = 'Number of skeleton items when loading';
+    public string $loadingItems = 'Number of skeleton items when loading.';
 
     #[Prop(type: 'string', default: "'No items found'")]
-    public string $emptyLabel = 'Text to show when no items';
+    public string $emptyLabel = 'Text to show when no items.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Main content area - should contain the loop over items';
+    public string $content = 'Main content area - should contain the loop over items.';
 
     #[Slot]
-    public string $empty = 'Custom empty state content';
+    public string $empty = 'Custom empty state content.';
 
     #[Slot]
-    public string $select_all = 'Custom select all header (when selectable)';
+    public string $select_all = 'Custom select all header (when selectable).';
 
     #[Story('Basic Mobile List', order: 0)]
     public function basic(): StoryExample

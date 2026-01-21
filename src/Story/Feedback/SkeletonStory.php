@@ -16,29 +16,29 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class SkeletonStory extends AbstractComponentStory
 {
-    #[Prop(type: "'text' | 'circular' | 'rectangular' | 'rounded' | 'avatar' | 'button' | 'input' | 'card'", default: "'text'")]
-    public string $variant = 'Skeleton shape variant';
+    #[Prop(type: "'text'|'circular'|'rectangular'|'rounded'|'avatar'|'button'|'input'|'card'", default: "'text'")]
+    public string $variant = 'Skeleton shape variant.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $width = 'Custom width (CSS value)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $width = 'Custom width (CSS value).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $height = 'Custom height (CSS value)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $height = 'Custom height (CSS value).';
 
     #[Prop(type: 'number', default: '1')]
-    public string $lines = 'Number of lines (text variant only)';
+    public string $lines = 'Number of lines (text variant only).';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $animate = 'Enable pulse animation';
+    public string $animate = 'Enable pulse animation.';
 
-    #[Prop(type: "'slow' | 'normal' | 'fast'", default: "'normal'")]
-    public string $speed = 'Animation speed';
+    #[Prop(type: "'slow'|'normal'|'fast'", default: "'normal'")]
+    public string $speed = 'Animation speed.';
 
-    #[Prop(type: "'default' | 'primary' | 'light'", default: "'default'")]
-    public string $color = 'Background color theme';
+    #[Prop(type: "'default'|'primary'|'light'", default: "'default'")]
+    public string $color = 'Background color theme.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Text Skeleton', order: 0)]
     public function text(): StoryExample

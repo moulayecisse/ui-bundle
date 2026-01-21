@@ -16,41 +16,41 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class MoneyInputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $value = 'Input value';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $value = 'Input value.';
 
     #[Prop(type: 'string', default: "'0.00'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: "'EUR' | 'USD' | 'GBP' | 'XOF' | 'MAD' | 'CHF' | 'CAD'", default: "'EUR'")]
-    public string $currency = 'Currency code';
+    #[Prop(type: "'EUR'|'USD'|'GBP'|'XOF'|'MAD'|'CHF'|'CAD'", default: "'EUR'")]
+    public string $currency = 'Currency code.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $min = 'Minimum value';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $min = 'Minimum value.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $max = 'Maximum value';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $max = 'Maximum value.';
 
     #[Prop(type: 'number', default: '2')]
-    public string $decimals = 'Decimal places';
+    public string $decimals = 'Decimal places.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    public string $required = 'Required field.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field for auto-configuration';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field for auto-configuration.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Money Input', order: 0)]
     public function basic(): StoryExample

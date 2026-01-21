@@ -18,40 +18,40 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class TooltipStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $tooltip = 'Tooltip text content';
+    public string $tooltip = 'Tooltip text content.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $contentProp = 'Trigger element content (alternative to slot)';
+    public string $contentProp = 'Trigger element content (alternative to slot).';
 
     #[Prop(type: "'top'|'bottom'|'left'|'right'", default: "'top'")]
-    public string $position = 'Tooltip position relative to trigger';
+    public string $position = 'Tooltip position relative to trigger.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showArrow = 'Show arrow pointing to trigger';
+    public string $showArrow = 'Show arrow pointing to trigger.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $unstyled = 'Remove default trigger styles';
+    public string $unstyled = 'Remove default trigger styles.';
 
     #[Prop(type: "'dark'|'light'|'primary'", default: "'dark'")]
-    public string $variant = 'Tooltip color variant';
+    public string $variant = 'Tooltip color variant.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Tooltip text and padding size';
+    public string $size = 'Tooltip text and padding size.';
 
     #[Prop(type: 'number', default: '0')]
-    public string $delay = 'Delay before showing tooltip (ms)';
+    public string $delay = 'Delay before showing tooltip (ms).';
 
     #[Prop(type: "'hover'|'click'|'focus'", default: "'hover'")]
-    public string $trigger = 'Event that triggers tooltip';
+    public string $trigger = 'Event that triggers tooltip.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Trigger element content';
+    public string $content = 'Trigger element content.';
 
     #[Slot]
-    public string $tooltipSlot = 'Tooltip content (overrides tooltip prop)';
+    public string $tooltipSlot = 'Tooltip content (overrides tooltip prop).';
 
     #[Story('Basic Tooltip', order: 0)]
     public function basic(): StoryExample

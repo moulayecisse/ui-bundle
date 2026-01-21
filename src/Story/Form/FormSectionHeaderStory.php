@@ -18,38 +18,38 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class FormSectionHeaderStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $icon = 'Icon name (Symfony UX Icons format, e.g., heroicons:user)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $icon = 'Icon name (Symfony UX Icons format, e.g., heroicons:user).';
 
-    #[Prop(type: "'primary' | 'secondary' | 'gray' | 'success' | 'warning' | 'danger'", default: "'primary'")]
-    public string $iconColor = 'Icon color theme';
+    #[Prop(type: "'primary'|'secondary'|'gray'|'success'|'warning'|'danger'", default: "'primary'")]
+    public string $iconColor = 'Icon color theme.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $subtitle = 'Subtitle text (card variant only)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $subtitle = 'Subtitle text (card variant only).';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $bordered = 'Show top border separator';
+    public string $bordered = 'Show top border separator.';
 
-    #[Prop(type: "'inline' | 'card'", default: "'inline'")]
-    public string $variant = 'Header style variant';
+    #[Prop(type: "'inline'|'card'", default: "'inline'")]
+    public string $variant = 'Header style variant.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Header title text (default slot)';
+    public string $content = 'Header title text (default slot).';
 
     #[Slot]
-    public string $actions = 'Action buttons (card variant only)';
+    public string $actions = 'Action buttons (card variant only).';
 
     #[NestedAttribute]
-    public string $iconAttr = 'Customize icon styling';
+    public string $iconAttr = 'Customize icon styling.';
 
     #[NestedAttribute]
-    public string $title = 'Customize title styling';
+    public string $title = 'Customize title styling.';
 
     #[NestedAttribute]
-    public string $subtitleAttr = 'Customize subtitle styling';
+    public string $subtitleAttr = 'Customize subtitle styling.';
 
     #[Story('Inline Variant (default)', order: 0)]
     public function inline(): StoryExample

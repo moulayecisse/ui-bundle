@@ -18,34 +18,34 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class PopoverStory extends AbstractComponentStory
 {
     #[Prop(type: "'bottom'|'top'|'left'|'right'", default: "'bottom'")]
-    public string $position = 'Position of the popover relative to trigger';
+    public string $position = 'Position of the popover relative to trigger.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $hover = 'Open on hover instead of click';
+    public string $hover = 'Open on hover instead of click.';
 
     #[Prop(type: "'auto'|'sm'|'md'|'lg'|'xl'|'full'", default: "'auto'")]
-    public string $width = 'Width preset for the popover';
+    public string $width = 'Width preset for the popover.';
 
     #[Prop(type: 'number', default: '8')]
-    public string $offset = 'Distance from trigger element in pixels';
+    public string $offset = 'Distance from trigger element in pixels.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $arrow = 'Show arrow pointing to trigger';
+    public string $arrow = 'Show arrow pointing to trigger.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $closeOnClickOutside = 'Close when clicking outside';
+    public string $closeOnClickOutside = 'Close when clicking outside.';
 
     #[Prop(type: "'default'|'dark'|'transparent'", default: "'default'")]
-    public string $variant = 'Visual style variant';
+    public string $variant = 'Visual style variant.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $trigger = 'The element that triggers the popover (button, link, etc.)';
+    public string $trigger = 'The element that triggers the popover (button, link, etc.).';
 
     #[Slot]
-    public string $content = 'The popover content (default slot)';
+    public string $content = 'The popover content (default slot).';
 
     #[Story('Basic Popover', order: 0)]
     public function basic(): StoryExample

@@ -17,10 +17,10 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class PaginationStory extends AbstractComponentStory
 {
     #[Prop(type: 'Pagination', default: '-')]
-    public string $pagination = 'Pagination model object with page info';
+    public string $pagination = 'Pagination model object with page info.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Pagination Preview', order: 0)]
     public function preview(): StoryExample

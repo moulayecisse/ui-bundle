@@ -20,51 +20,51 @@ class StepperStory extends AbstractComponentStory
 {
     // Props
     #[Prop(type: 'array', default: '[]')]
-    public string $steps = 'Array of step objects with title, description, icon, url properties';
+    public string $steps = 'Array of step objects with title, description, icon, url properties.';
 
     #[Prop(type: 'integer', default: '0')]
-    public string $currentStep = 'Index of the current active step';
+    public string $currentStep = 'Index of the current active step.';
 
     #[Prop(type: "'horizontal'|'vertical'", default: "'horizontal'")]
-    public string $orientation = 'Stepper layout orientation';
+    public string $orientation = 'Stepper layout orientation.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Size of step circles and text';
+    public string $size = 'Size of step circles and text.';
 
     #[Prop(type: "'default'", default: "'default'")]
-    public string $variant = 'Stepper style variant';
+    public string $variant = 'Stepper style variant.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $clickable = 'Allow clicking on completed steps';
+    public string $clickable = 'Allow clicking on completed steps.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showNumbers = 'Show step numbers in circles';
+    public string $showNumbers = 'Show step numbers in circles.';
 
     #[Prop(type: "'primary'|'success'|'info'", default: "'primary'")]
-    public string $color = 'Color theme for active/completed steps';
+    public string $color = 'Color theme for active/completed steps.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     // Slots
     #[Slot]
-    public string $content = 'Nested stepper:item components (alternative to steps array)';
+    public string $content = 'Nested stepper:item components (alternative to steps array).';
 
     // Nested Attributes
     #[NestedAttribute]
-    public string $step = 'Customize individual step containers';
+    public string $step = 'Customize individual step containers.';
 
     #[NestedAttribute]
-    public string $circle = 'Customize step circle elements';
+    public string $circle = 'Customize step circle elements.';
 
     #[NestedAttribute]
-    public string $line = 'Customize progress line';
+    public string $line = 'Customize progress line.';
 
     #[NestedAttribute]
-    public string $title = 'Customize step titles';
+    public string $title = 'Customize step titles.';
 
     #[NestedAttribute]
-    public string $description = 'Customize step descriptions';
+    public string $description = 'Customize step descriptions.';
 
     // Stories
     #[Story('Array-based Syntax', order: 0)]

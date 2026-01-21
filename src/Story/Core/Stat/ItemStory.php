@@ -18,43 +18,43 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class ItemStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $label = 'Stat label/title';
+    public string $label = 'Stat label/title.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Main value to display';
+    public string $value = 'Main value to display.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $description = 'Optional description text';
+    public string $description = 'Optional description text.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $icon = 'Icon name (e.g., "heroicons:users")';
+    public string $icon = 'Icon name (e.g., "heroicons:users").';
 
     #[Prop(type: "'up'|'down'|'neutral'|null", default: 'null')]
-    public string $trend = 'Trend direction (auto-detected from change if not set)';
+    public string $trend = 'Trend direction (auto-detected from change if not set).';
 
     #[Prop(type: "'xs'|'sm'|'md'|'lg'|'xl'", default: "'md'")]
-    public string $size = 'Stat size';
+    public string $size = 'Stat size.';
 
     #[Prop(type: "'default'|'outline'|'flat'|'glass'", default: "'default'")]
-    public string $variant = 'Card variant style';
+    public string $variant = 'Card variant style.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $iconAttr = 'Icon customization (position, color, rounded, hideBg)';
+    public string $iconAttr = 'Icon customization (position, color, rounded, hideBg).';
 
     #[NestedAttribute]
-    public string $valueAttr = 'Value customization (prefix, suffix)';
+    public string $valueAttr = 'Value customization (prefix, suffix).';
 
     #[NestedAttribute]
-    public string $labelAttr = 'Label customization (first)';
+    public string $labelAttr = 'Label customization (first).';
 
     #[NestedAttribute]
-    public string $trendAttr = 'Trend customization (change, label, only, hideIcon, invertColors)';
+    public string $trendAttr = 'Trend customization (change, label, only, hideIcon, invertColors).';
 
     #[NestedAttribute]
-    public string $cardAttr = 'Card customization (clickable, centered, compact)';
+    public string $cardAttr = 'Card customization (clickable, centered, compact).';
 
     #[Story('Basic Stat Item', order: 0)]
     public function basic(): StoryExample

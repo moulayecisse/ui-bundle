@@ -18,67 +18,67 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class CardStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $title = 'Card title text';
+    public string $title = 'Card title text.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $description = 'Card description below title';
+    public string $description = 'Card description below title.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $icon = 'Icon name to display in header';
+    public string $icon = 'Icon name to display in header.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $divide = 'Show dividers between header, content, and footer';
+    public string $divide = 'Show dividers between header, content, and footer.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $collapsible = 'Enable collapse/expand functionality';
+    public string $collapsible = 'Enable collapse/expand functionality.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $defaultExpanded = 'Initial expanded state (when collapsible)';
+    public string $defaultExpanded = 'Initial expanded state (when collapsible).';
 
     #[Prop(type: 'string', default: "'div'")]
-    public string $tag = 'HTML tag for the card container';
+    public string $tag = 'HTML tag for the card container.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $border = 'Show border styling (auto: false when collapsible)';
+    public string $border = 'Show border styling (auto: false when collapsible).';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $shadow = 'Show shadow (auto: true when collapsible)';
+    public string $shadow = 'Show shadow (auto: true when collapsible).';
 
     #[Prop(type: 'string', default: "'visible'")]
-    public string $overflow = 'Overflow behavior (auto: hidden when collapsible)';
+    public string $overflow = 'Overflow behavior (auto: hidden when collapsible).';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loading = 'Show loading skeleton instead of content';
+    public string $loading = 'Show loading skeleton instead of content.';
 
     #[Prop(type: 'number', default: '3')]
-    public string $loadingLines = 'Number of skeleton lines when loading';
+    public string $loadingLines = 'Number of skeleton lines when loading.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loadingAvatar = 'Show avatar in loading skeleton';
+    public string $loadingAvatar = 'Show avatar in loading skeleton.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $loadingActions = 'Show action buttons in loading skeleton';
+    public string $loadingActions = 'Show action buttons in loading skeleton.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $titleSlot = 'Custom title content (overrides title prop)';
+    public string $titleSlot = 'Custom title content (overrides title prop).';
 
     #[Slot]
-    public string $descriptionSlot = 'Custom description content (overrides description prop)';
+    public string $descriptionSlot = 'Custom description content (overrides description prop).';
 
     #[Slot]
-    public string $actions = 'Action buttons in the header area';
+    public string $actions = 'Action buttons in the header area.';
 
     #[Slot]
-    public string $header = 'Custom header content';
+    public string $header = 'Custom header content.';
 
     #[Slot]
-    public string $content = 'Main card content';
+    public string $content = 'Main card content.';
 
     #[Slot]
-    public string $footer = 'Footer content below main content';
+    public string $footer = 'Footer content below main content.';
 
     #[Story('Basic Card', order: 0)]
     public function basic(): StoryExample

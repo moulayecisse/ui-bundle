@@ -17,22 +17,22 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class DividerStory extends AbstractComponentStory
 {
     #[Prop(type: "'horizontal'|'vertical'", default: "'horizontal'")]
-    public string $orientation = 'Divider direction';
+    public string $orientation = 'Divider direction.';
 
     #[Prop(type: "'solid'|'dashed'|'dotted'", default: "'solid'")]
-    public string $variant = 'Line style variant';
+    public string $variant = 'Line style variant.';
 
     #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
-    public string $size = 'Line thickness';
+    public string $size = 'Line thickness.';
 
     #[Prop(type: 'string|null', default: 'null')]
-    public string $label = 'Optional text label centered on the divider';
+    public string $label = 'Optional text label centered on the divider.';
 
     #[Prop(type: "'default'|'primary'|'muted'", default: "'default'")]
-    public string $color = 'Color scheme';
+    public string $color = 'Color scheme.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Divider', order: 0)]
     public function basic(): StoryExample

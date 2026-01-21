@@ -17,53 +17,53 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class InputGroupStory extends AbstractComponentStory
 {
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $type = 'Input type (auto-detected from form)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $type = 'Input type (auto-detected from form).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Field ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Field ID.';
 
     #[Prop(type: 'mixed', default: 'null')]
-    public string $value = 'Input value';
+    public string $value = 'Input value.';
 
-    #[Prop(type: "'vertical' | 'horizontal'", default: "'vertical'")]
-    public string $layout = 'Label/input layout';
+    #[Prop(type: "'vertical'|'horizontal'", default: "'vertical'")]
+    public string $layout = 'Label/input layout.';
 
-    #[Prop(type: 'number | null', default: 'null')]
-    public string $col = 'Column span (1-12)';
+    #[Prop(type: 'number|null', default: 'null')]
+    public string $col = 'Column span (1-12).';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size.';
 
-    #[Prop(type: "'default' | 'filled' | 'flushed'", default: "'default'")]
-    public string $variant = 'Input variant';
+    #[Prop(type: "'default'|'filled'|'flushed'", default: "'default'")]
+    public string $variant = 'Input variant.';
 
-    #[Prop(type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'")]
-    public string $rounded = 'Border radius';
+    #[Prop(type: "'none'|'sm'|'md'|'lg'|'xl'|'full'", default: "'lg'")]
+    public string $rounded = 'Border radius.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[NestedAttribute]
-    public string $wrapper = 'Attributes passed to the outer container';
+    public string $wrapper = 'Attributes passed to the outer container.';
 
     #[NestedAttribute]
-    public string $label = 'Label attributes (label:text, label:col, label:class)';
+    public string $label = 'Label attributes (label:text, label:col, label:class).';
 
     #[NestedAttribute]
-    public string $input = 'Input attributes (input:placeholder, input:required, input:class)';
+    public string $input = 'Input attributes (input:placeholder, input:required, input:class).';
 
     #[NestedAttribute]
-    public string $help = 'Help text attributes (help:text, help:class)';
+    public string $help = 'Help text attributes (help:text, help:class).';
 
     #[NestedAttribute]
-    public string $error = 'Error attributes (error:text, error:class)';
+    public string $error = 'Error attributes (error:text, error:class).';
 
     #[Story('Basic (Vertical)', order: 0)]
     public function basic(): StoryExample

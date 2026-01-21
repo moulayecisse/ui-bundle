@@ -16,47 +16,47 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class InputStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $type = 'Input type (text, email, password, number, date, etc.)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $type = 'Input type (text, email, password, number, date, etc.).';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Input value';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Input value.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $placeholder = 'Placeholder text';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: 'boolean | null', default: 'null')]
-    public string $required = 'Whether field is required';
+    #[Prop(type: 'boolean|null', default: 'null')]
+    public string $required = 'Whether field is required.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $autofocus = 'Autofocus on page load';
+    public string $autofocus = 'Autofocus on page load.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $autocomplete = 'Autocomplete attribute value';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $autocomplete = 'Autocomplete attribute value.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Input size (affects height and text)';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Input size (affects height and text).';
 
-    #[Prop(type: "'default' | 'filled' | 'flushed' | 'unstyled'", default: "'default'")]
-    public string $variant = 'Input visual style';
+    #[Prop(type: "'default'|'filled'|'flushed'|'unstyled'", default: "'default'")]
+    public string $variant = 'Input visual style.';
 
-    #[Prop(type: "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'lg'")]
-    public string $rounded = 'Border radius';
+    #[Prop(type: "'none'|'sm'|'md'|'lg'|'xl'|'full'", default: "'lg'")]
+    public string $rounded = 'Border radius.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field for auto-configuration';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field for auto-configuration.';
 
-    #[Prop(type: 'array | null', default: 'null')]
-    public string $options = 'Options for choice/select type';
+    #[Prop(type: 'array|null', default: 'null')]
+    public string $options = 'Options for choice/select type.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Input', order: 0)]
     public function basic(): StoryExample

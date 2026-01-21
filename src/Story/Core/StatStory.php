@@ -20,10 +20,10 @@ class StatStory extends AbstractComponentStory
     public string $items = 'Array of stat items with label, value, icon, change, etc.';
 
     #[Prop(type: 'number', default: '4')]
-    public string $cols = 'Number of columns in the grid';
+    public string $cols = 'Number of columns in the grid.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Stats Grid', order: 0)]
     public function basic(): StoryExample

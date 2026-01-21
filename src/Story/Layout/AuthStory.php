@@ -19,82 +19,82 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class AuthStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $appName = 'Application name shown with logo';
+    public string $appName = 'Application name shown with logo.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $appIcon = 'Icon name (e.g., "heroicons:cube")';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $appIcon = 'Icon name (e.g., "heroicons:cube").';
 
     #[Prop(type: 'string', default: "'size-7 text-white'")]
-    public string $appIconClass = 'CSS classes for app icon';
+    public string $appIconClass = 'CSS classes for app icon.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $headline = 'Main headline text (e.g., "Welcome to")';
+    public string $headline = 'Main headline text (e.g., "Welcome to").';
 
     #[Prop(type: 'string', default: "''")]
-    public string $subHeadline = 'Sub-headline text (e.g., "MyApp Platform")';
+    public string $subHeadline = 'Sub-headline text (e.g., "MyApp Platform").';
 
     #[Prop(type: 'string', default: "''")]
-    public string $description = 'Description text below headlines';
+    public string $description = 'Description text below headlines.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $features = 'List of features: { text, icon?, iconClass? } or strings';
+    public string $features = 'List of features: { text, icon?, iconClass? } or strings.';
 
     #[Prop(type: 'string', default: "'heroicons:check'")]
-    public string $featureIcon = 'Default icon for features';
+    public string $featureIcon = 'Default icon for features.';
 
     #[Prop(type: 'string', default: "'size-5 text-white'")]
-    public string $featureIconClass = 'Default CSS classes for feature icons';
+    public string $featureIconClass = 'Default CSS classes for feature icons.';
 
     #[Prop(type: 'string', default: "'from-primary-700'")]
-    public string $gradientFrom = 'Starting gradient class';
+    public string $gradientFrom = 'Starting gradient class.';
 
     #[Prop(type: 'string', default: "'to-primary-800'")]
-    public string $gradientTo = 'Ending gradient class';
+    public string $gradientTo = 'Ending gradient class.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showDecorations = 'Show decorative blur circles';
+    public string $showDecorations = 'Show decorative blur circles.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showPattern = 'Show dot pattern overlay';
+    public string $showPattern = 'Show dot pattern overlay.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $formTitle = 'Title above the form';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $formTitle = 'Title above the form.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $formSubtitle = 'Subtitle above the form';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $formSubtitle = 'Subtitle above the form.';
 
     #[Prop(type: 'string', default: "'/'")]
-    public string $homeLink = 'URL for logo link';
+    public string $homeLink = 'URL for logo link.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'The login/register form content';
+    public string $content = 'The login/register form content.';
 
     #[Slot]
-    public string $branding_logo = 'Custom logo for the branding panel (desktop)';
+    public string $branding_logo = 'Custom logo for the branding panel (desktop).';
 
     #[Slot]
-    public string $mobile_logo = 'Custom logo for mobile view';
+    public string $mobile_logo = 'Custom logo for mobile view.';
 
     #[NestedAttribute]
-    public string $branding = 'Customize the branding panel (left side)';
+    public string $branding = 'Customize the branding panel (left side).';
 
     #[NestedAttribute]
-    public string $formPanel = 'Customize the form panel (right side)';
+    public string $formPanel = 'Customize the form panel (right side).';
 
     #[NestedAttribute]
-    public string $form = 'Customize the form container';
+    public string $form = 'Customize the form container.';
 
     #[NestedAttribute]
-    public string $formHeader = 'Customize the form header section';
+    public string $formHeader = 'Customize the form header section.';
 
     #[NestedAttribute]
-    public string $featuresAttr = 'Customize the features list container';
+    public string $featuresAttr = 'Customize the features list container.';
 
     #[NestedAttribute]
-    public string $mobileLogo = 'Customize the mobile logo container';
+    public string $mobileLogo = 'Customize the mobile logo container.';
 
     #[Story('Overview', order: 0)]
     public function overview(): StoryExample

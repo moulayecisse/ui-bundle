@@ -17,40 +17,40 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class IconPickerStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "'icon'")]
-    public string $name = 'Form field name';
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $value = 'Selected icon name (e.g., "mdi:heart")';
+    public string $value = 'Selected icon name (e.g., "mdi:heart").';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $label = 'Label text';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $label = 'Label text.';
 
     #[Prop(type: 'string', default: "'Search for an icon...'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $help = 'Help text below input';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $help = 'Help text below input.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $error = 'Error message';
-
-    #[Prop(type: 'boolean', default: 'false')]
-    public string $required = 'Required field';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $error = 'Error message.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $required = 'Required field.';
+
+    #[Prop(type: 'boolean', default: 'false')]
+    public string $disabled = 'Disabled state.';
 
     #[Prop(type: 'string', default: "'mdi,heroicons,lucide'")]
-    public string $collections = 'Comma-separated icon collection names for search';
+    public string $collections = 'Comma-separated icon collection names for search.';
 
     #[Prop(type: 'number', default: '48')]
-    public string $limit = 'Maximum icons to show in search results';
+    public string $limit = 'Maximum icons to show in search results.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Icon Picker', order: 0)]
     public function basic(): StoryExample

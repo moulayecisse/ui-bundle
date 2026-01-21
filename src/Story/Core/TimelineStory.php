@@ -17,13 +17,13 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class TimelineStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of timeline items with title, description, date, status, icon';
+    public string $items = 'Array of timeline items with title, description, date, status, icon.';
 
     #[Prop(type: "'vertical'|'horizontal'", default: "'vertical'")]
-    public string $orientation = 'Timeline orientation';
+    public string $orientation = 'Timeline orientation.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Vertical Timeline', order: 0)]
     public function vertical(): StoryExample

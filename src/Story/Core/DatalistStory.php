@@ -18,13 +18,13 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class DatalistStory extends AbstractComponentStory
 {
     #[Prop(type: 'array', default: '[]')]
-    public string $items = 'Array of items with label and value properties';
+    public string $items = 'Array of items with label and value properties.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Custom datalist items using nested components';
+    public string $content = 'Custom datalist items using nested components.';
 
     #[Story('Basic Datalist', order: 0)]
     public function basic(): StoryExample

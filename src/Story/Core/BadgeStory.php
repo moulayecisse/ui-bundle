@@ -18,25 +18,25 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class BadgeStory extends AbstractComponentStory
 {
     #[Prop(type: "'solid'|'outline'|'soft'", default: "'solid'")]
-    public string $variant = 'Badge style variant';
+    public string $variant = 'Badge style variant.';
 
     #[Prop(type: "'primary'|'secondary'|'success'|'warning'|'danger'|'info'|'white'|'light'", default: "'primary'")]
-    public string $color = 'Badge color theme';
+    public string $color = 'Badge color theme.';
 
     #[Prop(type: "'sm'|'default'|'lg'", default: "'default'")]
-    public string $size = 'Badge size';
+    public string $size = 'Badge size.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $href = 'If provided, renders as <a> link instead of <span>';
+    public string $href = 'If provided, renders as anchor link instead of span.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $dot = 'Show a colored dot indicator';
+    public string $dot = 'Show a colored dot indicator.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Badge content (default slot)';
+    public string $content = 'Badge content (default slot).';
 
     #[Story('Solid Variant (default)', order: 0)]
     public function solid(): StoryExample

@@ -16,32 +16,32 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class CheckboxStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name for submission';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name for submission.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Input element ID';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Input element ID.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Value when checked';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Value when checked.';
 
-    #[Prop(type: 'boolean | null', default: 'null')]
-    public string $checked = 'Whether checkbox is checked';
+    #[Prop(type: 'boolean|null', default: 'null')]
+    public string $checked = 'Whether checkbox is checked.';
 
-    #[Prop(type: 'boolean | null', default: 'null')]
-    public string $required = 'Whether field is required';
+    #[Prop(type: 'boolean|null', default: 'null')]
+    public string $required = 'Whether field is required.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $autofocus = 'Autofocus on page load';
+    public string $autofocus = 'Autofocus on page load.';
 
-    #[Prop(type: 'boolean | null', default: 'null')]
-    public string $disabled = 'Disable the checkbox';
+    #[Prop(type: 'boolean|null', default: 'null')]
+    public string $disabled = 'Disable the checkbox.';
 
-    #[Prop(type: 'FormView | null', default: 'null')]
-    public string $form = 'Symfony form field for auto-configuration';
+    #[Prop(type: 'FormView|null', default: 'null')]
+    public string $form = 'Symfony form field for auto-configuration.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Checkbox', order: 0)]
     public function basic(): StoryExample

@@ -19,46 +19,46 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 class PageHeroStory extends AbstractComponentStory
 {
     #[Prop(type: 'string', default: "''")]
-    public string $title = 'Hero title text';
+    public string $title = 'Hero title text.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $subtitle = 'Subtitle text below title';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $subtitle = 'Subtitle text below title.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $badge = 'Badge text displayed above title';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $badge = 'Badge text displayed above title.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $badgeIcon = 'SVG icon path for badge';
-
-    #[Prop(type: 'boolean', default: 'true')]
-    public string $showBlobs = 'Show animated background blobs';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $badgeIcon = 'SVG icon path for badge.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showWave = 'Show wave decoration at bottom';
+    public string $showBlobs = 'Show animated background blobs.';
+
+    #[Prop(type: 'boolean', default: 'true')]
+    public string $showWave = 'Show wave decoration at bottom.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $stats = 'Stats array: { label, value, icon? }';
+    public string $stats = 'Stats array: { label, value, icon? }.';
 
     #[Prop(type: 'string', default: "'primary'")]
-    public string $colorScheme = 'Color theme: primary, cyan, violet, emerald, rose, amber, blue, teal';
+    public string $colorScheme = 'Color theme: primary, cyan, violet, emerald, rose, amber, blue, teal.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Slot]
-    public string $content = 'Additional content below stats';
+    public string $content = 'Additional content below stats.';
 
     #[NestedAttribute]
-    public string $header = 'Customize the header section';
+    public string $header = 'Customize the header section.';
 
     #[NestedAttribute]
-    public string $badgeAttr = 'Customize the badge container';
+    public string $badgeAttr = 'Customize the badge container.';
 
     #[NestedAttribute]
-    public string $statsAttr = 'Customize the stats grid';
+    public string $statsAttr = 'Customize the stats grid.';
 
     #[NestedAttribute]
-    public string $contentAttr = 'Customize the content wrapper';
+    public string $contentAttr = 'Customize the content wrapper.';
 
     #[Story('Basic Hero', order: 0)]
     public function basic(): StoryExample

@@ -16,29 +16,29 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class ComboboxStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $name = 'Form field name';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $name = 'Form field name.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $value = 'Selected value';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $value = 'Selected value.';
 
     #[Prop(type: 'string', default: "'Select...'")]
-    public string $placeholder = 'Placeholder text';
+    public string $placeholder = 'Placeholder text.';
 
     #[Prop(type: 'array', default: '[]')]
-    public string $options = 'Array of options: [{value, label}]';
+    public string $options = 'Array of options: [{value, label}].';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $multiple = 'Allow multiple selection';
+    public string $multiple = 'Allow multiple selection.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $clearable = 'Show clear button';
+    public string $clearable = 'Show clear button.';
 
     #[Prop(type: 'boolean', default: 'false')]
-    public string $disabled = 'Disabled state';
+    public string $disabled = 'Disabled state.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Component size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Component size.';
 
     #[Story('Basic Combobox', order: 0)]
     public function basic(): StoryExample

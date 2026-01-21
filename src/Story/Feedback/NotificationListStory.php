@@ -16,32 +16,32 @@ use Cisse\Bundle\Ui\Story\StoryExample;
 )]
 class NotificationListStory extends AbstractComponentStory
 {
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $id = 'Notification identifier';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $id = 'Notification identifier.';
 
-    #[Prop(type: "'info' | 'success' | 'warning' | 'error'", default: "'info'")]
-    public string $type = 'Notification type (affects colors and default icon)';
-
-    #[Prop(type: 'string', default: "''")]
-    public string $title = 'Notification title';
+    #[Prop(type: "'info'|'success'|'warning'|'error'", default: "'info'")]
+    public string $type = 'Notification type (affects colors and default icon).';
 
     #[Prop(type: 'string', default: "''")]
-    public string $message = 'Notification message body';
+    public string $title = 'Notification title.';
+
+    #[Prop(type: 'string', default: "''")]
+    public string $message = 'Notification message body.';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $dismissible = 'Show dismiss button';
+    public string $dismissible = 'Show dismiss button.';
 
-    #[Prop(type: "'sm' | 'md' | 'lg'", default: "'md'")]
-    public string $size = 'Notification size';
+    #[Prop(type: "'sm'|'md'|'lg'", default: "'md'")]
+    public string $size = 'Notification size.';
 
-    #[Prop(type: 'string | null', default: 'null')]
-    public string $icon = 'Custom icon (overrides type default)';
+    #[Prop(type: 'string|null', default: 'null')]
+    public string $icon = 'Custom icon (overrides type default).';
 
     #[Prop(type: 'boolean', default: 'true')]
-    public string $showIcon = 'Show notification icon';
+    public string $showIcon = 'Show notification icon.';
 
     #[Prop(type: 'string', default: "''")]
-    public string $class = 'Additional CSS classes';
+    public string $class = 'Additional CSS classes.';
 
     #[Story('Basic Notification List', order: 0)]
     public function basic(): StoryExample
