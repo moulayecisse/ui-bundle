@@ -29,7 +29,7 @@
   'transparent': 'bg-transparent border-0 shadow-none',
 } %}
 
-{% set trigger_block %}{% block trigger '' %}{% endset %}
+{% set triggerBlock %}{% block trigger '' %}{% endset %}
 
 <div
   {{ attributes }}
@@ -48,7 +48,7 @@
     class="{{ triggerAttrs.render('class')|tailwind_merge }}"
     {{ triggerAttrs.without('class') }}
   >
-    {{ trigger_block|raw }}
+    {{ triggerBlock|raw }}
   </div>
 
   {# Popover content #}

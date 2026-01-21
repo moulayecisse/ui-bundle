@@ -113,10 +113,10 @@
                             </div>
 
                             <!-- Footer -->
-                            {% set footerContent %}{% block footer '' %}{% endset %}
-                            {% if footerContent is not empty %}
+                            {% set footerBlock %}{% block footer '' %}{% endset %}
+                            {% if footerBlock is not empty %}
                                 <div class="{{ ('shrink-0 border-t border-gray-200 dark:border-gray-800 px-4 py-5 sm:px-6 ' ~ footerAttrs.render('class'))|tailwind_merge }}" {{ footerAttrs.without('class') }}>
-                                    {{ footerContent|raw }}
+                                    {{ footerBlock|raw }}
                                 </div>
                             {% endif %}
                         </div>

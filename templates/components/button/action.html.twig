@@ -1,4 +1,4 @@
-{%- set contentBlock -%}{% block content '' %}{%- endset -%}
+{% set contentBlock %}{% block content '' %}{% endset %}
 
 {% if contentBlock %}
   <twig:ui:button {{ ...attributes }}>{{ contentBlock|raw }}</twig:ui:button>

@@ -37,10 +37,14 @@
 {% set sizeClass = orientation == 'vertical' ? (verticalSizes[size] ?? verticalSizes['md']) : (horizontalSizes[size] ?? horizontalSizes['md']) %}
 {% set colorClass = colorClasses[color] ?? colorClasses['default'] %}
 
+{# Nested attributes for fine-grained customization #}
+{% set labelAttrs = attributes.nested('label') %}
+{% set lineAttrs = attributes.nested('line') %}
+
 {% if not label %}
     {# Simple divider without label #}
     <div
-        {{ attributes }}
+        {{ attributes.without('label', 'line') }}
         class="{{ (colorClass ~ ' ' ~ (orientation == 'vertical' ? 'h-full mx-2 ' ~ sizeClass : 'w-full my-2 ' ~ sizeClass) ~ ' ' ~ class)|tailwind_merge }}"
         role="separator"
         aria-orientation="{{ orientation }}"
@@ -48,13 +52,13 @@
 {% else %}
     {# Divider with label #}
     <div
-        {{ attributes }}
+        {{ attributes.without('label', 'line') }}
         class="{{ ('flex items-center gap-3 ' ~ (orientation == 'vertical' ? 'flex-col h-full mx-2' : 'w-full my-2') ~ ' ' ~ class)|tailwind_merge }}"
         role="separator"
         aria-orientation="{{ orientation }}"
     >
-        <div class="{{ colorClass }} {{ orientation == 'vertical' ? 'flex-1 ' ~ sizeClass : 'flex-1 ' ~ sizeClass }}"></div>
-        <span class="text-xs font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ label }}</span>
-        <div class="{{ colorClass }} {{ orientation == 'vertical' ? 'flex-1 ' ~ sizeClass : 'flex-1 ' ~ sizeClass }}"></div>
+        <div class="{{ (colorClass ~ ' ' ~ (orientation == 'vertical' ? 'flex-1 ' ~ sizeClass : 'flex-1 ' ~ sizeClass) ~ ' ' ~ lineAttrs.render('class'))|tailwind_merge }}" {{ lineAttrs.without('class') }}></div>
+        <span class="{{ ('text-xs font-medium text-gray-500 dark:text-gray-400 whitespace-nowrap ' ~ labelAttrs.render('class'))|tailwind_merge }}" {{ labelAttrs.without('class') }}>{{ label }}</span>
+        <div class="{{ (colorClass ~ ' ' ~ (orientation == 'vertical' ? 'flex-1 ' ~ sizeClass : 'flex-1 ' ~ sizeClass) ~ ' ' ~ lineAttrs.render('class'))|tailwind_merge }}" {{ lineAttrs.without('class') }}></div>
     </div>
 {% endif %}

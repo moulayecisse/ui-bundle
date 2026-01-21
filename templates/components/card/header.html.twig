@@ -5,7 +5,7 @@
 {% set descriptionBlock %}{% block description description|raw %}{% endset %}
 {% set actionsBlock %}{% block actions '' %}{% endset %}
 
-<div {{ attributes}} class="{{ class }}">
+<div {{ attributes.without('class', 'title', 'description', 'actions') }} class="{{ class }}">
     <div class="flex flex-col flex-1 gap-2">
         {% block content %}
             <twig:ui:card:title {{ ...attributes.nested('title') }}>{{ titleBlock|raw }}</twig:ui:card:title>

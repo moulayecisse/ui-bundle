@@ -35,7 +35,7 @@
 {% set class = ('block text-gray-900 dark:text-gray-100 ' ~ currentSize ~ ' ' ~ currentWeight ~ ' ' ~ class)|tailwind_merge %}
 
 <label
-  {{ attributes }}
+  {{ attributes.without('class') }}
   for="{{ for }}"
   class="{{ class }}"
 >
