@@ -1,4 +1,3 @@
-{# templates/components/dropdown/item.html.twig #}
 {% props
     href = null,
     icon = null,
@@ -21,6 +20,7 @@
     {% if href %}href="{{ href }}"{% endif %}
     {% if disabled %}aria-disabled="true"{% endif %}
     {% if tag == 'button' %}type="button"{% endif %}
+    role="menuitem"
     class="{{ (baseClasses ~ ' ' ~ colorClasses ~ ' ' ~ disabledClasses ~ ' ' ~ class)|tailwind_merge }}"
 >
     {% if icon %}

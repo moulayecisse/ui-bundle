@@ -1,4 +1,3 @@
-{# templates/components/dropdown.html.twig #}
 {% props
     align = 'right',
     width = 'auto',
@@ -36,13 +35,19 @@
     class="{{ ('relative inline-block ' ~ class)|tailwind_merge }}"
 >
     {# Trigger #}
-    <div data-action="click->cisse--ui-bundle--dropdown#toggle" data-cisse--ui-bundle--dropdown-target="trigger">
+    <div
+        data-action="click->cisse--ui-bundle--dropdown#toggle"
+        data-cisse--ui-bundle--dropdown-target="trigger"
+        aria-haspopup="true"
+        aria-expanded="false"
+    >
         {{ triggerBlock|raw }}
     </div>
 
     {# Menu #}
     <div
         data-cisse--ui-bundle--dropdown-target="menu"
+        role="menu"
         class="{{ (positionClass ~ ' z-50 mt-2 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg hidden ' ~ alignmentClass ~ ' ' ~ (widthClasses[width] ?? widthClasses['auto']) ~ ' ' ~ attributes.nested('menu').render('class'))|tailwind_merge }}"
         {{ attributes.nested('menu').without('class') }}
     >
