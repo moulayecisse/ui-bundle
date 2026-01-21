@@ -51,12 +51,18 @@ export default class extends Controller {
             this.teleportMenu();
         }
         this.menu.classList.remove('hidden');
+        if (this.hasTriggerTarget) {
+            this.triggerTarget.setAttribute('aria-expanded', 'true');
+        }
         this.addListeners();
         this.dispatch('opened');
     }
 
     close() {
         this.menu.classList.add('hidden');
+        if (this.hasTriggerTarget) {
+            this.triggerTarget.setAttribute('aria-expanded', 'false');
+        }
         this.removeListeners();
         this.dispatch('closed');
     }
