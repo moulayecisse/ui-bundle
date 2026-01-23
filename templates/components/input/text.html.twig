@@ -11,6 +11,7 @@
   autocomplete = null,
   disabled = null,
   readonly = null,
+  invalid = false,
   size = 'md',
   variant = 'default',
   rounded = 'lg',
@@ -46,6 +47,7 @@
 
 <twig:ui:input-wrapper
   :disabled="disabled"
+  :invalid="invalid"
   :size="size"
   :variant="variant"
   :rounded="rounded"
@@ -57,7 +59,7 @@
       <div class="{{ ('flex items-center shrink-0 ' ~ inputSize.iconPadding)|tailwind_merge }}">
         <twig:ux:icon
           name="{{ resolvedIcon }}"
-          class="{{ (inputSize.icon ~ ' text-gray-400 dark:text-gray-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+          class="{{ (inputSize.icon ~ ' text-slate-400 dark:text-slate-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
         />
       </div>
     {% endif %}
@@ -87,7 +89,7 @@
       <div class="{{ ('flex items-center shrink-0 pr-3')|tailwind_merge }}">
         <twig:ux:icon
           name="{{ resolvedIcon }}"
-          class="{{ (inputSize.icon ~ ' text-gray-400 dark:text-gray-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
+          class="{{ (inputSize.icon ~ ' text-slate-400 dark:text-slate-500 ' ~ iconAttrs.render('class'))|tailwind_merge }}"
         />
       </div>
     {% endif %}

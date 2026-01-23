@@ -68,6 +68,7 @@
     {# TextArea #}
     <twig:ui:input-wrapper
         :disabled="disabled"
+        :invalid="hasError"
         class="{{ ((label ? 'mt-2' : '') ~ ' ' ~ class ~ ' ' ~ wrapperAttrs.render('class'))|tailwind_merge }}"
         {{ ...wrapperAttrs.without('class') }}
     >

@@ -167,4 +167,27 @@ class InputStory extends AbstractComponentStory
         </div>
         TWIG);
     }
+
+    #[Story('Invalid State', order: 10)]
+    public function invalid(): StoryExample
+    {
+        return StoryExample::create()->preview(<<<'TWIG'
+        <div class="max-w-md">
+            <twig:ui:input name="invalid" label="Invalid Input" value="Bad value" :invalid="true" />
+        </div>
+        TWIG);
+    }
+
+    #[Story('All States', order: 11)]
+    public function allStates(): StoryExample
+    {
+        return StoryExample::create()->preview(<<<'TWIG'
+        <div class="max-w-md space-y-4">
+            <twig:ui:input name="normal" label="Normal" placeholder="Normal input" />
+            <twig:ui:input name="required" label="Required" :required="true" placeholder="Required field" />
+            <twig:ui:input name="disabled" label="Disabled" value="Cannot edit" :disabled="true" />
+            <twig:ui:input name="invalid" label="Invalid" value="Error value" :invalid="true" />
+        </div>
+        TWIG);
+    }
 }
