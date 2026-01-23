@@ -25,7 +25,7 @@
   {% set disabled = disabled ?? form.vars.disabled %}
 {% endif %}
 
-{% set class = ('col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900 dark:checked:bg-primary checked:border-primary-600 checked:bg-primary-600 indeterminate:border-primary-600 indeterminate:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:disabled:border-gray-700 dark:disabled:bg-gray-800 dark:disabled:checked:bg-gray-800 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto ' ~ class)|tailwind_merge %}
+{% set class = ('col-start-1 row-start-1 appearance-none rounded-sm border border-slate-300 bg-white dark:border-slate-700 dark:bg-slate-900 dark:checked:bg-primary checked:border-primary-600 checked:bg-primary-600 indeterminate:border-primary-600 indeterminate:bg-primary-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:disabled:border-slate-600 dark:disabled:bg-slate-700 dark:disabled:checked:bg-slate-700 disabled:border-slate-300 disabled:bg-slate-200 disabled:checked:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-75 forced-colors:appearance-auto ' ~ class)|tailwind_merge %}
 
 
 <div
@@ -45,7 +45,7 @@
             {{ disabled ? 'disabled' }}
             class="{{ (class ~ ' ' ~ inputAttrs.render('class'))|tailwind_merge }}"
             {{ inputAttrs.without('class') }}>
-        <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25">
+        <svg viewBox="0 0 14 14" fill="none" class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-slate-950/40">
             <path d="M3 8L6 11L11 3.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-checked:opacity-100"></path>
             <path d="M3 7H11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-has-indeterminate:opacity-100"></path>
         </svg>

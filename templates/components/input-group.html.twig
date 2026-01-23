@@ -42,6 +42,7 @@
   {% set labelText = labelText ?? field_label(form) %}
   {% set helpText = helpText ?? form.vars.help %}
   {% set disabled = disabled ?? form.vars.disabled ?? false %}
+  {% set required = required ?? form.vars.required ?? false %}
   {% set value = value ?? field_value(form) %}
   {% set errorText = errorText ?? (form.vars.errors|length > 0 ? form.vars.errors|first.message : null) %}
 
@@ -145,6 +146,7 @@
   size: size,
   variant: variant,
   rounded: rounded,
+  invalid: hasError,
 } %}
 
 {% if type in ['choice'] and options is not null %}
@@ -177,15 +179,14 @@
         <twig:ui:label
           :for="id"
           :required="required"
+          :label="labelText"
           class="{{ ('cursor-pointer ' ~ labelAttrs.render('class'))|tailwind_merge }}"
           {{ ...labelAttrs.without('class', 'text', 'col') }}
-        >
-          {{ labelText }}
-        </twig:ui:label>
+        />
       {% endif %}
 
       {% if helpText and not hasError %}
-        <p class="{{ ('text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
+        <p class="{{ ('text-sm text-slate-500 dark:text-slate-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
           {{ helpText }}
         </p>
       {% endif %}
@@ -241,18 +242,17 @@
       <twig:ui:label
         :for="id"
         :required="required"
+        :label="labelText"
         class="{{ (labelColClass ~ ' sm:pt-2 sm:text-right ' ~ labelAttrs.render('class'))|tailwind_merge }}"
         {{ ...labelAttrs.without('class', 'text', 'col') }}
-      >
-        {{ labelText }}
-      </twig:ui:label>
+      />
     {% endif %}
 
     <div class="{{ inputColClass }}">
       {{ component(componentName, inputParams|merge({ attributes: inputAttrs.without('col') })) }}
 
       {% if helpText and not hasError %}
-        <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
+        <p class="{{ ('mt-1 text-sm text-slate-500 dark:text-slate-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
           {{ helpText }}
         </p>
       {% endif %}
@@ -276,11 +276,10 @@
       <twig:ui:label
         :for="id"
         :required="required"
+        :label="labelText"
         class="{{ labelAttrs.render('class') }}"
         {{ ...labelAttrs.without('class', 'text', 'col') }}
-      >
-        {{ labelText }}
-      </twig:ui:label>
+      />
     {% endif %}
 
     <div class="{{ labelText ? 'mt-2' : '' }}">
@@ -288,7 +287,7 @@
     </div>
 
     {% if helpText and not hasError %}
-      <p class="{{ ('mt-1 text-sm text-gray-500 dark:text-gray-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
+      <p class="{{ ('mt-1 text-sm text-slate-500 dark:text-slate-400 ' ~ helpAttrs.render('class'))|tailwind_merge }}" {{ helpAttrs.without('class', 'text') }}>
         {{ helpText }}
       </p>
     {% endif %}

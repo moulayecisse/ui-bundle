@@ -32,7 +32,7 @@
 {% set currentSize = sizeConfig[size] ?? sizeConfig['md'] %}
 {% set currentWeight = weightConfig[weight] ?? weightConfig['medium'] %}
 
-{% set class = ('block text-gray-900 dark:text-gray-100 ' ~ currentSize ~ ' ' ~ currentWeight ~ ' ' ~ class)|tailwind_merge %}
+{% set class = ('block text-slate-900 dark:text-slate-100 ' ~ currentSize ~ ' ' ~ currentWeight ~ ' ' ~ class)|tailwind_merge %}
 
 <label
   {{ attributes.without('class') }}
@@ -44,7 +44,7 @@
     {% if required and not hideRequired %}
       <span class="text-red-500" aria-hidden="true">*</span>
     {% elseif not required and optionalText %}
-      <span class="text-gray-400 dark:text-gray-500 font-normal">({{ optionalText }})</span>
+      <span class="text-slate-400 dark:text-slate-500 font-normal">({{ optionalText }})</span>
     {% endif %}
   {% endblock %}
 </label>

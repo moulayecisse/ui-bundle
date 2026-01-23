@@ -243,7 +243,62 @@ class InputGroupStory extends AbstractComponentStory
                 help:text="With nested attributes"
                 label:class="text-primary font-bold"
                 help:class="text-blue-500"
-                wrapper:class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg"
+                wrapper:class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg"
+            />
+        </div>
+        TWIG);
+    }
+
+    #[Story('Disabled Field', order: 9)]
+    public function disabled(): StoryExample
+    {
+        return StoryExample::create()->preview(<<<'TWIG'
+        <div class="max-w-md space-y-4">
+            <twig:ui:input-group
+                name="readonly_field"
+                label:text="Disabled Field"
+                value="This field is disabled"
+                :disabled="true"
+                help:text="This field cannot be edited"
+            />
+            <twig:ui:input-group
+                name="readonly_email"
+                type="email"
+                label:text="Disabled Email"
+                value="readonly@example.com"
+                :disabled="true"
+            />
+        </div>
+        TWIG);
+    }
+
+    #[Story('States Comparison', order: 10)]
+    public function statesComparison(): StoryExample
+    {
+        return StoryExample::create()->preview(<<<'TWIG'
+        <div class="max-w-md space-y-4">
+            <twig:ui:input-group
+                name="normal"
+                label:text="Normal Field"
+                input:placeholder="Normal state"
+            />
+            <twig:ui:input-group
+                name="required_field"
+                label:text="Required Field"
+                :required="true"
+                input:placeholder="Required state (red asterisk)"
+            />
+            <twig:ui:input-group
+                name="disabled_field"
+                label:text="Disabled Field"
+                :disabled="true"
+                value="Disabled state (gray background)"
+            />
+            <twig:ui:input-group
+                name="error_field"
+                label:text="Invalid Field"
+                value="invalid-value"
+                error:text="This field has a validation error"
             />
         </div>
         TWIG);
